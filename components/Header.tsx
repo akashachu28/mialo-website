@@ -3,11 +3,13 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { ChevronDown } from 'lucide-react';
 import { useState, useEffect, useRef } from 'react';
+import { usePathname } from 'next/navigation';
 import brainlogo from '../public/images/brainLogo.png'
 
 export default function Header() {
   const [industriesOpen, setIndustriesOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
+  const pathname = usePathname();
 
   const industries = [
     { name: 'Retail', href: '/industries/retail' },
@@ -56,42 +58,50 @@ export default function Header() {
           </div>
           
           <nav className="flex items-center gap-10">
-            {/* Platform with dropdown icon */}
+            {/* Platform with active indicator */}
             <Link 
               href="/platform" 
-              className="text-sm tracking-wide transition-colors hover:text-primary/70 text-primary/90 flex items-center gap-1"
+              className={`text-sm tracking-wide transition-colors hover:text-primary/70 text-primary/90 flex items-center gap-1 pb-1 ${
+                pathname === '/platform' ? 'border-b-2 border-blue-400' : ''
+              }`}
             >
               Platform
-              <ChevronDown size={14} className="opacity-60" />
             </Link>
-
-            {/* Solutions with dropdown icon */}
+            
             <Link 
-              href="/solutions" 
-              className="text-sm tracking-wide transition-colors hover:text-primary/70 text-primary/90 flex items-center gap-1"
+              href="/intelligence-domain" 
+              className={`text-sm tracking-wide transition-colors hover:text-primary/70 text-primary/90 flex items-center gap-1 pb-1 ${
+                pathname === '/intelligence-domain' ? 'border-b-2 border-blue-400' : ''
+              }`}
             >
-              Solutions
-              <ChevronDown size={14} className="opacity-60" />
+              Intelligence Domain
             </Link>
 
-            {/* Industries with working dropdown */}
             <button
               onMouseEnter={() => setIndustriesOpen(true)}
               className="text-sm tracking-wide transition-colors hover:text-primary/70 text-primary/90 flex items-center gap-1"
             >
               Industries
-              <ChevronDown 
-                size={14} 
-                className={`opacity-60 transition-transform duration-300 ${industriesOpen ? 'rotate-180' : ''}`}
-              />
             </button>
 
-            {/* Customers */}
+            {/* Solutions with active indicator */}
             <Link 
-              href="/customers" 
-              className="text-sm tracking-wide transition-colors hover:text-primary/70 text-primary/90"
+              href="/solutions" 
+              className={`text-sm tracking-wide transition-colors hover:text-primary/70 text-primary/90 flex items-center gap-1 pb-1 ${
+                pathname === '/solutions' ? 'border-b-2 border-blue-400' : ''
+              }`}
             >
-              Customers
+              Solutions
+            </Link>
+
+            {/* Company with active indicator */}
+            <Link 
+              href="/company" 
+              className={`text-sm tracking-wide transition-colors hover:text-primary/70 text-primary/90 pb-1 ${
+                pathname === '/company' ? 'border-b-2 border-blue-400' : ''
+              }`}
+            >
+              Company
             </Link>
           </nav>
 
@@ -106,7 +116,7 @@ export default function Header() {
         </div>
 
         {/* Expanded Dropdown Content */}
-        {industriesOpen && (
+        {/* {industriesOpen && (
           <div className="border-t border-white/10">
             <div className="grid grid-cols-4 gap-2 px-8 py-6">
               {industries.map((industry) => (
@@ -123,7 +133,7 @@ export default function Header() {
               ))}
             </div>
           </div>
-        )}
+        )} */}
       </div>
     </header>
   );
