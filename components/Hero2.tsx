@@ -1,4 +1,5 @@
 import { Camera, Database, LucideFileText, Mic2, Radiation, Router } from "lucide-react"
+import OperationalInsightsCard from "./OperationalInsightsCard";
 
 export default function Hero2() {
   return (
@@ -109,6 +110,8 @@ export default function Hero2() {
               />
             </svg>
           </div> */}
+
+          <OperationalInsightsCard/>
         </div>
       </div>
     </section>
