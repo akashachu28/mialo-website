@@ -77,12 +77,15 @@ export default function Header() {
               Intelligence Domain
             </Link>
 
-            <button
+            <Link
+              href="/industries"
               onMouseEnter={() => setIndustriesOpen(true)}
-              className="text-sm tracking-wide transition-colors hover:text-primary/70 text-primary/90 flex items-center gap-1"
+              className={`text-sm tracking-wide transition-colors hover:text-primary/70 text-primary/90 flex items-center gap-1 ${
+                pathname === '/industries' || pathname.startsWith('/industries/') ? 'border-b-2 border-blue-400' : ''
+              }`}
             >
               Industries
-            </button>
+            </Link>
 
             {/* Solutions with active indicator */}
             <Link 

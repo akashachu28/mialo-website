@@ -1,33 +1,23 @@
-import { ArrowRight, ChevronRightCircle } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import Image from "next/image";
 
 export default function HeroSolution() {
   return (
-    <div className="relative  flex items-center justify-center h-full   min-h-screen px-6 py-24 overflow-hidden">
-      {/* Radial blur background - positioned at bottom to show only arc */}
-      <div className="absolute bottom-0 left-1/2 -translate-x-1/2 pointer-events-none z-100">
-        <div
-          className="w-[1000px] h-[300px] rounded-full blur-[120px]"
-          style={{
-            background:
-              "radial-gradient(circle, rgba(108, 147, 255, 0.20) 10%, transparent 60%)",
-            transform: "translateY(50%)",
-          }}
-        />
-      </div>
-
+    <div className="relative  flex items-center justify-center h-full bg-[#010306] min-h-screen px-6 py-24 overflow-hidden">
       {/* Right side - Image */}
-            <div className="absolute w-[70%] h-[50%] flex items-end justify-end bottom-0 right-0 ">
-              <Image
-                src="/images/heroSolution.png"
-                alt="Platform Intelligence Layer"
-                fill
-                className="object-cover opacity-80"
-                priority
-              />
-              {/* Glow effect around image */}
-              <div className="absolute inset-0 bg-blue-500/5 blur-3xl rounded-full -z-10" />
-            </div>
+      <div className="absolute w-[60%] h-[100%] flex  items-end justify-end bottom-0 right-0 ">
+        <div className="relative w-full h-full">
+          <Image
+            src="/images/heroSolutions.png"
+            alt="Platform Intelligence Layer"
+            fill
+            className="object-contain object-bottom opacity-80"
+            priority
+          />
+          {/* Glow effect around image */}
+          <div className="absolute inset-0 bg-blue-500/5 blur-3xl rounded-full -z-10" />
+        </div>
+      </div>
 
       <div className="relative z-10 max-w-7xl mx-auto">
         <div className="grid grid-cols-1 lg:grid-cols-2 items-center ">
@@ -39,31 +29,36 @@ export default function HeroSolution() {
                 className="text-[56px] lg:text-[64px] text-primary font-medium leading-[1.02] tracking-[-0.02rem]"
                 style={{ fontFamily: "Boska, serif" }}
               >
-                Operational intelligence
+                Intelligence in Action.
               </h1>
               <h1
-                className="text-[56px] lg:text-[64px] text-ice font-medium leading-[1.02] tracking-[-0.02rem]"
+                className="text-[56px] lg:text-[64px] text-primary font-medium leading-[1.02] tracking-[-0.02rem]"
                 style={{ fontFamily: "Boska, serif" }}
               >
-                for every industry.
+                Built for <span className="text-ice italic">real-world</span>{" "}
+                impact.
               </h1>
             </div>
 
             {/* Description with highlighted text */}
             <div className="text-xl leading-[1.08] text-muted max-w-xl">
               <p>
-                Mialo's unified intelligence layer adapts to your world,
-                delivering real-time awareness, smarter decisions
-                and measurable impact across industries.
+                Pre-built Al solutions powered by the Mialo Intelligence Layer
+                mialo.ai that deliver fast time-to-value and measurable
+                outcomes.
               </p>
             </div>
-            <p className="flex gap-2  font-semibold text-sm text-ice">
-              See How It Works 
-              <ArrowRight className="text-ice"></ArrowRight>
-            </p>
-          </div>
 
-          
+            {/* Buttons */}
+            <div className="flex gap-4 flex-wrap">
+              <button className="px-6 py-3 font-semibold text-[15px] rounded-[10px] bg-ice text-background hover:bg-ice/90 transition-all duration-200">
+                Explore all Solutions
+              </button>
+              <button className="px-6 py-3 font-semibold text-[15px] rounded-[10px] bg-slate-800/60 text-primary border border-slate-700 hover:bg-slate-800 hover:border-blue-500/30 transition-all duration-200">
+                Talk to experts
+              </button>
+            </div>
+          </div>
         </div>
       </div>
     </div>
