@@ -86,9 +86,9 @@ export default function Header() {
 
             {/* Solutions with active indicator */}
             <Link 
-              href="/solutions" 
+              href="/solution" 
               className={`text-sm tracking-wide transition-colors hover:text-primary/70 text-primary/90 flex items-center gap-1 pb-1 ${
-                pathname === '/solutions' ? 'border-b-2 border-blue-400' : ''
+                pathname === '/solution' ? 'border-b-2 border-blue-400' : ''
               }`}
             >
               Solutions

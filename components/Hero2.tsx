@@ -41,7 +41,7 @@ export default function Hero2() {
           </div>
 
           {/* Tags/Pills Section */}
-          {/* <div className="flex flex-wrap items-center justify-center gap-3 pt-8">
+          <div className="flex flex-wrap items-center justify-center gap-3 pt-8">
             <button className="px-5 py-2.5 bg-white/10 hover:bg-white/15 border border-white/20 rounded-full text-sm font-light transition-colors flex items-center gap-2">
               <Camera className="text-white/70" strokeWidth={1}/>
               <span>Cameras</span>
@@ -66,7 +66,7 @@ export default function Hero2() {
               <Database className="text-white/70" strokeWidth={1}/>
               <span>ERP Systems</span>
             </button>
-          </div> */}
+          </div>
 
           {/* Arrow Indicator */}
           {/* <div className="pt-8 flex flex-col items-center gap-3">
