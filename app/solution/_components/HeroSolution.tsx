@@ -1,26 +1,30 @@
 import { ArrowRight } from "lucide-react";
-import Image from "next/image";
 
 export default function HeroSolution() {
   return (
-    <div className="relative  flex items-center justify-center h-full bg-[#010306] min-h-screen px-6 py-24 overflow-hidden">
-      {/* Right side - Image */}
-      <div className="absolute w-[60%] h-[100%] flex  items-end justify-end bottom-0 right-0 ">
-        <div className="relative w-full h-full">
-          <Image
-            src="/images/heroSolutions.png"
-            alt="Platform Intelligence Layer"
-            fill
-            className="object-contain object-bottom opacity-80"
-            priority
-          />
-          {/* Glow effect around image */}
-          <div className="absolute inset-0 bg-blue-500/5 blur-3xl rounded-full -z-10" />
-        </div>
+    <div className="relative flex items-center justify-center h-full bg-[#010306] min-h-screen px-6 py-24 overflow-hidden">
+      {/* Video Background */}
+      <div className="absolute inset-0 w-full h-full">
+        <video
+          autoPlay
+          loop
+          muted
+          playsInline
+          className="absolute inset-0 w-full h-full object-cover opacity-60"
+        >
+          <source src="/images/videoCover.mp4" type="video/mp4" />
+        </video>
+        
+        {/* Gradient overlays for blending */}
+        <div className="absolute inset-0 bg-gradient-to-r from-[#06070A] via-[#06070A]/80 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-b from-[#06070A] via-transparent to-[#06070A]" />
+        
+        {/* Subtle glow effect */}
+        <div className="absolute inset-0 bg-blue-500/5 blur-3xl" />
       </div>
 
       <div className="relative z-10 max-w-7xl mx-auto">
-        <div className="grid grid-cols-1 lg:grid-cols-2 items-center ">
+        <div className="grid grid-cols-1 lg:grid-cols-2 items-center">
           {/* Left side - Content */}
           <div className="flex flex-col gap-8">
             {/* Main headings */}

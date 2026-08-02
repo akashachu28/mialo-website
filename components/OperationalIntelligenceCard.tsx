@@ -377,17 +377,7 @@ export default function OperationalIntelligenceCard() {
         <EnergyPulse />
       </div>
 
-      <div className="text-center space-y-2">
-        <h3 className="text-4xl md:text-5xl font-bold text-primary font-[family-name:var(--font-boska)]">
-          Observe. Understand. Act.
-        </h3>
-        <p className="text-3xl md:text-4xl font-bold text-white/70 font-[family-name:var(--font-boska)]">
-          Repeat.
-        </p>
-        <p className="text-muted text-base max-w-2xl mx-auto pt-4">
-          Turning every operational moment into better business outcomes.
-        </p>
-      </div>
+      
     </div>
   );
 }
