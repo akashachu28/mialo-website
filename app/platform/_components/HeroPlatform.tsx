@@ -25,18 +25,12 @@ export default function HeroPlatform() {
                 className="text-[56px] lg:text-[64px] text-ice font-medium leading-[1.02] tracking-[-0.02rem]"
                 style={{ fontFamily: 'Boska, serif' }}
               >
-                One Intelligence Layer
-              </h1>
-              <h1 
-                className="text-[56px] lg:text-[64px] text-primary font-medium leading-[1.02] tracking-[-0.02rem]"
-                style={{ fontFamily: 'Boska, serif' }}
-              >
-                Unlimited Operational Applications
+                One Intelligence Layer. <span className="block text-primary">Unlimited Operational Applications.</span>
               </h1>
             </div>
 
             {/* Description with highlighted text */}
-            <div className="text-xl leading-[1.08] text-muted max-w-xl">
+            <div className="text-xl  leading-[1.12] tracking-[0.01rem] text-muted max-w-xl">
               <p>
                 Mialo brings together multimodal AI, enterprise knowledge Intelligence layer
                 and real-world context to observe, understand and act on operational signals—in real time.
@@ -45,10 +39,10 @@ export default function HeroPlatform() {
 
             {/* Buttons */}
             <div className="flex gap-4 flex-wrap">
-              <button className="px-6 py-3 font-semibold text-[15px] rounded-[10px] bg-ice text-background hover:bg-ice/90 transition-all duration-200">
+              <button className="px-8 py-2 font-medium text-sm rounded-lg bg-ice text-background hover:bg-ice/90 transition-all duration-200">
                 See how it works
               </button>
-              <button className="px-6 py-3 font-semibold text-[15px] rounded-[10px] bg-slate-800/60 text-primary border border-slate-700 hover:bg-slate-800 hover:border-blue-500/30 transition-all duration-200">
+              <button className="px-8 py-2 font-medium text-sm rounded-lg bg-slate-800/60 text-primary border border-slate-700 hover:bg-slate-800 hover:border-blue-500/30 transition-all duration-200">
                 Talk to experts
               </button>
             </div>

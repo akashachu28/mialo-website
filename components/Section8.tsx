@@ -25,10 +25,10 @@ export default function Section8() {
                     See how the intelligence layer works inside your environment — with your signals, your systems and your outcomes.
                 </p>
                 <div className="flex flex-col gap-[12px]">
-                    <button className="px-[20px] py-[12px] font-semibold text-[15px] rounded-[10px] bg-primary text-background hover:bg-primary/90 transition-all duration-200">
+                    <button className="px-[20px] py-[12px] font-semibold text-[15px] rounded-lg bg-primary text-background hover:bg-primary/90 transition-all duration-200">
                         Request a demo
                     </button>
-                    <button className="px-[20px] py-[12px] font-semibold text-[15px] rounded-[10px] bg-primary text-background hover:bg-primary/90 transition-all duration-200">
+                    <button className="px-[20px] py-[12px] font-semibold text-[15px] rounded-lg bg-primary text-background hover:bg-primary/90 transition-all duration-200">
                         Contact sales
                     </button>
                 </div>

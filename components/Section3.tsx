@@ -1,3 +1,5 @@
+import OperationalIntelligenceCard from "./OperationalIntelligenceCard";
+
 export default function Section3 () {
     return(
         <div className="bg-background py-[120px] px-[24px] flex flex-col items-center gap-[76px] justify-center">
@@ -9,9 +11,7 @@ export default function Section3 () {
                      to understanding, intelligent decision-making and real-world action.</p>
             </div>
 
-            <div className="bg-blue-200 rounded-2xl h-50 w-full">
-                sdfljn
-            </div>
+                <OperationalIntelligenceCard/>
 
             <div className="flex flex-col items-center gap-[24px] text-primary">
                 <h2

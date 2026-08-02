@@ -27,7 +27,7 @@ const FEATURED_SOLUTIONS = [
       "Perimeter Monitoring",
       "Vehicle & ANPR"
     ],
-    image: "/images/industryVision.png",
+    image: "/images/sensilanse.png",
   },
   {
     icon: Radio,
@@ -39,7 +39,7 @@ const FEATURED_SOLUTIONS = [
       "Compliance & Policy Monitoring",
       "Media Analytics & Insights"
     ],
-    image: "/images/industryVision.png",
+    image: "/images/broadcastIntelligence.png",
   },
 ];
 
@@ -56,7 +56,7 @@ const MORE_SOLUTIONS = [
       "Workflow Automation",
       "RAG-powered Search"
     ],
-    image: "/images/industryVision.png",
+    image: "/images/documentIntelligence.png",
   },
   {
     icon: Mic,
@@ -70,7 +70,7 @@ const MORE_SOLUTIONS = [
       "Real-time Transcription",
       "Multi-language Support"
     ],
-    image: "/images/industryVision.png",
+    image: "/images/voiceIntelligence.png",
   },
   {
     icon: Ruler,
@@ -84,7 +84,7 @@ const MORE_SOLUTIONS = [
       "Quality Verification",
       "Report Generation"
     ],
-    image: "/images/industryVision.png",
+    image: "/images/measurementIntelligence.png",
   },
 ];
 
@@ -96,7 +96,7 @@ export default function SolutionSection2() {
       <div className="max-w-[1400px] mx-auto">
         {/* Section Header */}
         <div className="text-center mb-12">
-          <p className="text-sm text-blue-400 mb-3 uppercase tracking-wider">Featured Solutions</p>
+          <p className="text-xs font-semibold text-ice mb-3 uppercase tracking-wider">Featured Solutions</p>
         </div>
 
         {/* Solution Cards Grid */}
@@ -125,17 +125,18 @@ export default function SolutionSection2() {
               {/* Content */}
               <div className="relative h-full flex flex-col p-6 z-10">
                 {/* Icon */}
-                <div className="w-12 h-12 rounded-xl bg-blue-500/10 border border-blue-500/20 flex items-center justify-center mb-4">
+                <div className="w-10 h-10 rounded-xl bg-blue-500/10 border border-blue-500/20 flex items-center justify-center mb-4">
                   <solution.icon size={24} className="text-blue-400" strokeWidth={1.5} />
                 </div>
 
                 {/* Title */}
-                <h3 className="text-2xl font-medium text-primary mb-2" style={{ fontFamily: 'Boska, serif' }}>
+                <h3 className="text-3xl font-medium text-primary mb-2" 
+                  style={{ fontFamily: 'Boska, serif' }}>
                   {solution.title}
                 </h3>
 
                 {/* Description */}
-                <p className="text-sm text-slate-300 mb-6 leading-relaxed">
+                <p className="text-sm font-medium text-slate-300 mb-6 leading-relaxed">
                   {solution.description}
                 </p>
 
@@ -150,7 +151,7 @@ export default function SolutionSection2() {
                 </div>
 
                 {/* CTA Button */}
-                <button className="mt-auto flex items-center gap-2 text-sm text-blue-400 hover:text-blue-300 transition-colors w-fit group">
+                <button className="mt-auto flex items-center gap-2 text-sm font-medium text-blue-400 hover:text-blue-300 transition-colors w-fit group">
                   Watch Demo <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
                 </button>
               </div>
@@ -183,17 +184,17 @@ export default function SolutionSection2() {
                 {/* Content */}
                 <div className="relative h-full flex flex-col p-6 z-10">
                   {/* Icon */}
-                  <div className="w-12 h-12 rounded-xl bg-blue-500/10 border border-blue-500/20 flex items-center justify-center mb-4">
+                  <div className="w-10 h-10 rounded-xl bg-blue-500/10 border border-blue-500/20 flex items-center justify-center mb-4">
                     <solution.icon size={24} className="text-blue-400" strokeWidth={1.5} />
                   </div>
 
                   {/* Title */}
-                  <h3 className="text-2xl font-medium text-primary mb-2" style={{ fontFamily: 'Boska, serif' }}>
+                  <h3 className="text-3xl font-medium text-primary mb-2" style={{ fontFamily: 'Boska, serif' }}>
                     {solution.title}
                   </h3>
 
                   {/* Description */}
-                  <p className="text-sm text-slate-300 mb-6 leading-relaxed">
+                  <p className="text-sm font-medium text-slate-300 mb-6 leading-relaxed">
                     {solution.description}
                   </p>
 
@@ -208,7 +209,7 @@ export default function SolutionSection2() {
                   </div>
 
                   {/* CTA Button */}
-                  <button className="mt-auto flex items-center gap-2 text-sm text-blue-400 hover:text-blue-300 transition-colors w-fit group">
+                  <button className="mt-auto flex items-center gap-2 text-sm font-medium text-blue-400 hover:text-blue-300 transition-colors w-fit group">
                     Watch Demo <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
                   </button>
                 </div>
@@ -232,14 +233,17 @@ export default function SolutionSection2() {
           </div>
 
           <div className="relative z-10">
-            <p className="text-sm text-blue-400 mb-2 uppercase tracking-wider">More Solutions</p>
-            <h2 className="text-3xl font-medium text-primary mb-2" style={{ fontFamily: 'Boska, serif' }}>
-              Six solutions.
+            <p className="text-xs font-semibold text-blue-400 mb-2 uppercase tracking-wider">More Solutions</p>
+            <h2 className="text-3xl font-medium text-primary mb-3 leading-[1.08]" style={{ fontFamily: 'Boska, serif' }}>
+              Infinite solutions.
+              <span className="block text-blue-400">
+                One intelligence.
+              </span>
             </h2>
-            <h2 className="text-3xl font-medium text-blue-400 mb-3" style={{ fontFamily: 'Boska, serif' }}>
+            {/* <h2 className="text-3xl font-medium text-blue-400 mb-3" style={{ fontFamily: 'Boska, serif' }}>
               One intelligence.
-            </h2>
-            <p className="text-sm text-slate-400 max-w-md">
+            </h2> */}
+            <p className="text-sm font-medium text-slate-400 max-w-md">
               Explore the complete Mialo solution suite built for real-world operations.
             </p>
           </div>

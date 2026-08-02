@@ -30,18 +30,15 @@ export default function HeroSolution() {
                 style={{ fontFamily: "Boska, serif" }}
               >
                 Intelligence in Action.
-              </h1>
-              <h1
-                className="text-[56px] lg:text-[64px] text-primary font-medium leading-[1.02] tracking-[-0.02rem]"
-                style={{ fontFamily: "Boska, serif" }}
-              >
-                Built for <span className="text-ice italic">real-world</span>{" "}
-                impact.
+                <span className="block">
+                  Built for <span className="text-ice italic">real-world</span>{" "}
+                  impact.
+                </span>
               </h1>
             </div>
 
             {/* Description with highlighted text */}
-            <div className="text-xl leading-[1.08] text-muted max-w-xl">
+            <div className="text-xl leading-[1.08] tracking-[0.02rem] text-muted max-w-xl">
               <p>
                 Pre-built Al solutions powered by the Mialo Intelligence Layer
                 mialo.ai that deliver fast time-to-value and measurable
@@ -51,10 +48,10 @@ export default function HeroSolution() {
 
             {/* Buttons */}
             <div className="flex gap-4 flex-wrap">
-              <button className="px-6 py-3 font-semibold text-[15px] rounded-[10px] bg-ice text-background hover:bg-ice/90 transition-all duration-200">
+              <button className="px-8 py-2 font-medium text-sm rounded-lg bg-ice text-background hover:bg-ice/90 transition-all duration-200">
                 Explore all Solutions
               </button>
-              <button className="px-6 py-3 font-semibold text-[15px] rounded-[10px] bg-slate-800/60 text-primary border border-slate-700 hover:bg-slate-800 hover:border-blue-500/30 transition-all duration-200">
+              <button className="px-8 py-2 font-medium text-sm rounded-lg bg-slate-800/60 text-primary border border-slate-700 hover:bg-slate-800 hover:border-blue-500/30 transition-all duration-200">
                 Talk to experts
               </button>
             </div>

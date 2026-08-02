@@ -25,18 +25,21 @@ export default function HeroIntelligence() {
                         className="text-[56px] lg:text-[64px] text-primary font-medium leading-[1.02] tracking-[-0.02rem]"
                         style={{ fontFamily: 'Boska, serif' }}
                       >
-                        Specialized intelligence domains.
+                        Specialized Intelligence Domains. 
+                        <span className="block text-ice">
+                          One Unified Platform.
+                        </span>
                       </h1>
-                      <h1 
+                      {/* <h1 
                         className="text-[56px] lg:text-[64px] text-ice font-medium leading-[1.02] tracking-[-0.02rem]"
                         style={{ fontFamily: 'Boska, serif' }}
                       >
                         One unified platform.
-                      </h1>
+                      </h1> */}
                     </div>
         
                     {/* Description with highlighted text */}
-                    <div className="text-xl leading-[1.08] text-muted max-w-xl">
+                    <div className="text-xl leading-[1.12] tracking-[0.01rem] text-muted max-w-xl">
                       <p>
                         Mialo's intelligence domains bring together specialized Al
                         models, real-world context and enterprise knowledge to

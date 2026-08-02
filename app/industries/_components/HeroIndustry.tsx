@@ -29,7 +29,7 @@ export default function HeroIndustry() {
         <div className="absolute inset-0 bg-blue-500/5 blur-3xl rounded-full -z-10" />
       </div>
 
-      <div className="relative z-10 max-w-7xl mx-auto">
+      <div className="relative z-10  max-w-7xl mx-auto">
         <div className="grid grid-cols-1 lg:grid-cols-2 items-center ">
           {/* Left side - Content */}
           <div className="flex flex-col gap-8">
@@ -39,28 +39,34 @@ export default function HeroIndustry() {
                 className="text-[56px] lg:text-[64px] text-primary font-medium leading-[1.02] tracking-[-0.02rem]"
                 style={{ fontFamily: "Boska, serif" }}
               >
-                Operational intelligence
+                Operational Intelligence.
+                <span className="block text-ice">
+                  For Every Industry.
+                </span>
               </h1>
-              <h1
+              {/* <h1
                 className="text-[56px] lg:text-[64px] text-ice font-medium leading-[1.02] tracking-[-0.02rem]"
                 style={{ fontFamily: "Boska, serif" }}
               >
                 for every industry.
-              </h1>
+              </h1> */}
             </div>
 
             {/* Description with highlighted text */}
-            <div className="text-xl leading-[1.08] text-muted max-w-xl">
+            <div className="text-xl leading-[1.12] tracking-[0.01rem] text-muted max-w-xl">
               <p>
                 Mialo's unified intelligence layer adapts to your world,
                 delivering real-time awareness, smarter decisions and measurable
                 impact across industries.
               </p>
             </div>
-            <p className="flex gap-2  font-semibold text-sm text-ice">
+            {/* <p className="flex gap-2  font-semibold text-sm text-ice">
               See How It Works
               <ArrowRight className="text-ice"></ArrowRight>
-            </p>
+            </p> */}
+            <button className="px-8 py-2 w-fit h-fit font-medium text-sm rounded-lg bg-ice text-background hover:bg-ice/90 transition-all duration-200">
+                See how it works
+              </button>
           </div>
         </div>
       </div>
