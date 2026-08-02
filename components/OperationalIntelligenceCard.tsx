@@ -1,383 +1,238 @@
+/**
+ * IntelligenceFlow — static flow diagram.
+ * Observe → Understand → Decide → Act.
+ */
 "use client";
 
-import { useEffect, useState } from "react";
-import { Camera, AudioLines, FileText, Router, Database, Sparkles, Target, TrendingUp, Lightbulb, Bell, Zap, Send, AlertTriangle, FileCheck } from "lucide-react";
+import React, { useLayoutEffect, useRef, useState, CSSProperties } from 'react';
 
-const SOURCE_ICONS = [
-  { icon: Camera, label: "Camera" },
-  { icon: AudioLines, label: "Voice" },
-  { icon: FileText, label: "Document" },
-  { icon: Router, label: "IoT" },
-  { icon: Database, label: "ERP" },
+const W = 1920, H = 1080;
+const FONT = '"Helvetica Neue", Helvetica, Arial, sans-serif';
+
+/* ── layout ─────────────────────────────────────────────────────────────── */
+const SOURCES = [
+  { k: 'camera', label: 'Camera', y: 215 },
+  { k: 'voice', label: 'Voice', y: 340 },
+  { k: 'doc', label: 'Document', y: 465 },
+  { k: 'iot', label: 'IoT', y: 590 },
+  { k: 'erp', label: 'ERP', y: 715 },
+];
+const ORB = { x: 800, y: 465, r: 200 };
+const REASON = ['Predict', 'Prioritize', 'Detect Anomalies', 'Simulate', 'Recommend'];
+const ACTION = ['Alert', 'Notify', 'Automate', 'Integrate', 'Escalate'];
+const COL_Y = [250, 345, 440, 535, 630];
+const RX = 1275, AX = 1740, PW = 212, PH = 62;
+const BRAIN = { x: 1508, y: 440 };
+const KEYWORDS = [
+  ['Context', 720, 250], ['Patterns', 915, 288], ['Signals', 612, 318],
+  ['Insights', 1000, 360], ['Trends', 556, 392], ['Anomalies', 566, 575],
+  ['Events', 990, 592], ['Knowledge', 928, 662], ['Relationships', 668, 662],
 ];
 
-const DECIDE_CAPABILITIES = [
-  { icon: Target, label: "Predict" },
-  { icon: TrendingUp, label: "Prioritize" },
-  { icon: Lightbulb, label: "Recommend" },
-  { icon: Bell, label: "Alert" }
-];
-
-const ACT_OUTPUTS = [
-  { icon: Zap, label: "Automate" },
-  { icon: Send, label: "Notify" },
-  { icon: AlertTriangle, label: "Escalate" },
-  { icon: FileCheck, label: "Log" }
-];
-
-function IntelligenceWaves() {
-  const strands = [
-    { d: "M40,29 C90,23 120,35 170,28 C230,19 262,34 312,26 C362,17 392,32 432,25 C446,23 452,24 460,23", width: 1.1, opacity: 0.55, blur: 0 },
-    { d: "M40,32 C100,19 152,42 214,27 C276,13 316,40 366,24 C404,15 428,29 456,21", width: 1.4, opacity: 0.32, blur: 1 },
-    { d: "M40,34 C112,14 164,45 236,25 C304,8 346,42 402,22 C430,13 444,26 458,18", width: 2, opacity: 0.18, blur: 2.5 },
-    { d: "M40,30 C100,19 152,40 214,27 C276,13 316,38 366,24 C404,15 428,29 456,21", width: 1.4, opacity: 0.32, blur: 1 },
-  ];
-
+/* ── icons ──────────────────────────────────────────────────────────────── */
+function Icon({ k, c, size = 34 }: { k: string; c: string; size?: number }) {
+  const p = { fill: 'none', stroke: c, strokeWidth: 2.4, strokeLinecap: 'round' as const, strokeLinejoin: 'round' as const };
   return (
-    <svg
-      viewBox="0 0 500 50"
-      preserveAspectRatio="none"
-      style={{ position: "absolute", inset: 0, width: "100%", height: "100%", overflow: "visible", pointerEvents: "none" }}
-    >
-      <defs>
-        <linearGradient id="waveGradientOps" x1="0%" y1="0%" x2="100%" y2="0%">
-          <stop offset="0%" stopColor="#60A5FA" stopOpacity="0" />
-          <stop offset="20%" stopColor="#60A5FA" stopOpacity="0.5" />
-          <stop offset="65%" stopColor="#93C5FD" stopOpacity="0.85" />
-          <stop offset="100%" stopColor="#EFF6FF" stopOpacity="1" />
-        </linearGradient>
-      </defs>
-      {strands.map((s, i) => (
-        <path
-          key={i}
-          d={s.d}
-          fill="none"
-          stroke="url(#waveGradientOps)"
-          strokeWidth={s.width}
-          strokeLinecap="round"
-          opacity={s.opacity}
-          style={s.blur ? { filter: `blur(${s.blur}px)` } : undefined}
-        />
-      ))}
-      <ellipse cx="462" cy="22" rx="34" ry="9" fill="url(#waveGradientOps)" opacity="0.35" style={{ filter: "blur(6px)" }} />
+    <svg width={size} height={size} viewBox="0 0 24 24">
+      {k === 'camera' && <g {...p}><rect x="2.5" y="6.5" width="19" height="13" rx="3" /><circle cx="12" cy="13" r="4" /><path d="M9 6.5 10.5 4h3L15 6.5" /></g>}
+      {k === 'voice' && <g {...p}><path d="M4 10v4M8 6.5v11M12 3.5v17M16 7.5v9M20 10.5v3" /></g>}
+      {k === 'doc' && <g {...p}><path d="M6 3h7l5 5v13H6z" /><path d="M13 3v5h5M9 13h7M9 17h5" /></g>}
+      {k === 'iot' && <g {...p}><circle cx="12" cy="12" r="2" /><path d="M7.5 7.5a6.4 6.4 0 0 0 0 9M16.5 7.5a6.4 6.4 0 0 1 0 9M4.5 4.5a10.6 10.6 0 0 0 0 15M19.5 4.5a10.6 10.6 0 0 1 0 15" /></g>}
+      {k === 'erp' && <g {...p}><ellipse cx="12" cy="6" rx="7.5" ry="3" /><path d="M4.5 6v6c0 1.7 3.4 3 7.5 3s7.5-1.3 7.5-3V6M4.5 12v6c0 1.7 3.4 3 7.5 3s7.5-1.3 7.5-3v-6" /></g>}
+      {k === 'Predict' && <g {...p}><path d="M3 17 9 10l4 4 8-8" /><path d="M15 6h6v6" /></g>}
+      {k === 'Prioritize' && <g {...p}><path d="M9 6h11M9 12h11M9 18h11M4 6h.01M4 12h.01M4 18h.01" /></g>}
+      {k === 'Detect Anomalies' && <g {...p}><circle cx="11" cy="11" r="6" /><path d="M15.5 15.5 20 20" /></g>}
+      {k === 'Simulate' && <g {...p}><path d="M12 3 20 7.5v9L12 21 4 16.5v-9z" /><path d="M4 7.5 12 12l8-4.5M12 12v9" /></g>}
+      {k === 'Recommend' && <g {...p}><path d="M9 17h6M10 20h4" /><path d="M12 3a6 6 0 0 0-3.5 10.9V17h7v-3.1A6 6 0 0 0 12 3z" /></g>}
+      {k === 'Alert' && <g {...p}><path d="M6 9a6 6 0 0 1 12 0c0 5 2 6 2 6H4s2-1 2-6z" /><path d="M10 19a2.2 2.2 0 0 0 4 0" /></g>}
+      {k === 'Notify' && <g {...p}><rect x="3" y="5.5" width="18" height="13" rx="2.5" /><path d="m3.8 7 8.2 6.2L20.2 7" /></g>}
+      {k === 'Automate' && <g {...p}><circle cx="12" cy="12" r="3.2" /><path d="M12 3v2.6M12 18.4V21M3 12h2.6M18.4 12H21M5.6 5.6l1.9 1.9M16.5 16.5l1.9 1.9M18.4 5.6l-1.9 1.9M7.5 16.5l-1.9 1.9" /></g>}
+      {k === 'Integrate' && <g {...p}><path d="M4 4h7v3.5a2 2 0 1 0 0 4V15H4z" /><path d="M11 15h3.5a2 2 0 1 1 4 0H20v5h-9z" /></g>}
+      {k === 'Escalate' && <g {...p}><path d="M12 15V4M8 8l4-4 4 4" /><path d="M4 15v3.5A1.5 1.5 0 0 0 5.5 20h13a1.5 1.5 0 0 0 1.5-1.5V15" /></g>}
     </svg>
   );
 }
 
-function EnergyPulse() {
-  const wavePath = "M52.5,32 C77.5,25 127.5,25 152.5,32 C177.5,39 227.5,39 252.5,32 C277.5,25 327.5,25 352.5,32 C377.5,39 407.5,39 432.5,32 C450.5,25 460.5,28 470.5,32";
-
+/* ── pieces ─────────────────────────────────────────────────────────────── */
+function SourceNode({ s, accent }: { s: typeof SOURCES[0]; accent: string }) {
   return (
-    <svg
-      viewBox="0 0 500 50"
-      preserveAspectRatio="none"
-      style={{ 
-        position: "absolute", 
-        inset: 0, 
-        width: "100%", 
-        height: "100%", 
-        overflow: "visible", 
-        pointerEvents: "none",
-        zIndex: 7
-      }}
-    >
-      <defs>
-        <linearGradient id="trailGradientOps" x1="0%" y1="0%" x2="100%" y2="0%">
-          <stop offset="0%" stopColor="rgba(96,165,250,0.9)" />
-          <stop offset="100%" stopColor="rgba(147,197,253,0.7)" />
-        </linearGradient>
-        
-        <radialGradient id="glowGradientOps">
-          <stop offset="0%" stopColor="rgba(147,197,253,0.55)" />
-          <stop offset="45%" stopColor="rgba(96,165,250,0.22)" />
-          <stop offset="72%" stopColor="transparent" />
-        </radialGradient>
-        
-        <radialGradient id="particleGradientOps" cx="50%" cy="50%">
-          <stop offset="10%" stopColor="#FFFFFF" />
-          <stop offset="45%" stopColor="#93C5FD" />
-        </radialGradient>
-        
-        <linearGradient id="streakGradientOps" x1="0%" y1="0%" x2="100%" y2="0%">
-          <stop offset="0%" stopColor="transparent" />
-          <stop offset="30%" stopColor="rgba(147,197,253,0.25)" />
-          <stop offset="75%" stopColor="rgba(191,219,254,0.7)" />
-          <stop offset="100%" stopColor="rgba(255,255,255,0.95)" />
-        </linearGradient>
-      </defs>
-      
-      <path
-        d={wavePath}
-        fill="none"
-        stroke="url(#trailGradientOps)"
-        strokeWidth="1.5"
-        strokeLinecap="round"
-        pathLength="1"
-        style={{
-          filter: "blur(1px) drop-shadow(0 0 3px rgba(96,165,250,0.6))",
-          opacity: 0.8,
-          strokeDasharray: "1",
-        }}
-      >
-        <animate
-          attributeName="stroke-dashoffset"
-          from="1"
-          to="0"
-          dur="4s"
-          repeatCount="indefinite"
-        />
-      </path>
-      
-      <g>
-        <circle r="27" fill="url(#glowGradientOps)" style={{ filter: "blur(2px)" }}>
-          <animateMotion dur="4s" path={wavePath} repeatCount="indefinite" />
-        </circle>
-      </g>
-      
-      <g>
-        <circle r="17" fill="url(#glowGradientOps)" style={{ filter: "blur(2px)" }}>
-          <animateMotion dur="4s" path={wavePath} repeatCount="indefinite" />
-        </circle>
-      </g>
-      
-      <g>
-        <ellipse rx="7" ry="1.25" fill="url(#streakGradientOps)">
-          <animateMotion dur="4s" path={wavePath} repeatCount="indefinite" />
-        </ellipse>
-      </g>
-      
-      <g>
-        <circle
-          r="4.5"
-          fill="url(#particleGradientOps)"
-          style={{ filter: "drop-shadow(0 0 16px rgba(96,165,250,0.55)) drop-shadow(0 0 5px rgba(219,234,254,0.8))" }}
-        >
-          <animateMotion dur="4s" path={wavePath} repeatCount="indefinite" />
-        </circle>
-      </g>
-    </svg>
-  );
-}
-
-function StageNode({ 
-  label, 
-  active, 
-  xPct, 
-  children 
-}: { 
-  label: string; 
-  active: boolean; 
-  xPct: string; 
-  children?: React.ReactNode;
-}) {
-  return (
-    <div
-      style={{
-        position: "absolute",
-        top: "50%",
-        left: xPct,
-        transform: "translate(-50%, -50%)",
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-        gap: 12,
-      }}
-    >
-      {children}
-      <span
-        style={{
-          fontSize: 13,
-          fontWeight: 600,
-          letterSpacing: "0.02em",
-          color: active ? "#93C5FD" : "rgba(255,255,255,0.3)",
-          transition: "color 0.15s ease",
-          fontFamily: "'Inter', sans-serif",
-        }}
-      >
-        {label}
-      </span>
+    <div style={{ position: 'absolute', left: 96, top: s.y - 38, display: 'flex', alignItems: 'center', gap: 26 }}>
+      <div style={{
+        width: 76, height: 76, borderRadius: '50%', display: 'grid', placeItems: 'center',
+        background: 'radial-gradient(circle at 50% 35%, rgba(30,70,150,0.55), rgba(8,16,38,0.9))',
+        border: '1px solid rgba(120,170,255,0.35)', boxShadow: '0 0 22px rgba(45,120,255,0.35)',
+      }}><Icon k={s.k} c={accent} /></div>
+      <div style={{ color: 'rgba(226,236,255,0.92)', font: `400 27px ${FONT}`, letterSpacing: '0.01em' }}>{s.label}</div>
     </div>
   );
 }
 
-export default function OperationalIntelligenceCard() {
-  const [activeStage, setActiveStage] = useState(0);
+function Pill({ label, x, y, accent, filled, glow }: { label: string; x: number; y: number; accent: string; filled?: boolean; glow?: boolean }) {
+  return (
+    <div style={{
+      position: 'absolute', left: x - PW / 2, top: y - PH / 2, width: PW, height: PH,
+      borderRadius: 14, display: 'flex', alignItems: 'center', gap: 12, padding: '0 16px', boxSizing: 'border-box',
+      background: filled ? accent : 'rgba(14,22,44,0.82)',
+      border: `1px solid ${filled ? accent : (glow ? 'rgba(90,160,255,0.85)' : 'rgba(90,120,180,0.34)')}`,
+      boxShadow: filled || glow ? '0 0 26px rgba(45,120,255,0.55)' : 'none',
+      color: filled ? '#fff' : 'rgba(222,232,250,0.94)',
+      font: `400 21px ${FONT}`, lineHeight: 1.15,
+    }}>
+      <div style={{ flex: '0 0 auto', display: 'grid', placeItems: 'center', width: 28, height: 28 }}>
+        <Icon k={label} c={filled ? '#ffffff' : accent} size={24} />
+      </div>
+      <span>{label}</span>
+    </div>
+  );
+}
 
-  useEffect(() => {
-    const totalDuration = 4000;
-    const earlyOffset = 300; // Activate 0.3s earlier
+function Orb() {
+  return (
+    <div style={{
+      position: 'absolute', left: ORB.x - ORB.r, top: ORB.y - ORB.r, width: ORB.r * 2, height: ORB.r * 2,
+    }}>
+      <div style={{
+        position: 'absolute', inset: -60, borderRadius: '50%',
+        background: 'radial-gradient(circle, rgba(40,110,255,0.34) 0%, rgba(20,60,160,0.12) 45%, rgba(0,0,0,0) 70%)',
+      }} />
+      {[0, 1, 2].map((i) => (
+        <div key={i} style={{
+          position: 'absolute', inset: 16 + i * 22, borderRadius: '50%',
+          border: `${1.6 - i * 0.3}px solid rgba(90,160,255,${0.55 - i * 0.13})`,
+          boxShadow: 'inset 0 0 30px rgba(45,120,255,0.25)',
+        }} />
+      ))}
+      <div style={{
+        position: 'absolute', inset: 84, borderRadius: '50%',
+        background: 'radial-gradient(circle at 50% 45%, rgba(70,140,255,0.35), rgba(8,20,55,0.6))',
+        border: '1px solid rgba(120,180,255,0.4)',
+      }} />
+      <div style={{
+        position: 'absolute', inset: 0, display: 'grid', placeItems: 'center', textAlign: 'center',
+        color: '#fff', font: `500 40px/1.15 ${FONT}`, letterSpacing: '-0.01em', textShadow: '0 0 26px rgba(60,130,255,0.9)',
+      }}>Intelligence<br />Layer</div>
+    </div>
+  );
+}
 
-    const updateStages = () => {
-      const elapsed = (Date.now() + earlyOffset) % totalDuration;
-      
-      if (elapsed < 1000) {
-        setActiveStage(0);
-      } else if (elapsed < 2000) {
-        setActiveStage(1);
-      } else if (elapsed < 3000) {
-        setActiveStage(2);
-      } else {
-        setActiveStage(3);
-      }
+function BrainHub({ accent }: { accent: string }) {
+  return (
+    <div style={{ position: 'absolute', left: BRAIN.x - 92, top: BRAIN.y - 92, width: 184, height: 184 }}>
+      <div style={{ position: 'absolute', inset: 0, borderRadius: '50%', border: '1px dashed rgba(90,150,255,0.4)' }} />
+      <div style={{
+        position: 'absolute', inset: 30, borderRadius: '50%',
+        border: '1.6px solid rgba(110,175,255,0.75)',
+        background: 'radial-gradient(circle at 50% 40%, rgba(30,80,190,0.55), rgba(6,14,36,0.9))',
+        boxShadow: '0 0 40px rgba(45,120,255,0.55)', display: 'grid', placeItems: 'center',
+      }}>
+        <svg width="52" height="52" viewBox="0 0 24 24" fill="none" stroke={accent} strokeWidth="1.7" strokeLinecap="round">
+          <path d="M12 4.5v15" />
+          <path d="M12 6.2a3.2 3.2 0 0 0-5.6 1.5A2.9 2.9 0 0 0 4.6 12a2.9 2.9 0 0 0 1.5 4.1A3.1 3.1 0 0 0 12 17.6" />
+          <path d="M12 6.2a3.2 3.2 0 0 1 5.6 1.5A2.9 2.9 0 0 1 19.4 12a2.9 2.9 0 0 1-1.5 4.1A3.1 3.1 0 0 1 12 17.6" />
+          <path d="M8.6 9.4H10M8.6 13.4H10M14 9.4h1.4M14 13.4h1.4" />
+        </svg>
+      </div>
+    </div>
+  );
+}
+
+function Flow({ d, accent, width = 1.3 }: { d: string; accent: string; width?: number }) {
+  return (
+    <g>
+      <path d={d} stroke="rgba(90,150,255,0.32)" strokeWidth={width} fill="none" />
+      <path d={d} stroke={accent} strokeWidth={width + 0.6} fill="none" strokeLinecap="round"
+        pathLength="1" strokeDasharray="0.035 0.125"
+        opacity={0.9} style={{ filter: 'drop-shadow(0 0 6px rgba(70,140,255,0.9))' }} />
+    </g>
+  );
+}
+
+function Diagram({ accent, vividness }: { accent: string; vividness: number }) {
+  return (
+    <div style={{ position: 'absolute', inset: 0, filter: `saturate(${vividness})` }}>
+      <svg width={W} height={H} style={{ position: 'absolute', inset: 0 }}>
+        {SOURCES.map((s) => (
+          <Flow key={s.k} accent={accent}
+            d={`M 232 ${s.y} C 420 ${s.y} 470 ${ORB.y} 600 ${ORB.y}`} />
+        ))}
+        {COL_Y.map((y, i) => (
+          <Flow key={'r' + i} accent={accent} width={1.1}
+            d={`M 1000 ${ORB.y} C 1100 ${ORB.y} 1090 ${y} 1169 ${y}`} />
+        ))}
+        {COL_Y.map((y, i) => (
+          <Flow key={'b' + i} accent={accent} width={1.1}
+            d={`M 1381 ${y} C 1420 ${y} 1420 ${BRAIN.y} 1448 ${BRAIN.y}`} />
+        ))}
+        {COL_Y.map((y, i) => (
+          <Flow key={'a' + i} accent={accent} width={1.1}
+            d={`M 1568 ${BRAIN.y} C 1600 ${BRAIN.y} 1600 ${y} 1634 ${y}`} />
+        ))}
+      </svg>
+
+      {SOURCES.map((s) => <SourceNode key={s.k} s={s} accent={accent} />)}
+
+      {KEYWORDS.map(([w, x, y]) => (
+        <div key={String(w)} style={{
+          position: 'absolute', left: Number(x), top: Number(y), transform: 'translate(-50%,-50%)',
+          color: 'rgba(190,210,245,0.72)', font: `300 25px ${FONT}`, whiteSpace: 'nowrap',
+        }}>{w}</div>
+      ))}
+
+      <Orb />
+
+      {REASON.map((l, i) => <Pill key={l} label={l} x={RX} y={COL_Y[i]} accent={accent} glow={i === 2} />)}
+      <BrainHub accent={accent} />
+      {ACTION.map((l, i) => <Pill key={l} label={l} x={AX} y={COL_Y[i]} accent={accent} filled={i === 2} />)}
+    </div>
+  );
+}
+
+/* ── the component ──────────────────────────────────────────────────────── */
+export default function OperationalIntelligenceCard({
+  accent = '#6C93FF',
+  background = '#08090B',
+  vividness = 0.8,
+  className,
+  style,
+}: {
+  accent?: string;
+  background?: string;
+  vividness?: number;
+  className?: string;
+  style?: CSSProperties;
+}) {
+  const hostRef = useRef<HTMLDivElement>(null);
+  const [scale, setScale] = useState(1);
+
+  useLayoutEffect(() => {
+    const el = hostRef.current;
+    if (!el || typeof ResizeObserver === 'undefined') return undefined;
+    const fit = () => {
+      const r = el.getBoundingClientRect();
+      if (r.width && r.height) setScale(Math.min(r.width / W, r.height / H));
     };
-
-    updateStages();
-    const interval = setInterval(updateStages, 16);
-    return () => clearInterval(interval);
+    fit();
+    const ro = new ResizeObserver(fit);
+    ro.observe(el);
+    return () => ro.disconnect();
   }, []);
 
   return (
-    <div className="w-full max-w-6xl mx-auto">
-      <div style={{ position: "relative", height: 200, marginBottom: 48 }}>
-        <div
-          style={{
-            position: "absolute",
-            inset: 0,
-            borderRadius: 999,
-            background: "radial-gradient(ellipse 90% 140% at 50% 50%, rgba(96,165,250,0.05) 0%, rgba(96,165,250,0.015) 45%, transparent 75%)",
-            border: "0.5px solid rgba(255,255,255,0.1)",
-            backdropFilter: "blur(28px)",
-            WebkitBackdropFilter: "blur(8px)",
-            boxShadow: "0 4px 28px rgba(0,0,0,0.35), inset 0 1px 0 rgba(255,255,255,0.1), inset 0 -1px 0 rgba(0,0,0,0.12)",
-          }}
-        >
-          <IntelligenceWaves />
-          
-          {/* Observe - 2x2 grid */}
-          <StageNode label="Observe" active={activeStage === 0} xPct="12%">
-            <div className="grid grid-cols-2 gap-2">
-              {SOURCE_ICONS.slice(0, 4).map((source, idx) => {
-                const Icon = source.icon;
-                return (
-                  <div
-                    key={idx}
-                    className="flex items-center justify-center px-2.5 py-2 rounded-lg"
-                    style={{
-                      backgroundColor: activeStage === 0 ? 'rgba(108,147,255,0.12)' : 'rgba(255,255,255,0.03)',
-                      border: `1px solid ${activeStage === 0 ? 'rgba(108,147,255,0.25)' : 'rgba(255,255,255,0.08)'}`,
-                      transition: 'all 0.15s ease',
-                    }}
-                  >
-                    <Icon
-                      size={18}
-                      strokeWidth={1.5}
-                      style={{
-                        color: activeStage === 0 ? '#6C93FF' : 'rgba(255,255,255,0.2)',
-                        transition: 'color 0.15s ease',
-                      }}
-                    />
-                  </div>
-                );
-              })}
-            </div>
-          </StageNode>
-
-          {/* Understand */}
-          <StageNode label="Understand" active={activeStage === 1} xPct="37%">
-            <div
-              className="flex items-center justify-center w-16 h-16 rounded-xl"
-              style={{
-                backgroundColor: activeStage === 1 ? 'rgba(108,147,255,0.12)' : 'rgba(255,255,255,0.03)',
-                border: `1px solid ${activeStage === 1 ? 'rgba(108,147,255,0.25)' : 'rgba(255,255,255,0.08)'}`,
-                transition: 'all 0.15s ease',
-              }}
-            >
-              <Sparkles
-                size={26}
-                strokeWidth={1.5}
-                style={{
-                  color: activeStage === 1 ? '#6C93FF' : 'rgba(255,255,255,0.2)',
-                  transition: 'color 0.15s ease',
-                }}
-              />
-            </div>
-          </StageNode>
-
-          {/* Decide */}
-          <StageNode label="Decide" active={activeStage === 2} xPct="62%">
-            <div className="grid grid-cols-2 gap-1.5">
-              {DECIDE_CAPABILITIES.map((cap, idx) => {
-                const Icon = cap.icon;
-                return (
-                  <div
-                    key={idx}
-                    className="flex items-center gap-1.5 px-2 py-1.5 rounded-md"
-                    style={{
-                      backgroundColor: activeStage === 2 ? 'rgba(147,197,253,0.15)' : 'rgba(255,255,255,0.03)',
-                      border: `1px solid ${activeStage === 2 ? 'rgba(147,197,253,0.3)' : 'rgba(255,255,255,0.08)'}`,
-                      transition: 'all 0.15s ease',
-                      minWidth: '80px',
-                    }}
-                  >
-                    <Icon
-                      size={12}
-                      strokeWidth={2}
-                      style={{
-                        color: activeStage === 2 ? '#93C5FD' : 'rgba(255,255,255,0.2)',
-                        transition: 'color 0.15s ease',
-                        flexShrink: 0,
-                      }}
-                    />
-                    <span
-                      className="text-[10px] font-medium"
-                      style={{
-                        color: activeStage === 2 ? '#93C5FD' : 'rgba(255,255,255,0.2)',
-                        transition: 'color 0.15s ease',
-                      }}
-                    >
-                      {cap.label}
-                    </span>
-                  </div>
-                );
-              })}
-            </div>
-          </StageNode>
-
-          {/* Act */}
-          <StageNode label="Act" active={activeStage === 3} xPct="87%">
-            <div className="grid grid-cols-2 gap-1.5">
-              {ACT_OUTPUTS.map((output, idx) => {
-                const Icon = output.icon;
-                return (
-                  <div
-                    key={idx}
-                    className="flex items-center gap-1.5 px-2 py-1.5 rounded-md"
-                    style={{
-                      backgroundColor: activeStage === 3 ? 'rgba(147,197,253,0.15)' : 'rgba(255,255,255,0.03)',
-                      border: `1px solid ${activeStage === 3 ? 'rgba(147,197,253,0.3)' : 'rgba(255,255,255,0.08)'}`,
-                      transition: 'all 0.15s ease',
-                      minWidth: '80px',
-                    }}
-                  >
-                    <Icon
-                      size={12}
-                      strokeWidth={2}
-                      style={{
-                        color: activeStage === 3 ? '#93C5FD' : 'rgba(255,255,255,0.2)',
-                        transition: 'color 0.15s ease',
-                        flexShrink: 0,
-                      }}
-                    />
-                    <span
-                      className="text-[10px] font-medium"
-                      style={{
-                        color: activeStage === 3 ? '#93C5FD' : 'rgba(255,255,255,0.2)',
-                        transition: 'color 0.15s ease',
-                      }}
-                    >
-                      {output.label}
-                    </span>
-                  </div>
-                );
-              })}
-            </div>
-          </StageNode>
+    <div ref={hostRef} className={className}
+      style={{ position: 'relative', width: '100%', aspectRatio: '16 / 9', overflow: 'hidden', background, ...style }}>
+      <div style={{
+        position: 'absolute', left: '50%', top: '50%', width: W, height: H,
+        transform: `translate(-50%, -50%) scale(${scale})`, transformOrigin: '50% 50%',
+      }}>
+        <div style={{ position: 'absolute', inset: 0, overflow: 'hidden', background }}>
+          <div style={{
+            position: 'absolute', inset: 0, width: W, height: H, transformOrigin: '0 0',
+            transform: `translate(${W / 2 - 960 * 1.0}px, ${H / 2 - 560 * 1.0}px) scale(1.0)`,
+          }}>
+            <Diagram accent={accent} vividness={vividness} />
+          </div>
         </div>
-        
-        <EnergyPulse />
       </div>
-
-      
     </div>
   );
 }
