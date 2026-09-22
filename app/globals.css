@@ -74,7 +74,44 @@
   --color-muted: #9BA1AB;
   --color-faint: #5E646E;
   --color-positive: #30D158;
-  --color-ice: #6C93FF
+  --color-ice: #6C93FF;
+  --color-pista: #C6FF6D;
+
+  /* --- dark design system (see design.md) --- */
+  --color-raise: #0B0D10;
+  --color-panel: #0E1013;
+  --color-line: #16181D;
+  --color-line-2: #23262D;
+  --color-line-3: #2E323B;
+  --color-ink: #B4BAC4;
+  --color-green: #00E599;
+
+  --font-display: var(--font-geist-sans), 'Inter Tight', 'Inter', system-ui, sans-serif;
+  --font-body: var(--font-inter), system-ui, -apple-system, sans-serif;
+
+  --animate-blink: blink 2.4s ease-in-out infinite;
+  --animate-rail: rail 5.5s linear infinite;
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.35; }
+}
+
+@keyframes rail {
+  0% { left: 4%; opacity: 0; }
+  12% { opacity: 1; }
+  88% { opacity: 1; }
+  100% { left: 92%; opacity: 0; }
+}
+
+/* Progressive enhancement: if JS can't run, scroll-reveal wrappers
+   (components/animations.tsx) must not leave content hidden. */
+@media (scripting: none) {
+  [data-animate] {
+    opacity: 1 !important;
+    transform: none !important;
+  }
 }
 
 body {
