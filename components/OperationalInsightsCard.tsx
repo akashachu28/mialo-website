@@ -1,7 +1,7 @@
 "use client";
 
-import React from 'react';
-import { motion } from 'framer-motion';
+import { useLayoutEffect, useRef, useState } from "react";
+import type { ReactNode } from "react";
 import {
   Cctv,
   Film,
@@ -12,267 +12,288 @@ import {
   Camera,
   AudioLines,
   FileText,
-  Radio,
   Database,
-  Sparkles,
+  Router,
   CheckCircle2,
-  Router
-} from 'lucide-react';
+} from "lucide-react";
 
-// --- Animation Variants ---
-const containerVariants = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: {
-      staggerChildren: 0.15,
-      delayChildren: 0.2,
-      when: "beforeChildren" as const,
-    },
-  },
-};
+/* ------------------------------------------------------------------ *
+ *  "The Problem" flow diagram — Traditional Operations → Sources →
+ *  Operational Moments → Mialo Intelligence → Impact.
+ *
+ *  Nodes (DOM) and connectors (SVG) live in ONE coordinate system
+ *  (W × H). The whole plane is uniformly scaled to the container
+ *  width, so every line meets its node at any screen size.
+ * ------------------------------------------------------------------ */
 
-const itemVariants = {
-  hidden: { opacity: 0, y: 20 },
-  visible: { 
-    opacity: 1, 
-    y: 0,
-  },
-};
+const W = 1000;
+const H = 420;
+const MID = 222;
 
-const hoverScale = {
-  scale: 1.05,
-  transition: { duration: 0.2 }
-};
+const TRAD_X = 80;
+const TRAD_Y = [72, 132, 192, 252, 312, 372];
+const TRADITIONAL = [Cctv, Film, HardDrive, LayoutGrid, User, Zap];
 
-// --- Data Constants ---
-const TRADITIONAL_NODES = [
-  { id: 'cctv', icon: Cctv },
-  { id: 'film', icon: Film },
-  { id: 'hd', icon: HardDrive },
-  { id: 'grid', icon: LayoutGrid },
-  { id: 'user', icon: User },
-  { id: 'zap-trad', icon: Zap },
+const SRC_X = 304;
+const SRC_W = 158;
+const SRC_Y = [92, 157, 222, 287, 352];
+const SOURCES = [
+  { label: "Camera", icon: Camera },
+  { label: "Voice", icon: AudioLines },
+  { label: "Documents", icon: FileText },
+  { label: "IoT", icon: Router },
+  { label: "ERP", icon: Database },
 ];
 
-const SOURCE_CARDS = [
-  { id: 'camera', label: 'Camera', icon: Camera },
-  { id: 'voice', label: 'Voice', icon: AudioLines },
-  { id: 'docs', label: 'Documents', icon: FileText },
-  { id: 'iot', label: 'IoT', icon: Router },
-  { id: 'erp', label: 'ERP', icon: Database },
-];
+const MOMENTS = { x: 536, y: MID };
+const BRAIN = { x: 766, y: MID };
+const IMPACT = { x: 922, y: MID };
+
+const SRC_RIGHT = SRC_X + SRC_W / 2;
+
+/* converging splines: each source → the operational-moments node */
+const SPLINES = SRC_Y.map(
+  (y) =>
+    `M ${SRC_RIGHT} ${y} C ${SRC_RIGHT + 66} ${y}, ${MOMENTS.x - 74} ${MID}, ${MOMENTS.x - 30} ${MID}`,
+);
+
+/* gentle sine wave: operational moments → mialo intelligence */
+const SINE = `M ${MOMENTS.x + 30} ${MID} C ${MOMENTS.x + 74} ${MID - 42}, ${BRAIN.x - 78} ${MID + 42}, ${BRAIN.x - 44} ${MID}`;
+
+function Node({
+  x,
+  y,
+  children,
+  className = "",
+}: {
+  x: number;
+  y: number;
+  children: ReactNode;
+  className?: string;
+}) {
+  return (
+    <div
+      className="absolute"
+      style={{ left: x, top: y, transform: "translate(-50%, -50%)" }}
+    >
+      <div
+        className={`transition-transform duration-200 hover:scale-[1.05] ${className}`}
+      >
+        {children}
+      </div>
+    </div>
+  );
+}
+
+function Label({ x, y, children }: { x: number; y: number; children: ReactNode }) {
+  return (
+    <span
+      className="absolute text-center text-[13px] font-medium leading-tight text-slate-400"
+      style={{ left: x, top: y, width: 132, transform: "translateX(-50%)" }}
+    >
+      {children}
+    </span>
+  );
+}
 
 export default function OperationalIntelligenceCard() {
+  const hostRef = useRef<HTMLDivElement>(null);
+  const [scale, setScale] = useState(1);
+
+  useLayoutEffect(() => {
+    const el = hostRef.current;
+    if (!el || typeof ResizeObserver === "undefined") return undefined;
+    const fit = () => {
+      const r = el.getBoundingClientRect();
+      if (r.width) setScale(r.width / W);
+    };
+    fit();
+    const ro = new ResizeObserver(fit);
+    ro.observe(el);
+    return () => ro.disconnect();
+  }, []);
+
   return (
-    <div className="min-h-screen bg-background flex flex-col items-center justify-center p-6 md:p-12 overflow-hidden font-sans">
-      <motion.div 
-        className="max-w-7xl w-full relative flex flex-col lg:flex-row items-center lg:items-stretch justify-between gap-16 lg:gap-24"
-        variants={containerVariants}
-        initial="hidden"
-        animate="visible"
+    <div className="w-full py-6 font-sans">
+      <div
+        ref={hostRef}
+        className="relative mx-auto w-full max-w-[1040px] overflow-hidden"
+        style={{ aspectRatio: `${W} / ${H}` }}
       >
-        
-        {/* --- Background SVG Connectors (Desktop Only) --- */}
-        <div className="absolute inset-0 z-0 hidden lg:block pointer-events-none">
-          <svg className="w-full h-full overflow-visible" preserveAspectRatio="none">
+        <div
+          className="absolute left-0 top-0 origin-top-left"
+          style={{ width: W, height: H, transform: `scale(${scale})` }}
+        >
+          {/* --- connectors --- */}
+          <svg
+            className="absolute inset-0 overflow-visible"
+            width={W}
+            height={H}
+            fill="none"
+          >
             <defs>
-              <linearGradient id="pathGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+              <linearGradient id="oicPath" x1="0%" y1="0%" x2="100%" y2="0%">
                 <stop offset="0%" stopColor="#60A5FA" stopOpacity="0" />
                 <stop offset="20%" stopColor="#60A5FA" stopOpacity="0.5" />
                 <stop offset="65%" stopColor="#93C5FD" stopOpacity="0.85" />
                 <stop offset="100%" stopColor="#EFF6FF" stopOpacity="1" />
               </linearGradient>
-              <linearGradient id="impactGradient" x1="740" y1="230" x2="840" y2="230" gradientUnits="userSpaceOnUse">
-                <stop offset="0%" stopColor="#60A5FA" stopOpacity="0.5" />
-                <stop offset="50%" stopColor="#93C5FD" stopOpacity="0.85" />
-                <stop offset="100%" stopColor="#EFF6FF" stopOpacity="1" />
-              </linearGradient>
-              <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
-                <polygon points="0 0, 10 3.5, 0 7" fill="#93C5FD" />
+              <marker
+                id="oicArrow"
+                markerWidth="9"
+                markerHeight="7"
+                refX="8"
+                refY="3.5"
+                orient="auto"
+              >
+                <polygon points="0 0, 9 3.5, 0 7" fill="#64748B" />
               </marker>
             </defs>
 
-            {/* Traditional to Sources dashed line with arrow */}
-            <path d="M 88 230 L 142 230" stroke="#475569" strokeWidth="1" strokeDasharray="4 3" fill="none" markerEnd="url(#arrowhead)" />
-            
-            {/* Sources to Operational Moments splines */}
-            <path d="M 380 90 C 450 90, 420 250, 480 250" stroke="url(#pathGradient)" strokeWidth="1" fill="none" className="opacity-70" />
-            <path d="M 380 170 C 450 170, 420 250, 480 250" stroke="url(#pathGradient)" strokeWidth="1" fill="none" className="opacity-70" />
-            <path d="M 380 250 L 480 250" stroke="url(#pathGradient)" strokeWidth="1" fill="none" className="opacity-70" />
-            <path d="M 380 330 C 450 330, 420 250, 480 250" stroke="url(#pathGradient)" strokeWidth="1" fill="none" className="opacity-70" />
-            <path d="M 380 410 C 450 410, 420 250, 480 250" stroke="url(#pathGradient)" strokeWidth="1" fill="none" className="opacity-70" />
-
-            {/* Animated Glowing Dots on Source -> Ops Moments Paths */}
-            <circle r="3" fill="#fff" className="drop-shadow-[0_0_8px_rgba(255,255,255,0.8)]">
-              <animateMotion dur="2.5s" repeatCount="indefinite" path="M 380 90 C 450 90, 420 250, 480 250" />
-            </circle>
-            <circle r="3" fill="#fff" className="drop-shadow-[0_0_8px_rgba(255,255,255,0.8)]">
-              <animateMotion dur="2.5s" repeatCount="indefinite" path="M 380 170 C 450 170, 420 250, 480 250" />
-            </circle>
-            {/* <circle r="3" fill="#fff" className="drop-shadow-[0_0_8px_rgba(255,255,255,0.8)]">
-              <animateMotion dur="2.5s" repeatCount="indefinite" path="M 380 250 L 480 250" />
-            </circle> */}
-            <circle r="3" fill="#fff" className="drop-shadow-[0_0_8px_rgba(255,255,255,0.8)]">
-              <animateMotion dur="2.5s" repeatCount="indefinite" path="M 380 330 C 450 330, 420 250, 480 250" />
-            </circle>
-            <circle r="3" fill="#fff" className="drop-shadow-[0_0_8px_rgba(255,255,255,0.8)]">
-              <animateMotion dur="2.5s" repeatCount="indefinite" path="M 380 410 C 450 410, 420 250, 480 250" />
-            </circle>
-
-            {/* Ops Moments to Mialo Intelligence Sine Wave */}
-            <path d="M 540 250 C 590 180, 630 320, 680 250 C 710 210, 740 250, 760 250" stroke="url(#pathGradient)" strokeWidth="1" fill="none" />
-            
-            {/* Animated Glowing Dot on Ops -> Mialo Path */}
-            <motion.circle 
-              r="3" 
-              fill="#fff" 
-              className="drop-shadow-[0_0_8px_rgba(255,255,255,0.8)]"
-              animate={{
-                offsetDistance: ["0%", "100%"]
-              }}
-              style={{
-                offsetPath: 'path("M 540 250 C 590 180, 630 320, 680 250 C 710 210, 740 250, 760 250")',
-              }}
-              transition={{ duration: 3, repeat: Infinity, ease: "linear" }}
+            {/* traditional → sources */}
+            <path
+              d={`M ${TRAD_X + 34} ${MID} L ${SRC_X - SRC_W / 2 - 14} ${MID}`}
+              stroke="#475569"
+              strokeWidth="1"
+              strokeDasharray="4 3"
+              markerEnd="url(#oicArrow)"
             />
 
-            {/* Mialo Intelligence to Impact Straight Line with Arrow */}
-            {/* <path d="M 340 230 L 840 230" stroke="url(#pathGradient)" strokeWidth="1" fill="none"/> */}
-            
-            {/* Dotted feedback path starting from Mialo Intelligence */}
-            <path d="M 740 230 L 840 230" stroke="url(#impactGradient)" strokeWidth="1" fill="none" className="opacity-70" />
-          </svg>
-        </div>
-
-        {/* --- Column 1: Traditional Operations --- */}
-        <motion.div variants={itemVariants} className="relative z-10 flex flex-col items-center">
-          <h2 className="text-sm font-medium text-slate-400 leading-tight mb-6 text-center">
-            Traditional<br/>Operations
-          </h2>
-          <div className="relative flex flex-col gap-4 py-4">
-            {/* Left Bracket visual representation via border */}
-            <div className="absolute -left-6 top-0 bottom-0 w-4 border-l border-y border-slate-700/50 rounded-l-xl opacity-50" />
-            
-            {/* Right border */}
-            <div className="absolute -right-6 top-0 bottom-0 w-4 border-r border-y border-slate-700/50 rounded-r-xl opacity-50" />
-            
-            {TRADITIONAL_NODES.map((node) => (
-              <motion.div
-                key={node.id}
-                whileHover={hoverScale}
-                className="w-12 h-12 rounded-full border border-slate-800 bg-slate-900/40 backdrop-blur-sm flex items-center justify-center text-slate-400 shadow-lg shadow-black/50"
-              >
-                <node.icon size={20} />
-              </motion.div>
+            {/* sources → operational moments */}
+            {SPLINES.map((d) => (
+              <path
+                key={d}
+                d={d}
+                stroke="url(#oicPath)"
+                strokeWidth="1"
+                className="opacity-70"
+              />
             ))}
-          </div>
-        </motion.div>
-
-        {/* --- Column 2: Sources & Convergence --- */}
-        <div className="relative z-10 flex flex-col lg:flex-row items-center gap-12 lg:gap-24 flex-1 justify-center">
-          
-          {/* Source Cards */}
-          <motion.div variants={itemVariants} className="relative flex flex-col gap-4 py-4">
-             {/* Right Bracket visual representation */}
-             <div className="absolute -right-6 top-0 bottom-0 w-4 border-r border-y border-slate-700/50 rounded-r-xl opacity-50 hidden lg:block" />
-             <div className="absolute -left-6 top-0 bottom-0 w-4 border-l border-y border-slate-700/50 rounded-l-xl opacity-50 block lg:hidden" />
-             
-             {/* Left border */}
-             <div className="absolute -left-6 top-0 bottom-0 w-4 border-l rounded-xl border-slate-600/60 hidden lg:block" />
-
-            {SOURCE_CARDS.map((source, index) => (
-              <div key={source.id} className="relative">
-                {/* Horizontal connecting line from left border to card */}
-                <div className="absolute right-full top-1/2 w-6 h-0 border-t-2 border-slate-600/60 hidden lg:block" style={{ transform: 'translateY(-50%)' }} />
-                
-                <motion.div
-                  whileHover={{ scale: 1.05 }}
-                  transition={{ duration: 0.2 }}
-                  className="w-40 px-4 py-3 rounded-2xl border border-slate-800/70 bg-slate-900/20 backdrop-blur-sm flex items-center gap-3 text-[#6C93FF] shadow-lg shadow-black/50 cursor-pointer hover:border-blue-500/30 hover:bg-slate-800/50 hover:shadow-[0_0_20px_rgba(96,165,250,0.15)]"
-                  style={{ transition: "all 0.2s ease" }}
+            {SPLINES.map((d, i) =>
+              i === 2 ? null : (
+                <circle
+                  key={`dot-${d}`}
+                  r="2.5"
+                  fill="#fff"
+                  className="drop-shadow-[0_0_8px_rgba(255,255,255,0.85)]"
                 >
-                  <source.icon size={20} strokeWidth={1}  className="text-[#6C93FF]" />
-                  <span className="text-sm font-medium">{source.label}</span>
-                </motion.div>
+                  <animateMotion dur="2.6s" repeatCount="indefinite" path={d} />
+                </circle>
+              ),
+            )}
+
+            {/* operational moments → mialo intelligence */}
+            <path d={SINE} stroke="url(#oicPath)" strokeWidth="1" />
+            <circle
+              r="2.5"
+              fill="#fff"
+              className="drop-shadow-[0_0_8px_rgba(255,255,255,0.85)]"
+            >
+              <animateMotion dur="3s" repeatCount="indefinite" path={SINE} />
+            </circle>
+
+            {/* mialo intelligence → impact */}
+            <path
+              d={`M ${BRAIN.x + 56} ${MID} L ${IMPACT.x - 62} ${MID}`}
+              stroke="url(#oicPath)"
+              strokeWidth="1"
+              strokeDasharray="4 4"
+              className="opacity-70"
+            />
+          </svg>
+
+          {/* --- Traditional Operations --- */}
+          <Label x={TRAD_X} y={6}>
+            Traditional
+            <br />
+            Operations
+          </Label>
+          <div
+            className="absolute rounded-xl border border-slate-700/40 opacity-60"
+            style={{
+              left: TRAD_X - 30,
+              top: TRAD_Y[0] - 34,
+              width: 60,
+              height: TRAD_Y[5] - TRAD_Y[0] + 68,
+            }}
+          />
+          {TRADITIONAL.map((IconCmp, i) => (
+            <Node
+              key={i}
+              x={TRAD_X}
+              y={TRAD_Y[i]}
+              className="flex h-11 w-11 items-center justify-center rounded-full border border-slate-800 bg-slate-900/50 text-slate-400 shadow-lg shadow-black/40 backdrop-blur-sm"
+            >
+              <IconCmp size={18} />
+            </Node>
+          ))}
+
+          {/* --- Source cards --- */}
+          {SOURCES.map((s, i) => (
+            <Node
+              key={s.label}
+              x={SRC_X}
+              y={SRC_Y[i]}
+              className="flex items-center gap-3 rounded-2xl border border-slate-800/70 bg-slate-900/30 px-4 py-3 text-ice shadow-lg shadow-black/40 backdrop-blur-sm hover:border-blue-500/40"
+            >
+              <div style={{ width: SRC_W - 32 }} className="flex items-center gap-3">
+                <s.icon size={20} strokeWidth={1.25} className="shrink-0" />
+                <span className="text-[13px] font-medium">{s.label}</span>
               </div>
-            ))}
-          </motion.div>
+            </Node>
+          ))}
 
-          {/* Operational Moments Node */}
-          <motion.div variants={itemVariants} className="flex flex-col items-center mt-18 ml-12">
-            <motion.div 
-              whileHover={{ scale: 1.05 }}
-              transition={{ duration: 0.2 }}
-              className="w-16 h-16 rounded-full bg-slate-900 flex items-center justify-center border border-blue-900/50 drop-shadow-[0_0_15px_rgba(96,165,250,0.5)] shadow-lg shadow-blue-500/20 z-10 cursor-pointer hover:border-blue-500/50 hover:shadow-[0_0_25px_rgba(96,165,250,0.4)]"
-              style={{ transition: "all 0.2s ease" }}
-            >
-              <Zap size={24} strokeWidth={2} className="text-primary fill-primary" />
-            </motion.div>
-            <span className="mt-2 text-primary text-center leading-tight">
-              Operational<br/>Moments
-            </span>
-          </motion.div>
-        </div>
+          {/* --- Operational Moments --- */}
+          <Node
+            x={MOMENTS.x}
+            y={MOMENTS.y}
+            className="flex h-14 w-14 items-center justify-center rounded-full border border-blue-900/60 bg-slate-900 shadow-lg shadow-blue-500/20 drop-shadow-[0_0_15px_rgba(96,165,250,0.45)]"
+          >
+            <Zap size={22} strokeWidth={2} className="fill-primary text-primary" />
+          </Node>
+          <Label x={MOMENTS.x} y={MOMENTS.y + 36}>
+            Operational
+            <br />
+            Moments
+          </Label>
 
-        {/* --- Column 3: Mialo Intelligence & Impact --- */}
-        <div className="relative z-10 flex flex-col lg:flex-row items-center gap-16 lg:gap-24">
-          
-          {/* Mialo Intelligence Node */}
-          <motion.div variants={itemVariants} className="flex flex-col items-center relative mt-12 ml-12">
-            <div className="relative w-24 h-24 flex items-center justify-center">
-              {/* Pulsing Concentric Rings */}
-              <motion.div 
-                className="absolute inset-0 rounded-full border border-blue-500/20 z-0"
-                animate={{ scale: [1, 1.8], opacity: [0.6, 0] }}
-                transition={{ duration: 2.5, repeat: Infinity, ease: "easeOut" }}
-              />
-              <motion.div 
-                className="absolute inset-0 rounded-full border border-blue-500/20 z-0"
-                animate={{ scale: [1, 1.5], opacity: [0.8, 0] }}
-                transition={{ duration: 2.5, repeat: Infinity, ease: "easeOut", delay: 1.25 }}
-              />
-              
-              <motion.div 
-                whileHover={{ scale: 1.05 }}
-                transition={{ duration: 0.2 }}
-                className="w-20 h-20 rounded-full bg-slate-900 text-5xl pb-1 flex items-center justify-center shadow-[0_0_40px_rgba(96,165,250,0.4)] border border-blue-500/50 relative z-10 cursor-pointer hover:border-blue-500/60 hover:shadow-[0_0_50px_rgba(96,165,250,0.5)]"
-                style={{ transition: "all 0.2s ease" }}
-              >
-                ✦
-              </motion.div>
+          {/* --- Mialo Intelligence --- */}
+          <div
+            className="absolute"
+            style={{
+              left: BRAIN.x,
+              top: BRAIN.y,
+              width: 104,
+              height: 104,
+              transform: "translate(-50%, -50%)",
+            }}
+          >
+            <span className="absolute inset-0 rounded-full border border-blue-500/25 motion-safe:animate-ping" />
+            <span
+              className="absolute inset-0 rounded-full border border-blue-500/20 motion-safe:animate-ping"
+              style={{ animationDelay: "1.25s" }}
+            />
+            <div className="absolute inset-2 flex items-center justify-center rounded-full border border-blue-500/50 bg-slate-900 text-[34px] leading-none text-[#93C5FD] shadow-[0_0_40px_rgba(96,165,250,0.4)] transition-transform duration-200 hover:scale-[1.05]">
+              <span className="-mt-1">✦</span>
             </div>
-            <span className="mt-2 text-primary text-center leading-tight">
-              Mialo<br/>Intelligence
-            </span>
-          </motion.div>
+          </div>
+          <Label x={BRAIN.x} y={BRAIN.y + 48}>
+            Mialo
+            <br />
+            Intelligence
+          </Label>
 
-          {/* Impact Pill */}
-          <motion.div variants={itemVariants} className="flex items-center -ml-12">
-            <motion.div 
-              whileHover={{ scale: 1.05 }}
-              transition={{ duration: 0.2 }}
-              className="px-6 py-2 bg rounded-full border border-blue-900/50 bg-slate-900/40 backdrop-blur-sm flex items-center gap-2 text-primary shadow-lg shadow-blue-500/10 cursor-pointer hover:border-blue-500/40 hover:bg-slate-800/50 hover:shadow-[0_0_20px_rgba(96,165,250,0.2)]"
-              style={{ transition: "all 0.2s ease" }}
-            >
-              <CheckCircle2 size={18} className="text-slate-300" />
-              <span className="text-sm font-semibold">Impact</span>
-            </motion.div>
-          </motion.div>
-          
+          {/* --- Impact --- */}
+          <Node
+            x={IMPACT.x}
+            y={IMPACT.y}
+            className="flex items-center gap-2 rounded-full border border-blue-900/60 bg-slate-900/50 px-5 py-2 text-primary shadow-lg shadow-blue-500/10 backdrop-blur-sm hover:border-blue-500/40"
+          >
+            <CheckCircle2 size={17} className="text-slate-300" />
+            <span className="text-[13px] font-semibold">Impact</span>
+          </Node>
         </div>
-      </motion.div>
-      <div className='text-[76px] min-w-[1200px] pt-[80px] font-medium leading-[1.02] tracking-[-0.02rem]' style={{ fontFamily: 'Boska, serif' }}>
-        <h2 className='text-muted'>
-            Recording is not <h2>understanding.</h2>
-        </h2>
-        <h2 className='text-primary'>
-            Understanding <h2> enables action.</h2>
-        </h2>
       </div>
-      <p className='max-w-[560px] pt-[24px] text-sm text-muted'>
-        Mialo transforms operational signals into real-time awareness, intelligent decisions and autonomous actions.
-      </p>
     </div>
   );
 }

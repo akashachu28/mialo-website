@@ -1,143 +1,136 @@
 'use client'
 import Image from 'next/image';
 import Link from 'next/link';
-import { ChevronDown } from 'lucide-react';
-import { useState, useEffect, useRef } from 'react';
+import { Menu, X } from 'lucide-react';
+import { useState, useEffect } from 'react';
 import { usePathname } from 'next/navigation';
-import brainlogo from '../public/images/brainLogo.png'
+import brainlogo from '../public/images/brainLogo.png';
+
+const NAV: { name: string; href: string }[] = [
+  { name: 'Platform', href: '/platform' },
+  { name: 'Intelligence Domain', href: '/intelligence-domain' },
+  { name: 'Industries', href: '/industries' },
+  { name: 'Solutions', href: '/solution' },
+  { name: 'Company', href: '/company' },
+];
 
 export default function Header() {
-  const [industriesOpen, setIndustriesOpen] = useState(false);
-  const dropdownRef = useRef<HTMLDivElement>(null);
   const pathname = usePathname();
+  const [scrolled, setScrolled] = useState(false);
+  const [mobileOpen, setMobileOpen] = useState(false);
 
-  const industries = [
-    { name: 'Retail', href: '/industries/retail' },
-    { name: 'BFSI', href: '/industries/bfsi' },
-    { name: 'Logistics', href: '/industries/logistics' },
-    { name: 'Security', href: '/industries/security' },
-    { name: 'Healthcare', href: '/industries/healthcare' },
-    { name: 'Hospitality', href: '/industries/hospitality' },
-    { name: 'Agriculture', href: '/industries/agriculture' },
-    { name: 'Manufacturing', href: '/industries/manufacturing' },
-  ];
+  const isActive = (href: string) =>
+    pathname === href || pathname.startsWith(href + '/');
 
-  // Close dropdown when clicking outside
+  // Close the mobile menu when the route changes (React's "reset state on prop
+  // change" pattern — runs during render, no effect needed).
+  const [lastPath, setLastPath] = useState(pathname);
+  if (pathname !== lastPath) {
+    setLastPath(pathname);
+    setMobileOpen(false);
+  }
+
+  // Solid bar once the page is scrolled
   useEffect(() => {
-    function handleClickOutside(event: MouseEvent) {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
-        setIndustriesOpen(false);
-      }
-    }
+    const onScroll = () => setScrolled(window.scrollY > 8);
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
 
-    if (industriesOpen) {
-      document.addEventListener('mousedown', handleClickOutside);
-    }
-
+  // Lock body scroll while the mobile menu is open
+  useEffect(() => {
+    document.body.style.overflow = mobileOpen ? 'hidden' : '';
     return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
+      document.body.style.overflow = '';
     };
-  }, [industriesOpen]);
+  }, [mobileOpen]);
+
+  const solid = scrolled || mobileOpen;
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 pt-6 w-full">
-      <div 
-        ref={dropdownRef}
-        className="max-w-7xl mx-auto border border-gray-400/30 backdrop-blur-sm rounded-xl overflow-hidden transition-all duration-300"
-        style={{ height: industriesOpen ? 'auto' : '60px' }}
-      >
-        {/* Top Navigation Bar */}
-        <div className="flex h-15 items-center justify-between px-8">
-          <div className="flex items-center">
-            <Link href="/" className="flex items-center space-x-1">
-              <Image src={brainlogo} alt="Logo" className='h-7 w-full opacity-80'/>
-              <span className="text-2xl font-normal tracking-tight" style={{ fontFamily: 'Boska, serif' }}>
-                Mialo.ai
-              </span>
-            </Link>
-          </div>
-          
-          <nav className="flex items-center gap-10">
-            {/* Platform with active indicator */}
-            <Link 
-              href="/platform" 
-              className={`text-sm tracking-wide transition-colors hover:text-primary/70 text-primary/90 flex items-center gap-1 pb-1 ${
-                pathname === '/platform' ? 'border-b-2 border-blue-400' : ''
-              }`}
-            >
-              Platform
-            </Link>
-            
-            <Link 
-              href="/intelligence-domain" 
-              className={`text-sm tracking-wide transition-colors hover:text-primary/70 text-primary/90 flex items-center gap-1 pb-1 ${
-                pathname === '/intelligence-domain' ? 'border-b-2 border-blue-400' : ''
-              }`}
-            >
-              Intelligence Domain
-            </Link>
+    <>
+    <header
+      className={`fixed inset-x-0 top-0 z-50 border-b transition-colors duration-300 ${
+        solid
+          ? 'border-line bg-background/80 backdrop-blur-md'
+          : 'border-transparent bg-transparent'
+      }`}
+    >
+      <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-6 sm:px-8">
+        {/* Logo */}
+        <Link href="/" className="flex items-center gap-1.5">
+          <Image src={brainlogo} alt="" className="h-7 w-auto opacity-80" />
+          <span className="font-display text-xl font-medium tracking-[-0.02em] text-primary">
+            Mialo.ai
+          </span>
+        </Link>
 
+        {/* Desktop nav */}
+        <nav className="hidden items-center gap-9 lg:flex">
+          {NAV.map((item) => (
             <Link
-              href="/industries"
-              onMouseEnter={() => setIndustriesOpen(true)}
-              className={`text-sm tracking-wide transition-colors hover:text-primary/70 text-primary/90 flex items-center gap-1 ${
-                pathname === '/industries' || pathname.startsWith('/industries/') ? 'border-b-2 border-blue-400' : ''
+              key={item.name}
+              href={item.href}
+              className={`border-b-2 pb-1 text-sm transition-colors ${
+                isActive(item.href)
+                  ? 'border-ice text-primary'
+                  : 'border-transparent text-muted hover:text-primary'
               }`}
             >
-              Industries
+              {item.name}
             </Link>
+          ))}
+        </nav>
 
-            {/* Solutions with active indicator */}
-            <Link 
-              href="/solution" 
-              className={`text-sm tracking-wide transition-colors hover:text-primary/70 text-primary/90 flex items-center gap-1 pb-1 ${
-                pathname === '/solution' ? 'border-b-2 border-blue-400' : ''
-              }`}
-            >
-              Solutions
-            </Link>
+        {/* Right side */}
+        <div className="flex items-center gap-2">
+          <Link
+            href="/demo"
+            className="hidden rounded-lg bg-primary px-5 py-[11px] text-[14px] font-medium text-[#08090B] transition-colors hover:bg-white lg:block"
+          >
+            Request a demo
+          </Link>
 
-            {/* Company with active indicator */}
-            <Link 
-              href="/company" 
-              className={`text-sm tracking-wide transition-colors hover:text-primary/70 text-primary/90 pb-1 ${
-                pathname === '/company' ? 'border-b-2 border-blue-400' : ''
-              }`}
-            >
-              Company
-            </Link>
-          </nav>
-
-          <div>
-            <Link 
-              href="/demo"
-              className="px-6 py-2.5 bg-primary/80 text-black text-sm font-medium rounded-xl hover:bg-primary/90 transition-colors"
-            >
-              Request a demo
-            </Link>
-          </div>
+          <button
+            type="button"
+            onClick={() => setMobileOpen((v) => !v)}
+            aria-label={mobileOpen ? 'Close menu' : 'Open menu'}
+            aria-expanded={mobileOpen}
+            className="-mr-2 flex h-10 w-10 items-center justify-center rounded-lg text-primary transition-colors hover:bg-white/5 lg:hidden"
+          >
+            {mobileOpen ? <X size={20} /> : <Menu size={20} />}
+          </button>
         </div>
-
-        {/* Expanded Dropdown Content */}
-        {/* {industriesOpen && (
-          <div className="border-t border-white/10">
-            <div className="grid grid-cols-4 gap-2 px-8 py-6">
-              {industries.map((industry) => (
-                <button
-                  key={industry.name}
-                  onClick={(e) => {
-                    e.preventDefault();
-                    console.log(`Clicked: ${industry.name}`);
-                  }}
-                  className="text-left px-4 py-3 text-sm text-white/80 hover:text-white hover:bg-white/5 transition-colors rounded-lg"
-                >
-                  {industry.name}
-                </button>
-              ))}
-            </div>
-          </div>
-        )} */}
       </div>
     </header>
+
+      {/* Mobile menu — sibling of <header> so its backdrop-blur doesn't
+          become the containing block for this fixed panel */}
+      {mobileOpen && (
+        <div className="fixed inset-x-0 top-16 bottom-0 z-40 overflow-y-auto bg-background px-6 py-4 lg:hidden">
+          <nav className="flex flex-col divide-y divide-line">
+            {NAV.map((item) => (
+              <Link
+                key={item.name}
+                href={item.href}
+                className={`py-4 text-[15px] ${
+                  isActive(item.href) ? 'text-primary' : 'text-muted'
+                }`}
+              >
+                {item.name}
+              </Link>
+            ))}
+          </nav>
+
+          <Link
+            href="/demo"
+            className="mt-6 block rounded-lg bg-primary px-5 py-3 text-center text-sm font-medium text-[#08090B]"
+          >
+            Request a demo
+          </Link>
+        </div>
+      )}
+    </>
   );
 }

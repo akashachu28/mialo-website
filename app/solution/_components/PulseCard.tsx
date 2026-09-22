@@ -1,4 +1,6 @@
+"use client";
 import { useEffect, useState } from "react";
+import type { ComponentType } from "react";
 import { Database, Brain, TrendingUp, Target } from "lucide-react";
 
 const INTELLIGENCE_STEPS = [
@@ -149,7 +151,7 @@ function EnergyPulse({ visible }: { visible: boolean }) {
 }
 
 // Pill node component
-function StepNode({ icon: Icon, label, active, xPct }: { icon: any; label: string; active: boolean; xPct: string }) {
+function StepNode({ icon: Icon, label, active, xPct }: { icon: ComponentType<{ size?: number }>; label: string; active: boolean; xPct: string }) {
   return (
     <div
       style={{

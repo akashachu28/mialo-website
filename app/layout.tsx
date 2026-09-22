@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono, Urbanist } from "next/font/google";
+import { Geist, Geist_Mono, Urbanist, Inter } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/Header";
 
@@ -19,6 +19,11 @@ const urbanist = Urbanist({
   weight: ["300", "400", "500", "600", "700"],
 });
 
+const inter = Inter({
+  variable: "--font-inter",
+  subsets: ["latin"],
+});
+
 export const metadata: Metadata = {
   title: "Mialo - The Intelligence Layer for Enterprise Operations",
   description: "Every enterprise generates thousands of operational moments every day. Mialo continuously transforms those moments into intelligent actions and measurable business outcomes.",
@@ -32,7 +37,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} ${urbanist.variable} h-full antialiased`}
+      className={`${geistSans.variable} ${geistMono.variable} ${urbanist.variable} ${inter.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col bg-black">
         <Header />
