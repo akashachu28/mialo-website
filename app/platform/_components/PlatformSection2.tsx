@@ -1,220 +1,164 @@
-'use client'
-import { motion } from "framer-motion";
-import { Video, Mic, FileText, Radio, Database, Settings, Sparkles, Target, CheckCircle, Workflow, Users, ArrowRight, Eye, AstroidIcon, BrainCircuit, Astroid } from "lucide-react";
+import { Section, SectionHeader, Kicker, ArrowLink, Icon, type IconName } from "@/components/ui";
 
-const OPERATIONAL_SIGNALS = [
-  { icon: Video, label: "Cameras" },
-  { icon: Mic, label: "Voice" },
-  { icon: FileText, label: "Documents" },
-  { icon: Radio, label: "Sensors" },
-  { icon: Database, label: "Systems" },
-  { icon: Settings, label: "Edge" },
+const SIGNALS: { icon: IconName; label: string }[] = [
+  { icon: "video", label: "Cameras" },
+  { icon: "mic", label: "Voice" },
+  { icon: "doc", label: "Documents" },
+  { icon: "radio", label: "Sensors" },
+  { icon: "server", label: "Systems" },
+  { icon: "cpu", label: "Edge" },
 ];
 
-const BUSINESS_ACTIONS = [
-  { icon: Sparkles, label: "Insights" },
-  { icon: Target, label: "Decisions" },
-  { icon: CheckCircle, label: "Automation" },
-  { icon: Users, label: "Workflows" },
+const ACTIONS: { icon: IconName; label: string }[] = [
+  { icon: "sparkle", label: "Insights" },
+  { icon: "target", label: "Decisions" },
+  { icon: "check-circle", label: "Automation" },
+  { icon: "workflow", label: "Workflows" },
 ];
 
-const AI_MODELS = [
-  { icon: Eye, label: "Vision AI" },
-  { icon: AstroidIcon, label: "Voice AI" },
-  { icon: FileText, label: "Document AI" },
-  { icon: Database, label: "Enterprise Knowledge" },
-  { icon: BrainCircuit, label: "Reasoning" },
-  { icon: Astroid, label: "Operational Intelligence" },
+const MODELS: { icon: IconName; label: string }[] = [
+  { icon: "eye", label: "Vision AI" },
+  { icon: "mic", label: "Voice AI" },
+  { icon: "doc", label: "Document AI" },
+  { icon: "database", label: "Enterprise Knowledge" },
+  { icon: "brain", label: "Reasoning" },
+  { icon: "activity", label: "Operational Intelligence" },
 ];
+
+function Chip({ icon, label }: { icon: IconName; label: string }) {
+  return (
+    <div className="flex items-center gap-2.5 rounded-[9px] border border-line-2 bg-raise px-3 py-2.5 text-[12.5px] text-ink">
+      <Icon name={icon} size={16} className="shrink-0 text-ice" />
+      {label}
+    </div>
+  );
+}
+
+function Rail() {
+  return (
+    <div
+      className="relative hidden h-px min-w-[80px] flex-1 lg:block"
+      style={{
+        background:
+          "linear-gradient(90deg, transparent, var(--color-line-3) 20%, var(--color-line-3) 80%, transparent)",
+      }}
+    >
+      <span
+        className="absolute top-1/2 h-1.5 w-1.5 -translate-y-1/2 rounded-full bg-green shadow-[0_0_10px_#00E599] motion-safe:animate-rail"
+        style={{ left: "8%" }}
+      />
+    </div>
+  );
+}
+
+function VRail() {
+  return (
+    <div className="h-6 w-px bg-linear-to-b from-line-3 to-transparent lg:hidden" />
+  );
+}
 
 export default function PlatformSection2() {
   return (
-    <div className="bg-background px-6 py-20 flex flex-col items-center gap-[80px]">
-      {/* First Section - The Intelligence Layer */}
-      <div className="w-full max-w-7xl ">
-        <div className="grid grid-cols-1 lg:flex gap-16 items-center">
-          {/* Left - Text Content */}
-          <div className="flex flex-col max-w-[500px] gap-6">
-            <p className="font-semibold text-xs text-[#6C93FF] tracking-wider">
-              THE INTELLIGENCE LAYER
-            </p>
-            <h2 
-              className="text-[36px] text-primary font-medium leading-[1.08] tracking-[-0.02rem]"
-              style={{ fontFamily: 'Boska, serif' }}
-            >
-              The missing layer between enterprise operations and intelligent action.
-            </h2>
-            <p className="text-sm leading-[1.55] text-muted">
-              Mialo continuously observes operational signals, understands them using specialized AI models and enterprise knowledge, and delivers insights and automated workflows that drive real outcomes.
-            </p>
-          </div>
+    <>
+      {/* -------- The Intelligence Layer -------- */}
+      <Section>
+        <div className="flex flex-col gap-14">
+          <SectionHeader
+            eyebrow="The Intelligence Layer"
+            title="The missing layer between enterprise operations and intelligent action."
+            lead="Mialo continuously observes operational signals, understands them using specialized AI models and enterprise knowledge, and delivers insights and automated workflows that drive real outcomes."
+          />
 
-          {/* Right - Flow Diagram */}
-          <div className="relative">
-            <div className="relative z-10 flex items-center justify-between gap-4">
-              {/* Operational Signals */}
-              <div className="flex flex-col items-center gap-4">
-                <p className="text-xs text-slate-400 mb-2 font-medium">Operational Signals</p>
-                <div className="grid grid-cols-3 gap-4 p-6 rounded-2xl bg-slate-900/30 backdrop-blur-md border border-slate-700/30">
-                  {OPERATIONAL_SIGNALS.map((signal, idx) => (
-                    <motion.div
-                      key={idx}
-                      whileHover={{ scale: 1.1, y: -3 }}
-                      className="flex flex-col items-center gap-2"
-                    >
-                      <div className="w-12 h-12 rounded-xl bg-slate-800/50 border border-slate-700/50 backdrop-blur-sm flex items-center justify-center text-slate-400 hover:border-blue-500/30 hover:text-blue-400 transition-all">
-                        <signal.icon size={20} strokeWidth={1.5} />
-                      </div>
-                      <span className="text-[10px] text-slate-500 text-center font-medium">{signal.label}</span>
-                    </motion.div>
-                  ))}
-                </div>
+          <div className="flex flex-col items-center gap-6 lg:grid lg:grid-cols-[1fr_auto_1fr_auto_1fr] lg:items-center lg:gap-0">
+            {/* signals */}
+            <div className="w-full max-w-sm lg:max-w-none">
+              <Kicker className="mb-3.5 block">Operational Signals</Kicker>
+              <div className="grid grid-cols-2 gap-2.5 rounded-2xl border border-line-2 bg-panel p-[18px]">
+                {SIGNALS.map((s) => (
+                  <Chip key={s.label} {...s} />
+                ))}
               </div>
+            </div>
 
-              {/* Connecting Line and Pulse (Left) */}
-              {/* Connecting Line with Arrow (Left) */}
-              <div className="flex-1 max-w-[120px] flex items-center">
-                <svg className="flex-1" height="1.5" viewBox="0 0 20 2" preserveAspectRatio="none">
-                  <line 
-                    x1="0" 
-                    y1="1" 
-                    x2="100" 
-                    y2="1" 
-                    stroke="#60A5FA" 
-                    strokeWidth="2"
-                    strokeDasharray="4 4"
-                  />
-                </svg>
-                <ArrowRight size={20} className="text-blue-400 flex-shrink-0" strokeWidth={1.5} />
+            <Rail />
+            <VRail />
+
+            {/* core */}
+            <div className="relative flex justify-center">
+              <div
+                className="pointer-events-none absolute h-[190px] w-[190px] rounded-full"
+                style={{
+                  background:
+                    "radial-gradient(circle, rgba(108,147,255,0.14), transparent 70%)",
+                }}
+              />
+              <div
+                className="relative flex h-[132px] w-[132px] items-center justify-center rounded-full border border-ice/30"
+                style={{
+                  background:
+                    "radial-gradient(circle at 50% 40%, rgba(108,147,255,0.14), transparent 70%)",
+                }}
+              >
+                <span className="font-display text-[20px] font-medium tracking-[-0.02em] text-[#97B4FF]">
+                  mialo
+                </span>
               </div>
+            </div>
 
-              {/* Mialo Intelligence Layer - Central */}
-              <div className="relative flex flex-col items-center">
-                <p className="text-xs text-slate-400 mb-4 font-medium">Mialo Intelligence Layer</p>
-                <motion.div
-                  animate={{
-                    boxShadow: [
-                      "0 0 40px rgba(96,165,250,0.3)",
-                      "0 0 60px rgba(96,165,250,0.5)",
-                      "0 0 40px rgba(96,165,250,0.3)",
-                    ],
-                  }}
-                  transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
-                  className="w-36 h-36 rounded-full bg-gradient-to-br from-blue-600/40 via-blue-500/30 to-blue-600/40 border border-blue-400/30 backdrop-blur-md flex items-center justify-center relative"
-                >
-                  <div className="absolute inset-3 rounded-full bg-slate-900/60 flex items-center justify-center">
-                    <span className="text-2xl font-bold text-blue-400">mialo</span>
-                  </div>
-                </motion.div>
-              </div>
+            <Rail />
+            <VRail />
 
-              {/* Connecting Line with Arrow (Right) */}
-              <div className="flex-1 max-w-[120px] flex items-center gap-">
-                <svg className="flex-1" height="1.5" viewBox="0 0 20 2" preserveAspectRatio="none">
-                  <line 
-                    x1="0" 
-                    y1="1" 
-                    x2="100" 
-                    y2="1" 
-                    stroke="#60A5FA" 
-                    strokeWidth="2"
-                    strokeDasharray="4 4"
-                  />
-                </svg>
-                <ArrowRight size={20} className="text-blue-400 flex-shrink-0" strokeWidth={1.5} />
-              </div>
-
-              {/* Business Action */}
-              <div className="flex flex-col items-center gap-4">
-                <p className="text-xs text-slate-400 mb-2 font-medium">Business Action</p>
-                <div className="flex flex-col gap-3 p-6 rounded-2xl bg-slate-900/30 backdrop-blur-md border border-slate-700/30">
-                  {BUSINESS_ACTIONS.map((action, idx) => (
-                    <motion.div
-                      key={idx}
-                      whileHover={{ scale: 1.05, x: 5 }}
-                      className="flex items-center gap-3 px-4 py-2.5 rounded-lg bg-slate-800/50 border border-slate-700/50 backdrop-blur-sm text-slate-400 hover:border-blue-500/30 hover:text-blue-400 transition-all min-w-[140px]"
-                    >
-                      <action.icon size={18} strokeWidth={1.5} />
-                      <span className="text-sm font-medium">{action.label}</span>
-                    </motion.div>
-                  ))}
-                </div>
+            {/* actions */}
+            <div className="w-full max-w-sm lg:max-w-none">
+              <Kicker className="mb-3.5 block">Business Action</Kicker>
+              <div className="flex flex-col gap-2.5">
+                {ACTIONS.map((a) => (
+                  <Chip key={a.label} {...a} />
+                ))}
               </div>
             </div>
           </div>
         </div>
-      </div>
+      </Section>
 
-      {/* Second Section - How Mialo Thinks */}
-      <div className="w-full max-w-7xl ">
-        <div className="grid grid-cols-1 lg:flex items-center justify-center gap-16">
-          {/* Left - Text Content */}
-          <div className="flex flex-col gap-6 max-w-[500px] ">
-            <p className="font-semibold text-xs text-[#6C93FF] tracking-wider">
-              HOW MIALO THINKS
-            </p>
-            <h2 
-              className="text-[36px] text-primary font-medium leading-[1.08] tracking-[-0.02rem]"
-              style={{ fontFamily: 'Boska, serif' }}
-            >
-              Operational intelligence built on specialized AI—not just large language models.
-            </h2>
-            <p className="text-sm leading-[1.55] text-muted">
-              Different operational problems require different forms of intelligence. Mialo orchestrates specialized vision, voice, document and reasoning models together, using LLMs only where they add value.
-            </p>
-            <button className="flex text-sm items-center gap-2 text-[#6C93FF] hover:text-blue-400 transition-colors w-fit">
-              Learn more about our approach <ArrowRight size={16} />
-            </button>
-          </div>
+      {/* -------- How Mialo Thinks -------- */}
+      <Section>
+        <div className="flex flex-col gap-12">
+          <SectionHeader
+            eyebrow="How Mialo Thinks"
+            title="Operational intelligence built on specialized AI — not just large language models."
+            lead="Different operational problems require different forms of intelligence. Mialo orchestrates specialized vision, voice, document and reasoning models together, using LLMs only where they add value."
+          >
+            <ArrowLink>Learn more about our approach</ArrowLink>
+          </SectionHeader>
 
-          {/* Right - AI Models in Single Row with Connecting Line */}
-          <div className="relative">
-            {/* Animated connecting line using CSS */}
-            <div 
-              className="absolute top-7 left-[8%] right-[8%] h-px z-0"
+          <div className="relative grid grid-cols-2 gap-x-3 gap-y-8 sm:grid-cols-3 lg:grid-cols-6">
+            <div
+              className="absolute left-[8%] right-[8%] top-[46px] hidden h-px lg:block"
               style={{
-                background: 'linear-gradient(to right, rgba(59, 130, 246, 0.3), rgba(96, 165, 250, 0.8), rgba(59, 130, 246, 0.3))',
-                backgroundSize: '10px 0.5px',
-                backgroundImage: 'repeating-linear-gradient(to right, transparent, transparent 2px, rgba(96, 165, 250, 0.4) 10px, rgba(96, 165, 250, 0.8) 12px)',
+                background:
+                  "repeating-linear-gradient(90deg, var(--color-line-3) 0 6px, transparent 6px 14px)",
               }}
             />
-
-            {/* Animated pulse - using CSS animation for perfect circle */}
-            <motion.div 
-              className="absolute top-6 w-2 h-2 rounded-full bg-blue-400 z-0 shadow-[0_20px_10px_rgba(96,165,250,0.8)]"
-              animate={{
-                left: ['8%', '92%'],
-                // opacity: [0.4, 1, 0.4],
-              }}
-              transition={{
-                left: { duration: 8, repeat: Infinity, ease: 'linear' },
-                opacity: { duration: 1, repeat: Infinity, ease: 'easeInOut' },
-              }}
-            />
-
-            <div className="grid  grid-cols-6 gap-2 relative z-10">
-              {AI_MODELS.map((model, idx) => (
-                <motion.div
-                  key={idx}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ delay: idx * 0.1 }}
-                  viewport={{ once: true }}
-                  whileHover={{ scale: 1.05, y: -5 }}
-                  className="flex flex-col items-center gap-2 transition-all cursor-pointer"
-                >
-                  <div className="w-14 h-14 rounded-xl bg-blue-500/10 border backdrop-blur-2xl border-blue-500/20 flex items-center justify-center text-blue-400">
-                    <model.icon size={24} strokeWidth={1.5} />
-                  </div>
-                  <p className="text-xs text-center text-slate-300 font-medium leading-tight">
-                    {model.label}
-                  </p>
-                </motion.div>
-              ))}
-            </div>
+            {MODELS.map((m, i) => (
+              <div
+                key={m.label}
+                className="relative flex flex-col items-center gap-3 text-center"
+              >
+                <span className="font-mono text-[10px] tracking-[0.1em] text-faint">
+                  {String(i + 1).padStart(2, "0")}
+                </span>
+                <span className="flex h-11 w-11 items-center justify-center rounded-[11px] border border-ice/30 bg-ice/10 text-ice">
+                  <Icon name={m.icon} size={20} />
+                </span>
+                <span className="text-[12px] leading-[1.35] text-ink">
+                  {m.label}
+                </span>
+              </div>
+            ))}
           </div>
         </div>
-      </div>
-    </div>
+      </Section>
+    </>
   );
 }

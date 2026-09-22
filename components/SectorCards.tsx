@@ -1,5 +1,6 @@
 'use client'
 import { Building2, Factory, Zap, Heart, Truck, Shield, ArrowRight } from "lucide-react";
+import { Reveal, RevealItem } from "./animations";
 
 const SECTORS = [
   {
@@ -37,10 +38,11 @@ const SECTORS = [
 export default function SectorCards() {
   return (
     <div className="w-full max-w-7xl mx-auto px-6">
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-[18px]">
+      <Reveal stagger className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-[18px]">
         {SECTORS.map((sector, index) => (
-          <div
+          <RevealItem
             key={index}
+            lift
             className="relative group h-full"
           >
             {/* Outer glow effect */}
@@ -94,9 +96,9 @@ export default function SectorCards() {
               <div className="absolute top-0 left-0 w-12 h-12 border-l-2 border-t-2 border-blue-400/40 group-hover:border-blue-400/70 transition-all duration-300" 
                    style={{ clipPath: 'polygon(0 45px, 45px 0, 45px 2px, 2px 45px, 0 45px)' }} />
             </div>
-          </div>
+          </RevealItem>
         ))}
-      </div>
+      </Reveal>
     </div>
   );
 }

@@ -1,0 +1,18 @@
+{
+  "artboards": [
+    { "file": "Main.dc.html", "x": 0, "y": 0, "w": 1440, "h": 6300, "title": "Platform — Desktop", "print": "flow" },
+    { "file": "Mobile.dc.html", "x": 1640, "y": 0, "w": 390, "h": 4100, "title": "Platform — Mobile", "print": "flow" }
+  ],
+  "annotations": [
+    {
+      "id": "brief",
+      "x": -440,
+      "y": 0,
+      "w": 360,
+      "text": "Platform page redesign — dark theme\n\nReferences: openai.com + neon.com\nType: Geist (display) · Inter (body) · Geist Mono (labels) — the Neon stack, with Geist standing in for Neon's licensed ES Build Neutral.\nAccent: Mialo blue #6C93FF primary, Neon green #00E599 used sparingly (live dots, eyebrow ticks, pulses).\n\nSame content as the current page, fully re-structured: left-aligned section headers, hairline dividers, near-black bento cards, monospace eyebrows, generous vertical rhythm.\n\nSee design.md for the full system to reuse on other pages.",
+      "kind": "note",
+      "color": "blue"
+    }
+  ],
+  "launch": { "view": "canvas" }
+}

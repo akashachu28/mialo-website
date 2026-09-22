@@ -1,16 +1,21 @@
-import { div } from "motion/react-client";
 import HeroIndustry from "./_components/HeroIndustry";
 import IndustrySection2 from "./_components/IndustrySction2";
 import IndustrySection3 from "./_components/IndustrySection3";
 import IndustrySection4 from "./_components/IndustrySection4";
 
+export const metadata = {
+  title: "Industries — Mialo",
+  description:
+    "Mialo's unified intelligence layer adapts to your world — real-time awareness, smarter decisions and measurable impact across retail, manufacturing, healthcare, government, logistics and energy.",
+};
+
 export default function Industries() {
-    return (
-        <div>
-            <HeroIndustry/>
-            <IndustrySection2/>
-            <IndustrySection3/>
-            <IndustrySection4/>
-        </div>
-    )
+  return (
+    <div className="bg-background font-body text-primary antialiased">
+      <HeroIndustry />
+      <IndustrySection2 />
+      <IndustrySection3 />
+      <IndustrySection4 />
+    </div>
+  );
 }

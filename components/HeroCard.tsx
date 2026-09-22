@@ -1,6 +1,6 @@
 'use client'
-import { useEffect, useState } from "react";
-import { motion, AnimatePresence } from "motion/react";
+import { useCallback, useEffect, useState } from "react";
+import { motion, AnimatePresence, useReducedMotion } from "motion/react";
 import { Eye, Brain, Zap, Factory, ShoppingBag, HeartPulse, Landmark } from "lucide-react";
 
 // ── Industry selector ────────────────────────────────────────
@@ -12,41 +12,47 @@ const INDUSTRIES = [
   { id: "government", label: "Government", icon: <Landmark size={13} /> },
 ];
 
-// ── Event data — drives dots, the action-triggered text, and the
-//    business-outcome card that appears once each event lands on its
-//    corresponding stage in the intelligence layer ──
-// Each event maps 1:1 to a stage: event 0 → Observe, event 1 → Understand,
-// event 2 → Act. The x-position of each event's column already lines up
-// with the pill below it, so the pulse only needs to travel straight down.
+// ── Event data — per industry. Each row maps 1:1 to a stage of the
+//    constant "Observe → Understand → Act" intelligence layer:
+//    event 0 → Observe, event 1 → Understand, event 2 → Act.
+//    `color` follows the arrow: ↑ green, ↓ red. ──
+
+type EventItem = {
+  id: string;
+  lines: [string, string];
+  action: string;
+  outcomeLabel: string;
+  value: string;
+  color: string;
+};
+
+const GREEN = "#4ADE80";
+const RED = "#EF4444";
+
+const SCENARIOS: Record<string, EventItem[]> = {
+  retail: [
+    { id: "r-customer", lines: ["Customer", "enters"], action: "Associate sent to greet", outcomeLabel: "Conversion", value: "↑12%", color: GREEN },
+    { id: "r-queue", lines: ["Queue", "forming"], action: "Extra counter opened", outcomeLabel: "Queue Time", value: "↓17%", color: RED },
+    { id: "r-shelf", lines: ["Shelf", "running low"], action: "Restock request sent", outcomeLabel: "Stockouts", value: "↓23%", color: RED },
+  ],
+  manufacturing: [
+    { id: "m-vibration", lines: ["Machine", "vibration"], action: "Maintenance dispatched", outcomeLabel: "Downtime", value: "↓31%", color: RED },
+    { id: "m-defect", lines: ["Defect", "detected"], action: "Batch quarantined", outcomeLabel: "Scrap Rate", value: "↓19%", color: RED },
+    { id: "m-imbalance", lines: ["Line", "imbalance"], action: "Workload rebalanced", outcomeLabel: "Throughput", value: "↑14%", color: GREEN },
+  ],
+  healthcare: [
+    { id: "h-wait", lines: ["Patient", "waiting"], action: "Nurse reassigned", outcomeLabel: "Wait Time", value: "↓22%", color: RED },
+    { id: "h-beds", lines: ["Beds", "near full"], action: "Discharge fast-tracked", outcomeLabel: "Bed Turnover", value: "↑16%", color: GREEN },
+    { id: "h-supply", lines: ["Supply", "shortage"], action: "Stock auto-reordered", outcomeLabel: "Stockouts", value: "↓27%", color: RED },
+  ],
+  government: [
+    { id: "g-case", lines: ["Case", "filed"], action: "Request auto-routed", outcomeLabel: "Response Time", value: "↓34%", color: RED },
+    { id: "g-backlog", lines: ["Backlog", "rising"], action: "Staff reallocated", outcomeLabel: "Backlog", value: "↓21%", color: RED },
+    { id: "g-anomaly", lines: ["Anomaly", "flagged"], action: "Held for audit", outcomeLabel: "Recovery", value: "↑9%", color: GREEN },
+  ],
+};
 
 const PILL_X = ["16.5%", "50%", "83.5%"];
-
-const EVENTS = [
-  {
-    id: "customer",
-    lines: ["Customer", "enters"],
-    action: "Triggered action for customer enters",
-    outcomeLabel: "Conversion",
-    value: "↑12%",
-    color: "#4ADE80", // green
-  },
-  {
-    id: "queue",
-    lines: ["Queue", "forming"],
-    action: "Additional counter opened",
-    outcomeLabel: "Queue Time",
-    value: "↓17%",
-    color: "#EF4444", // red
-  },
-  {
-    id: "shelf",
-    lines: ["Shelf", "running low"],
-    action: "Shelves replenished",
-    outcomeLabel: "Stockouts",
-    value: "↓23%",
-    color: "#EF4444", // red
-  },
-];
 
 // ── Glow dot ─────────────────────────────────────────────────
 
@@ -178,54 +184,43 @@ function IntelligenceWaves() {
 }
 
 // ── Energy pulse — three layers travelling together, riding the waves ──
-// Travels horizontally through the intelligence layer from left to right
-// Pure SVG approach using <animateMotion> for perfect alignment
+// Travels horizontally through the intelligence layer, left → right.
+// Pure SVG (<animateMotion>) so it restarts cleanly on remount (keyed).
 
-function EnergyPulse({ xPct, visible }: { xPct: string; visible: boolean }) {
-  if (!visible) return null;
-
-  // Wave path - same for trail and motion
+function EnergyPulse() {
   const wavePath = "M52.5,32 C77.5,25 127.5,25 152.5,32 C177.5,39 227.5,39 252.5,32 C277.5,25 327.5,25 352.5,32 C374.5,38 407.5,35 432.5,33 C442.5,32 450.5,32 447.5,32";
-  
-  // Calculate pathLength based on xPct
-  const pathLength = xPct === "89.5%" ? 1 : 0;
 
   return (
     <svg
       viewBox="0 0 500 50"
       preserveAspectRatio="none"
-      style={{ 
-        position: "absolute", 
-        inset: 0, 
-        width: "100%", 
-        height: "100%", 
-        overflow: "visible", 
+      style={{
+        position: "absolute",
+        inset: 0,
+        width: "100%",
+        height: "100%",
+        overflow: "visible",
         pointerEvents: "none",
-        zIndex: 7
+        zIndex: 7,
       }}
     >
       <defs>
-        {/* Trail gradient */}
         <linearGradient id="trailGradient" x1="0%" y1="0%" x2="100%" y2="0%">
           <stop offset="0%" stopColor="rgba(96,165,250,0.9)" />
           <stop offset="100%" stopColor="rgba(147,197,253,0.7)" />
         </linearGradient>
-        
-        {/* Glow gradient for layers */}
+
         <radialGradient id="glowGradient">
           <stop offset="0%" stopColor="rgba(147,197,253,0.55)" />
           <stop offset="45%" stopColor="rgba(96,165,250,0.22)" />
           <stop offset="72%" stopColor="transparent" />
         </radialGradient>
-        
-        {/* Particle dot core gradient */}
+
         <radialGradient id="particleGradient" cx="50%" cy="50%">
           <stop offset="10%" stopColor="#FFFFFF" />
           <stop offset="45%" stopColor="#93C5FD" />
-          {/* <stop offset="80%" stopColor="#2563EB" /> */}
         </radialGradient>
-        
-        {/* Streak gradient */}
+
         <linearGradient id="streakGradient" x1="0%" y1="0%" x2="100%" y2="0%">
           <stop offset="0%" stopColor="transparent" />
           <stop offset="30%" stopColor="rgba(147,197,253,0.25)" />
@@ -233,8 +228,8 @@ function EnergyPulse({ xPct, visible }: { xPct: string; visible: boolean }) {
           <stop offset="100%" stopColor="rgba(255,255,255,0.95)" />
         </linearGradient>
       </defs>
-      
-      {/* Animated trail that draws progressively as particle moves */}
+
+      {/* Trail that draws progressively as the particle moves */}
       <path
         d={wavePath}
         fill="none"
@@ -246,81 +241,35 @@ function EnergyPulse({ xPct, visible }: { xPct: string; visible: boolean }) {
           filter: "blur(1px) drop-shadow(0 0 3px rgba(96,165,250,0.6))",
           opacity: 0.8,
           strokeDasharray: "1",
-          strokeDashoffset: pathLength === 1 ? 0 : 1
+          strokeDashoffset: 1,
         }}
       >
-        {pathLength === 1 && (
-          <animate
-            attributeName="stroke-dashoffset"
-            from="1"
-            to="0"
-            dur="5s"
-            fill="freeze"
-          />
-        )}
+        <animate attributeName="stroke-dashoffset" from="1" to="0" dur="5s" fill="freeze" />
       </path>
-      
-      {/* Layer 1 — Large soft blue glow */}
-      <g>
-        <circle
-          r="27"
-          fill="url(#glowGradient)"
-          style={{ filter: "blur(2px)" }}
-        >
-          <animateMotion
-            dur="5s"
-            path={wavePath}
-            fill="freeze"
-          />
-        </circle>
-      </g>
-      
-      {/* Layer 2 — Medium glow */}
-      <g>
-        <circle
-          r="17"
-          fill="url(#glowGradient)"
-          style={{ filter: "blur(2px)" }}
-        >
-          <animateMotion
-            dur="5s"
-            path={wavePath}
-            fill="freeze"
-          />
-        </circle>
-      </g>
-      
-      {/* Layer 3 — Streak */}
-      <g>
-        <ellipse
-          rx="7"
-          ry="1.25"
-          fill="url(#streakGradient)"
-        >
-          <animateMotion
-            dur="5s"
-            path={wavePath}
-            fill="freeze"
-          />
-        </ellipse>
-      </g>
-      
-      {/* Layer 4 — Particle core */}
-      <g>
-        <circle
-          r="4.5"
-          fill="url(#particleGradient)"
-          style={{ 
-            filter: "drop-shadow(0 0 16px rgba(96,165,250,0.55)) drop-shadow(0 0 5px rgba(219,234,254,0.8))"
-          }}
-        >
-          <animateMotion
-            dur="5s"
-            path={wavePath}
-            fill="freeze"
-          />
-        </circle>
-      </g>
+
+      {/* Layer 1 — large soft blue glow */}
+      <circle r="27" fill="url(#glowGradient)" style={{ filter: "blur(2px)" }}>
+        <animateMotion dur="5s" path={wavePath} fill="freeze" />
+      </circle>
+
+      {/* Layer 2 — medium glow */}
+      <circle r="17" fill="url(#glowGradient)" style={{ filter: "blur(2px)" }}>
+        <animateMotion dur="5s" path={wavePath} fill="freeze" />
+      </circle>
+
+      {/* Layer 3 — streak */}
+      <ellipse rx="7" ry="1.25" fill="url(#streakGradient)">
+        <animateMotion dur="5s" path={wavePath} fill="freeze" />
+      </ellipse>
+
+      {/* Layer 4 — particle core */}
+      <circle
+        r="4.5"
+        fill="url(#particleGradient)"
+        style={{ filter: "drop-shadow(0 0 16px rgba(96,165,250,0.55)) drop-shadow(0 0 5px rgba(219,234,254,0.8))" }}
+      >
+        <animateMotion dur="5s" path={wavePath} fill="freeze" />
+      </circle>
     </svg>
   );
 }
@@ -328,7 +277,10 @@ function EnergyPulse({ xPct, visible }: { xPct: string; visible: boolean }) {
 // ── Main component ───────────────────────────────────────────
 
 export default function HeroCard() {
+  const reduce = useReducedMotion();
+
   const [industry, setIndustry] = useState("retail");
+  const [runId, setRunId] = useState(0);
 
   const [dotsOn, setDotsOn] = useState([false, false, false]);
   const [linesOn, setLinesOn] = useState([false, false, false]);
@@ -338,89 +290,105 @@ export default function HeroCard() {
   const [actOn, setActOn] = useState(false);
 
   const [pulseVisible, setPulseVisible] = useState(false);
-  const [pulseX, setPulseX] = useState("10.5%");
 
   const [staffOn, setStaffOn] = useState(false);
   const [actionText, setActionText] = useState("");
-  const [outcomes, setOutcomes] = useState<typeof EVENTS>([]);
+  const [outcomes, setOutcomes] = useState<EventItem[]>([]);
 
+  const events = SCENARIOS[industry] ?? SCENARIOS.retail;
+
+  // Reset every animated value and jump to `id`. Used by the tab
+  // clicks and by the auto-advance at the end of a cycle.
+  const go = useCallback((id: string) => {
+    setRunId((n) => n + 1);
+    setDotsOn([false, false, false]);
+    setLinesOn([false, false, false]);
+    setObserveOn(false);
+    setUnderstandOn(false);
+    setActOn(false);
+    setPulseVisible(false);
+    setStaffOn(false);
+    setActionText("");
+    setOutcomes([]);
+    setIndustry(id);
+  }, []);
+
+  // Run the timeline for the current industry, then advance to the next
+  // one — so the card loops through every industry forever.
   useEffect(() => {
+    const idx = INDUSTRIES.findIndex((i) => i.id === industry);
+    const scene = SCENARIOS[industry] ?? SCENARIOS.retail;
+    const next = () => go(INDUSTRIES[(idx + 1) % INDUSTRIES.length].id);
+
     const timers: ReturnType<typeof setTimeout>[] = [];
-    const schedule = (fn: () => void, ms: number) => timers.push(setTimeout(fn, ms));
+    const at = (fn: () => void, ms: number) => timers.push(setTimeout(fn, ms));
 
-    // Total animation: 8 seconds
-    // Pulse duration: 5 seconds (travels through intelligence layer)
-    // Business outcomes appear when pulse reaches each node
+    if (reduce) {
+      // No pulse / staggering — show the resolved state, then move on.
+      at(() => {
+        setDotsOn([true, true, true]);
+        setLinesOn([true, true, true]);
+        setObserveOn(true);
+        setUnderstandOn(true);
+        setActOn(true);
+        setStaffOn(true);
+        setActionText(scene[2].action);
+        setOutcomes(scene);
+      }, 40);
+      at(next, 5200);
+      return () => timers.forEach(clearTimeout);
+    }
 
-    // Start with a visible delay
-    // Event 1: Customer enters
-    schedule(() => setDotsOn([true, false, false]), 500);
-    schedule(() => setLinesOn([true, false, false]), 900);
-    
-    // Pulse starts and travels for 5 seconds
-    schedule(() => {
+    // Observe
+    at(() => setDotsOn([true, false, false]), 500);
+    at(() => setLinesOn([true, false, false]), 900);
+    at(() => {
       setObserveOn(true);
       setPulseVisible(true);
-      setPulseX("89.5%");
     }, 1400);
-    
-    // Staff alerted
-    schedule(() => setStaffOn(true), 1600);
-    
-    // First outcome: when pulse reaches Observe (immediately after start)
-    schedule(() => {
-      setActionText(EVENTS[0].action);
-      setOutcomes([EVENTS[0]]);
+    at(() => {
+      setStaffOn(true);
+      setActionText(scene[0].action);
+      setOutcomes([scene[0]]);
     }, 1600);
-    
-    // Event 2: Queue forming
-    schedule(() => setDotsOn([true, true, false]), 2200);
-    schedule(() => setLinesOn([true, true, false]), 2600);
-    
-    // Second outcome: when pulse reaches Understand (50%)
-    // Pulse travels from 10.5% to 89.5% (79% total) in 5000ms
-    // To reach 50%: (50-10.5)/79 * 5000 = 2500ms after pulse starts = 3900ms total
-    schedule(() => setUnderstandOn(true), 3900);
-    schedule(() => {
-      setActionText(EVENTS[1].action);
-      setOutcomes([EVENTS[0], EVENTS[1]]);
-    }, 3900);
-    
-    // Event 3: Shelf running low
-    schedule(() => setDotsOn([true, true, true]), 4500);
-    schedule(() => setLinesOn([true, true, true]), 4900);
-    
-    // Third outcome: when pulse reaches Act (83.5%)
-    // To reach 83.5%: (83.5-10.5)/79 * 5000 = 4620ms after pulse starts = 6020ms total
-    schedule(() => setActOn(true), 6020);
-    schedule(() => {
-      setActionText(EVENTS[2].action);
-      setOutcomes([EVENTS[0], EVENTS[1], EVENTS[2]]);
-    }, 6020);
-    
-    // Pulse completes at 6400ms (1400ms start + 5000ms duration)
 
-    return () => {
-      timers.forEach(clearTimeout);
-    };
-  }, []);
+    // Understand — pulse reaches 50% at ~2.5s after it starts
+    at(() => setDotsOn([true, true, false]), 2200);
+    at(() => setLinesOn([true, true, false]), 2600);
+    at(() => {
+      setUnderstandOn(true);
+      setActionText(scene[1].action);
+      setOutcomes([scene[0], scene[1]]);
+    }, 3900);
+
+    // Act — pulse reaches 83.5% at ~4.6s after it starts
+    at(() => setDotsOn([true, true, true]), 4500);
+    at(() => setLinesOn([true, true, true]), 4900);
+    at(() => {
+      setActOn(true);
+      setActionText(scene[2].action);
+      setOutcomes([scene[0], scene[1], scene[2]]);
+    }, 6020);
+
+    // Hold the finished state, then hand over to the next industry.
+    at(next, 8600);
+
+    return () => timers.forEach(clearTimeout);
+  }, [industry, runId, reduce, go]);
 
   return (
     <div
       style={{
-        // minHeight: "100vh",
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
-        // padding: 24,
-        // background: "#000000",
         fontFamily: "'Inter', -apple-system, BlinkMacSystemFont, sans-serif",
       }}
     >
       {/* Panel */}
       <div
         style={{
-          width: 500,
+          width: "min(500px, 100%)",
           minHeight: 480,
           borderRadius: 20,
           padding: "22px 26px 28px",
@@ -432,18 +400,18 @@ export default function HeroCard() {
         }}
       >
         {/* ── Industry selector tabs ─────────────────────────── */}
-        <div style={{ display: "flex", alignItems: "center", justifyContent: "center", marginBottom: 22 }}>
+        <div style={{ display: "flex", flexWrap: "wrap", rowGap: 8, alignItems: "center", justifyContent: "center", marginBottom: 22 }}>
           {INDUSTRIES.map(({ id, label, icon }, idx) => {
             const sel = industry === id;
             return (
               <div key={id} style={{ display: "flex", alignItems: "center" }}>
                 {idx > 0 && (
-                  <div style={{ width: 1, height: 14, background: "rgba(255,255,255,0.1)", margin: "0 16px", flexShrink: 0 }} />
+                  <div style={{ width: 1, height: 14, background: "rgba(255,255,255,0.1)", margin: "0 9px", flexShrink: 0 }} />
                 )}
 
                 {sel ? (
                   <div
-                    onClick={() => setIndustry(id)}
+                    onClick={() => go(id)}
                     style={{
                       padding: 1,
                       borderRadius: 999,
@@ -492,7 +460,7 @@ export default function HeroCard() {
                   </div>
                 ) : (
                   <button
-                    onClick={() => setIndustry(id)}
+                    onClick={() => go(id)}
                     style={{
                       display: "flex",
                       alignItems: "center",
@@ -523,9 +491,9 @@ export default function HeroCard() {
 
         {/* ── Events row ───────────────────────────────────────── */}
         <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr" }}>
-          {EVENTS.map(({ lines }, i) => (
+          {events.map(({ lines }, i) => (
             <div key={i} style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 5 }}>
-              <div style={{ textAlign: "center" }}>
+              <div style={{ textAlign: "center", minHeight: 34 }}>
                 {lines.map((l, j) => (
                   <div
                     key={j}
@@ -555,7 +523,7 @@ export default function HeroCard() {
           ))}
         </div>
 
-        {/* ── Intelligence field + vertical pulse wrapper ── */}
+        {/* ── Intelligence field + horizontal pulse wrapper ── */}
         <div style={{ position: "relative", height: 60 }}>
           <div
             style={{
@@ -577,8 +545,8 @@ export default function HeroCard() {
             <PillNode icon={<Zap size={13} />} label="Act" active={actOn} xPct={PILL_X[2]} />
           </div>
 
-          {/* Energy pulse travels horizontally through the layer */}
-          <EnergyPulse xPct={pulseX} visible={pulseVisible} />
+          {/* Energy pulse — keyed on runId so it replays every cycle */}
+          {pulseVisible && !reduce && <EnergyPulse key={runId} />}
         </div>
 
         {/* ── Connecting line: pill → Staff alerted ────────────── */}
@@ -589,31 +557,27 @@ export default function HeroCard() {
         {/* ── Staff alerted / dynamic action-triggered text ────── */}
         <div style={{ display: "flex", justifyContent: "center" }}>
           <motion.div
-            animate={{ 
+            animate={{
               opacity: staffOn ? 1 : 0.13,
-              scale: staffOn ? [1, 1.05, 1] : 1
+              scale: staffOn ? [1, 1.05, 1] : 1,
             }}
-            transition={{ 
+            transition={{
               opacity: { duration: 0.6, ease: "easeOut" },
-              scale: { duration: 1.5, repeat: Infinity, ease: "easeInOut" }
+              scale: { duration: 1.5, repeat: Infinity, ease: "easeInOut" },
             }}
             style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 5 }}
           >
             <motion.span
               animate={{
-                textShadow: staffOn 
+                textShadow: staffOn
                   ? [
                       "0 0 8px rgba(96,165,250,0.4)",
                       "0 0 16px rgba(96,165,250,0.6)",
-                      "0 0 8px rgba(96,165,250,0.4)"
+                      "0 0 8px rgba(96,165,250,0.4)",
                     ]
-                  : "0 0 0px rgba(96,165,250,0)"
+                  : "0 0 0px rgba(96,165,250,0)",
               }}
-              transition={{ 
-                duration: 1.5, 
-                repeat: Infinity, 
-                ease: "easeInOut" 
-              }}
+              transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
               style={{
                 fontSize: 10,
                 fontWeight: 500,
@@ -659,10 +623,7 @@ export default function HeroCard() {
         <motion.div
           animate={{ opacity: outcomes.length > 0 ? 1 : 0, y: outcomes.length > 0 ? 0 : 8 }}
           transition={{ duration: 0.8, ease: "easeOut" }}
-          style={{
-            position: "relative",
-            padding: "0 0 20px",
-          }}
+          style={{ position: "relative", padding: "0 0 20px" }}
         >
           <p
             style={{
@@ -678,8 +639,6 @@ export default function HeroCard() {
             {/* Business Outcome */}
           </p>
 
-          {/* Row of outcomes — `layout` lets each one glide into place as new
-              siblings join; thin vertical rules separate them instead of boxes */}
           <div style={{ display: "flex", alignItems: "center", justifyContent: "center", flexWrap: "wrap" }}>
             <AnimatePresence>
               {outcomes.map((ev, idx) => (
@@ -721,9 +680,10 @@ export default function HeroCard() {
                         letterSpacing: "-0.02em",
                         color: ev.color,
                         fontFamily: "'JetBrains Mono', 'Courier New', monospace",
-                        textShadow: ev.color === "#4ADE80"
-                          ? "0 0 20px rgba(74,222,128,0.5), 0 0 6px rgba(74,222,128,0.3)"
-                          : "0 0 20px rgba(239,68,68,0.5), 0 0 6px rgba(239,68,68,0.3)",
+                        textShadow:
+                          ev.color === GREEN
+                            ? "0 0 20px rgba(74,222,128,0.5), 0 0 6px rgba(74,222,128,0.3)"
+                            : "0 0 20px rgba(239,68,68,0.5), 0 0 6px rgba(239,68,68,0.3)",
                       }}
                     >
                       {ev.value}

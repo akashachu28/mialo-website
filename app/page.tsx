@@ -6,18 +6,33 @@ import Section5 from '@/components/Section5';
 import Section6 from '@/components/Section6';
 import Section7 from '@/components/Section7';
 import Section8 from '@/components/Section8';
+import { Reveal } from '@/components/animations';
 
 export default function Home() {
   return (
-    <div className="">
+    <div className="bg-background font-body text-primary antialiased">
       <Hero />
-      <Hero2/>
-      <Section3/>
-      <Section4/>
-      <Section5/>
-      <Section6/>
-      <Section7/>
-      <Section8/>
+      <Reveal>
+        <Hero2 />
+      </Reveal>
+      <Reveal>
+        <Section3 />
+      </Reveal>
+      <Reveal>
+        <Section4 />
+      </Reveal>
+      <Reveal>
+        <Section5 />
+      </Reveal>
+      <Reveal>
+        <Section6 />
+      </Reveal>
+      <Reveal>
+        <Section7 />
+      </Reveal>
+      <Reveal>
+        <Section8 />
+      </Reveal>
     </div>
   );
 }

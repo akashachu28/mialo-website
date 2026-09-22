@@ -1,170 +1,138 @@
-'use client'
-import { motion } from "framer-motion";
-import { Users } from "lucide-react";
-import Image from "next/image";
+import {
+  Section,
+  Container,
+  Eyebrow,
+  Kicker,
+  ArrowLink,
+  PrimaryButton,
+  GhostButton,
+  Icon,
+} from "@/components/ui";
 
-const NEWS_ITEMS = [
+const NEWS = [
   {
     date: "May 15, 2025",
-    title: "Mialo.ai powers operational intelligence for 250+ Harris Teeter stores",
-    image: "/images/hustlehub.jpg",
+    title:
+      "Mialo.ai powers operational intelligence for 250+ Harris Teeter stores",
   },
   {
     date: "Apr 28, 2025",
     title: "Mialo raises growth capital to scale its AI platform globally",
-    image: "/images/hustlehub.jpg",
   },
   {
     date: "Mar 10, 2025",
     title: "Mialo.ai named among top AI innovators to watch",
-    image: "/images/hustlehub.jpg",
   },
 ];
 
 const OFFICES = [
   {
     city: "Bengaluru, India",
-    label: "Global Headquarters",
-    address: "Shppingboard, JP Nagar\nBengaluru - 560078, India",
-    image: "/images/hustlehub.jpg",
+    label: "Global headquarters",
+    address: "HustleHub, JP Nagar\nBengaluru 560078, India",
   },
   {
     city: "Nairobi, Kenya",
-    label: "Africa Operations",
+    label: "Africa operations",
     address: "Westcom Point, 5th Floor\nMahiga Mairu Ave, Nairobi, Kenya",
-    image: "/images/hustlehub.jpg",
   },
   {
     city: "Dallas, USA",
     label: "North America",
     address: "2301 N. Central Expressway\nRichardson, TX 75080, USA",
-    image: "/images/hustlehub.jpg",
   },
 ];
 
 export default function CompanySection5() {
   return (
-    <div className="bg-background px-6 py-20">
-      <div className="max-w-[1200px] mx-auto">
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-          {/* Column 1: News & Press */}
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            viewport={{ once: true }}
-            className="space-y-6"
-          >
-            <h3 className="text-sm text-ice uppercase tracking-wider mb-6">News & Press</h3>
-            
-            {NEWS_ITEMS.map((news, index) => (
-              <div key={index} className="flex gap-4">
-                {/* Thumbnail */}
-                <div className="flex-shrink-0 w-20 h-16 rounded-lg overflow-hidden">
-                  <div className="relative w-full h-full">
-                    <Image
-                      src={news.image}
-                      alt={news.title}
-                      fill
-                      className="object-cover"
-                    />
-                  </div>
-                </div>
-
-                {/* Content */}
-                <div className="flex-1">
-                  <p className="text-xs text-slate-500 mb-1">{news.date}</p>
-                  <h4 className="text-sm text-slate-300 leading-relaxed mb-2">
-                    {news.title}
+    <>
+      <Section>
+        <div className="grid gap-12 lg:grid-cols-3 lg:gap-10">
+          {/* News & Press */}
+          <div className="flex flex-col gap-6">
+            <Kicker>News &amp; Press</Kicker>
+            <div className="flex flex-col">
+              {NEWS.map((n) => (
+                <div
+                  key={n.title}
+                  className="flex flex-col gap-2 border-t border-line py-5 first:border-t-0 first:pt-0"
+                >
+                  <span className="font-mono text-[11px] tracking-[0.1em] text-faint">
+                    {n.date}
+                  </span>
+                  <h4 className="text-[14px] leading-[1.5] text-ink text-pretty">
+                    {n.title}
                   </h4>
-                  <a href="#" className="text-xs text-ice hover:text-blue-300 transition-colors">
-                    Read more →
-                  </a>
+                  <ArrowLink>Read more</ArrowLink>
                 </div>
-              </div>
-            ))}
+              ))}
+            </div>
+            <ArrowLink>View all news</ArrowLink>
+          </div>
 
-            <a href="#" className="inline-flex items-center gap-2 text-sm text-ice hover:text-blue-300 transition-colors mt-4">
-              View All News →
-            </a>
-          </motion.div>
-
-          {/* Column 2: Our Offices */}
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.1 }}
-            viewport={{ once: true }}
-            className="space-y-6"
-          >
-            <h3 className="text-sm text-ice uppercase tracking-wider mb-6">Our Offices</h3>
-            
-            {OFFICES.map((office, index) => (
-              <div key={index} className="flex gap-4">
-                {/* Thumbnail */}
-                <div className="flex-shrink-0 w-20 h-16 rounded-lg overflow-hidden">
-                  <div className="relative w-full h-full">
-                    <Image
-                      src={office.image}
-                      alt={office.city}
-                      fill
-                      className="object-cover"
-                    />
-                  </div>
-                </div>
-
-                {/* Content */}
-                <div className="flex-1">
-                  <h4 className="text-base text-primary font-semibold mb-1">
-                    {office.city}
+          {/* Our Offices */}
+          <div className="flex flex-col gap-6">
+            <Kicker>Our Offices</Kicker>
+            <div className="flex flex-col">
+              {OFFICES.map((o) => (
+                <div
+                  key={o.city}
+                  className="flex flex-col gap-1.5 border-t border-line py-5 first:border-t-0 first:pt-0"
+                >
+                  <h4 className="font-display text-[15px] font-medium tracking-[-0.01em] text-primary">
+                    {o.city}
                   </h4>
-                  <p className="text-xs text-ice mb-2">{office.label}</p>
-                  <p className="text-xs text-slate-500 leading-relaxed whitespace-pre-line">
-                    {office.address}
+                  <Kicker className="text-ice">{o.label}</Kicker>
+                  <p className="mt-1 whitespace-pre-line text-[12.5px] leading-[1.55] text-muted">
+                    {o.address}
                   </p>
                 </div>
-              </div>
-            ))}
-
-            <a href="#" className="inline-flex items-center gap-2 text-sm text-ice hover:text-blue-300 transition-colors mt-4">
-              View All Locations →
-            </a>
-          </motion.div>
-
-          {/* Column 3: Join Our Mission */}
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            viewport={{ once: true }}
-            className="space-y-6"
-          >
-            <h3 className="text-sm text-ice uppercase tracking-wider mb-6">Join Our Mission</h3>
-            
-            {/* Icon */}
-            <div className="w-16 h-16 rounded-xl bg-ice/10 border border-ice/20 flex items-center justify-center mb-6">
-              <Users size={32} className="text-ice" strokeWidth={1.5} />
+              ))}
             </div>
+            <ArrowLink>View all locations</ArrowLink>
+          </div>
 
-            {/* Content */}
-            <h4 className="text-2xl font-bold text-primary leading-tight mb-4" style={{ fontFamily: 'Boska, serif' }}>
-              Be part of a team that's building the intelligence layer for the real world.
+          {/* Join Our Mission */}
+          <div className="flex flex-col gap-5">
+            <Kicker>Join Our Mission</Kicker>
+            <span className="flex h-11 w-11 items-center justify-center rounded-[11px] border border-ice/30 bg-ice/10 text-ice">
+              <Icon name="users" size={20} />
+            </span>
+            <h4 className="font-display text-[20px] font-medium leading-[1.28] tracking-[-0.02em] text-primary text-pretty">
+              Build the intelligence layer for the real world.
             </h4>
-
-            <p className="text-base text-slate-400 leading-relaxed mb-6">
-              We're looking for curious minds, bold thinkers and problem solvers.
+            <p className="text-[14px] leading-[1.6] text-muted text-pretty">
+              We&apos;re looking for curious minds, bold thinkers and problem
+              solvers.
             </p>
-
-            {/* CTA Button */}
-            <a 
-              href="/careers"
-              className="inline-flex items-center gap-2 px-8 py-2 rounded-lg bg-ice hover:bg-ice/80 text-background text-sm font-medium transition-colors"
-            >
-              Explore Careers →
-            </a>
-          </motion.div>
+            <ArrowLink href="/careers" className="mt-1">
+              Explore careers
+            </ArrowLink>
+          </div>
         </div>
-      </div>
-    </div>
+      </Section>
+
+      {/* -------- Closing CTA -------- */}
+      <section className="relative overflow-hidden border-t border-line py-24 sm:py-[120px]">
+        <div
+          aria-hidden
+          className="pointer-events-none absolute left-1/2 top-0 h-[300px] w-full max-w-[700px] -translate-x-1/2"
+          style={{
+            background:
+              "radial-gradient(ellipse at 50% 0%, rgba(108,147,255,0.14), transparent 70%)",
+          }}
+        />
+        <Container className="relative flex flex-col items-center gap-7 text-center">
+          <Eyebrow>Get started</Eyebrow>
+          <h2 className="max-w-[620px] font-display text-[28px] font-medium leading-[1.15] tracking-[-0.02em] text-balance text-primary sm:text-[34px]">
+            See what operational intelligence can do for your teams.
+          </h2>
+          <div className="flex flex-wrap justify-center gap-3">
+            <PrimaryButton>Talk to an expert</PrimaryButton>
+            <GhostButton>Explore the platform</GhostButton>
+          </div>
+        </Container>
+      </section>
+    </>
   );
 }

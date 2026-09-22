@@ -1,148 +1,179 @@
-import { Radio, Brain, CheckCircle, Send, BarChart3, ArrowRight, ShoppingCart, Factory, Heart, Building2, Truck, Zap } from 'lucide-react';
-import Image from 'next/image';
+import Image from "next/image";
+import Link from "next/link";
+import {
+  Section,
+  SectionHeader,
+  ArrowLink,
+  Icon,
+  type IconName,
+} from "@/components/ui";
+
+const STEPS: { icon: IconName; title: string; body: string }[] = [
+  { icon: "eye", title: "Observe", body: "Capture data from any source in real time." },
+  { icon: "brain", title: "Understand", body: "AI models analyze and surface what matters." },
+  { icon: "target", title: "Decide", body: "Contextual insight for faster, smarter decisions." },
+  { icon: "zap", title: "Act", body: "Trigger actions and automate workflows." },
+  { icon: "loop", title: "Learn", body: "Continuously learn and improve outcomes." },
+];
+
+type Industry = {
+  icon: IconName;
+  label: string;
+  blurb: string;
+  image: string;
+  alt: string;
+  href?: string;
+};
+
+const INDUSTRIES: Industry[] = [
+  {
+    icon: "coins",
+    label: "Retail",
+    blurb: "Footfall, dwell time and shelf compliance across every store.",
+    image: "/images/industryVision.png",
+    alt: "A retail floor with shopper detection zones and a movement heatmap",
+    href: "/industries/innerPages/retail",
+  },
+  {
+    icon: "factory",
+    label: "Manufacturing",
+    blurb: "Line anomalies, safety and uptime — caught before they cascade.",
+    image: "/images/manufacture.png",
+    alt: "A robotic welding arm throwing sparks on a factory line",
+    href: "/industries/innerPages/manufacturing",
+  },
+  {
+    icon: "heart",
+    label: "Healthcare",
+    blurb: "Situational awareness across capacity, workflow and patient safety.",
+    image: "/images/medical.png",
+    alt: "A clinician reviewing AI diagnostic overlays beside a patient bed",
+  },
+  {
+    icon: "building",
+    label: "Government",
+    blurb: "Fragmented operational data made accountable and auditable.",
+    image: "/images/government.png",
+    alt: "A government operations centre with a civic network overlay",
+  },
+  {
+    icon: "truck",
+    label: "Logistics",
+    blurb: "Disruption sensed early, so operations re-route in time.",
+    image: "/images/logistics.png",
+    alt: "A forklift loading a truck at a warehouse dock",
+  },
+  {
+    icon: "zap",
+    label: "Energy & Utilities",
+    blurb: "Grid, generation and field signals read in real time.",
+    image: "/images/energy.png",
+    alt: "A power plant and solar array with live efficiency readouts",
+  },
+];
 
 export default function IndustrySection2() {
-    const steps = [
-        {
-            icon: Radio,
-            title: "Observe",
-            description: "Capture data from any source in real-time."
-        },
-        {
-            icon: Brain,
-            title: "Understand",
-            description: "AI models analyze and find what matters."
-        },
-        {
-            icon: CheckCircle,
-            title: "Decide",
-            description: "Contextual insights for faster, smarter decisions."
-        },
-        {
-            icon: Send,
-            title: "Act",
-            description: "Trigger actions and automate workflows."
-        },
-        {
-            icon: BarChart3,
-            title: "Learn",
-            description: "Continuously learn and improve outcomes."
-        }
-    ];
+  return (
+    <>
+      {/* -------- How Mialo works -------- */}
+      <Section>
+        <div className="flex flex-col gap-14">
+          <SectionHeader
+            eyebrow="How Mialo Works"
+            title="From data to decisions. In real time."
+            lead="Every operational moment follows the same loop — observe, understand, decide, act and learn — running continuously across your sources."
+          />
 
-    return (
-        <section className="w-full bg-background pt-16 md:pt-24 px-6 md:px-12 lg:px-0">
-            <div className="max-w-7xl mx-auto">
-                {/* Section Header */}
-                <div className="mb-12">
-                    <p className="text-ice text-xs font-semibold tracking-wider uppercase mb-4">
-                        HOW MIALO WORKS
+          <div className="relative grid grid-cols-2 gap-x-3 gap-y-8 sm:grid-cols-3 lg:grid-cols-5">
+            <div
+              aria-hidden
+              className="absolute left-[10%] right-[10%] top-[46px] hidden h-px lg:block"
+              style={{
+                background:
+                  "repeating-linear-gradient(90deg, var(--color-line-3) 0 6px, transparent 6px 14px)",
+              }}
+            />
+            {STEPS.map((s, i) => (
+              <div
+                key={s.title}
+                className="relative flex flex-col items-center gap-3 text-center"
+              >
+                <span className="font-mono text-[10px] tracking-[0.1em] text-faint">
+                  {String(i + 1).padStart(2, "0")}
+                </span>
+                <span className="flex h-11 w-11 items-center justify-center rounded-[11px] border border-ice/30 bg-ice/10 text-ice">
+                  <Icon name={s.icon} size={20} />
+                </span>
+                <span className="font-display text-[15px] font-medium text-primary">
+                  {s.title}
+                </span>
+                <span className="max-w-[190px] text-[12.5px] leading-[1.5] text-muted text-pretty">
+                  {s.body}
+                </span>
+              </div>
+            ))}
+          </div>
+        </div>
+      </Section>
+
+      {/* -------- Industries we empower -------- */}
+      <Section>
+        <div className="flex flex-col gap-14">
+          <SectionHeader
+            eyebrow="Industries We Empower"
+            title="Operational intelligence, tuned to your world."
+            lead="The same intelligence layer, adapted to the signals, constraints and outcomes that define each sector."
+          >
+            <ArrowLink>Explore all industries</ArrowLink>
+          </SectionHeader>
+
+          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {INDUSTRIES.map((industry) => {
+              const CardContent = (
+                <div className="relative aspect-[4/5] w-full">
+                  <Image
+                    src={industry.image}
+                    alt={industry.alt}
+                    fill
+                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 380px"
+                    className="object-cover transition-transform duration-500 group-hover:scale-[1.04]"
+                  />
+                  <div className="absolute inset-0 bg-linear-to-t from-[#08090B] via-[#08090B]/35 to-transparent" />
+
+                  <div className="absolute inset-x-0 bottom-0 flex flex-col gap-2 p-5">
+                    <span className="flex h-9 w-9 items-center justify-center rounded-[10px] border border-ice/30 bg-background/60 text-ice backdrop-blur-sm">
+                      <Icon name={industry.icon} size={18} />
+                    </span>
+                    <h3 className="font-display text-[19px] font-medium tracking-[-0.01em] text-primary">
+                      {industry.label}
+                    </h3>
+                    <p className="text-[12.5px] leading-[1.5] text-ink text-pretty">
+                      {industry.blurb}
                     </p>
-                    <h2 className="text-[48px] font-medium text-primary leading-[1.02] tracking-[-0.02rem] "
-                        style={{ fontFamily: 'Boska, serif' }}>
-                        From data to decisions.
-                        <span className='block'>
-                            In real time.
-                        </span>
-                    </h2>
-                    {/* <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-primary font-[family-name:var(--font-boska)]">
-                        In real time.
-                    </h2> */}
+                  </div>
                 </div>
+              );
 
-                {/* Workflow Steps */}
-                <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-8 md:gap-4">
-                    {steps.map((step, index) => {
-                        const Icon = step.icon;
-                        return (
-                            <div key={index} className="flex items-center gap-4 md:gap-6">
-                                {/* Step Content */}
-                                <div className="flex flex-col items-start">
-                                    {/* Icon */}
-                                    <div className="mb-4">
-                                        <Icon className="w-8 h-8 text-ice" strokeWidth={1.5} />
-                                    </div>
-                                    
-                                    {/* Title */}
-                                    <h3 className="text-xl font-medium text-primary mb-2">
-                                        {step.title}
-                                    </h3>
-                                    
-                                    {/* Description */}
-                                    <p className="text-sm text-muted max-w-[180px]">
-                                        {step.description}
-                                    </p>
-                                </div>
-
-                                {/* Arrow (hidden on last item) */}
-                                {index < steps.length - 1 && (
-                                    <div className="hidden md:block">
-                                        <ArrowRight className="w-6 h-6 text-faint" strokeWidth={1.5} />
-                                    </div>
-                                )}
-                            </div>
-                        );
-                    })}
+              return industry.href ? (
+                <Link
+                  key={industry.label}
+                  href={industry.href}
+                  className="group relative overflow-hidden rounded-[14px] border border-line-2 bg-raise transition-colors hover:border-line-3"
+                >
+                  {CardContent}
+                </Link>
+              ) : (
+                <div
+                  key={industry.label}
+                  className="group relative overflow-hidden rounded-[14px] border border-line-2 bg-raise transition-colors hover:border-line-3"
+                >
+                  {CardContent}
                 </div>
-
-                {/* Industries We Empower Section - Full Width */}
-            </div>
-            
-            <div className="mt-24 md:mt-32 w-full border-t border-faint/50">
-                <div className="flex flex-col lg:flex-row gap-0">
-                        {/* Left Content */}
-                        <div className="bg-background p-8 md:p-12 lg:p-16 flex flex-col justify-center lg:w-auto max-w-[500px]">
-                            <p className="text-ice text-xs font-semibold tracking-wider uppercase mb-6">
-                                INDUSTRIES WE EMPOWER
-                            </p>
-                            <h2 className="text-4xl md:text-[48px] leading-[1.02] tracking-[-0.02rem] font-medium text-primary mb-6"
-                                style={{ fontFamily: 'Boska, serif' }}>
-                                Operational intelligence tailored to your world.
-                            </h2>
-                            <button className="flex items-center gap-2 text-ice hover:text-primary transition-colors mt-4 group">
-                                <span className="text-sm font-medium">Explore industries</span>
-                                <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-                            </button>
-                        </div>
-
-                        {/* Right Image Strip - 6 Images Side by Side */}
-                        <div className="flex flex-1">
-                            {[
-                                { icon: ShoppingCart, label: 'Retail', img: "/images/industryVision.png" },
-                                { icon: Factory, label: 'Manufacturing', img: "/images/manufacture.png" },
-                                { icon: Heart, label: 'Healthcare', img: "/images/medical.png" },
-                                { icon: Building2, label: 'Government', img: "/images/government.png" },
-                                { icon: Truck, label: 'Logistics', img: "/images/logistics.png" },
-                                { icon: Zap, label: 'Energy & Utilities', img: "/images/energy.png" }
-                            ].map((industry, index) => {
-                                const Icon = industry.icon;
-                                return (
-                                    <div key={index} className="relative flex-1  min-h-[400px] lg:min-h-[500px] group cursor-pointer overflow-hidden">
-                                        {/* Background Image */}
-                                        <Image 
-                                            src={industry.img}
-                                            alt={`${industry.label} Industry`}
-                                            fill
-                                            className="object-cover transition-transform duration-500 group-hover:scale-110"
-                                        />
-                                        
-                                        {/* Overlay */}
-                                        <div className="absolute inset-0 bg-black/40 group-hover:bg-black/30 transition-colors duration-300" />
-                                        
-                                        {/* Bottom Gradient for blending */}
-                                        <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-background to-transparent " />
-                                        
-                                        {/* Icon and Label - Centered */}
-                                        <div className="absolute inset-0 flex flex-col items-center justify-end text-center p-4">
-                                            <Icon className="w-10 h-10 md:w-12 md:h-12 text-ice mb-4" strokeWidth={1.5} />
-                                            <span className="text-sm  text-primary font-medium">{industry.label}</span>
-                                        </div>
-                                    </div>
-                                );
-                            })}
-                        </div>
-                    </div>
-            </div>
-        </section>
-    );
+              );
+            })}
+          </div>
+        </div>
+      </Section>
+    </>
+  );
 }

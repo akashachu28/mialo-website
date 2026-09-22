@@ -1,67 +1,60 @@
-import { ArrowRight } from "lucide-react";
+import { Container, PrimaryButton, GhostButton } from "@/components/ui";
 
 export default function HeroSolution() {
   return (
-    <div className="relative flex items-center justify-center h-full bg-[#010306] min-h-screen px-6 py-24 overflow-hidden">
-      {/* Video Background */}
-      <div className="absolute inset-0 w-full h-full">
+    <section className="relative flex min-h-[85vh] items-center overflow-hidden pt-28 pb-24 sm:pt-40">
+      {/* Video background — kept, heavily dimmed so it reads as texture on the near-black ground */}
+      <div aria-hidden className="absolute inset-0">
         <video
           autoPlay
           loop
           muted
           playsInline
-          className="absolute inset-0 w-full h-full object-cover opacity-60"
+          className="h-full w-full object-cover opacity-[0.3]"
         >
           <source src="/images/videoCover.mp4" type="video/mp4" />
         </video>
-        
-        {/* Gradient overlays for blending */}
-        <div className="absolute inset-0 bg-gradient-to-r from-[#06070A] via-[#06070A]/80 to-transparent" />
-        <div className="absolute inset-0 bg-gradient-to-b from-[#06070A] via-transparent to-[#06070A]" />
-        
-        {/* Subtle glow effect */}
-        <div className="absolute inset-0 bg-blue-500/5 blur-3xl" />
+        <div className="absolute inset-0 bg-background/50" />
+        <div
+          className="absolute inset-0"
+          style={{
+            background:
+              "linear-gradient(90deg, var(--color-background) 0%, rgba(8,9,11,0.55) 55%, transparent 100%)",
+          }}
+        />
+        <div
+          className="absolute inset-0"
+          style={{
+            background:
+              "linear-gradient(180deg, var(--color-background) 0%, transparent 35%, var(--color-background) 100%)",
+          }}
+        />
       </div>
 
-      <div className="relative z-10 max-w-7xl mx-auto">
-        <div className="grid grid-cols-1 lg:grid-cols-2 items-center">
-          {/* Left side - Content */}
-          <div className="flex flex-col gap-8">
-            {/* Main headings */}
-            <div className="flex flex-col gap-4">
-              <h1
-                className="text-[56px] lg:text-[64px] text-primary font-medium leading-[1.02] tracking-[-0.02rem]"
-                style={{ fontFamily: "Boska, serif" }}
-              >
-                Intelligence in Action.
-                <span className="block">
-                  Built for <span className="text-ice italic">real-world</span>{" "}
-                  impact.
-                </span>
-              </h1>
-            </div>
+      <Container className="relative">
+        <div className="flex flex-col items-start gap-7">
+          <span className="inline-flex items-center gap-[11px] font-mono text-[12px] font-medium uppercase tracking-[0.16em] text-[#8A909C]">
+            <span className="h-1.5 w-1.5 shrink-0 bg-green shadow-[0_0_12px_rgba(0,229,153,0.7)]" />
+            Solutions
+          </span>
 
-            {/* Description with highlighted text */}
-            <div className="text-xl leading-[1.08] tracking-[0.02rem] text-muted max-w-xl">
-              <p>
-                Pre-built Al solutions powered by the Mialo Intelligence Layer
-                mialo.ai that deliver fast time-to-value and measurable
-                outcomes.
-              </p>
-            </div>
+          <h1 className="max-w-[1080px] font-display text-[44px] font-normal leading-[1.05] tracking-[-0.03em] text-balance text-primary sm:text-[60px]">
+            Intelligence in action.
+            <br />
+            <span className="text-ice">Built for real-world impact.</span>
+          </h1>
 
-            {/* Buttons */}
-            <div className="flex gap-4 flex-wrap">
-              <button className="px-8 py-2 font-medium text-sm rounded-lg bg-ice text-background hover:bg-ice/90 transition-all duration-200">
-                Explore all Solutions
-              </button>
-              <button className="px-8 py-2 font-medium text-sm rounded-lg bg-slate-800/60 text-primary border border-slate-700 hover:bg-slate-800 hover:border-blue-500/30 transition-all duration-200">
-                Talk to experts
-              </button>
-            </div>
+          <p className="max-w-[600px] text-[17px] leading-[1.62] text-ink text-pretty">
+            Pre-built AI solutions powered by the Mialo Intelligence Layer that
+            deliver fast time-to-value and measurable outcomes.
+          </p>
+
+          <div className="mt-1.5 flex flex-wrap gap-3">
+            <PrimaryButton>Explore all solutions</PrimaryButton>
+            <GhostButton>Talk to experts</GhostButton>
           </div>
         </div>
-      </div>
-    </div>
+      </Container>
+    </section>
   );
 }

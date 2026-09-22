@@ -1,82 +1,57 @@
-'use client'
-import { motion } from "framer-motion";
-import { Globe, Users, Activity, Rocket } from "lucide-react";
+import { Section, Eyebrow } from "@/components/ui";
 
-const COMPANY_STATS = [
+const STATS: { value: string; label?: string; body: string }[] = [
   {
-    icon: Globe,
     value: "10+",
-    label: "Years of Innovation",
-    description: "A decade of building AI solutions for real-world operational challenges.",
+    label: "Years of innovation",
+    body: "A decade of building AI solutions for real-world operational challenges.",
   },
   {
-    icon: Users,
     value: "100+",
-    label: "Enterprise Customers",
-    description: "Enterprises and government organizations across continents.",
+    label: "Enterprise customers",
+    body: "Enterprises and government organizations across continents.",
   },
   {
-    icon: Activity,
     value: "1B+",
-    label: "Signals Processed Daily",
-    description: "From cameras, sensors, voices, documents and more—at the edge and in the cloud.",
+    label: "Signals processed daily",
+    body: "From cameras, sensors, voices and documents — at the edge and in the cloud.",
   },
   {
-    icon: Rocket,
-    value: "Built for Impact",
-    label: "",
-    description: "Our mission is to help enterprises operate safer, smarter and more efficiently every day.",
+    value: "Built for impact",
+    body: "Our mission is to help enterprises operate safer, smarter and more efficiently every day.",
   },
 ];
 
 export default function CompanySection2() {
   return (
-    <div className="bg-background px-6 py-20">
-      <div className="max-w-[1200px] mx-auto">
-        {/* Stats Row with Vertical Separators */}
-        <div className="flex items-start justify-between gap-12">
-          {COMPANY_STATS.map((stat, index) => (
-            <div key={index} className="flex items-start gap-12">
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ delay: index * 0.15, duration: 0.6 }}
-                viewport={{ once: true }}
-                className="flex-1 flex flex-col gap-3"
-              >
-                {/* Icon */}
-                <stat.icon size={32} className="text-ice mb-2" strokeWidth={1.5} />
+    <Section>
+      <div className="flex flex-col gap-12">
+        <div className="flex max-w-[720px] flex-col gap-5">
+          <Eyebrow>By the numbers</Eyebrow>
+          <h2 className="font-display text-[32px] font-medium leading-[1.12] tracking-[-0.025em] text-primary text-pretty sm:text-[40px]">
+            Ten years in. A billion signals a day.
+          </h2>
+        </div>
 
-                {/* Value */}
-                <h3 
-                  className="text-5xl font-medium text-primary mb-1"
-                  style={{ fontFamily: 'Boska, serif' }}
-                >
-                  {stat.value}
-                </h3>
-
-                {/* Label */}
-                {stat.label && (
-                  <p className="text-xl leading-[1.08] tracking-[0.01rem] font-medium text-primary mb-2"
-                  style={{ fontFamily: 'Boska, serif' }}>
-                    {stat.label}
-                  </p>
-                )}
-
-                {/* Description */}
-                <p className="text-sm font-medium text-faint max-w-xs">
-                  {stat.description}
-                </p>
-              </motion.div>
-
-              {/* Vertical Separator (except after last item) */}
-              {index < COMPANY_STATS.length - 1 && (
-                <div className="h-50 w-px bg-gradient-to-b from-transparent via-slate-700/50 to-transparent" />
-              )}
+        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          {STATS.map((s) => (
+            <div
+              key={s.value}
+              className="flex flex-col gap-2.5 rounded-[14px] border border-line-2 bg-raise p-6"
+            >
+              <span className="font-display text-[30px] font-medium leading-[1.1] tracking-[-0.02em] text-primary">
+                {s.value}
+              </span>
+              {s.label ? (
+                <span className="text-[14px] font-medium text-ink">{s.label}</span>
+              ) : null}
+              <p className="text-[13px] leading-[1.55] text-muted text-pretty">
+                {s.body}
+              </p>
             </div>
           ))}
         </div>
       </div>
-    </div>
+    </Section>
   );
 }

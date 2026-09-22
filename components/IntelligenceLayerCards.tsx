@@ -1,5 +1,6 @@
 'use client'
 import { Layers, Blocks, UserCheck, Server, Shield } from "lucide-react";
+import { Reveal, RevealItem } from "./animations";
 
 const CARDS = [
   {
@@ -37,10 +38,11 @@ const CARDS = [
 export default function IntelligenceLayerCards() {
   return (
     <div className="w-full max-w-7xl mx-auto px-6">
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+      <Reveal stagger className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
         {CARDS.slice(0, 4).map((card) => (
-          <div
+          <RevealItem
             key={card.id}
+            lift
             className="bg-slate-900/60 backdrop-blur-sm border border-slate-800 rounded-[18px] p-8 flex flex-col h-full hover:border-blue-500/30 hover:bg-slate-800/60 transition-all duration-200 group"
           >
             {/* Icon and Number */}
@@ -60,9 +62,9 @@ export default function IntelligenceLayerCards() {
             <p className="text-slate-400 text-[16px] leading-relaxed flex-grow">
               {card.description}
             </p>
-          </div>
+          </RevealItem>
         ))}
-      </div>
+      </Reveal>
     </div>
   );
 }

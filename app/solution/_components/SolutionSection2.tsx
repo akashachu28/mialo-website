@@ -1,270 +1,211 @@
-'use client'
-import { motion, AnimatePresence } from "framer-motion";
-import { ShoppingCart, Shield, Radio, FileText, Mic, Ruler, ArrowRight, ChevronUp } from "lucide-react";
 import Image from "next/image";
-import { useState } from "react";
+import {
+  Section,
+  SectionHeader,
+  Container,
+  Eyebrow,
+  ArrowLink,
+  PrimaryButton,
+  GhostButton,
+  Icon,
+  type IconName,
+} from "@/components/ui";
 
-const FEATURED_SOLUTIONS = [
+type Solution = {
+  icon: IconName;
+  title: string;
+  description: string;
+  features: string[];
+  image: string;
+  alt: string;
+};
+
+const SOLUTIONS: Solution[] = [
   {
-    icon: ShoppingCart,
+    icon: "eye",
     title: "RetailSense",
-    description: "AI-powered retail analytics for smarter stores and happier customers.",
+    description:
+      "AI-powered retail analytics for smarter stores and happier customers.",
     features: [
-      "Footfall & Traffic Analytics",
-      "Customer Behavior Analysis",
-      "Queue & Wait Time Monitoring",
-      "Planogram Compliance"
+      "Footfall & traffic analytics",
+      "Customer behaviour analysis",
+      "Queue & wait-time monitoring",
+      "Planogram compliance",
     ],
     image: "/images/industryVision.png",
+    alt: "A retail store floor with shopper detection zones and a movement heatmap",
   },
   {
-    icon: Shield,
+    icon: "shield",
     title: "SensiLance",
     description: "AI for safety, security and perimeter intelligence.",
     features: [
-      "Intrusion Detection",
-      "PPE & Safety Compliance",
-      "Perimeter Monitoring",
-      "Vehicle & ANPR"
+      "Intrusion detection",
+      "PPE & safety compliance",
+      "Perimeter monitoring",
+      "Vehicle & ANPR",
     ],
     image: "/images/sensilanse.png",
+    alt: "A construction site camera flagging workers without helmets and an unsafe zone",
   },
   {
-    icon: Radio,
+    icon: "radio",
     title: "BroadcastSense",
-    description: "Real-time broadcast & media intelligence and monitoring.",
+    description: "Real-time broadcast and media intelligence and monitoring.",
     features: [
-      "Real-time Content Monitoring",
-      "Ad Detection & Measurement",
-      "Compliance & Policy Monitoring",
-      "Media Analytics & Insights"
+      "Real-time content monitoring",
+      "Ad detection & measurement",
+      "Compliance & policy monitoring",
+      "Media analytics & insights",
     ],
     image: "/images/broadcastIntelligence.png",
+    alt: "A broadcast control room monitoring dozens of live channels",
   },
-];
-
-const MORE_SOLUTIONS = [
   {
-    icon: FileText,
+    icon: "doc",
     title: "DocSense",
-    description: "Intelligent document processing and enterprise knowledge extraction.",
+    description:
+      "Intelligent document processing and enterprise knowledge extraction.",
     features: [
-      "Document Classification",
-      "Data Extraction (OCR)",
-      "Table & Field Recognition",
-      "Knowledge Capture",
-      "Workflow Automation",
-      "RAG-powered Search"
+      "Document classification",
+      "Data extraction (OCR)",
+      "Table & field recognition",
+      "Knowledge capture",
+      "Workflow automation",
+      "RAG-powered search",
     ],
     image: "/images/documentIntelligence.png",
+    alt: "Contracts and invoices being scanned and turned into structured fields",
   },
   {
-    icon: Mic,
+    icon: "mic",
     title: "VoxCore",
     description: "Voice AI platform for real-time conversations and automation.",
     features: [
-      "Automatic Speech Recognition",
-      "Wake Word Detection",
-      "Text-to-Speech (TTS)",
-      "Voice Agents",
-      "Real-time Transcription",
-      "Multi-language Support"
+      "Automatic speech recognition",
+      "Wake-word detection",
+      "Text-to-speech (TTS)",
+      "Voice agents",
+      "Real-time transcription",
+      "Multi-language support",
     ],
     image: "/images/voiceIntelligence.png",
+    alt: "A speaker profile beside a blue voice waveform being analysed",
   },
   {
-    icon: Ruler,
+    icon: "ruler",
     title: "MeasureSense",
     description: "AI-powered measurement and dimensioning at scale.",
     features: [
-      "Dimension Extraction",
-      "Area & Volume Calculation",
-      "As-built Documentation",
-      "3D Reconstruction",
-      "Quality Verification",
-      "Report Generation"
+      "Dimension extraction",
+      "Area & volume calculation",
+      "As-built documentation",
+      "3D reconstruction",
+      "Quality verification",
+      "Report generation",
     ],
     image: "/images/measurementIntelligence.png",
+    alt: "A warehouse pallet with AI-generated dimensional measurements",
   },
 ];
 
-export default function SolutionSection2() {
-  const [showAllSolutions, setShowAllSolutions] = useState(false);
-
+function SolutionCard({ solution }: { solution: Solution }) {
   return (
-    <div className="bg-background px-6 py-20">
-      <div className="max-w-[1400px] mx-auto">
-        {/* Section Header */}
-        <div className="text-center mb-12">
-          <p className="text-xs font-semibold text-ice mb-3 uppercase tracking-wider">Featured Solutions</p>
+    <div className="flex flex-col overflow-hidden rounded-[14px] border border-line-2 bg-raise transition-colors hover:border-line-3">
+      <div className="relative aspect-[16/9] w-full border-b border-line-2">
+        <Image
+          src={solution.image}
+          alt={solution.alt}
+          fill
+          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 380px"
+          className="object-cover"
+        />
+      </div>
+
+      <div className="flex flex-1 flex-col gap-4 p-6">
+        <span className="flex h-10 w-10 items-center justify-center rounded-[10px] border border-ice/30 bg-ice/10 text-ice">
+          <Icon name={solution.icon} size={20} />
+        </span>
+
+        <div className="flex flex-col gap-1.5">
+          <h3 className="font-display text-[18px] font-medium tracking-[-0.01em] text-primary">
+            {solution.title}
+          </h3>
+          <p className="text-[13.5px] leading-[1.55] text-muted text-pretty">
+            {solution.description}
+          </p>
         </div>
 
-        {/* Solution Cards Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {FEATURED_SOLUTIONS.map((solution, idx) => (
-            <motion.div
-              key={idx}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ delay: idx * 0.1, duration: 0.6 }}
-              viewport={{ once: true }}
-              className="group relative h-[400px] rounded-2xl overflow-hidden border border-slate-800/70 hover:border-blue-500/30 transition-all"
-            >
-              {/* Background Image */}
-              <div className="absolute inset-0">
-                <Image
-                  src={solution.image}
-                  alt={solution.title}
-                  fill
-                  className="object-cover"
-                />
-                {/* Gradient Overlay - only on left side, transparent on right */}
-                <div className="absolute inset-0 bg-gradient-to-r from-slate-900 via-slate-900/70 to-transparent" />
-              </div>
-
-              {/* Content */}
-              <div className="relative h-full flex flex-col p-6 z-10">
-                {/* Icon */}
-                <div className="w-10 h-10 rounded-xl bg-blue-500/10 border border-blue-500/20 flex items-center justify-center mb-4">
-                  <solution.icon size={24} className="text-blue-400" strokeWidth={1.5} />
-                </div>
-
-                {/* Title */}
-                <h3 className="text-3xl font-medium text-primary mb-2" 
-                  style={{ fontFamily: 'Boska, serif' }}>
-                  {solution.title}
-                </h3>
-
-                {/* Description */}
-                <p className="text-sm font-medium text-slate-300 mb-6 leading-relaxed">
-                  {solution.description}
-                </p>
-
-                {/* Features List */}
-                <div className="flex flex-col gap-2 mb-6">
-                  {solution.features.map((feature, featureIdx) => (
-                    <div key={featureIdx} className="flex items-center gap-2">
-                      <div className="w-1.5 h-1.5 rounded-full bg-blue-400/60" />
-                      <span className="text-sm text-slate-400">{feature}</span>
-                    </div>
-                  ))}
-                </div>
-
-                {/* CTA Button */}
-                <button className="mt-auto flex items-center gap-2 text-sm font-medium text-blue-400 hover:text-blue-300 transition-colors w-fit group">
-                  Watch Demo <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
-                </button>
-              </div>
-            </motion.div>
+        <ul className="flex flex-col gap-2">
+          {solution.features.map((f) => (
+            <li key={f} className="flex items-center gap-2 text-[12.5px] text-ink">
+              <Icon
+                name="check"
+                size={14}
+                strokeWidth={1.8}
+                className="shrink-0 text-green"
+              />
+              {f}
+            </li>
           ))}
+        </ul>
 
-          {/* Additional Solutions - Animated */}
-          <AnimatePresence>
-            {showAllSolutions && MORE_SOLUTIONS.map((solution, idx) => (
-              <motion.div
-                key={`more-${idx}`}
-                initial={{ opacity: 0, y: 30 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: 30 }}
-                transition={{ delay: idx * 0.1, duration: 0.6 }}
-                className="group relative h-[400px] rounded-2xl overflow-hidden border border-slate-800/70 hover:border-blue-500/30 transition-all"
-              >
-                {/* Background Image */}
-                <div className="absolute inset-0">
-                  <Image
-                    src={solution.image}
-                    alt={solution.title}
-                    fill
-                    className="object-cover"
-                  />
-                  {/* Gradient Overlay - only on left side, transparent on right */}
-                  <div className="absolute inset-0 bg-gradient-to-r from-slate-900 via-slate-900/70 to-transparent" />
-                </div>
-
-                {/* Content */}
-                <div className="relative h-full flex flex-col p-6 z-10">
-                  {/* Icon */}
-                  <div className="w-10 h-10 rounded-xl bg-blue-500/10 border border-blue-500/20 flex items-center justify-center mb-4">
-                    <solution.icon size={24} className="text-blue-400" strokeWidth={1.5} />
-                  </div>
-
-                  {/* Title */}
-                  <h3 className="text-3xl font-medium text-primary mb-2" style={{ fontFamily: 'Boska, serif' }}>
-                    {solution.title}
-                  </h3>
-
-                  {/* Description */}
-                  <p className="text-sm font-medium text-slate-300 mb-6 leading-relaxed">
-                    {solution.description}
-                  </p>
-
-                  {/* Features List */}
-                  <div className="flex flex-col gap-2 mb-6">
-                    {solution.features.map((feature, featureIdx) => (
-                      <div key={featureIdx} className="flex items-center gap-2">
-                        <div className="w-1.5 h-1.5 rounded-full bg-blue-400/60" />
-                        <span className="text-sm text-slate-400">{feature}</span>
-                      </div>
-                    ))}
-                  </div>
-
-                  {/* CTA Button */}
-                  <button className="mt-auto flex items-center gap-2 text-sm font-medium text-blue-400 hover:text-blue-300 transition-colors w-fit group">
-                    Watch Demo <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
-                  </button>
-                </div>
-              </motion.div>
-            ))}
-          </AnimatePresence>
-        </div>
-
-        {/* More Solutions Section */}
-        <div className="mt-8 relative flex items-center justify-between p-8 rounded-2xl bg-slate-900/40 border border-slate-800/70 overflow-hidden">
-          {/* Background Image - 70% width, full height, positioned on the right */}
-          <div className="absolute right-0 top-0 w-[100%] h-full">
-            <Image
-              src="/images/solutionsBanner.png"
-              alt="Solutions Banner"
-              fill
-              className="object-cover"
-            />
-            {/* Gradient overlay for text visibility */}
-            <div className="absolute inset-0 bg-gradient-to-r from-slate-900 via-slate-900/80 to-transparent" />
-          </div>
-
-          <div className="relative z-10">
-            <p className="text-xs font-semibold text-blue-400 mb-2 uppercase tracking-wider">More Solutions</p>
-            <h2 className="text-3xl font-medium text-primary mb-3 leading-[1.08]" style={{ fontFamily: 'Boska, serif' }}>
-              Infinite solutions.
-              <span className="block text-blue-400">
-                One intelligence.
-              </span>
-            </h2>
-            {/* <h2 className="text-3xl font-medium text-blue-400 mb-3" style={{ fontFamily: 'Boska, serif' }}>
-              One intelligence.
-            </h2> */}
-            <p className="text-sm font-medium text-slate-400 max-w-md">
-              Explore the complete Mialo solution suite built for real-world operations.
-            </p>
-          </div>
-          <button 
-            onClick={() => setShowAllSolutions(!showAllSolutions)}
-            className="relative z-10 flex items-center gap-3 px-6 py-3 rounded-full bg-blue-500 hover:bg-blue-600 text-white font-medium transition-colors"
-          >
-            {showAllSolutions ? (
-              <>
-                Show less
-                <ChevronUp size={20} />
-              </>
-            ) : (
-              <>
-                View all solutions
-                <ArrowRight size={20} />
-              </>
-            )}
-          </button>
-        </div>
+        <ArrowLink className="mt-auto pt-1">Watch demo</ArrowLink>
       </div>
     </div>
+  );
+}
+
+export default function SolutionSection2() {
+  return (
+    <>
+      <Section>
+        <div className="flex flex-col gap-14">
+          <SectionHeader
+            eyebrow="Solutions"
+            title="Pre-built solutions, ready for real-world operations."
+            lead="Each solution packages the models, workflows and integrations for a specific operational problem — powered by the same Mialo Intelligence Layer."
+          />
+
+          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {SOLUTIONS.map((s) => (
+              <SolutionCard key={s.title} solution={s} />
+            ))}
+          </div>
+        </div>
+      </Section>
+
+      {/* -------- Closing CTA -------- */}
+      <section className="relative overflow-hidden border-t border-line py-24 sm:py-[120px]">
+        <div aria-hidden className="absolute inset-0">
+          <Image
+            src="/images/solutionsBanner.png"
+            alt=""
+            fill
+            sizes="100vw"
+            className="object-cover opacity-40"
+          />
+          <div className="absolute inset-0 bg-background/70" />
+          <div
+            className="absolute inset-0"
+            style={{
+              background:
+                "linear-gradient(180deg, var(--color-background) 0%, transparent 45%, var(--color-background) 100%)",
+            }}
+          />
+        </div>
+
+        <Container className="relative flex flex-col items-center gap-7 text-center">
+          <Eyebrow>Get started</Eyebrow>
+          <h2 className="max-w-[620px] font-display text-[28px] font-medium leading-[1.15] tracking-[-0.02em] text-balance text-primary sm:text-[34px]">
+            Infinite solutions. One intelligence.
+          </h2>
+          <div className="flex flex-wrap justify-center gap-3">
+            <PrimaryButton>Explore all solutions</PrimaryButton>
+            <GhostButton>Talk to experts</GhostButton>
+          </div>
+        </Container>
+      </section>
+    </>
   );
 }
