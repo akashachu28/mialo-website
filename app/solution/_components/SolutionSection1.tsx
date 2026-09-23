@@ -19,10 +19,10 @@ export default function SolutionSection1() {
               title="One intelligence layer. Infinite possibilities."
               lead="Every solution is powered by the Mialo Intelligence Layer, turning raw data into decisions and outcomes — from ingestion and AI processing to insight and impact."
             />
-            <ArrowLink>Explore the architecture</ArrowLink>
+            <ArrowLink className="text-pista">Explore the architecture</ArrowLink>
           </div>
 
-          <div className="w-full overflow-x-auto rounded-2xl border border-line-2 bg-panel p-6 sm:p-8">
+          <div >
             <PulseCard />
           </div>
         </div>

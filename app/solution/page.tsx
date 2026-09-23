@@ -13,7 +13,9 @@ export default function Solution() {
     <div className="bg-background font-body text-primary antialiased">
       <HeroSolution />
       <SolutionSection1 />
-      <SolutionSection2 />
+      <div className="bg-white/75">
+        <SolutionSection2 />
+      </div>
     </div>
   );
 }
