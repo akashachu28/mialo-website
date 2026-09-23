@@ -241,7 +241,7 @@ export function Section({
 }) {
   return (
     <section
-      className={`border-t border-line py-20 sm:py-[104px] ${className}`}
+      className={` py-20 sm:py-[104px] ${className}`}
     >
       <Container>{children}</Container>
     </section>
@@ -357,12 +357,15 @@ export function ArrowLink({
 export function PrimaryButton({
   children,
   arrow = true,
+  onClick,
 }: {
   children: ReactNode;
   arrow?: boolean;
+  onClick?: () => void;
 }) {
   return (
     <button
+      onClick={onClick}
       className="group inline-flex items-center gap-[9px] bg-pista px-5 py-[11px] text-[14px] font-medium text-[#08090B] transition-[transform,background-color] duration-150 hover:-translate-y-0.5 hover:bg-white active:translate-y-0"
       style={{
         clipPath:
