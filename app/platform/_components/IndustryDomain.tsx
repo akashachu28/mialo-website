@@ -1,6 +1,17 @@
 import { ArrowLink, Icon, Section, SectionHeader } from "@/components/ui";
 import Image from "next/image";
 
+interface Domain {
+  number: string;
+  icon: "eye" | "mic" | "doc" | "radio" | "ruler" | "brain" | "cpu";
+  title: string;
+  short: string;
+  body: string;
+  capabilities: string[];
+  image: string;
+  alt: string;
+}
+
 const DOMAINS: Domain[] = [
   {
     number: "01",
