@@ -18,6 +18,7 @@ export default function Header() {
   const pathname = usePathname();
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [isDarkText, setIsDarkText] = useState(false);
 
   const isActive = (href: string) =>
     pathname === href || pathname.startsWith(href + '/');
@@ -38,6 +39,40 @@ export default function Header() {
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
+  // Detect light/dark sections using scroll position
+  useEffect(() => {
+    const checkHeaderTheme = () => {
+      const sections = document.querySelectorAll('[data-header-theme]');
+      const headerHeight = 64; // Height of header in pixels
+      const scrollY = window.scrollY;
+      
+      let isOnLightSection = false;
+      
+      sections.forEach((section) => {
+        const rect = section.getBoundingClientRect();
+        const sectionTop = rect.top + scrollY;
+        const sectionBottom = sectionTop + rect.height;
+        
+        // Check if header is over this section
+        const headerPosition = scrollY + headerHeight;
+        
+        if (headerPosition >= sectionTop && headerPosition <= sectionBottom) {
+          const theme = section.getAttribute('data-header-theme');
+          if (theme === 'light') {
+            isOnLightSection = true;
+          }
+        }
+      });
+      
+      setIsDarkText(isOnLightSection);
+    };
+
+    checkHeaderTheme();
+    window.addEventListener('scroll', checkHeaderTheme, { passive: true });
+    
+    return () => window.removeEventListener('scroll', checkHeaderTheme);
+  }, [pathname]);
+
   // Lock body scroll while the mobile menu is open
   useEffect(() => {
     document.body.style.overflow = mobileOpen ? 'hidden' : '';
@@ -47,21 +82,35 @@ export default function Header() {
   }, [mobileOpen]);
 
   const solid = scrolled || mobileOpen;
+  const textColor = isDarkText ? 'text-gray-800' : 'text-white';
+  const borderColor = isDarkText ? 'border-gray-800' : 'border-white';
+  // const bgColor = isDarkText ? 'bg-white' : 'bg-transparent';
 
   return (
     <>
     <header
-      className={`fixed inset-x-0 top-0 z-50 border-b transition-colors duration-300 ${
+      className={`fixed inset-x-0 top-0 z-50 border-b border-muted/0 transition-colors duration-300 ${
         solid
-          ? 'border-line bg-background/80 backdrop-blur-md'
+          ? 'border-line bg-background/0 backdrop-blur-md'
           : 'border-transparent bg-transparent'
       }`}
+      style={{fontFamily: "var(--font-manrope), sans-serif"}}
     >
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-6 sm:px-8">
         {/* Logo */}
-        <Link href="/" className="flex items-center gap-1.5">
+        <Link 
+          href="/" 
+          className="flex items-center gap-1.5"
+          onClick={(e) => {
+            // If already on home page, scroll to top smoothly
+            if (pathname === '/') {
+              e.preventDefault();
+              window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+          }}
+        >
           <Image src={brainlogo} alt="" className="h-7 w-auto opacity-80" />
-          <span className="font-display text-xl font-medium tracking-[-0.02em] text-primary">
+          <span className={`font-display text-xl font-medium tracking-[-0.02em] ${textColor} transition-colors duration-300`}>
             Mialo.ai
           </span>
         </Link>
@@ -72,10 +121,10 @@ export default function Header() {
             <Link
               key={item.name}
               href={item.href}
-              className={`border-b-2 pb-1 text-sm transition-colors ${
+              className={`border-b-2 pb-1 text-[17px] transition-colors duration-300 ${
                 isActive(item.href)
-                  ? 'border-ice text-primary'
-                  : 'border-transparent text-muted hover:text-primary'
+                  ? `${borderColor} ${textColor}`
+                  : `border-transparent ${textColor} hover:opacity-70`
               }`}
             >
               {item.name}
@@ -87,7 +136,15 @@ export default function Header() {
         <div className="flex items-center gap-2">
           <Link
             href="/demo"
-            className="hidden rounded-lg bg-primary px-5 py-[11px] text-[14px] font-medium text-[#08090B] transition-colors hover:bg-white lg:block"
+            className={`hidden px-5 py-[11px] text-[14px] font-medium  transition-all duration-300 hover:opacity-80 lg:block`}
+            style={{
+              clipPath: "polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px)",
+              borderWidth: '1px',
+              borderStyle: 'solid',
+              color: isDarkText ? '#fff' : '#08090B',
+              borderColor: isDarkText ? '#6C93FF' : '#C6FF6D',
+              backgroundColor:  isDarkText ? '#6C93FF' : '#C6FF6D'
+            }}
           >
             Request a demo
           </Link>
@@ -97,7 +154,10 @@ export default function Header() {
             onClick={() => setMobileOpen((v) => !v)}
             aria-label={mobileOpen ? 'Close menu' : 'Open menu'}
             aria-expanded={mobileOpen}
-            className="-mr-2 flex h-10 w-10 items-center justify-center rounded-lg text-primary transition-colors hover:bg-white/5 lg:hidden"
+            className={`-mr-2 flex h-10 w-10 items-center justify-center rounded-lg ${textColor} transition-all duration-300 lg:hidden`}
+            style={{
+              backgroundColor: isDarkText ? 'rgba(0, 0, 0, 0.05)' : 'rgba(255, 255, 255, 0.1)'
+            }}
           >
             {mobileOpen ? <X size={20} /> : <Menu size={20} />}
           </button>

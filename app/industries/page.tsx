@@ -13,7 +13,9 @@ export default function Industries() {
   return (
     <div className="bg-background font-body text-primary antialiased">
       <HeroIndustry />
-      <IndustrySection2 />
+      <div className="bg-white/85" data-header-theme="light">
+        <IndustrySection2 />
+      </div>
       <IndustrySection3 />
       <IndustrySection4 />
     </div>

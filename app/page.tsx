@@ -12,27 +12,39 @@ export default function Home() {
   return (
     <div className="bg-background font-body text-primary antialiased">
       <Hero />
-      <Reveal>
-        <Hero2 />
-      </Reveal>
-      <Reveal>
-        <Section3 />
-      </Reveal>
-      <Reveal>
-        <Section4 />
-      </Reveal>
-      <Reveal>
-        <Section5 />
-      </Reveal>
-      <Reveal>
-        <Section6 />
-      </Reveal>
-      <Reveal>
+      <div className='bg-white/75' data-header-theme="light">
+        <Reveal>
+          <Hero2 />
+        </Reveal>
+      </div>
+        
+      
+        <div className='bg-white/85' data-header-theme="light">
+          <Reveal>
+            <Section3 />
+          </Reveal>
+        </div>
+        
+      <div className='bg-white/75'>
+        <Reveal>
+          <Section4 />
+        </Reveal>
+      </div>
+
+        {/* <Reveal>
+          <Section5 />
+        </Reveal> */}
+        <Reveal>
+          <Section6 />
+        </Reveal>
+      {/* <Reveal>
         <Section7 />
-      </Reveal>
-      <Reveal>
-        <Section8 />
-      </Reveal>
+      </Reveal> */}
+      <div className=''>
+        <Reveal>
+          <Section8 />
+        </Reveal>
+      </div>
     </div>
   );
 }
