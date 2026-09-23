@@ -4,10 +4,12 @@ import { Container, Eyebrow, PrimaryButton, GhostButton } from "./ui";
 import { Reveal, RevealItem } from "./animations";
 import HeroCard from "./HeroCard";
 import TypewriterText from "./TypewriterText";
+import DemoModal from "./DemoModal";
 import { useEffect, useState } from "react";
 
 export default function Hero() {
   const [scrollProgress, setScrollProgress] = useState(0);
+  const [isDemoModalOpen, setIsDemoModalOpen] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -172,7 +174,7 @@ export default function Hero() {
                 actions and measurable business outcomes.
               </p>
               <div className="mt-10 flex flex-wrap gap-3">
-                <PrimaryButton>Request a demo</PrimaryButton>
+                <PrimaryButton onClick={() => setIsDemoModalOpen(true)}>Request a demo</PrimaryButton>
                 {/* <GhostButton>Learn more</GhostButton> */}
               </div>
             </div>
@@ -182,6 +184,12 @@ export default function Hero() {
           </div>
         </Container>
       </div>
+
+      {/* Demo Modal */}
+      <DemoModal 
+        isOpen={isDemoModalOpen} 
+        onClose={() => setIsDemoModalOpen(false)} 
+      />
     </section>
   );
 }

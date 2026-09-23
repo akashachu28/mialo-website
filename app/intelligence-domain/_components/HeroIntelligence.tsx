@@ -69,18 +69,7 @@ export default function HeroIntelligence() {
             </Kicker>
           </div>
 
-          <div className="px-4 py-8 sm:px-8 sm:py-12">
-            <div className="relative mx-auto aspect-[3/2] w-full max-w-[760px]">
-              <Image
-                src="/images/intelligenceComponent.png"
-                alt="The Mialo intelligence layer — seven specialized domains feeding one unified core"
-                fill
-                sizes="(max-width: 820px) 90vw, 760px"
-                className="object-contain"
-                preload
-              />
-            </div>
-          </div>
+
 
           <div className="grid grid-cols-1 border-t border-line sm:grid-cols-3">
             {PILLARS.map((p, i) => (
