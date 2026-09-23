@@ -1,4 +1,5 @@
 import HeroPlatform from "./_components/HeroPlatform";
+import IndustryDomain from "./_components/IndustryDomain";
 import PlatformSection2 from "./_components/PlatformSection2";
 import PlatformSection3 from "./_components/PlatformSection3";
 import PlatformSection4 from "./_components/PlatfromSection4";
@@ -13,7 +14,8 @@ export default function PlatformPage() {
   return (
     <div className="bg-background font-body text-primary antialiased">
       <HeroPlatform />
-      <PlatformSection2 />
+      <div className="bg-white/75"><PlatformSection2 /></div>
+      <div className="bg-white/85"><IndustryDomain/></div>
       <PlatformSection3 />
       <PlatformSection4 />
     </div>

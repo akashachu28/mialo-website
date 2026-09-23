@@ -241,7 +241,7 @@ export function Section({
 }) {
   return (
     <section
-      className={`border-t border-line py-20 sm:py-[104px] ${className}`}
+      className={` py-20 sm:py-[104px] ${className}`}
     >
       <Container>{children}</Container>
     </section>

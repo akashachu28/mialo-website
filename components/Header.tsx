@@ -5,10 +5,11 @@ import { Menu, X } from 'lucide-react';
 import { useState, useEffect } from 'react';
 import { usePathname } from 'next/navigation';
 import brainlogo from '../public/images/brainLogo.png';
+import DemoModal from './DemoModal';
 
 const NAV: { name: string; href: string }[] = [
   { name: 'Platform', href: '/platform' },
-  { name: 'Intelligence Domain', href: '/intelligence-domain' },
+  // { name: 'Intelligence Domain', href: '/intelligence-domain' },
   { name: 'Industries', href: '/industries' },
   { name: 'Solutions', href: '/solution' },
   { name: 'Company', href: '/company' },
@@ -19,6 +20,7 @@ export default function Header() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [isDarkText, setIsDarkText] = useState(false);
+  const [isDemoModalOpen, setIsDemoModalOpen] = useState(false);
 
   const isActive = (href: string) =>
     pathname === href || pathname.startsWith(href + '/');
@@ -134,8 +136,8 @@ export default function Header() {
 
         {/* Right side */}
         <div className="flex items-center gap-2">
-          <Link
-            href="/demo"
+          <button
+            onClick={() => setIsDemoModalOpen(true)}
             className={`hidden px-5 py-[11px] text-[14px] font-medium  transition-all duration-300 hover:opacity-80 lg:block`}
             style={{
               clipPath: "polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px)",
@@ -147,7 +149,7 @@ export default function Header() {
             }}
           >
             Request a demo
-          </Link>
+          </button>
 
           <button
             type="button"
@@ -183,14 +185,20 @@ export default function Header() {
             ))}
           </nav>
 
-          <Link
-            href="/demo"
-            className="mt-6 block rounded-lg bg-primary px-5 py-3 text-center text-sm font-medium text-[#08090B]"
+          <button
+            onClick={() => setIsDemoModalOpen(true)}
+            className="mt-6 block rounded-lg bg-primary px-5 py-3 text-center text-sm font-medium text-[#08090B] w-full"
           >
             Request a demo
-          </Link>
+          </button>
         </div>
       )}
+
+      {/* Demo Modal */}
+      <DemoModal 
+        isOpen={isDemoModalOpen} 
+        onClose={() => setIsDemoModalOpen(false)} 
+      />
     </>
   );
 }
