@@ -1,12 +1,12 @@
 'use client'
-import { Building2, Factory, Zap, Heart, Truck, Shield, ArrowRight } from "lucide-react";
+import { ShoppingBag, Factory, Zap, Heart, Truck, Shield, ArrowRight } from "lucide-react";
 import { Reveal, RevealItem } from "./animations";
 
 const SECTORS = [
   {
-    icon: Building2,
-    title: "Financial Services",
-    description: "Continuous oversight across risk, compliance, fraud and settlement operations.",
+    icon: ShoppingBag,
+    title: "Retail",
+    description: "Optimize inventory, enhance customer experience and streamline operations across all touchpoints.",
   },
   {
     icon: Factory,
@@ -72,12 +72,12 @@ export default function SectorCards() {
                 <div className="flex items-start justify-between mb-[18px]">
                   <sector.icon 
                     size={32} 
-                    className="text-blue-300/70 group-hover:text-blue-300 transition-all duration-300 drop-shadow-[0_0_10px_rgba(147,197,253,0.5)]" 
+                    className="text-pista/70 group-hover:text-pista transition-all duration-300 drop-shadow-[0_0_10px_rgba(147,197,253,0.5)]" 
                     strokeWidth={1.5} 
                   />
                   <ArrowRight 
                     size={20} 
-                    className="text-blue-400/60 group-hover:text-blue-400 group-hover:translate-x-1 transition-all duration-300 drop-shadow-[0_0_6px_rgba(59,130,246,0.6)]" 
+                    className="text-pista/60 group-hover:text-pista group-hover:translate-x-1 transition-all duration-300 drop-shadow-[0_0_6px_rgba(59,130,246,0.6)]" 
                   />
                 </div>
 

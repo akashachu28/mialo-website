@@ -45,7 +45,9 @@ const PATHS: Record<string, ReactNode> = {
       <path d="M10 2v3M14 2v3M10 19v3M14 19v3M2 10h3M2 14h3M19 10h3M19 14h3" />
     </>
   ),
-  sparkle: <path d="M12 3l1.8 5.2L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.8z" />,
+  sparkle: (
+    <path d="M12 3l1.8 5.2L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.8z" />
+  ),
   target: (
     <>
       <circle cx="12" cy="12" r="8" />
@@ -87,7 +89,9 @@ const PATHS: Record<string, ReactNode> = {
       <path d="M7 8v3M12 8v4M17 8v3" />
     </>
   ),
-  cloud: <path d="M7 18a4 4 0 0 1 0-8 6 6 0 0 1 11.5 1.5A3.5 3.5 0 0 1 18 18z" />,
+  cloud: (
+    <path d="M7 18a4 4 0 0 1 0-8 6 6 0 0 1 11.5 1.5A3.5 3.5 0 0 1 18 18z" />
+  ),
   network: (
     <>
       <circle cx="12" cy="5" r="2.5" />
@@ -236,7 +240,9 @@ export function Section({
   className?: string;
 }) {
   return (
-    <section className={`border-t border-line py-20 sm:py-[104px] ${className}`}>
+    <section
+      className={`border-t border-line py-20 sm:py-[104px] ${className}`}
+    >
       <Container>{children}</Container>
     </section>
   );
@@ -298,12 +304,21 @@ export function SectionHeader({
         center ? "mx-auto items-center text-center" : ""
       } ${className}`}
     >
-      <Eyebrow>{eyebrow}</Eyebrow>
-      <h2 className="w-full font-display text-[32px] font-medium leading-[1.12] tracking-[-0.025em] text-primary text-pretty sm:text-[40px]">
+      {/* <Eyebrow>{eyebrow}</Eyebrow> */}
+      <h2
+        className="w-full font-display text-[32px] font-medium leading-[1.12] tracking-[-0.025em] text-ice text-pretty sm:text-[40px]"
+        style={{
+          fontFamily: "var(--font-manrope), sans-serif",
+          fontWeight: 400,
+          fontSize: "clamp(32px, 7.2vw, 48px)",
+          lineHeight: 1.1,
+          letterSpacing: "-0.045em",
+        }}
+      >
         {title}
       </h2>
       {lead ? (
-        <p className="w-full max-w-[640px] text-[17px] leading-[1.62] text-ink text-pretty">
+        <p className="w-full max-w-[640px] text-[17px] leading-[1.62] text-gray-300 text-pretty">
           {lead}
         </p>
       ) : null}
@@ -347,7 +362,13 @@ export function PrimaryButton({
   arrow?: boolean;
 }) {
   return (
-    <button className="group inline-flex items-center gap-[9px] rounded-lg bg-primary px-5 py-[11px] text-[14px] font-medium text-[#08090B] transition-[transform,background-color] duration-150 hover:-translate-y-0.5 hover:bg-white active:translate-y-0">
+    <button
+      className="group inline-flex items-center gap-[9px] bg-pista px-5 py-[11px] text-[14px] font-medium text-[#08090B] transition-[transform,background-color] duration-150 hover:-translate-y-0.5 hover:bg-white active:translate-y-0"
+      style={{
+        clipPath:
+          "polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px)",
+      }}
+    >
       {children}
       {arrow ? (
         <Icon
@@ -363,7 +384,13 @@ export function PrimaryButton({
 
 export function GhostButton({ children }: { children: ReactNode }) {
   return (
-    <button className="inline-flex items-center rounded-lg border border-line-3 px-5 py-[11px] text-[14px] font-medium text-primary transition-[transform,color,border-color] duration-150 hover:-translate-y-0.5 hover:border-ice/40 hover:text-[#97B4FF] active:translate-y-0">
+    <button
+      className="inline-flex items-center border border-line-3 px-5 py-[11px] text-[14px] font-medium text-primary transition-[transform,color,border-color] duration-150 hover:-translate-y-0.5 hover:border-pista/40 hover:text-pista active:translate-y-0"
+      style={{
+        clipPath:
+          "polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px)",
+      }}
+    >
       {children}
     </button>
   );

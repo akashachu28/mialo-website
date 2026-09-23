@@ -26,7 +26,7 @@ export default function IndustrySection3() {
 
           <div className="relative flex flex-col gap-9 p-8 sm:p-12">
             <div className="flex flex-col gap-5">
-              <Eyebrow>Proven at Scale</Eyebrow>
+              {/* <Eyebrow>Proven at Scale</Eyebrow> */}
               <h2 className="max-w-[520px] font-display text-[30px] font-medium leading-[1.12] tracking-[-0.025em] text-primary text-pretty sm:text-[36px]">
                 Real impact. Proven at scale.
               </h2>
@@ -35,7 +35,7 @@ export default function IndustrySection3() {
             <div className="grid grid-cols-2 gap-x-8 gap-y-8 border-t border-line pt-9 sm:grid-cols-4">
               {METRICS.map((m) => (
                 <div key={m.value} className="flex flex-col gap-2">
-                  <span className="font-display text-[32px] font-medium tracking-[-0.02em] text-ice">
+                  <span className="font-display text-[32px] font-medium tracking-[-0.02em] text-pista">
                     {m.value}
                   </span>
                   <span className="text-[13px] leading-[1.5] text-muted">

@@ -5,7 +5,7 @@ export default function Section8() {
     <section className="relative overflow-hidden border-t border-line py-24 sm:py-[120px]">
       <div
         aria-hidden
-        className="pointer-events-none absolute left-1/2 top-0 h-[300px] w-full max-w-[760px] -translate-x-1/2"
+        className=" pointer-events-none absolute left-1/2 top-0 h-[300px] w-full max-w-[760px] -translate-x-1/2"
         style={{
           background:
             "radial-gradient(ellipse at 50% 0%, rgba(108,147,255,0.14), transparent 70%)",

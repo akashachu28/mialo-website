@@ -37,7 +37,7 @@ const INDUSTRIES: Industry[] = [
   {
     icon: "factory",
     label: "Manufacturing",
-    blurb: "Line anomalies, safety and uptime — caught before they cascade.",
+    blurb: "Line anomalies, safety and uptime - caught before they cascade.",
     image: "/images/manufacture.png",
     alt: "A robotic welding arm throwing sparks on a factory line",
     href: "/industries/innerPages/manufacturing",
@@ -81,33 +81,46 @@ export default function IndustrySection2() {
           <SectionHeader
             eyebrow="How Mialo Works"
             title="From data to decisions. In real time."
-            lead="Every operational moment follows the same loop — observe, understand, decide, act and learn — running continuously across your sources."
+            // lead="Every operational moment follows the same loop - observe, understand, decide, act and learn - running continuously across your sources."
           />
+          <p className="w-full max-w-[640px] text-[18px] leading-[1.62] text-gray-700 -mt-10 text-pretty">
+            Every operational moment follows the same loop - observe, understand, decide, act and learn - running continuously across your sources.
+          </p>
 
-          <div className="relative grid grid-cols-2 gap-x-3 gap-y-8 sm:grid-cols-3 lg:grid-cols-5">
-            <div
-              aria-hidden
-              className="absolute left-[10%] right-[10%] top-[46px] hidden h-px lg:block"
-              style={{
-                background:
-                  "repeating-linear-gradient(90deg, var(--color-line-3) 0 6px, transparent 6px 14px)",
-              }}
-            />
+          <div className="relative bg-ice py-3 grid grid-cols-2 gap-x-3 gap-y-8 sm:grid-cols-3 lg:grid-cols-5"
+          style={{
+                  clipPath: "polygon(40px 0, 100% 0, 100% calc(100% - 40px), calc(100% - 40px) 100%, 0 100%, 0 40px)",
+                }}
+          >
             {STEPS.map((s, i) => (
               <div
                 key={s.title}
                 className="relative flex flex-col items-center gap-3 text-center"
               >
-                <span className="font-mono text-[10px] tracking-[0.1em] text-faint">
+                {/* Dotted line between icons (not after last one) */}
+                {i < STEPS.length - 1 && (
+                  <div
+                    aria-hidden
+                    className="absolute top-[46px] hidden h-px lg:block z-0 pointer-events-none"
+                    style={{
+                      left: "calc(50% + 32px)",
+                      width: "calc(100vw / 5 - 120px)",
+                      background:
+                        "repeating-linear-gradient(90deg, var(--color-pista) 0 6px, transparent 6px 14px)",
+                    }}
+                  />
+                )}
+                
+                <span className="font-mono text-[10px] tracking-[0.1em] text-pista relative z-10">
                   {String(i + 1).padStart(2, "0")}
                 </span>
-                <span className="flex h-11 w-11 items-center justify-center rounded-[11px] border border-ice/30 bg-ice/10 text-ice">
+                <span className="flex h-11 w-11 items-center justify-center rounded-[11px] border border-white/30 bg-white/10 text-white relative z-10">
                   <Icon name={s.icon} size={20} />
                 </span>
-                <span className="font-display text-[15px] font-medium text-primary">
+                <span className="font-display text-[15px] font-medium text-pista relative z-10">
                   {s.title}
                 </span>
-                <span className="max-w-[190px] text-[12.5px] leading-[1.5] text-muted text-pretty">
+                <span className="max-w-[190px] text-[12.5px] leading-[1.5] text-white/90 text-pretty relative z-10">
                   {s.body}
                 </span>
               </div>
@@ -122,9 +135,12 @@ export default function IndustrySection2() {
           <SectionHeader
             eyebrow="Industries We Empower"
             title="Operational intelligence, tuned to your world."
-            lead="The same intelligence layer, adapted to the signals, constraints and outcomes that define each sector."
+            // lead="The same intelligence layer, adapted to the signals, constraints and outcomes that define each sector."
           >
-            <ArrowLink>Explore all industries</ArrowLink>
+            <p className="w-full max-w-[640px] text-[18px] leading-[1.62] text-gray-700 mt-5 text-pretty">
+            Every operational moment follows the same loop - observe, understand, decide, act and learn - running continuously across your sources.
+          </p>
+            {/* <ArrowLink>Explore all industries</ArrowLink> */}
           </SectionHeader>
 
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
@@ -158,14 +174,20 @@ export default function IndustrySection2() {
                 <Link
                   key={industry.label}
                   href={industry.href}
-                  className="group relative overflow-hidden rounded-[14px] border border-line-2 bg-raise transition-colors hover:border-line-3"
+                  className="group relative overflow-hidden  border border-line-2 bg-raise transition-colors hover:border-line-3"
+                  style={{
+                  clipPath: "polygon(40px 0, 100% 0, 100% calc(100% - 40px), calc(100% - 40px) 100%, 0 100%, 0 40px)",
+                }}
                 >
                   {CardContent}
                 </Link>
               ) : (
                 <div
                   key={industry.label}
-                  className="group relative overflow-hidden rounded-[14px] border border-line-2 bg-raise transition-colors hover:border-line-3"
+                  className="group relative overflow-hidden border border-line-2 bg-raise transition-colors hover:border-line-3"
+                  style={{
+                  clipPath: "polygon(40px 0, 100% 0, 100% calc(100% - 40px), calc(100% - 40px) 100%, 0 100%, 0 40px)",
+                }}
                 >
                   {CardContent}
                 </div>

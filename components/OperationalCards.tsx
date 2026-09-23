@@ -61,19 +61,19 @@ export default function OperationalCards() {
               }}
             >
               {/* Glassy overlay effect */}
-              <div className="absolute inset-0 bg-gradient-to-br from-blue-500/5 via-transparent to-blue-500/5 opacity-50 group-hover:opacity-70 transition-opacity duration-300" />
+              <div className="absolute inset-0 bg-gradient-to-br from-pista/5 via-transparent to-pista/5 opacity-50 group-hover:opacity-70 transition-opacity duration-300" />
               
               {/* Scan line effect */}
-              <div className="absolute inset-0 bg-gradient-to-b from-transparent via-blue-400/5 to-transparent opacity-0 group-hover:opacity-100 animate-scan transition-opacity duration-300" />
+              <div className="absolute inset-0 bg-gradient-to-b from-transparent via-pista/5 to-transparent opacity-0 group-hover:opacity-100 animate-scan transition-opacity duration-300" />
               
               {/* Card content */}
               <div className="relative p-[22px] h-full flex flex-col">
                 {/* Header with number and arrow */}
                 <div className="flex items-start justify-between mb-[18px]">
-                  <span className="text-blue-400 text-base font-bold tracking-wider drop-shadow-[0_0_8px_rgba(59,130,246,0.8)]">{card.id}</span>
+                  <span className="text-pista text-base font-bold tracking-wider drop-shadow-[0_0_8px_rgba(59,130,246,0.8)]">{card.id}</span>
                   <ArrowRight 
                     size={18} 
-                    className="text-blue-400/60 group-hover:text-blue-400 group-hover:translate-x-1 transition-all duration-300 drop-shadow-[0_0_6px_rgba(59,130,246,0.6)]" 
+                    className="text-pista group-hover:text-pista/80 group-hover:translate-x-1 transition-all duration-300 drop-shadow-[0_0_6px_rgba(59,130,246,0.6)]" 
                   />
                 </div>
 
@@ -81,7 +81,7 @@ export default function OperationalCards() {
                 <div className="mb-[18px]">
                   <card.icon 
                     size={36} 
-                    className="text-blue-300/70 group-hover:text-blue-300 transition-all duration-300 drop-shadow-[0_0_10px_rgba(147,197,253,0.5)]" 
+                    className="text-pista group-hover:text-pista/40 transition-all duration-300 drop-shadow-[0_0_10px_rgba(147,197,253,0.5)]" 
                     strokeWidth={1.5} 
                   />
                 </div>
@@ -92,17 +92,17 @@ export default function OperationalCards() {
                 </h3>
 
                 {/* Description */}
-                <p className="text-slate-400 text-sm leading-relaxed flex-grow">
+                <p className="text-slate-300 text-sm leading-relaxed flex-grow">
                   {card.description}
                 </p>
               </div>
               
               {/* Bottom accent lines with glow */}
               <div className="absolute bottom-0 left-0 flex gap-1.5 p-4">
-                <div className="w-3 h-0.5 bg-blue-400/80 shadow-[0_0_8px_rgba(59,130,246,0.8)]"></div>
-                <div className="w-3 h-0.5 bg-blue-400/80 shadow-[0_0_8px_rgba(59,130,246,0.8)]"></div>
-                <div className="w-3 h-0.5 bg-blue-400/80 shadow-[0_0_8px_rgba(59,130,246,0.8)]"></div>
-                <div className="w-3 h-0.5 bg-blue-400/80 shadow-[0_0_8px_rgba(59,130,246,0.8)]"></div>
+                <div className="w-3 h-0.5 bg-pista shadow-[0_0_8px_rgba(59,130,246,0.8)]"></div>
+                <div className="w-3 h-0.5 bg-pista shadow-[0_0_8px_rgba(59,130,246,0.8)]"></div>
+                <div className="w-3 h-0.5 bg-pista shadow-[0_0_8px_rgba(59,130,246,0.8)]"></div>
+                <div className="w-3 h-0.5 bg-pista shadow-[0_0_8px_rgba(59,130,246,0.8)]"></div>
               </div>
 
               {/* Corner accent on top-left cut */}

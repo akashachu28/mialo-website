@@ -80,7 +80,8 @@ const SOLUTIONS: Solution[] = [
   {
     icon: "mic",
     title: "VoxCore",
-    description: "Voice AI platform for real-time conversations and automation.",
+    description:
+      "Voice AI platform for real-time conversations and automation.",
     features: [
       "Automatic speech recognition",
       "Wake-word detection",
@@ -111,7 +112,13 @@ const SOLUTIONS: Solution[] = [
 
 function SolutionCard({ solution }: { solution: Solution }) {
   return (
-    <div className="flex flex-col overflow-hidden rounded-[14px] border border-line-2 bg-raise transition-colors hover:border-line-3">
+    <div
+      className="flex flex-col overflow-hidden  bg-ice transition-colors"
+      style={{
+        clipPath:
+          "polygon(40px 0, 100% 0, 100% calc(100% - 40px), calc(100% - 40px) 100%, 0 100%, 0 40px)",
+      }}
+    >
       <div className="relative aspect-[16/9] w-full border-b border-line-2">
         <Image
           src={solution.image}
@@ -123,27 +130,30 @@ function SolutionCard({ solution }: { solution: Solution }) {
       </div>
 
       <div className="flex flex-1 flex-col gap-4 p-6">
-        <span className="flex h-10 w-10 items-center justify-center rounded-[10px] border border-ice/30 bg-ice/10 text-ice">
+        <span className="flex h-10 w-10 items-center justify-center rounded-[10px] border border-white/30 bg-white/10 text-white">
           <Icon name={solution.icon} size={20} />
         </span>
 
         <div className="flex flex-col gap-1.5">
-          <h3 className="font-display text-[18px] font-medium tracking-[-0.01em] text-primary">
+          <h3 className="font-display text-[18px] font-medium tracking-[-0.01em] text-pista">
             {solution.title}
           </h3>
-          <p className="text-[13.5px] leading-[1.55] text-muted text-pretty">
+          <p className="text-[13.5px] leading-[1.55] text-white/90 text-pretty">
             {solution.description}
           </p>
         </div>
 
         <ul className="flex flex-col gap-2">
           {solution.features.map((f) => (
-            <li key={f} className="flex items-center gap-2 text-[12.5px] text-ink">
+            <li
+              key={f}
+              className="flex items-center gap-2 text-[12.5px] text-gray-700"
+            >
               <Icon
                 name="check"
                 size={14}
                 strokeWidth={1.8}
-                className="shrink-0 text-green"
+                className="shrink-0 text-pista"
               />
               {f}
             </li>
@@ -164,8 +174,13 @@ export default function SolutionSection2() {
           <SectionHeader
             eyebrow="Solutions"
             title="Pre-built solutions, ready for real-world operations."
-            lead="Each solution packages the models, workflows and integrations for a specific operational problem — powered by the same Mialo Intelligence Layer."
+            // lead="Each solution packages the models, workflows and integrations for a specific operational problem — powered by the same Mialo Intelligence Layer."
           />
+          <p className="w-full max-w-[640px] text-[18px] leading-[1.62] text-gray-700 -mt-10 text-pretty">
+            Each solution packages the models, workflows and integrations for a
+            specific operational problem — powered by the same Mialo
+            Intelligence Layer.{" "}
+          </p>
 
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {SOLUTIONS.map((s) => (
