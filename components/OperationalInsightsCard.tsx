@@ -114,10 +114,10 @@ export default function OperationalIntelligenceCard() {
   }, []);
 
   return (
-    <div className="w-full py-6 font-sans">
+    <div className="w-full py-4 font-sans">
       <div
         ref={hostRef}
-        className="relative mx-auto w-full max-w-[1040px] overflow-hidden"
+        className="relative mx-auto w-full overflow-hidden"
         style={{ aspectRatio: `${W} / ${H}` }}
       >
         <div
