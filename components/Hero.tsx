@@ -111,7 +111,7 @@ export default function Hero() {
                     Edge intelligence layer for real world operations
                   </h1>
                   <TypewriterText
-                    words={['Observe', 'Understand', 'Act']}
+                    words={['Observe . Understand . Act']}
                     delay={80}
                     pauseBetweenWords={600}
                     pauseBeforeRestart={2500}
@@ -169,9 +169,8 @@ export default function Hero() {
               // transition: "transform 0.1s ease-out"
             }}
               >
-                Every enterprise generates thousands of operational moments each
-                day. Mialo continuously transforms those moments into intelligent
-                actions and measurable business outcomes.
+                We use AI to connect what’s happening across your operations and take decisions that accelerates your business forward.
+
               </p>
               <div className="mt-10 flex flex-wrap gap-3">
                 <PrimaryButton onClick={() => setIsDemoModalOpen(true)}>Request a demo</PrimaryButton>
