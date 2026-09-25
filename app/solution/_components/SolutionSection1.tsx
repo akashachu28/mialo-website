@@ -17,12 +17,17 @@ export default function SolutionSection1() {
             <SectionHeader
               eyebrow="How It Works"
               title="One intelligence layer. Infinite possibilities."
-              lead="Every solution is powered by the Mialo Intelligence Layer, turning raw data into decisions and outcomes — from ingestion and AI processing to insight and impact."
+              // lead="Every solution is powered by the Mialo Intelligence Layer, turning raw data into decisions and outcomes — from ingestion and AI processing to insight and impact."
             />
-            <ArrowLink className="text-pista">Explore the architecture</ArrowLink>
+            <p className="w-full max-w-[640px] text-[18px] leading-[1.62] text-gray-700 text-pretty">
+              Every solution is powered by the Mialo Intelligence Layer, turning
+              raw data into decisions and outcomes — from ingestion and AI
+              processing to insight and impact.{" "}
+            </p>
+            {/* <ArrowLink className="text-pista">Explore the architecture</ArrowLink> */}
           </div>
 
-          <div >
+          <div>
             <PulseCard />
           </div>
         </div>
@@ -31,9 +36,13 @@ export default function SolutionSection1() {
           {STATS.map((s) => (
             <div
               key={s.value}
-              className="flex flex-col gap-2 rounded-[14px] border border-line-2 bg-raise p-6"
+              className="flex flex-col gap-2 bg-gray-900 p-6"
+              style={{
+                clipPath:
+                  "polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px)",
+              }}
             >
-              <span className="font-display text-[30px] font-medium leading-[1.1] tracking-[-0.02em] text-primary">
+              <span className="font-display text-[30px] font-medium leading-[1.1] tracking-[-0.02em] text-pista">
                 {s.value}
               </span>
               <span className="text-[13px] leading-[1.5] text-muted">
