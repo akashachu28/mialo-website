@@ -27,7 +27,7 @@ const DOMAINS: Domain[] = [
       "Multi-camera tracking",
       "Zone & heatmap analytics",
     ],
-    image: "/images/visionIntelligence.png",
+    image: "/images/domain_vision.png",
     alt: "People moving through a facility with live detection boxes and vision analytics overlays",
   },
   {
@@ -47,7 +47,7 @@ const DOMAINS: Domain[] = [
     short: "Document",
     body: "Digitize and understand documents of any kind. Extract, classify and structure information from unstructured data.",
     capabilities: ["OCR & extraction", "Classification", "Structured output"],
-    image: "/images/documentIntelligence.png",
+    image: "/images/domain_doc.png",
     alt: "Contracts, invoices and ID documents being scanned and turned into structured fields",
   },
   {
@@ -61,7 +61,7 @@ const DOMAINS: Domain[] = [
       "Logo & keyword detection",
       "Real-time alerts",
     ],
-    image: "/images/broadcastIntelligence.png",
+    image: "/images/domain_broadcast.png",
     alt: "A control room video wall monitoring many broadcast and camera feeds at once",
   },
   {
@@ -75,7 +75,7 @@ const DOMAINS: Domain[] = [
       "Volume estimation",
       "Scales to fleets",
     ],
-    image: "/images/measurementIntelligence.png",
+    image: "/images/domain_warehouse.png",
     alt: "A warehouse pallet with AI-generated dimensional measurements and environment readouts",
   },
   {
@@ -89,7 +89,7 @@ const DOMAINS: Domain[] = [
       "Copilots & assistants",
       "Workflow context",
     ],
-    image: "/images/enterpriseIntelligence.png",
+    image: "/images/neuralNet.png",
     alt: "A knowledge graph linking policies, people, systems, data and processes to shared insights",
   },
   {
@@ -99,7 +99,7 @@ const DOMAINS: Domain[] = [
     short: "Edge",
     body: "Run AI models close to where data is generated. Secure, reliable and real-time intelligence at the edge.",
     capabilities: ["On-device inference", "Low latency", "Offline capable"],
-    image: "/images/edgeIntelligence.png",
+    image: "/images/domain_edge.png",
     alt: "An edge compute board running AI inference with live performance monitoring panels",
   },
 ];
@@ -123,7 +123,7 @@ function DomainCard({ domain }: { domain: Domain }) {
           className="object-cover transition-transform duration-500 group-hover:scale-[1.04]"
         />
         {/* Dark gradient overlay for text readability */}
-        <div className="absolute inset-0 bg-gradient-to-t from-background via-background/35 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-t from-background via-background/65 to-transparent" />
       </div>
 
       {/* Top accent line */}
@@ -135,22 +135,34 @@ function DomainCard({ domain }: { domain: Domain }) {
         <div className="flex flex-col gap-4">
           {/* Header - more compact */}
           <div className="flex items-start gap-3">
-            <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl border border-ice/40 bg-ice/20 text-ice backdrop-blur-sm transition-colors duration-300 group-hover:border-ice/60 group-hover:bg-ice/30">
+            <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl border border-pista/40 bg-pista/20 text-pista backdrop-blur-sm transition-colors duration-300 group-hover:border-ice/60 group-hover:bg-ice/30">
               <Icon name={domain.icon} size={20} />
             </span>
 
             <div className="flex flex-col gap-0.5 pt-0.5">
-              <span className="font-mono text-[10px] font-semibold tracking-[0.13em] text-ice">
+              <span className="font-mono text-[10px] font-semibold tracking-[0.13em] text-pista group-hover:text-ice">
                 {domain.number}
               </span>
-              <h3 className="font-display text-[22px] font-medium leading-[1.1] tracking-[-0.02em] text-white transition-colors group-hover:text-ice">
+              <h3 className="font-display text-[22px] font-medium leading-[1.1] tracking-[-0.02em] text-white transition-colors group-hover:text-ice"
+              style={{ 
+                        fontFamily: "var(--font-manrope), sans-serif",
+                        fontWeight: 400,
+                        fontSize: "clamp(22px, 7.2vw, 28px)",
+                        lineHeight: 0.96,
+                        letterSpacing: "-0.045em"
+                      }}>
                 {domain.title}
               </h3>
             </div>
           </div>
 
           {/* Body - smaller and tighter */}
-          <p className="text-[13px] leading-[1.6] text-slate-200">
+          <p className="text-[18px] leading-[1.6] text-slate-200"
+          style={{ 
+                        fontFamily: "var(--font-manrope), sans-serif",
+                        lineHeight: 0.96,
+                        letterSpacing: "-0.045em"
+                        }}>
             {domain.body}
           </p>
 
@@ -159,9 +171,9 @@ function DomainCard({ domain }: { domain: Domain }) {
             {domain.capabilities.map((c) => (
               <span
                 key={c}
-                className="inline-flex items-center gap-1.5 font-mono text-[10px] tracking-[0.04em] text-slate-300"
+                className="inline-flex items-center  px-1 bg-pista gap-1.5 font-mono text-[12px] tracking-[0.04em] text-gray-900"
               >
-                <span className="h-1.25 w-1.25 shrink-0 rounded-full bg-pista" />
+                <span className="h-1.25 w-1.25 shrink-0 rounded-full bg-ice" />
                 {c}
               </span>
             ))}
@@ -199,11 +211,35 @@ export default function IndustryDomain() {
     <>
       <Section>
         <div className="flex flex-col gap-16">
-          <SectionHeader
+          {/* <SectionHeader
             eyebrow="The Domains"
-            title="Explore the domains that power smarter operations."
-          />
-          <p className="w-full max-w-[640px] text-[18px] leading-[1.62] text-gray-700 -mt-10 text-pretty">
+            // title="Explore the domains that power smarter operations."
+          /> */}
+          <h2 className="font-display text-[30px] flex flex-col font-medium leading-[1.14] tracking-[-0.025em] text-pretty sm:text-[42px]"
+          style={{ 
+                        fontFamily: "var(--font-manrope), sans-serif",
+                        fontWeight: 400,
+                        fontSize: "clamp(32px, 7.2vw, 60px)",
+                        lineHeight: 0.96,
+                        letterSpacing: "-0.045em"
+                      }}>
+            <span className="text-gray-900">
+              Explore the domains
+            </span>{" "}
+            <span className="text-ice">
+              that power smarter operations.
+            </span>
+          </h2>
+          <p className="w-full max-w-[640px] text-[18px] leading-[1.62] text-gray-700 -mt-10 text-pretty"
+          style={{ 
+                      fontFamily: "var(--font-manrope), sans-serif",
+                      fontWeight: 400,
+                      fontSize: "clamp(18px, 7.2vw, 24px)",
+                      lineHeight: 1.1,
+                      letterSpacing: "-0.045em",
+                      wordSpacing: 6,
+                      // color: "white"
+                    }}>
             Choose the intelligence your operation needs or combine multiple
             domains to understand complex operational scenarios.
           </p>

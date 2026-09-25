@@ -15,14 +15,23 @@ export default function Section6() {
                 fontFamily: "var(--font-manrope), sans-serif",
                 fontWeight: 400,
                 fontSize: "clamp(32px, 7.2vw, 60px)",
-                lineHeight: 1.1,
+                lineHeight: 1,
                 letterSpacing: "-0.045em",
               }}
             >
               <span className="text-gray-300">Built for the operations</span>{" "}
               <span className="text-pista">that run the world.</span>
             </h2>
-            <p className="text-[18px] leading-[1.62] text-muted text-pretty">
+            <p className="text-[18px] leading-[1.62] text-muted text-pretty"
+            style={{ 
+                      fontFamily: "var(--font-manrope), sans-serif",
+                      fontWeight: 400,
+                      fontSize: "clamp(18px, 7.2vw, 24px)",
+                      lineHeight: 1.1,
+                      letterSpacing: "-0.045em",
+                      wordSpacing: 6,
+                      // color: "white"
+                    }}>
               The same intelligence layer, tuned to the signals, constraints and
               outcomes that define each sector.
             </p>

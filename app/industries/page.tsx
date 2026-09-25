@@ -1,3 +1,4 @@
+import Footer from "@/components/Footer";
 import HeroIndustry from "./_components/HeroIndustry";
 import IndustrySection2 from "./_components/IndustrySction2";
 import IndustrySection3 from "./_components/IndustrySection3";
@@ -17,7 +18,8 @@ export default function Industries() {
         <IndustrySection2 />
       </div>
       <IndustrySection3 />
-      <IndustrySection4 />
+      {/* <IndustrySection4 /> */}
+      <Footer/>
     </div>
   );
 }

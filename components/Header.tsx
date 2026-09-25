@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { Menu, X } from 'lucide-react';
 import { useState, useEffect } from 'react';
 import { usePathname } from 'next/navigation';
-import brainlogo from '../public/images/brainLogo.png';
+import brainlogo from '../public/images/mialoLogo.png';
 import DemoModal from './DemoModal';
 
 const NAV: { name: string; href: string }[] = [
@@ -111,10 +111,10 @@ export default function Header() {
             }
           }}
         >
-          <Image src={brainlogo} alt="" className="h-7 w-auto opacity-80" />
-          <span className={`font-display text-xl font-medium tracking-[-0.02em] ${textColor} transition-colors duration-300`}>
+          <Image src={brainlogo} alt="" className="h-8 w-auto opacity-80" />
+          {/* <span className={`font-display text-xl font-medium tracking-[-0.02em] ${textColor} transition-colors duration-300`}>
             Mialo.ai
-          </span>
+          </span> */}
         </Link>
 
         {/* Desktop nav */}

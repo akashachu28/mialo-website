@@ -117,9 +117,19 @@ export default function IndustrySection2() {
         <div className="flex flex-col gap-14">
           <SectionHeader
             eyebrow="How Mialo Works"
-            title="From data to decisions. In real time."
+            title="From data to decisions. "
+            titleIce="In real time."
           />
-          <p className="w-full max-w-[640px] text-[18px] leading-[1.62] text-gray-700 -mt-10 text-pretty">
+          <p className="w-full max-w-[640px] text-[18px] leading-[1.62] text-gray-700 -mt-10 text-pretty"
+          style={{ 
+                      fontFamily: "var(--font-manrope), sans-serif",
+                      fontWeight: 400,
+                      fontSize: "clamp(18px, 7.2vw, 24px)",
+                      lineHeight: 1.1,
+                      letterSpacing: "-0.045em",
+                      wordSpacing: 6,
+                      // color: "white"
+                    }}>
             Every operational moment follows the same loop - observe, understand, decide, act and learn - running continuously across your sources.
           </p>
 
@@ -172,9 +182,19 @@ export default function IndustrySection2() {
         <div className="flex flex-col gap-14">
           <SectionHeader
             eyebrow="Industries We Empower"
-            title="Operational intelligence, tuned to your world."
+            title="Operational intelligence, "
+            titleIce="tuned to your world."
           >
-            <p className="w-full max-w-[640px] text-[18px] leading-[1.62] text-gray-700 mt-5 text-pretty">
+            <p className="w-full max-w-[640px] text-[18px] leading-[1.62] text-gray-700 text-pretty"
+            style={{ 
+                      fontFamily: "var(--font-manrope), sans-serif",
+                      fontWeight: 400,
+                      fontSize: "clamp(18px, 7.2vw, 24px)",
+                      lineHeight: 1.1,
+                      letterSpacing: "-0.045em",
+                      wordSpacing: 6,
+                      // color: "white"
+                    }}>
               The same intelligence layer, adapted to the signals, constraints and outcomes that define each sector.
             </p>
           </SectionHeader>
