@@ -1,6 +1,6 @@
 import Link from "next/link";
+import Image from "next/image";
 import { Container } from "./ui";
-import {  Phone } from "lucide-react";
 
 const EXPLORE_LINKS = [
   { label: "Home", href: "/" },
@@ -32,14 +32,20 @@ export default function Footer() {
           <div className="grid grid-cols-1 gap-12 md:grid-cols-2 lg:grid-cols-12 lg:gap-8">
             {/* Column 1: Logo & Message */}
             <div className="lg:col-span-4">
-              <Link href="/" className="inline-flex items-center gap-2 group">
-                <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-pista/10 text-pista transition-colors group-hover:bg-pista/20">
-                  <span className="text-xl font-bold">✦</span>
+              <Link href="/" className="inline-flex items-center group">
+                <div className="flex h-12  items-center justify-center rounded-lg  transition-colors overflow-hidden">
+                  <Image 
+                    src="/images/mialoLogo.png" 
+                    alt="Mialo Logo" 
+                    width={100}
+                    height={60}
+                    className="object-contain"
+                  />
                 </div>
-                <span className="text-xl font-semibold text-primary">Mialo</span>
+                {/* <span className="text-xl font-semibold text-primary">Mialo</span> */}
               </Link>
               <p className="mt-4 text-[14px] leading-[1.6] text-muted max-w-[280px]">
-                The intelligence layer for enterprise operations. Turning operational signals into intelligent action.
+                Edge intelligence layer for real world operations
               </p>
             </div>
 
@@ -70,26 +76,26 @@ export default function Footer() {
               <ul className="space-y-3">
                 <li>
                   <a
-                    href="mailto:info@mialo.ai"
+                    href="mailto:Sales@mialotech.com"
                     className="text-[14px] text-muted transition-colors hover:text-primary"
                   >
-                    info@mialo.ai
+                    Sales@mialotech.com
                   </a>
                 </li>
                 <li>
                   <a
-                    href="tel:+1234567890"
+                    href="tel:+919731426165"
                     className="text-[14px] text-muted transition-colors hover:text-primary"
                   >
-                    +1 (234) 567-890
+                    +91 9731426165
                   </a>
                 </li>
                 <li className="text-[14px] leading-[1.6] text-muted">
-                  123 Business Street
+                  1st Floor, Hustlehub Tech Park
                   <br />
-                  San Francisco, CA 94105
+                  208, 27th Main Rd, ITI Layout, Sector 2, HSR Layout
                   <br />
-                  United States
+                  Bengaluru, Karnataka 560102
                 </li>
               </ul>
             </div>
@@ -106,16 +112,28 @@ export default function Footer() {
                 className="flex h-9 w-9 items-center justify-center rounded-lg border border-line-2 text-muted transition-all hover:border-line hover:bg-raise hover:text-primary"
                 aria-label="LinkedIn"
               >
-                {/* <Linkedin size={18} /> */}
+                <Image 
+                  src="/images/icons/linkedin_ic.svg" 
+                  alt="LinkedIn" 
+                  width={18}
+                  height={18}
+                  className="opacity-70 hover:opacity-100 transition-opacity"
+                />
               </a>
               <a
-                href="https://wa.me/1234567890"
+                href="https://wa.me/919731426165"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex h-9 w-9 items-center justify-center rounded-lg border border-line-2 text-muted transition-all hover:border-line hover:bg-raise hover:text-primary"
                 aria-label="WhatsApp"
               >
-                <Phone size={18} />
+                <Image 
+                  src="/images/icons/whatsapp_ic.svg" 
+                  alt="WhatsApp" 
+                  width={18}
+                  height={18}
+                  className="opacity-70 hover:opacity-100 transition-opacity"
+                />
               </a>
               <a
                 href="https://facebook.com"
@@ -124,16 +142,28 @@ export default function Footer() {
                 className="flex h-9 w-9 items-center justify-center rounded-lg border border-line-2 text-muted transition-all hover:border-line hover:bg-raise hover:text-primary"
                 aria-label="Facebook"
               >
-                {/* <Facebook size={18} /> */}
+                <Image 
+                  src="/images/icons/facebook_ic.svg" 
+                  alt="Facebook" 
+                  width={18}
+                  height={18}
+                  className="opacity-70 hover:opacity-100 transition-opacity"
+                />
               </a>
               <a
-                href="https://twitter.com"
+                href="https://instagram.com"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex h-9 w-9 items-center justify-center rounded-lg border border-line-2 text-muted transition-all hover:border-line hover:bg-raise hover:text-primary"
-                aria-label="Twitter"
+                aria-label="Instagram"
               >
-                {/* <Twitter size={18} /> */}
+                <Image 
+                  src="/images/icons/insta_ic.svg" 
+                  alt="Instagram" 
+                  width={18}
+                  height={18}
+                  className="opacity-70 hover:opacity-100 transition-opacity"
+                />
               </a>
             </div>
 

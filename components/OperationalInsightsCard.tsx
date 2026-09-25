@@ -37,7 +37,7 @@ const TRAD_X = [55, 97.5, 140, 182.5, 225];
 const TRADITIONAL = [Cctv, Film, HardDrive, LayoutGrid, User];
 
 // Sources - below traditional
-const SRC_Y = 70;
+const SRC_Y = 30;
 const SRC_X = [55, 97.5, 140, 182.5, 225];
 const SRC_W = 60;
 const SOURCES = [
@@ -49,9 +49,9 @@ const SOURCES = [
 ];
 
 // Key nodes going down
-const MOMENTS = { x: MID_X, y: 120 };
-const BRAIN = { x: MID_X, y: 170 };
-const IMPACT = { x: MID_X, y: 230 };
+const MOMENTS = { x: MID_X, y: 90 };
+const BRAIN = { x: MID_X, y: 150 };
+const IMPACT = { x: MID_X, y: 210 };
 
 /* converging splines: each source → the operational-moments node */
 const SPLINES = SRC_X.map(
@@ -153,26 +153,7 @@ export default function OperationalIntelligenceCard() {
                 <stop offset="65%" stopColor="#93C5FD" stopOpacity="0.85" />
                 <stop offset="100%" stopColor="#EFF6FF" stopOpacity="1" />
               </linearGradient>
-              <marker
-                id="oicArrowVertical"
-                markerWidth="9"
-                markerHeight="7"
-                refX="8"
-                refY="3.5"
-                orient="auto"
-              >
-                <polygon points="0 0, 9 3.5, 0 7" fill="#64748B" />
-              </marker>
             </defs>
-
-            {/* traditional → sources (vertical arrow) */}
-            <path
-              d={`M ${MID_X} ${TRAD_Y + 8} L ${MID_X} ${SRC_Y - 22}`}
-              stroke="#475569"
-              strokeWidth="1"
-              // strokeDasharray="4 3"
-              markerEnd="url(#oicArrowVertical)"
-            />
 
             {/* sources → operational moments */}
             {SPLINES.map((d) => (
@@ -224,7 +205,7 @@ export default function OperationalIntelligenceCard() {
           </svg>
 
           {/* --- Traditional Operations --- */}
-          <Label x={MID_X} y={8}>
+          {/* <Label x={MID_X} y={8}>
             Traditional Operations
           </Label>
           <div
@@ -245,7 +226,7 @@ export default function OperationalIntelligenceCard() {
             >
               <IconCmp size={7} />
             </Node>
-          ))}
+          ))} */}
 
           {/* --- Source cards --- */}
           <Label x={MID_X} y={SRC_Y - 22}>
@@ -313,7 +294,7 @@ export default function OperationalIntelligenceCard() {
             y={IMPACT.y}
             className="flex items-center gap-1 rounded-full border border-blue-900/60 bg-slate-900/50 px-1.5 py-0.5 text-primary shadow-lg shadow-blue-500/10 backdrop-blur-sm hover:border-blue-500/40"
           >
-            <CheckCircle2 size={8} className="text-pista" />
+            <CheckCircle2 size={8} strokeWidth={1} className="text-pista" />
             <span className="text-[6px] font-medium">Real-time Results</span>
           </Node>
           {/* <Label x={IMPACT.x} y={IMPACT.y + 16}>

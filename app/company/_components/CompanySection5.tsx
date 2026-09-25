@@ -112,27 +112,7 @@ export default function CompanySection5() {
         </div>
       </Section>
 
-      {/* -------- Closing CTA -------- */}
-      <section className="relative overflow-hidden border-t border-line py-24 sm:py-[120px]">
-        <div
-          aria-hidden
-          className="pointer-events-none absolute left-1/2 top-0 h-[300px] w-full max-w-[700px] -translate-x-1/2"
-          style={{
-            background:
-              "radial-gradient(ellipse at 50% 0%, rgba(108,147,255,0.14), transparent 70%)",
-          }}
-        />
-        <Container className="relative flex flex-col items-center gap-7 text-center">
-          <Eyebrow>Get started</Eyebrow>
-          <h2 className="max-w-[620px] font-display text-[28px] font-medium leading-[1.15] tracking-[-0.02em] text-balance text-primary sm:text-[34px]">
-            See what operational intelligence can do for your teams.
-          </h2>
-          <div className="flex flex-wrap justify-center gap-3">
-            <PrimaryButton>Talk to an expert</PrimaryButton>
-            <GhostButton>Explore the platform</GhostButton>
-          </div>
-        </Container>
-      </section>
+
     </>
   );
 }

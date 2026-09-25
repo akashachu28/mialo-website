@@ -60,7 +60,7 @@ export default function HeroPlatform() {
             <span className="text-pista">Your Operations Happen.</span>
           </h1>
 
-          <p className="max-w-[600px] text-[17px] leading-[1.62] text-ink text-pretty"
+          <p className="max-w-[600px] text-ink text-pretty"
           style={{ 
                       fontFamily: "var(--font-manrope), sans-serif",
                       fontWeight: 400,

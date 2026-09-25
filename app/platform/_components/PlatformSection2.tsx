@@ -77,7 +77,7 @@ export default function PlatformSection2() {
         <div className="flex flex-col gap-14">
           <SectionHeader
             eyebrow="The Intelligence Layer"
-            title="The missing layer between enterprise operations and intelligent action."
+            titleIce="The missing layer between enterprise operations and intelligent action."
             // lead="Mialo continuously observes operational signals, understands them using specialized AI models and enterprise knowledge, and delivers insights and automated workflows that drive real outcomes."
           />
           <p className="w-full max-w-[640px] text-[18px] leading-[1.62] text-gray-700 -mt-10 text-pretty">

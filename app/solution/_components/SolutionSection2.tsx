@@ -348,37 +348,6 @@ export default function SolutionSection2() {
      
       </Section>
 
-      {/* -------- Closing CTA -------- */}
-      <section className="relative overflow-hidden border-t border-line py-24 sm:py-[120px]">
-        <div aria-hidden className="absolute inset-0">
-          <Image
-            src="/images/solutionsBanner.png"
-            alt=""
-            fill
-            sizes="100vw"
-            className="object-cover opacity-40"
-          />
-          <div className="absolute inset-0 bg-background/70" />
-          <div
-            className="absolute inset-0"
-            style={{
-              background:
-                "linear-gradient(180deg, var(--color-background) 0%, transparent 45%, var(--color-background) 100%)",
-            }}
-          />
-        </div>
-
-        <Container className="relative flex flex-col items-center gap-7 text-center">
-          <Eyebrow>Get started</Eyebrow>
-          <h2 className="max-w-[620px] font-display text-[28px] font-medium leading-[1.15] tracking-[-0.02em] text-balance text-primary sm:text-[34px]">
-            Infinite solutions. One intelligence.
-          </h2>
-          <div className="flex flex-wrap justify-center gap-3">
-            <PrimaryButton>Explore all solutions</PrimaryButton>
-            <GhostButton>Talk to experts</GhostButton>
-          </div>
-        </Container>
-      </section>
     </>
   );
 }

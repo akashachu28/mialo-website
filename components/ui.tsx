@@ -240,9 +240,7 @@ export function Section({
   className?: string;
 }) {
   return (
-    <section
-      className={` py-20 sm:py-[104px] ${className}`}
-    >
+    <section className={` py-20 sm:py-[104px] ${className}`}>
       <Container>{children}</Container>
     </section>
   );
@@ -286,14 +284,20 @@ export function Kicker({
 export function SectionHeader({
   eyebrow,
   title,
+  titleIce,
+  titlePista,
   lead,
+  leadBlack,
   children,
   center = false,
   className = "",
 }: {
   eyebrow: string;
-  title: ReactNode;
+  title?: ReactNode;
+  titleIce?: ReactNode;
+  titlePista?: ReactNode;
   lead?: ReactNode;
+  leadBlack?: ReactNode;
   children?: ReactNode;
   center?: boolean;
   className?: string;
@@ -304,22 +308,78 @@ export function SectionHeader({
         center ? "mx-auto items-center text-center" : ""
       } ${className}`}
     >
-      {/* <Eyebrow>{eyebrow}</Eyebrow> */}
-      <h2
-        className="w-full font-display text-[32px] font-medium leading-[1.12] tracking-[-0.025em] text-ice text-pretty sm:text-[40px]"
+      
+      {title? (<h2
+        className="w-full font-display text-[32px] font-medium leading-[1.12] tracking-[-0.025em] text-gray-900 text-pretty sm:text-[40px]"
         style={{
           fontFamily: "var(--font-manrope), sans-serif",
           fontWeight: 400,
-          fontSize: "clamp(32px, 7.2vw, 48px)",
-          lineHeight: 1.1,
+          fontSize: "clamp(32px, 7.2vw, 60px)",
+          lineHeight: 0.96,
           letterSpacing: "-0.045em",
         }}
       >
         {title}
+      </h2>) : null}
+      { titleIce ? (
+      <h2
+        className="w-full font-display text-[32px] font-medium leading-[1.12] -mt-4 tracking-[-0.025em] text-ice text-pretty sm:text-[40px]"
+        style={{
+          fontFamily: "var(--font-manrope), sans-serif",
+          fontWeight: 400,
+          fontSize: "clamp(32px, 7.2vw, 60px)",
+          lineHeight: 0.96,
+          letterSpacing: "-0.045em",
+        }}
+      >
+        {titleIce}
       </h2>
+      ): null}
+      { titlePista ? (
+      <h2
+        className="w-full font-display text-[32px] font-medium leading-[1.12] -mt-4 tracking-[-0.025em] text-pista text-pretty sm:text-[40px]"
+        style={{
+          fontFamily: "var(--font-manrope), sans-serif",
+          fontWeight: 400,
+          fontSize: "clamp(32px, 7.2vw, 60px)",
+          lineHeight: 0.96,
+          letterSpacing: "-0.045em",
+        }}
+      >
+        {titlePista}
+      </h2>
+      ): null}
+      
       {lead ? (
-        <p className="w-full max-w-[640px] text-[17px] leading-[1.62] text-gray-300 text-pretty">
+        <p
+          className="w-full max-w-[640px]  text-gray-300 text-pretty"
+          style={{
+            fontFamily: "var(--font-manrope), sans-serif",
+            fontWeight: 400,
+            fontSize: "clamp(18px, 7.2vw, 24px)",
+            lineHeight: 1.1,
+            letterSpacing: "-0.045em",
+            wordSpacing: 6,
+            // color: "white"
+          }}
+        >
           {lead}
+        </p>
+      ) : null}
+      {leadBlack ? (
+        <p
+          className="w-full max-w-[640px]  text-gray-700 text-pretty"
+          style={{
+            fontFamily: "var(--font-manrope), sans-serif",
+            fontWeight: 400,
+            fontSize: "clamp(18px, 7.2vw, 24px)",
+            lineHeight: 1.1,
+            letterSpacing: "-0.045em",
+            wordSpacing: 6,
+            // color: "white"
+          }}
+        >
+          {leadBlack}
         </p>
       ) : null}
       {children}
