@@ -22,55 +22,77 @@ export default function HeroCompany() {
       {/* dot-grid backdrop, faded from the top */}
       <div
         aria-hidden
-        className="pointer-events-none absolute inset-0 opacity-50"
+        className="pointer-events-none absolute inset-0 opacity-30"
         style={{
           backgroundImage:
-            "linear-gradient(var(--color-line) 1px, transparent 1px), linear-gradient(90deg, var(--color-line) 1px, transparent 1px)",
-          backgroundSize: "72px 72px",
+            "linear-gradient(var(--color-pista) 1px, transparent 1px), linear-gradient(90deg, var(--color-pista) 1px, transparent 1px)",
+          backgroundSize: "62px 62px",
           maskImage:
             "radial-gradient(ellipse 80% 60% at 50% 0%, #000 0%, transparent 75%)",
           WebkitMaskImage:
             "radial-gradient(ellipse 80% 60% at 50% 0%, #000 0%, transparent 75%)",
         }}
       />
+      <div className="absolute inset-0 bg-background/20" />
 
       <Container className="relative">
         <div className="flex flex-col items-start gap-7">
-          <span className="inline-flex items-center gap-[11px] font-mono text-[12px] font-medium uppercase tracking-[0.16em] text-[#8A909C]">
+          {/* <span className="inline-flex items-center gap-[11px] font-mono text-[12px] font-medium uppercase tracking-[0.16em] text-[#8A909C]">
             <span className="h-1.5 w-1.5 shrink-0 bg-green shadow-[0_0_12px_rgba(0,229,153,0.7)]" />
             Company
-          </span>
+          </span> */}
 
-          <h1 className="max-w-[1080px] font-display text-[44px] font-normal leading-[1.05] tracking-[-0.03em] text-balance text-primary sm:text-[60px]">
-            Intelligence that understands the real world
+          <h1
+            className="max-w-[1080px] font-display text-[44px] font-normal leading-[1.05] tracking-[-0.03em] text-balance text-primary sm:text-[60px]"
+            style={{
+              fontFamily: "var(--font-manrope), sans-serif",
+              fontWeight: 400,
+              fontSize: "clamp(32px, 7.2vw, 60px)",
+              lineHeight: 1.1,
+              letterSpacing: "-0.045em",
+            }}
+          >
+            Wherever operations happen,
             <br />
-            <span className="text-ice">and drives real outcomes.</span>
+            <span className="text-pista">
+              intelligence can make a difference.
+            </span>
           </h1>
 
-          <p className="max-w-[620px] text-[17px] leading-[1.62] text-ink text-pretty">
-            Mialo.ai is the intelligence layer for enterprise operations. We
-            combine multimodal AI, domain expertise and edge-native architecture
-            to turn operational signals into intelligent action across
-            industries.
+          <p className="max-w-[600px] text-[17px] leading-[1.62] text-ink text-pretty"
+          style={{
+            fontFamily: "var(--font-manrope), sans-serif",
+            lineHeight: 1.1,
+            letterSpacing: "-0.045em",
+            fontSize: "clamp(18px, 7.2vw, 24px)",
+
+          }}>
+            Mialo builds the AI intelligence layer for enterprise operations. We
+            connect signals from cameras, conversations, documents, sensors, and
+            business systems to help organizations understand what is happening
+            and act on it. Every organization operates differently. Mialo adapts
+            to the environment, the available data, and the decisions that
+            matter - whether the goal is to improve quality, safety, customer
+            experience, productivity, or control.
           </p>
 
-          <div className="mt-1.5 flex flex-wrap gap-3">
+          {/* <div className="mt-1.5 flex flex-wrap gap-3">
             <PrimaryButton>Talk to an expert</PrimaryButton>
             <GhostButton>See open roles</GhostButton>
-          </div>
+          </div> */}
         </div>
 
         {/* Mialo at a glance */}
         <div className="mt-16 overflow-hidden rounded-[18px] border border-line-2 bg-linear-to-b from-panel to-raise">
           <div className="flex items-center justify-between border-b border-line px-5 py-4 sm:px-6">
             <Kicker>Mialo · Global Operations</Kicker>
-            <Kicker className="inline-flex items-center gap-2">
+            {/* <Kicker className="inline-flex items-center gap-2">
               <span className="h-[7px] w-[7px] rounded-full bg-green shadow-[0_0_10px_#00E599] motion-safe:animate-blink" />
               Live
-            </Kicker>
+            </Kicker> */}
           </div>
 
-          <div className="relative aspect-[16/9] w-full">
+          {/* <div className="relative aspect-[16/9] w-full">
             <Image
               src="/images/heroCompany.png"
               alt="A connected globe representing Mialo's worldwide operations"
@@ -79,7 +101,7 @@ export default function HeroCompany() {
               className="object-cover"
               preload
             />
-          </div>
+          </div> */}
 
           <div className="grid grid-cols-1 border-t border-line sm:grid-cols-3">
             {PANEL.map((p, i) => (
@@ -89,7 +111,7 @@ export default function HeroCompany() {
                   i > 0 ? "border-t border-line sm:border-t-0 sm:border-l" : ""
                 }`}
               >
-                <Kicker className="text-ice">{p.title}</Kicker>
+                <Kicker className="text-pista">{p.title}</Kicker>
                 <p className="mt-3 text-[14px] leading-[1.6] text-muted text-pretty">
                   {p.body}
                 </p>

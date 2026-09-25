@@ -29,18 +29,18 @@ const OFFICES = [
   {
     city: "Bengaluru, India",
     label: "Global headquarters",
-    address: "HustleHub, JP Nagar\nBengaluru 560078, India",
+    address: "HustleHub, HSR Layout\nBengaluru 560078, India",
   },
-  {
-    city: "Nairobi, Kenya",
-    label: "Africa operations",
-    address: "Westcom Point, 5th Floor\nMahiga Mairu Ave, Nairobi, Kenya",
-  },
-  {
-    city: "Dallas, USA",
-    label: "North America",
-    address: "2301 N. Central Expressway\nRichardson, TX 75080, USA",
-  },
+  // {
+  //   city: "Nairobi, Kenya",
+  //   label: "Africa operations",
+  //   address: "Westcom Point, 5th Floor\nMahiga Mairu Ave, Nairobi, Kenya",
+  // },
+  // {
+  //   city: "Dallas, USA",
+  //   label: "North America",
+  //   address: "2301 N. Central Expressway\nRichardson, TX 75080, USA",
+  // },
 ];
 
 export default function CompanySection5() {

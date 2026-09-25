@@ -1,3 +1,4 @@
+import Footer from '@/components/Footer';
 import Hero from '@/components/Hero';
 import Hero2 from '@/components/Hero2';
 import Section3 from '@/components/Section3';
@@ -40,11 +41,12 @@ export default function Home() {
       {/* <Reveal>
         <Section7 />
       </Reveal> */}
-      <div className=''>
+      {/* <div className=''>
         <Reveal>
           <Section8 />
         </Reveal>
-      </div>
+      </div> */}
+      <Footer/>
     </div>
   );
 }

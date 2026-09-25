@@ -31,24 +31,24 @@ const RED = "#EF4444";
 
 const SCENARIOS: Record<string, EventItem[]> = {
   retail: [
-    { id: "r-customer", lines: ["Customer", "enters"], action: "Associate sent to greet", outcomeLabel: "Conversion", value: "↑12%", color: GREEN },
-    { id: "r-queue", lines: ["Queue", "forming"], action: "Extra counter opened", outcomeLabel: "Queue Time", value: "↓17%", color: RED },
-    { id: "r-shelf", lines: ["Shelf", "running low"], action: "Restock request sent", outcomeLabel: "Stockouts", value: "↓23%", color: RED },
+    { id: "r-customer", lines: ["Customer", "enters"], action: "Associate sent to greet", outcomeLabel: "Conversion", value: "↑32%", color: GREEN },
+    { id: "r-queue", lines: ["Queue", "forming"], action: "Extra counter opened", outcomeLabel: "Efficiency", value: "↑27%", color: GREEN },
+    { id: "r-shelf", lines: ["Shelf", "running low"], action: "Restock request sent", outcomeLabel: "Availability", value: "↑23%", color: GREEN },
   ],
   manufacturing: [
-    { id: "m-vibration", lines: ["Machine", "vibration"], action: "Maintenance dispatched", outcomeLabel: "Downtime", value: "↓31%", color: RED },
-    { id: "m-defect", lines: ["Defect", "detected"], action: "Batch quarantined", outcomeLabel: "Scrap Rate", value: "↓19%", color: RED },
-    { id: "m-imbalance", lines: ["Line", "imbalance"], action: "Workload rebalanced", outcomeLabel: "Throughput", value: "↑14%", color: GREEN },
+    { id: "m-vibration", lines: ["Machine", "vibration"], action: "Maintenance dispatched", outcomeLabel: "Uptime", value: "↑31%", color: GREEN },
+    { id: "m-defect", lines: ["Defect", "detected"], action: "Batch quarantined", outcomeLabel: "Quality", value: "↑29%", color: GREEN },
+    { id: "m-imbalance", lines: ["Line", "imbalance"], action: "Workload rebalanced", outcomeLabel: "Throughput", value: "↑24%", color: GREEN },
   ],
   healthcare: [
-    { id: "h-wait", lines: ["Patient", "waiting"], action: "Nurse reassigned", outcomeLabel: "Wait Time", value: "↓22%", color: RED },
-    { id: "h-beds", lines: ["Beds", "near full"], action: "Discharge fast-tracked", outcomeLabel: "Bed Turnover", value: "↑16%", color: GREEN },
-    { id: "h-supply", lines: ["Supply", "shortage"], action: "Stock auto-reordered", outcomeLabel: "Stockouts", value: "↓27%", color: RED },
+    { id: "h-wait", lines: ["Patient", "waiting"], action: "Nurse reassigned", outcomeLabel: "Satisfaction", value: "↑22%", color: GREEN },
+    { id: "h-beds", lines: ["Beds", "near full"], action: "Discharge fast-tracked", outcomeLabel: "Turnover", value: "↑26%", color: GREEN },
+    { id: "h-supply", lines: ["Supply", "shortage"], action: "Stock auto-reordered", outcomeLabel: "Readiness", value: "↑27%", color: GREEN },
   ],
   government: [
-    { id: "g-case", lines: ["Case", "filed"], action: "Request auto-routed", outcomeLabel: "Response Time", value: "↓34%", color: RED },
-    { id: "g-backlog", lines: ["Backlog", "rising"], action: "Staff reallocated", outcomeLabel: "Backlog", value: "↓21%", color: RED },
-    { id: "g-anomaly", lines: ["Anomaly", "flagged"], action: "Held for audit", outcomeLabel: "Recovery", value: "↑9%", color: GREEN },
+    { id: "g-case", lines: ["Case", "filed"], action: "Request auto-routed", outcomeLabel: "Speed", value: "↑34%", color: GREEN },
+    { id: "g-backlog", lines: ["Backlog", "rising"], action: "Staff reallocated", outcomeLabel: "Efficiency", value: "↑21%", color: GREEN },
+    { id: "g-anomaly", lines: ["Anomaly", "flagged"], action: "Held for audit", outcomeLabel: "Recovery", value: "↑29%", color: GREEN },
   ],
 };
 
@@ -388,8 +388,8 @@ export default function HeroCard() {
       {/* Panel */}
       <div
         style={{
-          width: "min(500px, 100%)",
-          minHeight: 480,
+          width: 500,
+          minHeight: 420,
           borderRadius: 20,
           padding: "22px 26px 28px",
           background: "rgba(255,255,255,0.0)",
@@ -399,96 +399,6 @@ export default function HeroCard() {
           boxShadow: "0 0 120px rgba(0,0,0,0.7), inset 0 1px 0 rgba(255,255,255,0.06)",
         }}
       >
-        {/* ── Industry selector tabs ─────────────────────────── */}
-        <div style={{ display: "flex", flexWrap: "wrap", rowGap: 8, alignItems: "center", justifyContent: "center", marginBottom: 22 }}>
-          {INDUSTRIES.map(({ id, label, icon }, idx) => {
-            const sel = industry === id;
-            return (
-              <div key={id} style={{ display: "flex", alignItems: "center" }}>
-                {idx > 0 && (
-                  <div style={{ width: 1, height: 14, background: "rgba(255,255,255,0.1)", margin: "0 9px", flexShrink: 0 }} />
-                )}
-
-                {sel ? (
-                  <div
-                    onClick={() => go(id)}
-                    style={{
-                      padding: 1,
-                      borderRadius: 999,
-                      background:
-                        "linear-gradient(138deg, rgba(255,255,255,0.38) 0%, rgba(255,255,255,0.16) 28%, rgba(255,255,255,0.05) 55%, rgba(255,255,255,0.09) 80%, rgba(255,255,255,0.04) 100%)",
-                      cursor: "pointer",
-                      boxShadow: "0 2px 12px rgba(0,0,0,0.4)",
-                    }}
-                  >
-                    <div
-                      style={{
-                        display: "flex",
-                        flexDirection: "column",
-                        alignItems: "center",
-                        gap: 5,
-                        padding: "5px 16px 7px",
-                        borderRadius: 999,
-                        background: "#0C0F1C",
-                        boxShadow: "inset 0 1px 0 rgba(255,255,255,0.06)",
-                      }}
-                    >
-                      <div style={{ display: "flex", alignItems: "center", gap: 7 }}>
-                        <span style={{ display: "flex", color: "#60A5FA" }}>{icon}</span>
-                        <span
-                          style={{
-                            fontSize: 12,
-                            fontWeight: 400,
-                            letterSpacing: "0.01em",
-                            color: "rgba(255,255,255,0.9)",
-                            fontFamily: "'Inter', sans-serif",
-                          }}
-                        >
-                          {label}
-                        </span>
-                      </div>
-                      <div
-                        style={{
-                          width: "70%",
-                          height: 1,
-                          borderRadius: 1,
-                          background:
-                            "linear-gradient(90deg, transparent, #3B82F6 30%, #60A5FA 50%, #3B82F6 70%, transparent)",
-                        }}
-                      />
-                    </div>
-                  </div>
-                ) : (
-                  <button
-                    onClick={() => go(id)}
-                    style={{
-                      display: "flex",
-                      alignItems: "center",
-                      gap: 7,
-                      background: "none",
-                      border: "none",
-                      cursor: "pointer",
-                      padding: "4px 0",
-                      color: "rgba(255,255,255,0.36)",
-                      fontSize: 12,
-                      fontWeight: 300,
-                      fontFamily: "'Inter', sans-serif",
-                      letterSpacing: "0.01em",
-                      transition: "color 0.2s ease",
-                    }}
-                  >
-                    <span style={{ display: "flex", opacity: 0.55 }}>{icon}</span>
-                    {label}
-                  </button>
-                )}
-              </div>
-            );
-          })}
-        </div>
-
-        {/* Hairline under tabs */}
-        <div style={{ height: 1, background: "rgba(255,255,255,0.05)", marginBottom: 20 }} />
-
         {/* ── Events row ───────────────────────────────────────── */}
         <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr" }}>
           {events.map(({ lines }, i) => (
@@ -623,7 +533,7 @@ export default function HeroCard() {
         <motion.div
           animate={{ opacity: outcomes.length > 0 ? 1 : 0, y: outcomes.length > 0 ? 0 : 8 }}
           transition={{ duration: 0.8, ease: "easeOut" }}
-          style={{ position: "relative", padding: "0 0 20px" }}
+          style={{ position: "relative", padding: "0 0 20px", minHeight: 140 }}
         >
           <p
             style={{

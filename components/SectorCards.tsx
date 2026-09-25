@@ -37,8 +37,8 @@ const SECTORS = [
 
 export default function SectorCards() {
   return (
-    <div className="w-full max-w-7xl mx-auto px-6">
-      <Reveal stagger className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-[18px]">
+    <div className="w-full">
+      <Reveal stagger className="grid grid-cols-1 sm:grid-cols-2 gap-[18px]">
         {SECTORS.map((sector, index) => (
           <RevealItem
             key={index}

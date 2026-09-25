@@ -43,11 +43,11 @@ export default function Hero() {
               loop
               muted
               playsInline
-              className="h-full w-full object-cover opacity-[0.8]"
+              className="h-full w-full object-cover opacity-[1]"
             >
               <source src="/images/videoCover.mp4" type="video/mp4" />
             </video>
-            <div className="absolute inset-0 bg-background/0" />
+            <div className="absolute inset-0 bg-ice/10" />
 
             <div
               className="absolute inset-0"
@@ -65,13 +65,13 @@ export default function Hero() {
               }}
             />
 
-            <div
+            {/* <div
               className="absolute inset-0"
               style={{
                 background:
                   "linear-gradient(180deg, var(--color-background) 0%, transparent 35%, var(--color-background) 100%)",
               }}
-            />
+            /> */}
           </div>
         </div>
       </div>
@@ -111,7 +111,7 @@ export default function Hero() {
                     Edge intelligence layer for real world operations
                   </h1>
                   <TypewriterText
-                    words={['Observe . Understand . Act']}
+                    words={['Observe . Understand . Act.']}
                     delay={80}
                     pauseBetweenWords={600}
                     pauseBeforeRestart={2500}
@@ -123,33 +123,14 @@ export default function Hero() {
                       fontSize: "clamp(32px, 7.2vw, 46px)",
                       lineHeight: 0.96,
                       letterSpacing: "-0.045em",
-                      wordSpacing: 6
+                      wordSpacing: 6,
+                      color: "white"
                     }}
                   />
                 </RevealItem>
               </div>
 
-              {/* OBSERVE UNDERSTAND ACT HEADING */}
-              {/* <div
-                style={{
-                  transform: `scale(${scale}) translateY(${translateY}px)`,
-                  transformOrigin: "center center",
-                  transition: "transform 0.05s linear",
-                  willChange: "transform"
-                }}
-              >
-                <RevealItem
-                  as="h1"
-                  className="font-display mb-10 text-[48px] font-medium leading-[1.0] tracking-[-0.03em] text-balance text-primary"
-                >
-                  Observe.
-                  <br />
-                  Understand.
-                  <br />
-                  <span className="text-pista italic text-[48px] leading-[1rem] tracking-[-0.03rem] text-balance" 
-                  style={{ fontFamily: "Boska, serif" }}>Act.</span>
-                </RevealItem>
-              </div> */}
+              
             </Reveal>
           </div>
 
