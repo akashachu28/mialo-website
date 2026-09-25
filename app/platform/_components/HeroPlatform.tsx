@@ -2,16 +2,20 @@ import { Container, Kicker, PrimaryButton, GhostButton } from "@/components/ui";
 
 const PILLARS = [
   {
-    title: "Purpose-built models",
-    body: "Specialized vision, voice, document and reasoning models - not one general model stretched thin across every problem.",
+    title: "Purpose-built AI",
+    body: "Specialized vision, voice, document and reasoning models designed for specific operational tasks.",
   },
   {
     title: "Real-world context",
-    body: "Location, time, environment and operational state are fused into every inference, so results reflect what is actually happening.",
+    body: "Location, time, environment and operational state give every inference the context needed to understand what is actually happening.",
   },
   {
     title: "Enterprise knowledge",
-    body: "Your systems, documents and policies inform every decision, keeping intelligence grounded in how your business runs.",
+    body: "Your systems, documents, policies and workflows ground AI in how your organization operates.",
+  },
+  {
+    title: "Edge-native intelligence",
+    body: "Run inference close to where data is generated for low-latency decisions, resilient operation and offline-capable deployments.",
   },
 ];
 
@@ -41,24 +45,37 @@ export default function HeroPlatform() {
             Platform
           </span> */}
 
-          <h1 className="max-w-[1080px] font-display text-[44px] font-normal leading-[1.05] tracking-[-0.03em] text-balance text-primary sm:text-[60px]">
-            One intelligence layer.
+          <h1 className="max-w-[1080px] font-display text-[44px] font-normal leading-[1.05] tracking-[-0.03em] text-balance text-primary sm:text-[60px]"
+          style={{ 
+                      fontFamily: "var(--font-manrope), sans-serif",
+                      fontWeight: 400,
+                      fontSize: "clamp(44px, 7.2vw, 60px)",
+                      lineHeight: 0.96,
+                      letterSpacing: "-0.045em",
+                      wordSpacing: 6,
+                      color: "white"
+                    }}>
+            Intelligence Where
             <br />
-            <span className="text-pista">
-              Unlimited operational applications.
-            </span>
+            <span className="text-pista">Your Operations Happen.</span>
           </h1>
 
-          <p className="max-w-[600px] text-[17px] leading-[1.62] text-ink text-pretty">
-            Mialo brings together multimodal AI, an enterprise knowledge
-            intelligence layer and real-world context to observe, understand and
-            act on operational signals - in real time.
+          <p className="max-w-[600px] text-[17px] leading-[1.62] text-ink text-pretty"
+          style={{ 
+                      fontFamily: "var(--font-manrope), sans-serif",
+                      fontWeight: 400,
+                      fontSize: "clamp(18px, 7.2vw, 24px)",
+                      lineHeight: 1.1,
+                      letterSpacing: "-0.045em",
+                      wordSpacing: 6,
+                      // color: "white"
+                    }}>
+            Mialo brings multimodal AI, enterprise knowledge and real-world
+            context to the edge, enabling real-time insights and automated
+            action - even when connectivity is limited or unavailable.
           </p>
 
-          {/* <div className="mt-1.5 flex flex-wrap gap-3">
-            <PrimaryButton>See how it works</PrimaryButton  Button>
-            <GhostButton>Talk to experts</GhostButton>
-          </div> */}
+
         </div>
 
         {/* the intelligence layer at a glance */}
@@ -71,7 +88,7 @@ export default function HeroPlatform() {
             </Kicker> */}
           </div>
 
-          <div className="grid grid-cols-1 border-t border-line sm:grid-cols-3">
+          <div className="grid grid-cols-1 border-t border-line sm:grid-cols-4">
             {PILLARS.map((p, i) => (
               <div
                 key={p.title}

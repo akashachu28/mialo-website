@@ -1,5 +1,8 @@
-import { ArrowLink, Icon, Section, SectionHeader } from "@/components/ui";
+"use client";
+
+import { Icon, Section, SectionHeader } from "@/components/ui";
 import Image from "next/image";
+import { useState } from "react";
 
 interface Domain {
   number: string;
@@ -101,88 +104,97 @@ const DOMAINS: Domain[] = [
   },
 ];
 
-function DomainRow({ domain, index }: { domain: Domain; index: number }) {
+function DomainCard({ domain }: { domain: Domain }) {
   return (
-    <div className="group relative border-b border-line-2 bg-white/60 transition-colors duration-300 hover:bg-ice/5">
-  {/* Left accent bar — replaces the border-hover trick with something that reads as intentional */}
-  <span className="absolute inset-y-0 left-0 w-[3px] bg-ice scale-y-0 origin-top transition-transform duration-300 group-hover:scale-y-100" />
-
-  <div className="grid gap-8 p-8 lg:grid-cols-[1fr_400px] lg:gap-12 lg:p-10">
-    {/* Left side */}
-    <div className="flex flex-col gap-6">
-      <div className="flex items-start gap-5">
-        <span className="flex h-14 w-14 shrink-0 items-center justify-center rounded-xl border border-ice/30 bg-ice/10 text-ice transition-colors duration-300 group-hover:border-ice/50 group-hover:bg-ice/20">
-          <Icon name={domain.icon} size={24} />
-        </span>
-
-        <div className="flex flex-col gap-1 pt-0.5">
-          <span className="font-mono text-[11px] font-semibold tracking-[0.13em] text-ice">
-            {domain.number}
-          </span>
-          <h3 className="font-display text-[34px] font-medium leading-[1.08] tracking-[-0.02em] text-gray-800 transition-colors group-hover:text-ice">
-            {domain.title}
-          </h3>
-        </div>
-      </div>
-
-      {/* Body copy — always present, no absolute positioning / opacity hacks */}
-      <p className="max-w-[52ch] text-[15px] leading-[1.65] text-gray-600">
-        {domain.body}
-      </p>
-
-      <div className="flex flex-col gap-4 pt-1">
-        <div className="flex flex-wrap gap-x-6 gap-y-2">
-          {domain.capabilities.map((c) => (
-            <span
-              key={c}
-              className="inline-flex items-center gap-2 font-mono text-[11px] tracking-[0.04em] text-muted"
-            >
-              <span className="h-[5px] w-[5px] shrink-0 rounded-full bg-pista" />
-              {c}
-            </span>
-          ))}
-        </div>
-
-        <ArrowLink>Explore {domain.short}</ArrowLink>
-      </div>
-    </div>
-
-    {/* Right side — image, fades in on hover, no layout shift since grid column is reserved */}
-    <div className="hidden lg:block">
-      <div className="relative aspect-[2/1] w-full overflow-hidden rounded-lg border border-line-2 bg-background opacity-0 transition-opacity duration-500 group-hover:opacity-100">
+    <div
+      className="group relative overflow-hidden border border-line-2 bg-raise transition-colors hover:border-line-3 w-[320px] shrink-0 sm:w-90 lg:w-100 h-[500px]"
+      style={{
+        clipPath:
+          "polygon(40px 0, 100% 0, 100% calc(100% - 40px), calc(100% - 40px) 100%, 0 100%, 0 40px)",
+      }}
+    >
+      {/* Full-screen background image */}
+      <div className="absolute inset-0">
         <Image
           src={domain.image}
           alt={domain.alt}
           fill
-          sizes="400px"
-          className="object-cover"
+          sizes="(max-width: 640px) 320px, (max-width: 1024px) 360px, 400px"
+          className="object-cover transition-transform duration-500 group-hover:scale-[1.04]"
         />
+        {/* Dark gradient overlay for text readability */}
+        <div className="absolute inset-0 bg-gradient-to-t from-background via-background/35 to-transparent" />
+      </div>
 
-        {domain.icon === "eye" ? (
-          <div className="absolute bottom-3 right-3 w-[104px] rounded-lg border border-line-2 bg-background/70 p-1.5 backdrop-blur-sm">
-            <div className="relative aspect-square w-full overflow-hidden rounded">
-              <Image
-                src="/images/heatmap.png"
-                alt="Zone occupancy heatmap over a building floor plan"
-                fill
-                sizes="104px"
-                className="object-cover"
-              />
-            </div>
-            <span className="mt-1 block font-mono text-[9px] tracking-[0.08em] text-faint">
-              Zone heatmap
+      {/* Top accent line */}
+      <div className="absolute inset-x-0 top-0 h-px bg-linear-to-r from-transparent via-ice/40 to-transparent z-10" />
+
+      {/* Content overlay */}
+      <div className="relative z-10 flex flex-col-reverse justify-between h-full p-6">
+        {/* Top section */}
+        <div className="flex flex-col gap-4">
+          {/* Header - more compact */}
+          <div className="flex items-start gap-3">
+            <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl border border-ice/40 bg-ice/20 text-ice backdrop-blur-sm transition-colors duration-300 group-hover:border-ice/60 group-hover:bg-ice/30">
+              <Icon name={domain.icon} size={20} />
             </span>
-          </div>
-        ) : null}
 
-        <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-linear-to-r from-transparent via-ice/25 to-transparent" />
+            <div className="flex flex-col gap-0.5 pt-0.5">
+              <span className="font-mono text-[10px] font-semibold tracking-[0.13em] text-ice">
+                {domain.number}
+              </span>
+              <h3 className="font-display text-[22px] font-medium leading-[1.1] tracking-[-0.02em] text-white transition-colors group-hover:text-ice">
+                {domain.title}
+              </h3>
+            </div>
+          </div>
+
+          {/* Body - smaller and tighter */}
+          <p className="text-[13px] leading-[1.6] text-slate-200">
+            {domain.body}
+          </p>
+
+          {/* Capabilities - more compact */}
+          <div className="flex flex-wrap gap-x-4 gap-y-1.5">
+            {domain.capabilities.map((c) => (
+              <span
+                key={c}
+                className="inline-flex items-center gap-1.5 font-mono text-[10px] tracking-[0.04em] text-slate-300"
+              >
+                <span className="h-1.25 w-1.25 shrink-0 rounded-full bg-pista" />
+                {c}
+              </span>
+            ))}
+          </div>
+        </div>
+
+        {/* Bottom section */}
+        <div className="flex items-end justify-end">
+          {/* Heatmap overlay for Vision domain */}
+          {domain.icon === "eye" && (
+            <div className="w-26 rounded-lg border border-line-2 bg-background/70 p-1.5 backdrop-blur-sm">
+              <div className="relative aspect-square w-full overflow-hidden rounded">
+                <Image
+                  src="/images/heatmap.png"
+                  alt="Zone occupancy heatmap over a building floor plan"
+                  fill
+                  sizes="104px"
+                  className="object-cover"
+                />
+              </div>
+              <span className="mt-1 block font-mono text-[9px] tracking-[0.08em] text-faint">
+                Zone heatmap
+              </span>
+            </div>
+          )}
+        </div>
       </div>
     </div>
-  </div>
-</div>
   );
 }
 export default function IndustryDomain() {
+  const [isPaused, setIsPaused] = useState(false);
+
   return (
     <>
       <Section>
@@ -190,21 +202,44 @@ export default function IndustryDomain() {
           <SectionHeader
             eyebrow="The Domains"
             title="Explore the domains that power smarter operations."
-            // lead="Each domain pairs purpose-built AI models with real-world context and enterprise knowledge — available on its own, or combined through one platform and one API."
           />
           <p className="w-full max-w-[640px] text-[18px] leading-[1.62] text-gray-700 -mt-10 text-pretty">
-            Each domain pairs purpose-built AI models with real-world context
-            and enterprise knowledge — available on its own, or combined through
-            one platform and one API.{" "}
+            Choose the intelligence your operation needs or combine multiple
+            domains to understand complex operational scenarios.
           </p>
-
-          <div className="flex flex-col gap-0">
-            {DOMAINS.map((domain, index) => (
-              <DomainRow key={domain.number} domain={domain} index={index} />
-            ))}
-          </div>
         </div>
       </Section>
+
+      {/* Full-width carousel outside container */}
+      <div className="relative overflow-hidden -mt-8 pb-20 sm:pb-26">
+        <div
+          className="flex gap-6"
+          style={{
+            width: "max-content",
+            animation: "scroll 35s linear infinite",
+            animationPlayState: isPaused ? "paused" : "running",
+            willChange: "transform",
+          }}
+          onMouseEnter={() => setIsPaused(true)}
+          onMouseLeave={() => setIsPaused(false)}
+        >
+          {/* Triple duplicate for seamless loop */}
+          {[...DOMAINS, ...DOMAINS, ...DOMAINS].map((domain, index) => (
+            <DomainCard key={`${domain.number}-${index}`} domain={domain} />
+          ))}
+        </div>
+
+        <style jsx>{`
+          @keyframes scroll {
+            0% {
+              transform: translateX(0);
+            }
+            100% {
+              transform: translateX(calc(-100% / 3));
+            }
+          }
+        `}</style>
+      </div>
     </>
   );
 }

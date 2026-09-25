@@ -65,7 +65,7 @@ export default function PlatformSection4() {
   return (
     <>
       {/* -------- Intelligence Domains -------- */}
-      <Section>
+      {/* <Section>
         <div className="flex flex-col gap-14">
           <SectionHeader
             eyebrow="Intelligence Domains"
@@ -108,7 +108,7 @@ export default function PlatformSection4() {
             </div>
           </div>
         </div>
-      </Section>
+      </Section> */}
 
       {/* -------- Deploy Anywhere + Enterprise Ready -------- */}
       <Section>
