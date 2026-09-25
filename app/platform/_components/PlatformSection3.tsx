@@ -47,8 +47,8 @@ export default function PlatformSection3() {
       <SectionHeader
         className="mb-14"
         eyebrow="Multimodal Intelligence"
-        title="Every operational signal contributes to a complete picture."
-        lead="Every operation generates signals. Mialo turns those signals into context-aware intelligence and action."
+        titleIce="Every operational signal contributes to a complete picture."
+        leadBlack="Every operation generates signals. Mialo turns those signals into context-aware intelligence and action."
       />
 
       <div className="grid items-start gap-14 lg:grid-cols-[380px_1fr]">
@@ -58,17 +58,35 @@ export default function PlatformSection3() {
               key={s.n}
               className="flex gap-[18px] border-t border-line py-[22px] first:border-t-0 first:pt-0"
             >
-              <span className="shrink-0 pt-0.5 font-mono text-[12px] text-ice">
+              <span className="shrink-0 pt-0.5 font-mono text-[18px] text-ice">
                 {s.n}
               </span>
               <div>
-                <h3 className="font-display text-[18px] font-medium tracking-[-0.01em] text-primary">
+                <h3 className="font-display text-[24px] tracking-[-0.01em] text-ice italic"
+                style={{ 
+                        fontFamily: "var(--font-manrope), sans-serif",
+                        fontWeight: 600,
+                        fontSize: "clamp(32px, 7.2vw, 40px)",
+                        lineHeight: 0.96,
+                        letterSpacing: "-0.045em"
+                      }}
+      >
                   {s.title}
                 </h3>
-                <h4>
+                <h4 className="text-gray-700 text-[20px]"
+                style={{ 
+                        fontFamily: "var(--font-manrope), sans-serif",
+                        lineHeight: 1.1,
+                        letterSpacing: "-0.045em"
+                }}>
                   {s.subtitle}
                 </h4>
-                <p className="mt-1.5 text-[14px] leading-[1.6] text-muted text-pretty">
+                <p className="mt-3 text-[14px] leading-[1.6] text-faint text-pretty text-[16px]"
+                style={{ 
+                        fontFamily: "var(--font-manrope), sans-serif",
+                        lineHeight: 0.96,
+                        letterSpacing: "-0.045em"
+                }}>
                   {s.body}
                 </p>
               </div>
@@ -76,34 +94,72 @@ export default function PlatformSection3() {
           ))}
         </div>
 
-        <div className="rounded-2xl border border-line-2 bg- p-7">
+        <div 
+          className="relative border border-line-2 bg-background"
+          style={{
+            clipPath: "polygon(40px 0, 100% 0, 100% calc(100% - 40px), calc(100% - 40px) 100%, 0 100%, 0 40px)",
+          }}
+        >
+          <div className="p-7">
           <svg viewBox="0 0 620 420" className="block w-full">
             <defs>
               <radialGradient id="mialo-fusion-glow" cx="50%" cy="50%" r="50%">
                 <stop offset="0%" stopColor="#6C93FF" stopOpacity="0.28" />
                 <stop offset="100%" stopColor="#6C93FF" stopOpacity="0" />
               </radialGradient>
+              
+              {/* Subtle ice color gradient for each line */}
+              <linearGradient id="line-gradient-0" x1="0%" y1="0%" x2="100%" y2="0%">
+                <stop offset="0%" stopColor="#5B82EE" stopOpacity="0.6" />
+                <stop offset="100%" stopColor="#7DA4FF" stopOpacity="0.9" />
+              </linearGradient>
+              <linearGradient id="line-gradient-1" x1="0%" y1="0%" x2="100%" y2="0%">
+                <stop offset="0%" stopColor="#5580E8" stopOpacity="0.6" />
+                <stop offset="100%" stopColor="#83A6FF" stopOpacity="0.9" />
+              </linearGradient>
+              <linearGradient id="line-gradient-2" x1="0%" y1="0%" x2="100%" y2="0%">
+                <stop offset="0%" stopColor="#4F7DE0" stopOpacity="0.6" />
+                <stop offset="100%" stopColor="#89A9FF" stopOpacity="0.9" />
+              </linearGradient>
+              <linearGradient id="line-gradient-3" x1="0%" y1="0%" x2="100%" y2="0%">
+                <stop offset="0%" stopColor="#6C93FF" stopOpacity="0.6" />
+                <stop offset="100%" stopColor="#8FABFF" stopOpacity="0.9" />
+              </linearGradient>
+              <linearGradient id="line-gradient-4" x1="0%" y1="0%" x2="100%" y2="0%">
+                <stop offset="0%" stopColor="#6089F5" stopOpacity="0.6" />
+                <stop offset="100%" stopColor="#95AEFF" stopOpacity="0.9" />
+              </linearGradient>
+              <linearGradient id="line-gradient-5" x1="0%" y1="0%" x2="100%" y2="0%">
+                <stop offset="0%" stopColor="#5886EB" stopOpacity="0.6" />
+                <stop offset="100%" stopColor="#9BB1FF" stopOpacity="0.9" />
+              </linearGradient>
+              <linearGradient id="line-gradient-6" x1="0%" y1="0%" x2="100%" y2="0%">
+                <stop offset="0%" stopColor="#7296FF" stopOpacity="0.6" />
+                <stop offset="100%" stopColor="#A1B4FF" stopOpacity="0.9" />
+              </linearGradient>
             </defs>
 
             <circle cx="470" cy="210" r="120" fill="url(#mialo-fusion-glow)" />
 
-            <g stroke="#2E323B" strokeWidth="1" fill="none">
-              {LINKS.map((d) => (
-                <path key={d} d={d} />
+            {/* line color  */}
+            <g strokeWidth="1.5" fill="none">
+              {LINKS.map((d, i) => (
+                <path key={d} d={d} stroke={`url(#line-gradient-${i})`} />
               ))}
             </g>
 
             <g
               style={{ fontFamily: "var(--font-geist-mono), ui-monospace, monospace" }}
               fontSize="11"
-              fill="#B4BAC4"
+              fill="#E5E7EB"
             >
               {SOURCES.map((s) => (
                 <g key={s.label}>
-                  <circle cx={s.x} cy={s.y} r="4" fill="#6C93FF" />
-                  <text x={s.x + 14} y={s.y + 4}>
+                  
+                  <text x={s.x - 34} y={s.y + 14}>
                     {s.label}
                   </text>
+                  <circle cx={s.x} cy={s.y} r="4" fill="#6C93FF" />
                 </g>
               ))}
             </g>
@@ -137,17 +193,18 @@ export default function PlatformSection3() {
               mialo
             </text>
 
-            <path d="M522 210 H 596" stroke="#2E323B" strokeWidth="1" />
-            <circle cx="600" cy="210" r="3" fill="#00E599" />
+            <path d="M522 210 H 596" stroke="#6C93FF" strokeWidth="1" />
+            <circle cx="600" cy="210" r="3" fill="#6C93FF" />
             <g
               style={{ fontFamily: "var(--font-geist-mono), ui-monospace, monospace" }}
               fontSize="10"
-              fill="#8A909C"
+              fill="#E5E7EB"
             >
               <text x="540" y="196">UNIFIED</text>
               <text x="540" y="230">UNDERSTANDING</text>
             </g>
           </svg>
+          </div>
         </div>
       </div>
     </Section>

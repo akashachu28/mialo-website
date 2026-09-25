@@ -3,6 +3,7 @@ import CompanySection2 from "./_components/CompanySection2";
 import CompanySection3 from "./_components/CompanySection3";
 import CompanySection4 from "./_components/CompanySection4";
 import CompanySection5 from "./_components/CompanySection5";
+import Footer from "@/components/Footer";
 
 export const metadata = {
   title: "Company — Mialo",
@@ -18,6 +19,7 @@ export default function Company() {
       <CompanySection3 />
       <CompanySection4 />
       <CompanySection5 />
+      <Footer/>
     </div>
   );
 }

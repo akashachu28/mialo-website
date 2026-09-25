@@ -1,3 +1,4 @@
+import Footer from "@/components/Footer";
 import HeroSolution from "./_components/HeroSolution";
 import SolutionSection1 from "./_components/SolutionSection1";
 import SolutionSection2 from "./_components/SolutionSection2";
@@ -16,6 +17,7 @@ export default function Solution() {
       {/* <div className="bg-white/75"> */}
         <SolutionSection2 />
       {/* </div> */}
+      <Footer/>
     </div>
   );
 }
