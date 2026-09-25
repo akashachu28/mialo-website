@@ -47,7 +47,7 @@ export default function Hero2() {
 
         {/* Right side: Operational Insights Card */}
         <div 
-          className="flex-1 border-2 border-black bg-gray-900 w-full lg:w-auto"
+          className="flex-1 border-2 border-black bg-gray-900 w-full lg:w-auto lg:max-h-[600px]"
           style={{
             clipPath: "polygon(28px 0, 100% 0, 100% calc(100% - 28px), calc(100% - 28px) 100%, 0 100%, 0 28px)"
           }}

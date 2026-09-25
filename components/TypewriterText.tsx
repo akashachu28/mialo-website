@@ -73,6 +73,48 @@ export default function TypewriterText({
 
   const currentTypingWord = !isDeleting ? words[currentWordIndex].slice(0, currentCharIndex) : '';
 
+  // Helper function to render text with proper styling for parts
+  const renderStyledText = (text: string, isComplete: boolean) => {
+    if (!highlightLastWord) {
+      return text;
+    }
+
+    // Split by " . " to identify individual words
+    const parts = text.split(' . ');
+    
+    return parts.map((part, idx) => {
+      const isLastPart = idx === parts.length - 1;
+      const separator = idx < parts.length - 1 ? ' . ' : '';
+      
+      return (
+        <span key={idx}>
+          <span
+            style={isLastPart ? {
+              color: 'var(--color-pista)',
+              fontSize: '1.3em',
+              fontWeight: 500,
+              fontFamily: 'var(--font-boska), serif',
+              fontStyle: 'italic'
+            } : {
+              color: 'white',
+              fontFamily: 'var(--font-manrope), sans-serif'
+            }}
+          >
+            {part}
+          </span>
+          {separator && (
+            <span style={{
+              color: 'white',
+              fontFamily: 'var(--font-manrope), sans-serif'
+            }}>
+              {separator}
+            </span>
+          )}
+        </span>
+      );
+    });
+  };
+
   return (
     <h3 
       className={`${className} transition-opacity duration-500 ease-in-out`} 
@@ -83,37 +125,12 @@ export default function TypewriterText({
     >
       {displayedWords.map((word, idx) => (
         <span key={idx} className="inline-block animate-in fade-in duration-200">
-          <span 
-            className={highlightLastWord && idx === words.length - 1 ? 'text-pista' : ''}
-            style={{
-              ...(highlightLastWord && idx === words.length - 1 ? { 
-                color: 'var(--color-pista)',
-                fontSize: '1.3em',
-                fontWeight: 500,
-                fontFamily: 'var(--font-boska), serif',
-                fontStyle: 'italic'
-              } : {})
-            }}
-          >
-            {word}
-          </span>
+          {renderStyledText(word, true)}
           {idx < displayedWords.length - 1 || currentTypingWord ? ', ' : ''}
         </span>
       ))}
-      <span 
-        className={`inline-block ${highlightLastWord && currentWordIndex === words.length - 1 ? 'text-pista' : ''}`}
-        style={{
-          ...(highlightLastWord && currentWordIndex === words.length - 1 ? { 
-            color: 'var(--color-pista)',
-            fontSize: '1.2em',
-            fontWeight: 500,
-            fontFamily: 'var(--font-boska), serif',
-            fontStyle: 'italic'
-          } : {}),
-          display: 'inline-block'
-        }}
-      >
-        {currentTypingWord}
+      <span className="inline-block">
+        {renderStyledText(currentTypingWord, false)}
       </span>
       {!isDeleting && (
         <span 

@@ -30,7 +30,7 @@ export default function Section3() {
 
   return (
     <>
-      <section className=" py-20 sm:py-[104px]">
+      <section className=" pt-20 sm:py">
         <div className="mx-auto w-full max-w-7xl px-6 sm:px-8">
           <SectionHeader
             className="mb-12"
@@ -79,12 +79,12 @@ export default function Section3() {
           </div>
         </div>
 
-        <div className="mx-auto w-full max-w-7xl px-6 sm:px-8">
+        {/* <div className="mx-auto w-full max-w-7xl px-6 sm:px-8">
           <p className="mt-12 max-w-[640px] font-display text-[22px] font-medium leading-[1.3] tracking-[-0.02em] sm:text-[26px]">
             <span className="text-gray-700">Recording is not understanding.</span>{" "}
             <span className="text-ice">Understanding enables action.</span>
           </p>
-        </div>
+        </div> */}
       </section>
 
       {/* editorial beat */}

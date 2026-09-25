@@ -38,7 +38,7 @@ const CARDS = [
 export default function OperationalCards() {
   return (
     <div className="w-full max-w-7xl mx-auto px-6">
-      <Reveal stagger className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-[18px]">
+      <Reveal stagger className="grid  grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-[18px]">
         {CARDS.map((card) => (
           <RevealItem
             key={card.id}
@@ -47,7 +47,7 @@ export default function OperationalCards() {
           >
             {/* Outer glow effect */}
             <div 
-              className="absolute inset-0 bg-blue-500/5 blur-xl rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+              className="absolute inset-0 bg-ice/50 blur-xl rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-500"
               style={{
                 clipPath: 'polygon(0 45px, 45px 0, 100% 0, 100% calc(100% - 45px), calc(100% - 45px) 100%, 0 100%)'
               }}
@@ -55,16 +55,16 @@ export default function OperationalCards() {
             
             {/* Card with custom clip-path border shape */}
             <div 
-              className="relative h-full bg-gradient-to-br from-slate-900/80 via-slate-900/60 to-slate-900/40 backdrop-blur-md border border-blue-500/30 transition-all duration-300 group-hover:border-blue-400/60 group-hover:shadow-[0_0_30px_rgba(59,130,246,0.3)] overflow-hidden"
+              className="relative h-full bg-gradient-to-br from-gray-900 via-gray-900/90 to-gray-900/75 backdrop-blur-md border border-blue-500/30 transition-all duration-300 group-hover:border-blue-400/60 group-hover:shadow-[0_0_30px_rgba(59,130,246,0.3)] overflow-hidden"
               style={{
                 clipPath: 'polygon(0 45px, 45px 0, 100% 0, 100% calc(100% - 45px), calc(100% - 45px) 100%, 0 100%)'
               }}
             >
               {/* Glassy overlay effect */}
-              <div className="absolute inset-0 bg-gradient-to-br from-pista/5 via-transparent to-pista/5 opacity-50 group-hover:opacity-70 transition-opacity duration-300" />
+              <div className="absolute inset-0 bg-gradient-to-br from-ice/10 via-transparent to-ice/10 opacity-50 group-hover:opacity-70 transition-opacity duration-300" />
               
               {/* Scan line effect */}
-              <div className="absolute inset-0 bg-gradient-to-b from-transparent via-pista/5 to-transparent opacity-0 group-hover:opacity-100 animate-scan transition-opacity duration-300" />
+              <div className="absolute inset-0 bg-gradient-to-b from-transparent via-ice/10 to-transparent opacity-0 group-hover:opacity-100 animate-scan transition-opacity duration-300" />
               
               {/* Card content */}
               <div className="relative p-[22px] h-full flex flex-col">

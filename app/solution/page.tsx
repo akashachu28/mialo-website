@@ -12,10 +12,10 @@ export default function Solution() {
   return (
     <div className="bg-background font-body text-primary antialiased">
       <HeroSolution />
-      <SolutionSection1 />
-      <div className="bg-white/75">
+      <div className="bg-white/75"><SolutionSection1 /></div>
+      {/* <div className="bg-white/75"> */}
         <SolutionSection2 />
-      </div>
+      {/* </div> */}
     </div>
   );
 }

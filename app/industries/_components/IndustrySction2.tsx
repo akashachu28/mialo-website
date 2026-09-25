@@ -1,9 +1,11 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
+import { useState } from "react";
 import {
   Section,
   SectionHeader,
-  ArrowLink,
   Icon,
   type IconName,
 } from "@/components/ui";
@@ -32,7 +34,6 @@ const INDUSTRIES: Industry[] = [
     blurb: "Footfall, dwell time and shelf compliance across every store.",
     image: "/images/industryVision.png",
     alt: "A retail floor with shopper detection zones and a movement heatmap",
-    href: "/industries/innerPages/retail",
   },
   {
     icon: "factory",
@@ -40,7 +41,6 @@ const INDUSTRIES: Industry[] = [
     blurb: "Line anomalies, safety and uptime - caught before they cascade.",
     image: "/images/manufacture.png",
     alt: "A robotic welding arm throwing sparks on a factory line",
-    href: "/industries/innerPages/manufacturing",
   },
   {
     icon: "heart",
@@ -72,7 +72,44 @@ const INDUSTRIES: Industry[] = [
   },
 ];
 
+function IndustryCard({ industry }: { industry: Industry }) {
+  return (
+    <div
+      className="group relative overflow-hidden border border-line-2 bg-raise transition-colors hover:border-line-3 w-[320px] flex-shrink-0 sm:w-[360px] lg:w-[380px]"
+      style={{
+        clipPath:
+          "polygon(40px 0, 100% 0, 100% calc(100% - 40px), calc(100% - 40px) 100%, 0 100%, 0 40px)",
+      }}
+    >
+      <div className="relative aspect-[4/5]">
+        <Image
+          src={industry.image}
+          alt={industry.alt}
+          fill
+          sizes="(max-width: 640px) 320px, (max-width: 1024px) 400px, 450px"
+          className="object-cover transition-transform duration-500 group-hover:scale-[1.04]"
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-background via-background/35 to-transparent" />
+
+        <div className="absolute inset-x-0 bottom-0 flex flex-col gap-2 p-5">
+          <span className="flex h-9 w-9 items-center justify-center rounded-[10px] border border-ice/30 bg-background/60 text-ice backdrop-blur-sm">
+            <Icon name={industry.icon} size={18} />
+          </span>
+          <h3 className="font-display text-[19px] font-medium tracking-[-0.01em] text-primary">
+            {industry.label}
+          </h3>
+          <p className="text-[12.5px] leading-[1.5] text-ink text-pretty">
+            {industry.blurb}
+          </p>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 export default function IndustrySection2() {
+  const [isPaused, setIsPaused] = useState(false);
+
   return (
     <>
       {/* -------- How Mialo works -------- */}
@@ -81,16 +118,17 @@ export default function IndustrySection2() {
           <SectionHeader
             eyebrow="How Mialo Works"
             title="From data to decisions. In real time."
-            // lead="Every operational moment follows the same loop - observe, understand, decide, act and learn - running continuously across your sources."
           />
           <p className="w-full max-w-[640px] text-[18px] leading-[1.62] text-gray-700 -mt-10 text-pretty">
             Every operational moment follows the same loop - observe, understand, decide, act and learn - running continuously across your sources.
           </p>
 
-          <div className="relative bg-ice py-3 grid grid-cols-2 gap-x-3 gap-y-8 sm:grid-cols-3 lg:grid-cols-5"
-          style={{
-                  clipPath: "polygon(40px 0, 100% 0, 100% calc(100% - 40px), calc(100% - 40px) 100%, 0 100%, 0 40px)",
-                }}
+          <div
+            className="relative bg-ice py-3 grid grid-cols-2 gap-x-3 gap-y-8 sm:grid-cols-3 lg:grid-cols-5"
+            style={{
+              clipPath:
+                "polygon(40px 0, 100% 0, 100% calc(100% - 40px), calc(100% - 40px) 100%, 0 100%, 0 40px)",
+            }}
           >
             {STEPS.map((s, i) => (
               <div
@@ -110,7 +148,7 @@ export default function IndustrySection2() {
                     }}
                   />
                 )}
-                
+
                 <span className="font-mono text-[10px] tracking-[0.1em] text-pista relative z-10">
                   {String(i + 1).padStart(2, "0")}
                 </span>
@@ -135,67 +173,44 @@ export default function IndustrySection2() {
           <SectionHeader
             eyebrow="Industries We Empower"
             title="Operational intelligence, tuned to your world."
-            // lead="The same intelligence layer, adapted to the signals, constraints and outcomes that define each sector."
           >
             <p className="w-full max-w-[640px] text-[18px] leading-[1.62] text-gray-700 mt-5 text-pretty">
-            Every operational moment follows the same loop - observe, understand, decide, act and learn - running continuously across your sources.
-          </p>
-            {/* <ArrowLink>Explore all industries</ArrowLink> */}
+              The same intelligence layer, adapted to the signals, constraints and outcomes that define each sector.
+            </p>
           </SectionHeader>
-
-          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {INDUSTRIES.map((industry) => {
-              const CardContent = (
-                <div className="relative aspect-[4/5] w-full">
-                  <Image
-                    src={industry.image}
-                    alt={industry.alt}
-                    fill
-                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 380px"
-                    className="object-cover transition-transform duration-500 group-hover:scale-[1.04]"
-                  />
-                  <div className="absolute inset-0 bg-linear-to-t from-[#08090B] via-[#08090B]/35 to-transparent" />
-
-                  <div className="absolute inset-x-0 bottom-0 flex flex-col gap-2 p-5">
-                    <span className="flex h-9 w-9 items-center justify-center rounded-[10px] border border-ice/30 bg-background/60 text-ice backdrop-blur-sm">
-                      <Icon name={industry.icon} size={18} />
-                    </span>
-                    <h3 className="font-display text-[19px] font-medium tracking-[-0.01em] text-primary">
-                      {industry.label}
-                    </h3>
-                    <p className="text-[12.5px] leading-[1.5] text-ink text-pretty">
-                      {industry.blurb}
-                    </p>
-                  </div>
-                </div>
-              );
-
-              return industry.href ? (
-                <Link
-                  key={industry.label}
-                  href={industry.href}
-                  className="group relative overflow-hidden  border border-line-2 bg-raise transition-colors hover:border-line-3"
-                  style={{
-                  clipPath: "polygon(40px 0, 100% 0, 100% calc(100% - 40px), calc(100% - 40px) 100%, 0 100%, 0 40px)",
-                }}
-                >
-                  {CardContent}
-                </Link>
-              ) : (
-                <div
-                  key={industry.label}
-                  className="group relative overflow-hidden border border-line-2 bg-raise transition-colors hover:border-line-3"
-                  style={{
-                  clipPath: "polygon(40px 0, 100% 0, 100% calc(100% - 40px), calc(100% - 40px) 100%, 0 100%, 0 40px)",
-                }}
-                >
-                  {CardContent}
-                </div>
-              );
-            })}
-          </div>
         </div>
       </Section>
+
+      {/* Full-width carousel outside container */}
+      <div className="relative overflow-hidden -mt-8 pb-20 sm:pb-[104px]">
+  <div
+    className="flex gap-6"
+    style={{
+      width: "max-content",
+      animation: "scroll 25s linear infinite",
+      animationPlayState: isPaused ? "paused" : "running",
+      willChange: "transform",
+    }}
+    onMouseEnter={() => setIsPaused(true)}
+    onMouseLeave={() => setIsPaused(false)}
+  >
+    {/* Triple duplicate for a seamless loop */}
+    {[...INDUSTRIES, ...INDUSTRIES, ...INDUSTRIES].map((industry, index) => (
+      <IndustryCard key={`${industry.label}-${index}`} industry={industry} />
+    ))}
+  </div>
+
+  <style jsx>{`
+    @keyframes scroll {
+      0% {
+        transform: translateX(0);
+      }
+      100% {
+        transform: translateX(calc(-100% / 3));
+      }
+    }
+  `}</style>
+</div>
     </>
   );
 }
