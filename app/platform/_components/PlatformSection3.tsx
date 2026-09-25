@@ -4,17 +4,20 @@ const STEPS = [
   {
     n: "01",
     title: "Observe",
-    body: "Ingest live streams and records from every operational source, on the edge or in the cloud.",
+    subtitle: "Capture what is happening.",
+    body: "Connect cameras, voice, documents, sensors, IoT devices and enterprise systems—at the edge or in the cloud.",
   },
   {
     n: "02",
     title: "Understand",
-    body: "Fuse signals across modalities and align them with enterprise knowledge and context.",
+    subtitle: "Make sense of what is happening.",
+    body: "Fuse multimodal signals with enterprise knowledge, operational context and specialized AI models.",
   },
   {
     n: "03",
     title: "Act",
-    body: "Surface what matters and trigger the right workflow, alert or decision automatically.",
+    subtitle: "Turn intelligence into action.",
+    body: "Identify what matters, determine the right response, and trigger recommendations, alerts and automated workflows in real time.",
   },
 ];
 
@@ -45,7 +48,7 @@ export default function PlatformSection3() {
         className="mb-14"
         eyebrow="Multimodal Intelligence"
         title="Every operational signal contributes to a complete picture."
-        lead="Mialo fuses information from cameras, conversations, documents, IoT devices, enterprise systems and edge hardware to create a unified understanding of operations."
+        lead="Every operation generates signals. Mialo turns those signals into context-aware intelligence and action."
       />
 
       <div className="grid items-start gap-14 lg:grid-cols-[380px_1fr]">
@@ -62,6 +65,9 @@ export default function PlatformSection3() {
                 <h3 className="font-display text-[18px] font-medium tracking-[-0.01em] text-primary">
                   {s.title}
                 </h3>
+                <h4>
+                  {s.subtitle}
+                </h4>
                 <p className="mt-1.5 text-[14px] leading-[1.6] text-muted text-pretty">
                   {s.body}
                 </p>
@@ -70,7 +76,7 @@ export default function PlatformSection3() {
           ))}
         </div>
 
-        <div className="rounded-2xl border border-line-2 bg-panel p-7">
+        <div className="rounded-2xl border border-line-2 bg- p-7">
           <svg viewBox="0 0 620 420" className="block w-full">
             <defs>
               <radialGradient id="mialo-fusion-glow" cx="50%" cy="50%" r="50%">

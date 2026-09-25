@@ -14,9 +14,11 @@ export default function PlatformPage() {
   return (
     <div className="bg-background font-body text-primary antialiased">
       <HeroPlatform />
-      <div className="bg-white/75"><PlatformSection2 /></div>
-      <div className="bg-white/85"><IndustryDomain/></div>
       <PlatformSection3 />
+      {/* <div className="bg-white/75"><PlatformSection2 /></div> */}
+      
+      <div className="bg-white/75"><IndustryDomain/></div>
+      
       <PlatformSection4 />
     </div>
   );
