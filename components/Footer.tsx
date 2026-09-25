@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { Container } from "./ui";
-import { Linkedin, Facebook, Twitter, Phone } from "lucide-react";
+import {  Phone } from "lucide-react";
 
 const EXPLORE_LINKS = [
   { label: "Home", href: "/" },
