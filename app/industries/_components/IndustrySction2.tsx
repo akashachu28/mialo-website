@@ -30,14 +30,21 @@ type Industry = {
 const INDUSTRIES: Industry[] = [
   {
     icon: "coins",
-    label: "Retail",
+    label: "Retail & E-commerce",
     blurb: "Footfall, dwell time and shelf compliance across every store.",
     image: "/images/industryVision.png",
     alt: "A retail floor with shopper detection zones and a movement heatmap",
   },
   {
     icon: "factory",
-    label: "Manufacturing",
+    label: "Furniture & Home Improvement",
+    blurb: "Line anomalies, safety and uptime - caught before they cascade.",
+    image: "/images/manufacture.png",
+    alt: "A robotic welding arm throwing sparks on a factory line",
+  },
+  {
+    icon: "factory",
+    label: "Infrastructure",
     blurb: "Line anomalies, safety and uptime - caught before they cascade.",
     image: "/images/manufacture.png",
     alt: "A robotic welding arm throwing sparks on a factory line",
@@ -50,22 +57,43 @@ const INDUSTRIES: Industry[] = [
     alt: "A clinician reviewing AI diagnostic overlays beside a patient bed",
   },
   {
+    icon: "heart",
+    label: "Aerospace",
+    blurb: "Situational awareness across capacity, workflow and patient safety.",
+    image: "/images/aerospace.png",
+    alt: "A clinician reviewing AI diagnostic overlays beside a patient bed",
+  },
+  {
     icon: "building",
-    label: "Government",
+    label: "Security",
     blurb: "Fragmented operational data made accountable and auditable.",
     image: "/images/government.png",
     alt: "A government operations centre with a civic network overlay",
   },
   {
     icon: "truck",
-    label: "Logistics",
+    label: "Logistics & Warehousing",
     blurb: "Disruption sensed early, so operations re-route in time.",
     image: "/images/logistics.png",
     alt: "A forklift loading a truck at a warehouse dock",
   },
   {
     icon: "zap",
-    label: "Energy & Utilities",
+    label: "Manufacturing & more",
+    blurb: "Grid, generation and field signals read in real time.",
+    image: "/images/energy.png",
+    alt: "A power plant and solar array with live efficiency readouts",
+  },
+  {
+    icon: "zap",
+    label: "Agriculture",
+    blurb: "Grid, generation and field signals read in real time.",
+    image: "/images/agriculture.png",
+    alt: "A power plant and solar array with live efficiency readouts",
+  },
+  {
+    icon: "zap",
+    label: "Hospitality",
     blurb: "Grid, generation and field signals read in real time.",
     image: "/images/energy.png",
     alt: "A power plant and solar array with live efficiency readouts",
@@ -207,7 +235,7 @@ export default function IndustrySection2() {
     className="flex gap-6"
     style={{
       width: "max-content",
-      animation: "scroll 25s linear infinite",
+      animation: "scroll 30s linear infinite",
       animationPlayState: isPaused ? "paused" : "running",
       willChange: "transform",
     }}

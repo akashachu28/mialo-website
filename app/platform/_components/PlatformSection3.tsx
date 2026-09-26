@@ -47,7 +47,8 @@ export default function PlatformSection3() {
       <SectionHeader
         className="mb-14"
         eyebrow="Multimodal Intelligence"
-        titleIce="Every operational signal contributes to a complete picture."
+        title="Every operational signal"
+        titleIce=" contributes to a complete picture."
         leadBlack="Every operation generates signals. Mialo turns those signals into context-aware intelligence and action."
       />
 
