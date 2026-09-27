@@ -1,28 +1,28 @@
-# Mialo — Dark Theme Design System
+# Mialo - Dark Theme Design System
 
 Reference direction: **openai.com** (structure, restraint, whitespace) + **neon.com**
 (type stack, near‑black palette, hairline bento, monospace labels).
 
 The redesigned Platform page is the reference implementation. This document is the
 system to apply to every other page. First proven on: `design/platform/` (canvas:
-"Mialo Platform — Dark Redesign").
+"Mialo Platform - Dark Redesign").
 
 ---
 
 ## 1. Principles
 
 1. **Near‑black, not blue‑black.** One quiet dark ground; section chrome (headers,
-   dividers, layout) stays hairline and flat — no gradient washes on whole
+   dividers, layout) stays hairline and flat - no gradient washes on whole
    sections. Rich *product* visuals (the home page's flow diagrams and demo
    cards) may carry their own blue glow / glass treatment; keep that inside the
    card, not on the page.
 2. **Structure carries the page.** Left‑aligned section headers, full‑bleed hairline
    dividers between sections, generous vertical rhythm. Let type and spacing do the work.
 3. **Restraint with colour.** Blue (`#6C93FF`) is the single brand accent. Green
-   (`#00E599`) appears only in tiny doses — live dots, eyebrow ticks, diagram pulses.
+   (`#00E599`) appears only in tiny doses - live dots, eyebrow ticks, diagram pulses.
    Most of the page is greyscale.
 4. **Monospace for machine text.** Eyebrows, tags, kickers, diagram labels, step
-   numbers — all Geist Mono, uppercase, wide tracking.
+   numbers - all Geist Mono, uppercase, wide tracking.
 5. **Same content, new shell.** Restructure freely; don't invent marketing copy.
    Missing facts get `[BRACKETED]` placeholders.
 
@@ -43,7 +43,7 @@ https://fonts.googleapis.com/css2?family=Geist:wght@300..600&family=Geist+Mono:w
 | Labels / mono | **Geist Mono** | Eyebrows, tags, code, diagram text. Fallback: `ui-monospace, 'SF Mono', Menlo, monospace` |
 
 > **No Boska in the redesign.** It was tried on the home hero and read as a
-> mismatch against the grotesque/mono UI — every headline, including the home
+> mismatch against the grotesque/mono UI - every headline, including the home
 > hero and the `Repeat.` beat, is **Geist**. The header wordmark is Geist too.
 > Boska stays only on the pages not yet redesigned (company, solutions,
 > industries, intelligence-domain).
@@ -56,8 +56,8 @@ https://fonts.googleapis.com/css2?family=Geist:wght@300..600&family=Geist+Mono:w
 | `h2` (section) | Geist | 40 / 1.12 | −0.025em | 500 |
 | `h3` (sub‑section) | Geist | 25 / 1.2 | −0.02em | 500 |
 | card title | Geist | 16 / 1.3 | −0.01em | 500 |
-| `lead` | Inter | 17 / 1.62 | — | 400, colour `--text-2` |
-| `body` | Inter | 14.5 / 1.62 | — | 400, colour `--text-3` |
+| `lead` | Inter | 17 / 1.62 | - | 400, colour `--text-2` |
+| `body` | Inter | 14.5 / 1.62 | - | 400, colour `--text-3` |
 | `eyebrow` | Geist Mono | 12 / 1 | 0.16em, UPPERCASE | 500, colour `--text-3` |
 | `kicker` | Geist Mono | 11 / 1 | 0.13em, UPPERCASE | 400, colour `--text-4` |
 
@@ -87,12 +87,12 @@ Mobile: `h1` 39/1.06, `h2` 26/1.14, `lead` 15.5, `body` 13.5. Body never below 1
   --text-4:    #5A616D;   /* kickers, captions, muted */
 
   /* accents */
-  --blue:      #6C93FF;   /* the brand accent — links, active state, icons */
+  --blue:      #6C93FF;   /* the brand accent - links, active state, icons */
   --blue-2:    #97B4FF;   /* hover / brighter */
   --blue-dim:  rgba(108,147,255,0.14);  /* tint fills, glows */
   --blue-line: rgba(108,147,255,0.32);  /* accent borders */
 
-  --green:     #00E599;   /* Neon green — SPARINGLY: live dots, ticks, pulses */
+  --green:     #00E599;   /* Neon green - SPARINGLY: live dots, ticks, pulses */
   --green-dim: rgba(0,229,153,0.12);
 }
 ```
@@ -144,7 +144,7 @@ padding: 24px`. Hover: `border-color: var(--line-3)`. Contents: icon → title+b
 
 ### CTA cell
 A card‑sized tile with `border-color: var(--blue-line)` and
-`background: linear-gradient(160deg, var(--blue-dim), transparent 60%)` — closes a
+`background: linear-gradient(160deg, var(--blue-dim), transparent 60%)` - closes a
 grid (e.g. the 8th cell of a 4×2 domain grid).
 
 ### Chip (diagram node)
@@ -184,7 +184,7 @@ is off. No parallax, no scroll-linked transforms, no reveal on every re-entry.
 ## 6. Page skeleton (apply to any page)
 
 ```
-[fixed header — unchanged]
+[fixed header - unchanged]
 HERO            168/116 top pad · eyebrow · h1 (2nd line blue) · lead · buttons
                 · framed "Layer" panel (mono header + Live dot + 3 numbered columns)
 ─── hairline ───
@@ -204,10 +204,10 @@ diagram needs the room), `gap: 56–64px`, `align-items: start`.
 
 ## 7. Do / Don't
 
-**Do** — near‑black ground · hairline everything · mono eyebrows · one blue accent ·
+**Do** - near‑black ground · hairline everything · mono eyebrows · one blue accent ·
 sentence‑case headlines · lots of vertical air · stroke icons · flex/grid + `gap`.
 
-**Don't** — gradient backgrounds on whole sections · emoji · Boska in the
+**Don't** - gradient backgrounds on whole sections · emoji · Boska in the
 redesigned pages · green as a primary colour · fake iOS status bars or keyboards
 on mobile · more than one primary CTA per view · data‑slop stat rows that aren't
 real.
@@ -217,15 +217,15 @@ real.
 ## 8. Implemented in code
 
 Live: **`/platform`** and **`/`** (home). The page and section components stay
-server components (no `'use client'`, no `next/image` — icons/diagrams are inline
+server components (no `'use client'`, no `next/image` - icons/diagrams are inline
 SVG); animation is layered in by importing the client helpers from
 `components/animations.tsx`, which keeps the sections themselves on the server.
 
-**`app/layout.tsx`** — adds `Inter` (`--font-inter`); `Geist` (`--font-geist-sans`)
+**`app/layout.tsx`** - adds `Inter` (`--font-inter`); `Geist` (`--font-geist-sans`)
 and `Geist_Mono` (`--font-geist-mono`) were already wired. Boska loads via
 `@font-face` in globals.css.
 
-**`app/globals.css` `@theme`** — additive tokens, safe for every page:
+**`app/globals.css` `@theme`** - additive tokens, safe for every page:
 
 | Tailwind utility | Value |
 |---|---|
@@ -241,13 +241,13 @@ and `Geist_Mono` (`--font-geist-mono`) were already wired. Boska loads via
 `globals.css` also forces `[data-animate]` visible under `@media (scripting: none)`
 so a JS-less client never sees a blank page.
 
-**`components/ui.tsx`** — shared primitives used by every redesigned page:
+**`components/ui.tsx`** - shared primitives used by every redesigned page:
 `Container`, `Section` (hairline top + rhythm), `SectionHeader`, `Eyebrow`,
 `Kicker`, `ArrowLink`, `PrimaryButton`, `GhostButton`, `Icon` (the full stroke set).
-The buttons lift 2px and `ArrowLink`'s arrow nudges right on hover — CSS only, so
+The buttons lift 2px and `ArrowLink`'s arrow nudges right on hover - CSS only, so
 these stay server components.
 
-**`components/animations.tsx`** (`'use client'`) — the one place for entrance and
+**`components/animations.tsx`** (`'use client'`) - the one place for entrance and
 hover motion, built on Framer Motion (`motion` package, imported from
 `motion/react`). Exports:
 
@@ -265,20 +265,20 @@ All helpers no-op to a plain element under `prefers-reduced-motion`.
 `<div className="bg-background font-body text-primary">`, build each band as a
 `<Section>` with a `<SectionHeader eyebrow title lead>` and reuse `Icon` +
 the button/link primitives from `@/components/ui`. Wrap each band in `<Reveal>`
-(and grids in `<Reveal stagger>` + `<RevealItem>`) for the entrance motion —
+(and grids in `<Reveal stagger>` + `<RevealItem>`) for the entrance motion -
 importing these client helpers does **not** make the page a client component.
 
-**Home (`/`)** — `components/{Hero,Hero2,Section3..8}.tsx`. Pattern here is
+**Home (`/`)** - `components/{Hero,Hero2,Section3..8}.tsx`. Pattern here is
 **new section shell + original card component**: each section keeps the redesigned
 eyebrow / Geist header / spacing / hairline divider, and drops the hand-built
-card back in where a plain bento would go — `HeroCard` (hero), the
-`OperationalIntelligenceCard` flow diagram (How it works), `OperationalInsightsCard` (The Problem — Traditional Ops → Sources → Moments →
+card back in where a plain bento would go - `HeroCard` (hero), the
+`OperationalIntelligenceCard` flow diagram (How it works), `OperationalInsightsCard` (The Problem - Traditional Ops → Sources → Moments →
 Intelligence → Impact), `OperationalCards` (The Model), `IntelligenceLayerCards`
 (The Platform), `SectorCards` (Industries). Those cards keep their own blue/glass
 styling on purpose. `OperationalInsightsCard` was trimmed to just the diagram:
 its `min-h-screen` and a `min-width:1200px` Boska text block (duplicated Section3
 copy) were removed so it fits inside a section. `Section7`'s customer
-logos, testimonial and metrics are pre-existing placeholder copy — swap in real
+logos, testimonial and metrics are pre-existing placeholder copy - swap in real
 ones. `HeroCard` got a small responsiveness fix (`width: min(500px, 100%)`,
 wrapping industry tabs) so it doesn't overflow on mobile.
 
@@ -288,11 +288,11 @@ with the card sliding in just behind (`delay`). `OperationalCards`,
 `IntelligenceLayerCards` and `SectorCards` (already `'use client'`) now stagger
 their grids with `<Reveal stagger>` and lift each card on hover with `RevealItem lift`.
 
-**`components/Header.tsx`** — rebuilt as a full‑width bar (flush to top,
+**`components/Header.tsx`** - rebuilt as a full‑width bar (flush to top,
 transparent over the hero, hairline `border-line` + `bg-background/80`
 backdrop‑blur once scrolled). Geist wordmark. Desktop nav collapses to a
-hamburger → full‑screen menu below `lg`. Every nav entry — Industries
-included — is a plain link; there are no dropdowns or sub‑category menus.
+hamburger → full‑screen menu below `lg`. Every nav entry - Industries
+included - is a plain link; there are no dropdowns or sub‑category menus.
 Active route → `text-primary` + `border-ice` underline.
 
 ## 9. Design‑canvas working files
@@ -310,6 +310,6 @@ Re‑seed after edits:
 ```
 node "<design skill dir>/seed-canvas.mjs" \
   --template "<design skill dir>/payload.template.html" \
-  --out mialo-platform-redesign.html --title "Mialo Platform — Dark Redesign" \
+  --out mialo-platform-redesign.html --title "Mialo Platform - Dark Redesign" \
   --artboard Main.dc.html --artboard Mobile.dc.html --canvas canvas.json
 ```

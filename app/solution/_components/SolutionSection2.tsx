@@ -148,6 +148,7 @@ const SOLUTIONS: Solution[] = [
 
 export default function SolutionSection2() {
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [isPaused, setIsPaused] = useState(false);
 
   const nextSlide = () => {
     setCurrentIndex((prev) => (prev + 1) % SOLUTIONS.length);
@@ -161,131 +162,139 @@ export default function SolutionSection2() {
     setCurrentIndex(index);
   };
 
-  // Auto-play carousel every 5 seconds
+  // Auto-play carousel every 5 seconds when not paused
   useEffect(() => {
+    if (isPaused) return;
+
     const interval = setInterval(() => {
       nextSlide();
     }, 5000);
 
     // Cleanup interval on component unmount
     return () => clearInterval(interval);
-  }, [currentIndex]); // Reset timer when currentIndex changes
+  }, [currentIndex, isPaused]); // Reset timer when currentIndex or isPaused changes
 
   const currentSolution = SOLUTIONS[currentIndex];
 
   return (
     <>
       <Section className="overflow-hidden">
-       
-        <Container className="relative bg-">
-          {/* Carousel Content */}
-          {/* Carousel Content - Full Width Image with Overlay */}
-      {/* Full-width Solutions Carousel */}
-      <div className="relative min-h-[600px] overflow-hidden lg:min-h-[500px]">
-        {/* Background Image */}
-        <Image
-          src={currentSolution.image}
-          alt={currentSolution.alt}
-          fill
-          sizes="100vw"
-          className="object-cover"
-          priority
-        />
-
-        {/* Gradient Overlay from Left */}
+        {/* Full-width Solutions Carousel */}
         <div
-          className="absolute inset-0"
-          style={{
-            background:
-              "linear-gradient(to right, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0.85) 35%, rgba(0,0,0,0.4) 60%, transparent 80%)",
-          }}
-        />
+          className="relative overflow-hidden"
+          style={{ height: "550px" }}
+          onMouseEnter={() => setIsPaused(true)}
+          onMouseLeave={() => setIsPaused(false)}
+        >
+            {/* Background Image */}
+            <Image
+              src={currentSolution.image}
+              alt={currentSolution.alt}
+              fill
+              sizes="100vw"
+              className="object-cover"
+              priority
+            />
 
-        {/* Content Overlay */}
-        <div className="relative flex h-full min-h-[600px] flex-col justify-between py-10 lg:min-h-[500px]">
-          <Container>
-            {/* Section Header */}
-            <div className="mb-6 flex flex-col gap-2">
-              <span className="inline-flex items-center gap-[11px] font-mono text-[12px] font-medium uppercase tracking-[0.16em] text-[#8A909C]">
-                <span className="h-1.5 w-1.5 shrink-0 bg-green shadow-[0_0_12px_rgba(0,229,153,0.7)]" />
-                Solutions · {String(currentIndex + 1).padStart(2, "0")} /{" "}
-                {String(SOLUTIONS.length).padStart(2, "0")}
-              </span>
-            </div>
+            {/* Gradient Overlay from Left */}
+            <div
+              className="absolute inset-0"
+              style={{
+                background:
+                  "linear-gradient(to right, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0.85) 35%, rgba(0,0,0,0.4) 60%, transparent 80%)",
+              }}
+            />
 
-            {/* Solution Content */}
-            <div className="flex max-w-[680px] flex-col gap-8 lg:max-w-[800px]">
-              <div className="flex flex-col gap-4">
-                <h2
-                  className="text-white"
-                  style={{
-                    fontFamily: "var(--font-manrope), sans-serif",
-                    fontWeight: 400,
-                    fontSize: "clamp(36px, 7.2vw, 72px)",
-                    lineHeight: 1.05,
-                    letterSpacing: "-0.03em",
-                  }}
-                >
-                  {currentSolution.title}
-                </h2>
-                <p
-                  className="text-pista"
-                  style={{
-                    fontFamily: "var(--font-serif, serif)",
-                    fontStyle: "italic",
-                    fontSize: "clamp(22px, 3.5vw, 32px)",
-                    lineHeight: 1.2,
-                  }}
-                >
-                  {currentSolution.tagline}
-                </p>
-
-                <p className="max-w-[600px] text-[18px] leading-[1.65] text-white/90">
-                  {currentSolution.description}
-                </p>
-              </div>
-
-              {/* Features */}
-              <div className="flex flex-wrap gap-2.5">
-                {currentSolution.features.map((feature) => (
-                  <span
-                    key={feature}
-                    className="bg-pista px-4 py-2.5 text-[13px] font-medium text-background"
-                    style={{
-                      clipPath:
-                        "polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px)",
-                    }}
-                  >
-                    {feature}
+            {/* Content Overlay - Fixed height with hidden overflow */}
+            <div
+              className="relative flex flex-col justify-center py-10 overflow-hidden"
+              style={{ height: "550px" }}
+            >
+              <Container>
+                {/* Section Header */}
+                <div className="mb-6 flex flex-col gap-2">
+                  <span className="inline-flex items-center gap-[11px] font-mono text-[12px] font-medium uppercase tracking-[0.16em] text-[#8A909C]">
+                    <span className="h-1.5 w-1.5 shrink-0 bg-green shadow-[0_0_12px_rgba(0,229,153,0.7)]" />
+                    Solutions · {String(currentIndex + 1).padStart(2, "0")} /{" "}
+                    {String(SOLUTIONS.length).padStart(2, "0")}
                   </span>
-                ))}
-              </div>
-
-              {/* Stats */}
-              {currentSolution.stats && (
-                <div className="flex gap-12 border-t border-white/15 pt-8">
-                  {currentSolution.stats.map((stat) => (
-                    <div key={stat.label} className="flex flex-col gap-1.5">
-                      <div className="font-display text-[40px] font-medium tracking-[-0.02em] text-pista">
-                        {stat.value}
-                      </div>
-                      <div className="text-[13px] text-white/60">
-                        {stat.label}
-                      </div>
-                    </div>
-                  ))}
                 </div>
-              )}
-            </div>
-          </Container>
 
-          {/* Navigation Controls - Bottom Center */}
-          <Container>
+                {/* Solution Content */}
+                <div className="flex max-w-[680px] flex-col gap-8 lg:max-w-[800px]">
+                  <div className="flex flex-col gap-4">
+                    <h2
+                      className="text-white"
+                      style={{
+                        fontFamily: "var(--font-manrope), sans-serif",
+                        fontWeight: 400,
+                        fontSize: "clamp(36px, 7.2vw, 72px)",
+                        lineHeight: 1.05,
+                        letterSpacing: "-0.03em",
+                      }}
+                    >
+                      {currentSolution.title}
+                    </h2>
+                    <p
+                      className="text-pista"
+                      style={{
+                        fontFamily: "var(--font-serif, serif)",
+                        fontStyle: "italic",
+                        fontSize: "clamp(22px, 3.5vw, 32px)",
+                        lineHeight: 1.2,
+                      }}
+                    >
+                      {currentSolution.tagline}
+                    </p>
+
+                    <p className="max-w-[600px] text-[18px] leading-[1.65] text-white/90">
+                      {currentSolution.description}
+                    </p>
+                  </div>
+
+                  {/* Features - show only first 3 */}
+                  <div className="flex gap-2.5">
+                    {currentSolution.features.slice(0, 3).map((feature) => (
+                      <span
+                        key={feature}
+                        className="bg-pista px-4 py-2.5 text-[13px] font-medium text-background"
+                        style={{
+                          clipPath:
+                            "polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px)",
+                        }}
+                      >
+                        {feature}
+                      </span>
+                    ))}
+                  </div>
+
+                  {/* Stats */}
+                  {currentSolution.stats && (
+                    <div className="flex gap-12 border-t border-white/15 pt-8">
+                      {currentSolution.stats.map((stat) => (
+                        <div key={stat.label} className="flex flex-col gap-1.5">
+                          <div className="font-display text-[40px] font-medium tracking-[-0.02em] text-pista">
+                            {stat.value}
+                          </div>
+                          <div className="text-[13px] text-white/60">
+                            {stat.label}
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              </Container>
+            </div>
+          </div>
+
+        {/* Navigation Controls - Below Image Container */}
+        <Container className="py-8">
             <div className="flex items-center justify-center gap-6">
               {/* Previous Button */}
               <button
                 onClick={prevSlide}
-                className="flex h-11 w-11 items-center justify-center rounded-full border border-white/30 bg-white/10 backdrop-blur-sm transition-all hover:border-pista hover:bg-white/20"
+                className="flex h-11 w-11 items-center justify-center rounded-full border border-line bg-raise transition-all hover:border-ice hover:bg-panel"
                 aria-label="Previous solution"
               >
                 <svg
@@ -297,7 +306,7 @@ export default function SolutionSection2() {
                   strokeWidth={1.5}
                   strokeLinecap="round"
                   strokeLinejoin="round"
-                  className="text-white"
+                  className="text-muted"
                 >
                   <path d="M19 12H5M12 19l-7-7 7-7" />
                 </svg>
@@ -312,7 +321,7 @@ export default function SolutionSection2() {
                     className={`h-2 rounded-full transition-all ${
                       index === currentIndex
                         ? "w-8 bg-pista"
-                        : "w-2 bg-white/30 hover:bg-white/50"
+                        : "w-2 bg-muted hover:bg-ink"
                     }`}
                     aria-label={`Go to solution ${index + 1}`}
                   />
@@ -322,7 +331,7 @@ export default function SolutionSection2() {
               {/* Next Button */}
               <button
                 onClick={nextSlide}
-                className="flex h-11 w-11 items-center justify-center rounded-full border border-white/30 bg-white/10 backdrop-blur-sm transition-all hover:border-pista hover:bg-white/20"
+                className="flex h-11 w-11 items-center justify-center rounded-full border border-line bg-raise transition-all hover:border-ice hover:bg-panel"
                 aria-label="Next solution"
               >
                 <svg
@@ -334,20 +343,14 @@ export default function SolutionSection2() {
                   strokeWidth={1.5}
                   strokeLinecap="round"
                   strokeLinejoin="round"
-                  className="text-white"
+                  className="text-muted"
                 >
                   <path d="M5 12h14M12 5l7 7-7 7" />
                 </svg>
               </button>
             </div>
           </Container>
-        </div>
-      </div>
-        </Container>
-
-     
       </Section>
-
     </>
   );
 }

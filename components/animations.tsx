@@ -4,7 +4,7 @@ import { motion, useReducedMotion, type Variants } from 'motion/react';
 import type { ElementType, ReactNode } from 'react';
 
 /* ------------------------------------------------------------------ *
- *  Shared motion — the site's single source for entrance and hover
+ *  Shared motion - the site's single source for entrance and hover
  *  animation. Keep it restrained (see design.md §5): short fades,
  *  small travel, one idea per element. Every helper falls back to a
  *  plain element under `prefers-reduced-motion`.
@@ -30,7 +30,7 @@ import type { ElementType, ReactNode } from 'react';
  *  and drive it by hand with the presets below.
  * ------------------------------------------------------------------ */
 
-/** Standard ease-out cubic bezier — calm, no overshoot. */
+/** Standard ease-out cubic bezier - calm, no overshoot. */
 export const EASE_OUT: [number, number, number, number] = [0.22, 1, 0.36, 1];
 
 export const DURATION = { fast: 0.28, base: 0.5, slow: 0.7 } as const;

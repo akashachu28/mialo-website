@@ -28,91 +28,127 @@ const NEWS = [
 const OFFICES = [
   {
     city: "Bengaluru, India",
-    label: "Global headquarters",
-    address: "HustleHub, HSR Layout\nBengaluru 560078, India",
+    label: "Mialo Technologies Pvt. Ltd.",
+    address: "Block – H209, 1st Floor, Hustlehub Tech Park,\n 208, 27th Main Rd, ITI Layout, Sector 2,\n HSR Layout, Bengaluru, Karnataka 560102",
   },
-  // {
-  //   city: "Nairobi, Kenya",
-  //   label: "Africa operations",
-  //   address: "Westcom Point, 5th Floor\nMahiga Mairu Ave, Nairobi, Kenya",
-  // },
-  // {
-  //   city: "Dallas, USA",
-  //   label: "North America",
-  //   address: "2301 N. Central Expressway\nRichardson, TX 75080, USA",
-  // },
+  
 ];
 
 export default function CompanySection5() {
   return (
     <>
       <Section>
-        <div className="grid gap-12 lg:grid-cols-3 lg:gap-10">
-          {/* News & Press */}
-          <div className="flex flex-col gap-6">
-            <Kicker>News &amp; Press</Kicker>
-            <div className="flex flex-col">
-              {NEWS.map((n) => (
-                <div
-                  key={n.title}
-                  className="flex flex-col gap-2 border-t border-line py-5 first:border-t-0 first:pt-0"
-                >
-                  <span className="font-mono text-[11px] tracking-[0.1em] text-faint">
-                    {n.date}
-                  </span>
-                  <h4 className="text-[14px] leading-[1.5] text-ink text-pretty">
-                    {n.title}
-                  </h4>
-                  <ArrowLink>Read more</ArrowLink>
-                </div>
-              ))}
-            </div>
-            <ArrowLink>View all news</ArrowLink>
-          </div>
-
+        <div className="grid gap-16 lg:grid-cols-2 lg:gap-20">
           {/* Our Offices */}
-          <div className="flex flex-col gap-6">
-            <Kicker>Our Offices</Kicker>
-            <div className="flex flex-col">
+          <div className="flex flex-col gap-8">
+            <h3 
+              className="text-primary"
+              style={{
+                fontFamily: "var(--font-manrope), sans-serif",
+                fontWeight: 600,
+                fontSize: "clamp(24px, 3vw, 32px)",
+                lineHeight: 1.2,
+                letterSpacing: "-0.02em",
+              }}
+            >
+              Our Offices
+            </h3>
+            <div className="flex flex-col gap-6">
               {OFFICES.map((o) => (
                 <div
                   key={o.city}
-                  className="flex flex-col gap-1.5 border-t border-line py-5 first:border-t-0 first:pt-0"
+                  className="flex flex-col gap-3"
                 >
-                  <h4 className="font-display text-[15px] font-medium tracking-[-0.01em] text-primary">
+                  <h4 
+                    className="text-primary"
+                    style={{
+                      fontFamily: "var(--font-manrope), sans-serif",
+                      fontWeight: 500,
+                      fontSize: "clamp(18px, 2vw, 22px)",
+                      lineHeight: 1.3,
+                      letterSpacing: "-0.01em",
+                    }}
+                  >
                     {o.city}
                   </h4>
-                  <Kicker className="text-ice">{o.label}</Kicker>
-                  <p className="mt-1 whitespace-pre-line text-[12.5px] leading-[1.55] text-muted">
+                  <p 
+                    className="text-ice"
+                    style={{
+                      fontFamily: "var(--font-manrope), sans-serif",
+                      fontWeight: 500,
+                      fontSize: "16px",
+                      lineHeight: 1.4,
+                      letterSpacing: "-0.01em",
+                    }}
+                  >
+                    {o.label}
+                  </p>
+                  <p 
+                    className="whitespace-pre-line text-muted"
+                    style={{
+                      fontFamily: "var(--font-manrope), sans-serif",
+                      fontWeight: 400,
+                      fontSize: "14px",
+                      lineHeight: 1.6,
+                      letterSpacing: "0em",
+                    }}
+                  >
                     {o.address}
                   </p>
                 </div>
               ))}
             </div>
-            <ArrowLink>View all locations</ArrowLink>
           </div>
 
           {/* Join Our Mission */}
-          <div className="flex flex-col gap-5">
-            <Kicker>Join Our Mission</Kicker>
-            <span className="flex h-11 w-11 items-center justify-center rounded-[11px] border border-ice/30 bg-ice/10 text-ice">
-              <Icon name="users" size={20} />
-            </span>
-            <h4 className="font-display text-[20px] font-medium leading-[1.28] tracking-[-0.02em] text-primary text-pretty">
-              Build the intelligence layer for the real world.
-            </h4>
-            <p className="text-[14px] leading-[1.6] text-muted text-pretty">
-              We&apos;re looking for curious minds, bold thinkers and problem
-              solvers.
-            </p>
-            <ArrowLink href="/careers" className="mt-1">
-              Explore careers
-            </ArrowLink>
+          <div className="flex flex-col gap-8">
+            <h3 
+              className="text-primary"
+              style={{
+                fontFamily: "var(--font-manrope), sans-serif",
+                fontWeight: 600,
+                fontSize: "clamp(24px, 3vw, 32px)",
+                lineHeight: 1.2,
+                letterSpacing: "-0.02em",
+              }}
+            >
+              Join Our Mission
+            </h3>
+            <div className="flex flex-col gap-5">
+              <div className="flex gap-3 items-start">
+                <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl border border-ice/30 bg-ice/10 text-ice">
+                  <Icon name="users" size={22} />
+                </span>
+                <h4 
+                  className="text-primary text-pretty"
+                  style={{
+                    fontFamily: "var(--font-manrope), sans-serif",
+                    fontWeight: 500,
+                    fontSize: "clamp(18px, 2vw, 22px)",
+                    lineHeight: 1.3,
+                    letterSpacing: "-0.01em",
+                  }}
+                >
+                  Build the intelligence layer for the real world.
+                </h4>
+              </div>
+              <p 
+                className="text-muted text-pretty"
+                style={{
+                  fontFamily: "var(--font-manrope), sans-serif",
+                  fontWeight: 400,
+                  fontSize: "16px",
+                  lineHeight: 1.6,
+                  letterSpacing: "0em",
+                }}
+              >
+                We&apos;re looking for curious minds, bold thinkers and problem
+                solvers.
+              </p>
+            </div>
           </div>
         </div>
       </Section>
-
-
     </>
   );
 }

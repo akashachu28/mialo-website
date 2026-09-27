@@ -20,13 +20,15 @@ export default function Home() {
       </div>
         
       
-        <div className='bg-white/85' data-header-theme="light">
+        <div className='bg-white/85 ' data-header-theme="light">
+        {/* <div className='absolute bg-linear-to-b from-[#C1C1C2] to-transparent inset-0 flex w-full h-30'/> */}
           <Reveal>
             <Section3 />
           </Reveal>
         </div>
         
-      <div className='bg-white/75'>
+      <div className='bg-white/75 relative'>
+        
         <Reveal>
           <Section4 />
         </Reveal>

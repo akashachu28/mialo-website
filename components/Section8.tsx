@@ -17,7 +17,7 @@ export default function Section8() {
           Make your operations intelligent.
         </h2>
         <p className="max-w-[560px] text-[16px] leading-[1.6] text-muted text-pretty">
-          See how the intelligence layer works inside your environment — with
+          See how the intelligence layer works inside your environment - with
           your signals, your systems and your outcomes.
         </p>
         <div className="mt-1 flex flex-wrap justify-center gap-3">

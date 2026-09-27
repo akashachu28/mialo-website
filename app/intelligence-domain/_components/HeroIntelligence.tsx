@@ -4,7 +4,7 @@ import { Container, Kicker, PrimaryButton, GhostButton } from "@/components/ui";
 const PILLARS = [
   {
     title: "Purpose-built models",
-    body: "Specialized vision, voice, document and reasoning models — not one general model stretched thin across every problem.",
+    body: "Specialized vision, voice, document and reasoning models - not one general model stretched thin across every problem.",
   },
   {
     title: "Real-world context",

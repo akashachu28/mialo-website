@@ -1,5 +1,5 @@
 /**
- * OperationalIntelligenceCard — Static intelligence flow visualization
+ * OperationalIntelligenceCard - Static intelligence flow visualization
  * Shows: Observe → Understand → Decide → Act
  * White theme with ice and pista accent colors
  */

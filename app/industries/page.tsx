@@ -5,9 +5,9 @@ import IndustrySection3 from "./_components/IndustrySection3";
 import IndustrySection4 from "./_components/IndustrySection4";
 
 export const metadata = {
-  title: "Industries — Mialo",
+  title: "Industries - Mialo",
   description:
-    "Mialo's unified intelligence layer adapts to your world — real-time awareness, smarter decisions and measurable impact across retail, manufacturing, healthcare, government, logistics and energy.",
+    "Mialo's unified intelligence layer adapts to your world - real-time awareness, smarter decisions and measurable impact across retail, manufacturing, healthcare, government, logistics and energy.",
 };
 
 export default function Industries() {

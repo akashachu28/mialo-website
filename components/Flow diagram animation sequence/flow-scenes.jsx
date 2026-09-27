@@ -1,4 +1,4 @@
-/* Intelligence Layer flow — scene components for animations-v2 */
+/* Intelligence Layer flow - scene components for animations-v2 */
 const { SceneStage, useScene, Easing, clamp } = window;
 const { useTweaks, TweaksPanel, TweakSection, TweakToggle, TweakColor, TweakSlider } = window;
 
@@ -10,7 +10,7 @@ const lerp = (a, b, t) => a + (b - a) * t;
 const ec = Easing.easeOutCubic, eio = Easing.easeInOutCubic;
 const seg = (p, s, e) => clamp((p - s) / Math.max(1e-6, e - s), 0, 1);
 
-// three motion helpers — nothing eases outside these
+// three motion helpers - nothing eases outside these
 const MOTION = {
   enter: (p, dx = -26) => ({
     opacity: clamp(p * 1.15, 0, 1),
@@ -259,7 +259,7 @@ function Diagram({ r, prog, accent, glow }) {
         position: 'absolute', left: 0, right: 0, top: 968, textAlign: 'center',
         color: `rgba(180,200,235,${0.9 * clamp((r.words - 0.55) / 0.45, 0, 1)})`,
         font: `300 30px ${FONT}`,
-      }}>Repeat — turning every operational moment into better business outcomes.</div>
+      }}>Repeat - turning every operational moment into better business outcomes.</div>
     </div>
   );
 }
@@ -275,10 +275,10 @@ const K = [
   { cam: [960, 560, 1.0], ...Z, sources: 1, streams: 1, core: 1, keywords: 1, reason: 1, brain: 1, actions: 1, words: 1 },
 ];
 const CAPS = [
-  ['01 — Observe', 'Every signal from the floor, captured.'],
-  ['02 — Understand', 'Raw signal becomes context, patterns, meaning.'],
-  ['03 — Decide', 'The reasoning layer weighs what matters now.'],
-  ['04 — Act', 'Decisions leave the screen and do the work.'],
+  ['01 - Observe', 'Every signal from the floor, captured.'],
+  ['02 - Understand', 'Raw signal becomes context, patterns, meaning.'],
+  ['03 - Decide', 'The reasoning layer weighs what matters now.'],
+  ['04 - Act', 'Decisions leave the screen and do the work.'],
   ['Continuously', 'Observe → Understand → Decide → Act.'],
 ];
 

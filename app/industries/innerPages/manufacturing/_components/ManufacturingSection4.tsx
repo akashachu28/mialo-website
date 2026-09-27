@@ -29,7 +29,7 @@ export default function ManufacturingSection4() {
         </h2>
         <p className="max-w-[560px] text-[15px] leading-[1.6] text-muted text-pretty">
           See how Mialo brings real-time intelligence to your manufacturing
-          operations — catching issues before they cascade and optimizing every
+          operations - catching issues before they cascade and optimizing every
           moment on the line.
         </p>
         <div className="flex flex-wrap justify-center gap-3">

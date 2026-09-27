@@ -6,16 +6,16 @@ import CompanySection5 from "./_components/CompanySection5";
 import Footer from "@/components/Footer";
 
 export const metadata = {
-  title: "Company — Mialo",
+  title: "Company - Mialo",
   description:
-    "Mialo.ai is the intelligence layer for enterprise operations — combining multimodal AI, domain expertise and edge-native architecture to turn operational signals into intelligent action across industries.",
+    "Mialo.ai is the intelligence layer for enterprise operations - combining multimodal AI, domain expertise and edge-native architecture to turn operational signals into intelligent action across industries.",
 };
 
 export default function Company() {
   return (
     <div className="bg-background font-body text-primary antialiased">
       <HeroCompany />
-      <CompanySection2 />
+      <div className="bg-white/75"><CompanySection2 /></div>
       <CompanySection3 />
       <CompanySection4 />
       <CompanySection5 />

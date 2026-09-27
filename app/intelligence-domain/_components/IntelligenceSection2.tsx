@@ -178,7 +178,7 @@ export default function IntelligenceSection2() {
           <SectionHeader
             eyebrow="The Domains"
             title="Explore the domains that power smarter operations."
-            lead="Each domain pairs purpose-built AI models with real-world context and enterprise knowledge — available on its own, or combined through one platform and one API."
+            lead="Each domain pairs purpose-built AI models with real-world context and enterprise knowledge - available on its own, or combined through one platform and one API."
           />
 
           <div className="flex flex-col gap-12">

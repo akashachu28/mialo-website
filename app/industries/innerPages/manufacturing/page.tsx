@@ -4,7 +4,7 @@ import ManufacturingSection3 from "./_components/ManufacturingSection3";
 import ManufacturingSection4 from "./_components/ManufacturingSection4";
 
 export const metadata = {
-  title: "Manufacturing Intelligence — Mialo",
+  title: "Manufacturing Intelligence - Mialo",
   description:
     "Optimize manufacturing operations with AI-powered intelligence. Detect line anomalies, ensure safety compliance, and maximize uptime before issues cascade.",
 };

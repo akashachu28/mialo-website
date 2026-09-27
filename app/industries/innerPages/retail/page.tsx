@@ -4,7 +4,7 @@ import RetailSection3 from "./_components/RetailSection3";
 import RetailSection4 from "./_components/RetailSection4";
 
 export const metadata = {
-  title: "Retail Intelligence — Mialo",
+  title: "Retail Intelligence - Mialo",
   description:
     "Transform retail operations with real-time intelligence. Monitor footfall, dwell time, shelf compliance and customer behavior across every store.",
 };

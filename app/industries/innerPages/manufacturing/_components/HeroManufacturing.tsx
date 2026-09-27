@@ -13,7 +13,7 @@ const PANEL = [
   },
   {
     title: "Workforce safety",
-    body: "PPE compliance, zone intrusion and hazard alerts — automatic and auditable.",
+    body: "PPE compliance, zone intrusion and hazard alerts - automatic and auditable.",
   },
 ];
 
@@ -51,7 +51,7 @@ export default function HeroManufacturing() {
           </h1>
 
           <p className="max-w-[600px] text-[17px] leading-[1.62] text-ink text-pretty">
-            Mialo turns manufacturing operations into intelligent systems —
+            Mialo turns manufacturing operations into intelligent systems -
             catching line anomalies, ensuring safety compliance and maximizing
             uptime before problems cascade.
           </p>

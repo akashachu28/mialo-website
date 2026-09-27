@@ -13,7 +13,7 @@ const USE_CASES: UseCase[] = [
     icon: "users",
     title: "Customer flow analytics",
     description:
-      "Understand how shoppers move through your store — hotspots, dwell time and conversion zones.",
+      "Understand how shoppers move through your store - hotspots, dwell time and conversion zones.",
     metrics: "Conversion up 18%",
   },
   {

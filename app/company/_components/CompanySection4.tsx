@@ -67,14 +67,17 @@ export default function CompanySection4() {
         <div className="flex flex-col gap-14">
           <SectionHeader
             eyebrow="Leadership"
-            title="The minds shaping the future of intelligent operations."
+            titlePista="The minds shaping the future of intelligent operations."
           />
 
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {LEADERSHIP.map((m) => (
               <div
                 key={m.name}
-                className="flex flex-col gap-4 rounded-[14px] border border-line-2 bg-raise p-6 transition-colors hover:border-line-3"
+                className="flex flex-col gap-4 border border-ice/30 bg-raise p-6 transition-colors hover:border-line-3"
+                style={{
+            clipPath: "polygon(40px 0, 100% 0, 100% calc(100% - 40px), calc(100% - 40px) 100%, 0 100%, 0 40px)",
+          }}
               >
                 <div className="relative h-14 w-14 overflow-hidden rounded-full border border-line-2 bg-panel">
                   {m.image ? (
@@ -109,7 +112,7 @@ export default function CompanySection4() {
       </Section>
 
       {/* -------- Customers -------- */}
-      <Section>
+      {/* <Section>
         <SectionHeader
           className="mb-12"
           eyebrow="Customers"
@@ -130,7 +133,7 @@ export default function CompanySection4() {
         <ArrowLink href="/customers" className="mt-10">
           View all customers
         </ArrowLink>
-      </Section>
+      </Section> */}
     </>
   );
 }

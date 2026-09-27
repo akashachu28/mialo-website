@@ -55,7 +55,15 @@ export default function HeroSolution() {
             <span className="text-pista">Built for real-world impact.</span>
           </h1>
 
-          <p className="max-w-[600px] text-[17px] leading-[1.62] text-ink text-pretty">
+          <p className="max-w-[600px] text-[17px] leading-[1.62] text-ink text-pretty"
+          style={{
+            fontFamily: "var(--font-manrope), sans-serif",
+            fontWeight: 400,
+            fontSize: "clamp(18px, 7.2vw, 24px)",
+            lineHeight: 1.1,
+            letterSpacing: "-0.045em",
+            wordSpacing: 6,
+          }}>
             Pre-built AI solutions powered by the Mialo Intelligence Layer that
             deliver fast time-to-value and measurable outcomes.
           </p>

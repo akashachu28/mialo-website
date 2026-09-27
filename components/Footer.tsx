@@ -1,5 +1,8 @@
+"use client";
+
 import Link from "next/link";
 import Image from "next/image";
+import { usePathname } from "next/navigation";
 import { Container } from "./ui";
 
 const EXPLORE_LINKS = [
@@ -12,6 +15,15 @@ const EXPLORE_LINKS = [
 ];
 
 export default function Footer() {
+  const pathname = usePathname();
+
+  const handleLinkClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+    if (pathname === href) {
+      e.preventDefault();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  };
+
   return (
     <footer className="relative overflow-hidden border-t border-line bg-background">
       {/* CTA Section */}
@@ -59,6 +71,8 @@ export default function Footer() {
                   <li key={link.href}>
                     <Link
                       href={link.href}
+                      scroll={true}
+                      onClick={(e) => handleLinkClick(e, link.href)}
                       className="text-[14px] text-muted transition-colors hover:text-primary"
                     >
                       {link.label}
@@ -71,7 +85,7 @@ export default function Footer() {
             {/* Column 3: Contact */}
             <div className="lg:col-span-4">
               <h3 className="mb-4 text-[14px] font-semibold uppercase tracking-wider text-primary">
-                Contact
+                Contact Us
               </h3>
               <ul className="space-y-3">
                 <li>
@@ -91,6 +105,8 @@ export default function Footer() {
                   </a>
                 </li>
                 <li className="text-[14px] leading-[1.6] text-muted">
+                  {/* Mialo Technologies Pvt. Ltd. */}
+                  {/* <br /> */}
                   1st Floor, Hustlehub Tech Park
                   <br />
                   208, 27th Main Rd, ITI Layout, Sector 2, HSR Layout

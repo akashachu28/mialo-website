@@ -26,7 +26,7 @@ export default function Header() {
     pathname === href || pathname.startsWith(href + '/');
 
   // Close the mobile menu when the route changes (React's "reset state on prop
-  // change" pattern — runs during render, no effect needed).
+  // change" pattern - runs during render, no effect needed).
   const [lastPath, setLastPath] = useState(pathname);
   if (pathname !== lastPath) {
     setLastPath(pathname);
@@ -167,7 +167,7 @@ export default function Header() {
       </div>
     </header>
 
-      {/* Mobile menu — sibling of <header> so its backdrop-blur doesn't
+      {/* Mobile menu - sibling of <header> so its backdrop-blur doesn't
           become the containing block for this fixed panel */}
       {mobileOpen && (
         <div className="fixed inset-x-0 top-16 bottom-0 z-40 overflow-y-auto bg-background px-6 py-4 lg:hidden">

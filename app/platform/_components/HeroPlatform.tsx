@@ -68,10 +68,9 @@ export default function HeroPlatform() {
                       lineHeight: 1.1,
                       letterSpacing: "-0.045em",
                       wordSpacing: 6,
-                      // color: "white"
                     }}>
             Mialo brings multimodal AI, enterprise knowledge and real-world
-            context to the edge, enabling real-time insights and automated
+            context to the edge technology, enabling real-time insights and automated
             action - even when connectivity is limited or unavailable.
           </p>
 

@@ -13,7 +13,7 @@ const USE_CASES: UseCase[] = [
     icon: "alert-triangle",
     title: "Quality control automation",
     description:
-      "Computer vision inspects every component at line speed — flagging defects human eyes would miss.",
+      "Computer vision inspects every component at line speed - flagging defects human eyes would miss.",
     metrics: "Defect rates down 34%",
   },
   {

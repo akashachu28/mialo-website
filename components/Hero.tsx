@@ -155,7 +155,6 @@ export default function Hero() {
               </p>
               <div className="mt-10 flex flex-wrap gap-3">
                 <PrimaryButton onClick={() => setIsDemoModalOpen(true)}>Request a demo</PrimaryButton>
-                {/* <GhostButton>Learn more</GhostButton> */}
               </div>
             </div>
 

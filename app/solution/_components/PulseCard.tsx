@@ -12,7 +12,7 @@ const INTELLIGENCE_STEPS = [
 
 const STEP_X = ["16.5%", "38.5%", "61.5%", "83.5%"];
 
-// Intelligence waves — now builds toward a saturated blue instead of fading to white
+// Intelligence waves - now builds toward a saturated blue instead of fading to white
 function IntelligenceWaves() {
   const strands = [
     { d: "M40,29 C90,23 120,35 170,28 C230,19 262,34 312,26 C362,17 392,32 432,25 C446,23 452,24 460,23", width: 1.2, opacity: 0.5, blur: 0 },
@@ -52,7 +52,7 @@ function IntelligenceWaves() {
   );
 }
 
-// Energy pulse — particle core is now a deep blue with a white highlight, not white-on-white
+// Energy pulse - particle core is now a deep blue with a white highlight, not white-on-white
 function EnergyPulse({ visible }: { visible: boolean }) {
   if (!visible) return null;
 

@@ -29,7 +29,7 @@ export default function RetailSection4() {
         </h2>
         <p className="max-w-[560px] text-[15px] leading-[1.6] text-muted text-pretty">
           See how Mialo brings real-time intelligence to your retail operations
-          — understanding every customer moment and optimizing every store
+          - understanding every customer moment and optimizing every store
           experience.
         </p>
         <div className="flex flex-wrap justify-center gap-3">

@@ -9,7 +9,7 @@ const PANEL = [
   },
   {
     title: "Shelf compliance",
-    body: "Out-of-stock, planogram violations and pricing errors — detected and fixed faster.",
+    body: "Out-of-stock, planogram violations and pricing errors - detected and fixed faster.",
   },
   {
     title: "Loss prevention",
@@ -51,7 +51,7 @@ export default function HeroRetail() {
           </h1>
 
           <p className="max-w-[600px] text-[17px] leading-[1.62] text-ink text-pretty">
-            Mialo transforms retail operations with real-time intelligence —
+            Mialo transforms retail operations with real-time intelligence -
             understanding customer behavior, optimizing shelf compliance and
             preventing losses across every location.
           </p>
