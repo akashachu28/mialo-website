@@ -174,7 +174,7 @@ export default function PlatformSection2() {
         <div className="flex flex-col gap-12">
           <SectionHeader
             eyebrow="How Mialo Thinks"
-            title="Operational intelligence built on specialized AI — not just large language models."
+            title="Operational intelligence built on specialized AI - not just large language models."
             lead="Different operational problems require different forms of intelligence. Mialo orchestrates specialized vision, voice, document and reasoning models together, using LLMs only where they add value."
           >
             <ArrowLink>Learn more about our approach</ArrowLink>

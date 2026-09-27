@@ -18,7 +18,7 @@ import {
 } from "lucide-react";
 
 /* ------------------------------------------------------------------ *
- *  "The Problem" flow diagram — VERTICAL layout
+ *  "The Problem" flow diagram - VERTICAL layout
  *  Traditional Operations (top) → Sources → Operational Moments → 
  *  Mialo Intelligence → Impact (bottom)
  *

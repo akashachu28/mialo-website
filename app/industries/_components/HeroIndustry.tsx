@@ -55,7 +55,15 @@ export default function HeroIndustry() {
             <span className="text-pista">For every industry.</span>
           </h1>
 
-          <p className="max-w-[600px] text-[17px] leading-[1.62] text-ink text-pretty">
+          <p className="max-w-[600px] text-[17px] leading-[1.62] text-ink text-pretty"
+          style={{ 
+                      fontFamily: "var(--font-manrope), sans-serif",
+                      fontWeight: 400,
+                      fontSize: "clamp(18px, 7.2vw, 24px)",
+                      lineHeight: 1.1,
+                      letterSpacing: "-0.045em",
+                      wordSpacing: 6,
+                    }}>
             Mialo&apos;s unified intelligence layer adapts to your world,
             delivering real-time awareness, smarter decisions and measurable
             impact across industries.

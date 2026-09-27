@@ -8,7 +8,7 @@ export default function Section5() {
         <SectionHeader
           eyebrow="The Platform"
           title="One intelligence layer. Many operational solutions."
-          lead="A single foundation for sensing, reasoning and acting — deployed the way your enterprise already works."
+          lead="A single foundation for sensing, reasoning and acting - deployed the way your enterprise already works."
         />
       </Container>
       <IntelligenceLayerCards />

@@ -12,7 +12,7 @@ const INDUSTRIES = [
   { id: "government", label: "Government", icon: <Landmark size={13} /> },
 ];
 
-// ── Event data — per industry. Each row maps 1:1 to a stage of the
+// ── Event data - per industry. Each row maps 1:1 to a stage of the
 //    constant "Observe → Understand → Act" intelligence layer:
 //    event 0 → Observe, event 1 → Understand, event 2 → Act.
 //    `color` follows the arrow: ↑ green, ↓ red. ──
@@ -99,7 +99,7 @@ function VertLine({ active, height = 36 }: { active: boolean; height?: number })
   );
 }
 
-// ── Pill node — glassmorphism badge ───────────────────────────
+// ── Pill node - glassmorphism badge ───────────────────────────
 
 function PillNode({ icon, label, active, xPct }: { icon: React.ReactNode; label: string; active: boolean; xPct: string }) {
   return (
@@ -140,7 +140,7 @@ function PillNode({ icon, label, active, xPct }: { icon: React.ReactNode; label:
   );
 }
 
-// ── Intelligence waves — non-uniform flowing strands, not straight lines ──
+// ── Intelligence waves - non-uniform flowing strands, not straight lines ──
 
 function IntelligenceWaves() {
   const strands = [
@@ -177,13 +177,13 @@ function IntelligenceWaves() {
           style={s.blur ? { filter: `blur(${s.blur}px)` } : undefined}
         />
       ))}
-      {/* Flare where the waves converge, near Act — bleeds past the pill edge */}
+      {/* Flare where the waves converge, near Act - bleeds past the pill edge */}
       <ellipse cx="462" cy="22" rx="34" ry="9" fill="url(#waveGradient)" opacity="0.35" style={{ filter: "blur(6px)" }} />
     </svg>
   );
 }
 
-// ── Energy pulse — three layers travelling together, riding the waves ──
+// ── Energy pulse - three layers travelling together, riding the waves ──
 // Travels horizontally through the intelligence layer, left → right.
 // Pure SVG (<animateMotion>) so it restarts cleanly on remount (keyed).
 
@@ -247,22 +247,22 @@ function EnergyPulse() {
         <animate attributeName="stroke-dashoffset" from="1" to="0" dur="5s" fill="freeze" />
       </path>
 
-      {/* Layer 1 — large soft blue glow */}
+      {/* Layer 1 - large soft blue glow */}
       <circle r="27" fill="url(#glowGradient)" style={{ filter: "blur(2px)" }}>
         <animateMotion dur="5s" path={wavePath} fill="freeze" />
       </circle>
 
-      {/* Layer 2 — medium glow */}
+      {/* Layer 2 - medium glow */}
       <circle r="17" fill="url(#glowGradient)" style={{ filter: "blur(2px)" }}>
         <animateMotion dur="5s" path={wavePath} fill="freeze" />
       </circle>
 
-      {/* Layer 3 — streak */}
+      {/* Layer 3 - streak */}
       <ellipse rx="7" ry="1.25" fill="url(#streakGradient)">
         <animateMotion dur="5s" path={wavePath} fill="freeze" />
       </ellipse>
 
-      {/* Layer 4 — particle core */}
+      {/* Layer 4 - particle core */}
       <circle
         r="4.5"
         fill="url(#particleGradient)"
@@ -314,7 +314,7 @@ export default function HeroCard() {
   }, []);
 
   // Run the timeline for the current industry, then advance to the next
-  // one — so the card loops through every industry forever.
+  // one - so the card loops through every industry forever.
   useEffect(() => {
     const idx = INDUSTRIES.findIndex((i) => i.id === industry);
     const scene = SCENARIOS[industry] ?? SCENARIOS.retail;
@@ -324,7 +324,7 @@ export default function HeroCard() {
     const at = (fn: () => void, ms: number) => timers.push(setTimeout(fn, ms));
 
     if (reduce) {
-      // No pulse / staggering — show the resolved state, then move on.
+      // No pulse / staggering - show the resolved state, then move on.
       at(() => {
         setDotsOn([true, true, true]);
         setLinesOn([true, true, true]);
@@ -352,7 +352,7 @@ export default function HeroCard() {
       setOutcomes([scene[0]]);
     }, 1600);
 
-    // Understand — pulse reaches 50% at ~2.5s after it starts
+    // Understand - pulse reaches 50% at ~2.5s after it starts
     at(() => setDotsOn([true, true, false]), 2200);
     at(() => setLinesOn([true, true, false]), 2600);
     at(() => {
@@ -361,7 +361,7 @@ export default function HeroCard() {
       setOutcomes([scene[0], scene[1]]);
     }, 3900);
 
-    // Act — pulse reaches 83.5% at ~4.6s after it starts
+    // Act - pulse reaches 83.5% at ~4.6s after it starts
     at(() => setDotsOn([true, true, true]), 4500);
     at(() => setLinesOn([true, true, true]), 4900);
     at(() => {
@@ -455,7 +455,7 @@ export default function HeroCard() {
             <PillNode icon={<Zap size={13} />} label="Act" active={actOn} xPct={PILL_X[2]} />
           </div>
 
-          {/* Energy pulse — keyed on runId so it replays every cycle */}
+          {/* Energy pulse - keyed on runId so it replays every cycle */}
           {pulseVisible && !reduce && <EnergyPulse key={runId} />}
         </div>
 
@@ -529,7 +529,7 @@ export default function HeroCard() {
           />
         </div>
 
-        {/* ── Business Outcomes — flat rows separated by thin dividers ── */}
+        {/* ── Business Outcomes - flat rows separated by thin dividers ── */}
         <motion.div
           animate={{ opacity: outcomes.length > 0 ? 1 : 0, y: outcomes.length > 0 ? 0 : 8 }}
           transition={{ duration: 0.8, ease: "easeOut" }}
