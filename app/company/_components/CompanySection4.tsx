@@ -15,31 +15,31 @@ const LEADERSHIP: Leader[] = [
     body: "Visionary leader with 25+ years in AI, enterprise software and scaling technology businesses.",
     image: "/images/vinod.png",
   },
-  {
-    name: "Amit Jain",
-    title: "CTO",
-    body: "AI and architecture expert passionate about building scalable, secure and innovative platforms.",
-  },
-  {
-    name: "Gaurav Kaushik",
-    title: "VP, Products",
-    body: "Product leader focused on customer outcomes and building AI solutions with real-world impact.",
-  },
-  {
-    name: "Priya Sharma",
-    title: "VP, Engineering",
-    body: "Engineering excellence advocate with deep expertise in distributed systems and cloud infrastructure.",
-  },
-  {
-    name: "Rajesh Kumar",
-    title: "VP, Sales",
-    body: "Growth strategist committed to delivering exceptional value to enterprise customers globally.",
-  },
-  {
-    name: "Anita Desai",
-    title: "VP, People & Culture",
-    body: "People-first leader building world-class teams and fostering an innovation-driven culture.",
-  },
+  // {
+  //   name: "Amit Jain",
+  //   title: "CTO",
+  //   body: "AI and architecture expert passionate about building scalable, secure and innovative platforms.",
+  // },
+  // {
+  //   name: "Gaurav Kaushik",
+  //   title: "VP, Products",
+  //   body: "Product leader focused on customer outcomes and building AI solutions with real-world impact.",
+  // },
+  // {
+  //   name: "Priya Sharma",
+  //   title: "VP, Engineering",
+  //   body: "Engineering excellence advocate with deep expertise in distributed systems and cloud infrastructure.",
+  // },
+  // {
+  //   name: "Rajesh Kumar",
+  //   title: "VP, Sales",
+  //   body: "Growth strategist committed to delivering exceptional value to enterprise customers globally.",
+  // },
+  // {
+  //   name: "Anita Desai",
+  //   title: "VP, People & Culture",
+  //   body: "People-first leader building world-class teams and fostering an innovation-driven culture.",
+  // },
 ];
 
 const CUSTOMERS = [
