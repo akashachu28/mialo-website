@@ -32,70 +32,70 @@ const INDUSTRIES: Industry[] = [
     icon: "coins",
     label: "Retail & E-commerce",
     blurb: "Footfall, dwell time and shelf compliance across every store.",
-    image: "/images/industryVision.png",
+    image: "/images/retail2.png",
     alt: "A retail floor with shopper detection zones and a movement heatmap",
   },
   {
     icon: "factory",
     label: "Furniture & Home Improvement",
-    blurb: "Line anomalies, safety and uptime - caught before they cascade.",
-    image: "/images/manufacture.png",
+    blurb: "Space utilization, inventory visibility and assisted customer experiences.",
+    image: "/images/furniture.png",
     alt: "A robotic welding arm throwing sparks on a factory line",
   },
   {
     icon: "factory",
     label: "Infrastructure",
-    blurb: "Line anomalies, safety and uptime - caught before they cascade.",
-    image: "/images/manufacture.png",
+    blurb: "Site activity, asset conditions and safety risks-detected before they escalate.",
+    image: "/images/infra.png",
     alt: "A robotic welding arm throwing sparks on a factory line",
   },
   {
     icon: "heart",
     label: "Healthcare",
     blurb: "Situational awareness across capacity, workflow and patient safety.",
-    image: "/images/medical.png",
+    image: "/images/healthcare2.png",
     alt: "A clinician reviewing AI diagnostic overlays beside a patient bed",
   },
   {
     icon: "heart",
     label: "Aerospace",
-    blurb: "Situational awareness across capacity, workflow and patient safety.",
+    blurb: "Detect anomalies, verify procedures and improve operational readiness.",
     image: "/images/aerospace.png",
     alt: "A clinician reviewing AI diagnostic overlays beside a patient bed",
   },
   {
     icon: "building",
     label: "Security",
-    blurb: "Fragmented operational data made accountable and auditable.",
+    blurb: "Real-time situational awareness across people, assets and environments.",
     image: "/images/government.png",
     alt: "A government operations centre with a civic network overlay",
   },
   {
     icon: "truck",
     label: "Logistics & Warehousing",
-    blurb: "Disruption sensed early, so operations re-route in time.",
+    blurb: "Inventory movement, workflow bottlenecks and safety events-tracked in real time.",
     image: "/images/logistics.png",
     alt: "A forklift loading a truck at a warehouse dock",
   },
   {
     icon: "zap",
     label: "Manufacturing & more",
-    blurb: "Grid, generation and field signals read in real time.",
-    image: "/images/energy.png",
+    blurb: "Line anomalies, safety and uptime-caught before they cascade.",
+    image: "/images/manufacture.png",
     alt: "A power plant and solar array with live efficiency readouts",
   },
   {
     icon: "zap",
     label: "Agriculture",
-    blurb: "Grid, generation and field signals read in real time.",
+    blurb: "Detect anomalies early and optimize operations across every field.",
     image: "/images/agriculture.png",
     alt: "A power plant and solar array with live efficiency readouts",
   },
   {
     icon: "zap",
     label: "Hospitality",
-    blurb: "Grid, generation and field signals read in real time.",
-    image: "/images/energy.png",
+    blurb: "Smarter guest experiences through continuous visibility across operations.",
+    image: "/images/hospitality.png",
     alt: "A power plant and solar array with live efficiency readouts",
   },
 ];
@@ -139,9 +139,25 @@ export default function IndustrySection2() {
   const [isPaused, setIsPaused] = useState(false);
 
   return (
-    <>
+    <div className="relative">
+      {/* Vertical gradient lines background - spans all sections */}
+      <div className="absolute inset-0 pointer-events-none">
+        {[...Array(13)].map((_, i) => (
+          <div
+            key={i}
+            className="absolute top-0 bottom-0"
+            style={{
+              left: `${(i + 1) * 8.33}%`,
+              width: '1px',
+              background: 'linear-gradient(to bottom, transparent 0%, rgba(156, 163, 175, 0.35) 20%, rgba(156, 163, 175, 0.35) 80%, transparent 100%)',
+              transform: 'translateZ(0)',
+            }}
+          />
+        ))}
+      </div>
+
       {/* -------- How Mialo works -------- */}
-      <Section>
+      <Section className="relative z-10">
         <div className="flex flex-col gap-14">
           <SectionHeader
             eyebrow="How Mialo Works"
@@ -206,7 +222,7 @@ export default function IndustrySection2() {
       </Section>
 
       {/* -------- Industries we empower -------- */}
-      <Section>
+      <Section className="relative z-10">
         <div className="flex flex-col gap-14">
           <SectionHeader
             eyebrow="Industries We Empower"
@@ -259,6 +275,6 @@ export default function IndustrySection2() {
     }
   `}</style>
 </div>
-    </>
+    </div>
   );
 }

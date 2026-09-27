@@ -1,7 +1,7 @@
 import type { ReactNode } from "react";
 
 /* ------------------------------------------------------------------ *
- *  Shared dark-theme primitives — see design.md.
+ *  Shared dark-theme primitives - see design.md.
  *  Used by /platform and / (home). Server components, no client JS.
  * ------------------------------------------------------------------ */
 
@@ -376,7 +376,6 @@ export function SectionHeader({
             lineHeight: 1.1,
             letterSpacing: "-0.045em",
             wordSpacing: 6,
-            // color: "white"
           }}
         >
           {leadBlack}
@@ -416,7 +415,7 @@ export function ArrowLink({
 
 export function PrimaryButton({
   children,
-  arrow = true,
+  arrow = false,
   onClick,
 }: {
   children: ReactNode;

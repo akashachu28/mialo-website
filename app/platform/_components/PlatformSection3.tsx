@@ -5,7 +5,7 @@ const STEPS = [
     n: "01",
     title: "Observe",
     subtitle: "Capture what is happening.",
-    body: "Connect cameras, voice, documents, sensors, IoT devices and enterprise systems—at the edge or in the cloud.",
+    body: "Connect cameras, voice, documents, sensors, IoT devices and enterprise systems-at the edge or in the cloud.",
   },
   {
     n: "02",

@@ -2,34 +2,34 @@
 // Copied omelette starter. Re-running copy_starter_component with this kind overwrites this file with the latest version (page content is unaffected).
 
 /* BEGIN USAGE */
-// animations-v2.jsx — timeline animation engine with scene sequencing.
+// animations-v2.jsx - timeline animation engine with scene sequencing.
 // Exports (on window): Stage, Sprite, TextSprite, ImageSprite, RectSprite,
 //   VideoSprite, PlaybackBar, Easing, interpolate, animate, clamp,
 //   useTime, useTimeline, useSprite, SceneStage, useScene.
 //
-// ALWAYS structure the piece as a scene sequence — even a single-scene
+// ALWAYS structure the piece as a scene sequence - even a single-scene
 // piece is a one-entry list. Do NOT also load animations.jsx: v2 contains
 // the whole engine (same globals; loading both means last-wins).
 //   <x-import component-from-global-scope="MyPiece"
 //             from="./animations-v2.jsx ./my-piece.jsx"></x-import>
 //
-// THE AUTHORING CONTRACT — this is what makes the host timeline's
+// THE AUTHORING CONTRACT - this is what makes the host timeline's
 // trim and speed gestures write back into YOUR file, so follow it
 // exactly:
 //   1. Declare the scene list as a JSON string literal in a plain inline
 //      <script> of the main document (NOT type="text/babel", NOT a sibling
-//      .jsx — only vanilla inline scripts are addressable for write-back):
+//      .jsx - only vanilla inline scripts are addressable for write-back):
 //        <script>window.OM_SCENES = '[{"name":"Opening","dur":3},{"name":"Peak","dur":4.5}]';</script>
 //   2. Pass the string through untouched: <SceneStage scenes={window.OM_SCENES} ...>
 //   3. Map scene names to components via the children object.
-//   IMPORTANT — the exportable-video contract: SceneStage/Stage OWNS it
+//   IMPORTANT - the exportable-video contract: SceneStage/Stage OWNS it
 //   (the data-om-exportable-video-with-duration-secs attribute, the
 //   data-om-seek-to-time-frame listener, the svg/foreignObject wrapper,
 //   and font inlining). NEVER put the exportable attribute on any other
-//   element — wrapping the stage in a second "exportable root" makes the
+//   element - wrapping the stage in a second "exportable root" makes the
 //   host timeline and the video exporter bind to the wrong element, and
 //   playback control / export silently break.
-//   4. ALSO declare the playback setting the same way — this is what makes
+//   4. ALSO declare the playback setting the same way - this is what makes
 //      the host timeline's Repeat control write back into your file:
 //        <script>window.OM_PLAYBACK = '{"mode":"loop"}';</script>
 //      and pass it through untouched: <SceneStage playback={window.OM_PLAYBACK} ...>
@@ -38,11 +38,11 @@
 //      frame). Omitting it keeps loop behavior but leaves the host
 //      control read-only for this document.
 //
-//   IMPORTANT — the exportable-video contract: SceneStage/Stage OWNS it
+//   IMPORTANT - the exportable-video contract: SceneStage/Stage OWNS it
 //   (the data-om-exportable-video-with-duration-secs attribute, the
 //   data-om-seek-to-time-frame listener, the svg/foreignObject wrapper,
 //   and font inlining). NEVER put the exportable attribute on any other
-//   element — wrapping the stage in a second "exportable root" makes the
+//   element - wrapping the stage in a second "exportable root" makes the
 //   host timeline and the video exporter bind to the wrong element, and
 //   playback control / export silently break.
 //
@@ -52,31 +52,31 @@
 //   </SceneStage>
 //
 // SceneStage({width, height, scenes, bg, autoplay=true, loop=true,
-//   transition='cut', children}) — wraps Stage. Scenes play in authored order; total
+//   transition='cut', children}) - wraps Stage. Scenes play in authored order; total
 // duration is the sum of durs, kept in sync with the exportable attr
 // automatically. The host timeline shows the scenes as blocks: dragging
-// an edge retimes one scene, clicking a block opens rename/speed — and every
+// an edge retimes one scene, clicking a block opens rename/speed - and every
 // edit lands in the JSON literal in source, then the composition reflows
 // live (no reload) via the data-om-timeline-scenes-update event. (The
-// time ruler above the blocks is a seek surface — click or drag scrubs;
+// time ruler above the blocks is a seek surface - click or drag scrubs;
 // it never edits timing.)
 //
 // TIMING IS USER-EDITABLE (time-stretch): when the user changes a scene's
 // length, the engine remaps your scene clock so the SAME choreography
-// plays faster or slower — never cut off. That only works for motion
+// plays faster or slower - never cut off. That only works for motion
 // driven by the scene clock, so inside a scene component ALWAYS animate
 // from useScene()'s {localTime, progress} (never your own clock, never
 // useTime directly).
 //
 // The same rule is what makes video export exact AND fast: the exporter
 // seeks each frame with a synchronous commit and may serialize the stage
-// the moment the seek event returns — anything painted from useEffect or
+// the moment the seek event returns - anything painted from useEffect or
 // your own requestAnimationFrame lags that commit and exports stale.
 // Render everything visible from the scene clock's values and this is
 // automatic. (Nested <VideoSprite> videos are handled by the exporter.)
 //
 // TRANSITIONS: scene boundaries are hard cuts by default
-// (transition="cut") — exactly one scene is mounted at any time. Scene
+// (transition="cut") - exactly one scene is mounted at any time. Scene
 // layers are keyed by scene index, so inactive scenes are fully unmounted
 // (they do zero per-frame work) and a scene never leaks component state
 // into a neighbor, even when two adjacent scenes use the same component.
@@ -86,27 +86,27 @@
 // where the incoming scene hasn't painted real content yet (an <img>
 // still decoding, a <video> before its first frame) show the outgoing
 // scene rather than a flash of stage background. It cannot fix content
-// that paints WRONG — a video whose first frame paints black paints
+// that paints WRONG - a video whose first frame paints black paints
 // black over the underlay too. Only use it
-// when every scene paints the full frame — a scene on a transparent stage
+// when every scene paints the full frame - a scene on a transparent stage
 // background will show the previous scene through it (ghosting); keep
 // "cut" for those. Paused seeks and video-export frame seeks
-// (data-om-seek-to-time-frame) never overlap — a seeked frame always
+// (data-om-seek-to-time-frame) never overlap - a seeked frame always
 // renders exactly one scene's state. Playback driven by the EDITOR's
 // play bar counts as playback too: the host marks its play-loop seeks
 // (detail.playing === true on the same seek event) and the engine reads
-// the marked stream as continuous playback, so overlap may engage —
-// including across the loop seam, matching self-driven playback — while
+// the marked stream as continuous playback, so overlap may engage -
+// including across the loop seam, matching self-driven playback - while
 // unmarked seeks (scrubs, steps, export frames) keep the
 // exactly-one-scene rule. A tick-sized forward step or drag
 // WHILE PLAYING reads as playback and may briefly overlap (bounded, ~2
-// frames). The loop wrap (last scene back to the first, when loop is on —
+// frames). The loop wrap (last scene back to the first, when loop is on -
 // the default) is a boundary like any other and overlaps too, so the
 // frame-match contract below applies across the loop seam as well.
 //
 // THE FRAME-MATCH CONTRACT (this is what makes boundaries seamless, in
 // BOTH modes): a scene's entry/exit effects must be 0 at progress 0 and
-// at progress 1 — its first and last rendered frames are the settled
+// at progress 1 - its first and last rendered frames are the settled
 // composition, with entrances and exits choreographed strictly inside
 // (0, 1). No entry-only squash/rotation/opacity: a scene whose frame at
 // progress 0 is mid-squash, rotated, or transparent pops at every cut and
@@ -118,22 +118,22 @@
 // exitDur={0} on sprites alive at its last, or inset the sprite's span so
 // its fades complete inside the scene. The flip side: a scene that exits
 // to fully transparent shows NOTHING at its last frame, so "overlap"
-// would hold an empty underlay — following the contract is what makes
+// would hold an empty underlay - following the contract is what makes
 // overlap worth turning on.
 //
 // Scene entries are independent component instances, even when two names
-// map to the same component — state never carries across a boundary. For
+// map to the same component - state never carries across a boundary. For
 // one continuous component spanning a retimable stretch (a <video> that
 // must keep playing through), use a single scene entry with extra fields
 // driving its phases, not two entries of the same component.
 //
 // Each scene entry may carry extra fields ({"name":"Peak","dur":4,
-// "text":"ACME"}) — the active scene component receives the whole entry as
+// "text":"ACME"}) - the active scene component receives the whole entry as
 // `scene` plus {localTime, progress, dur, index, count}, and can call
-// useScene() anywhere below. Scenes own their entrances/exits — ramp any
+// useScene() anywhere below. Scenes own their entrances/exits - ramp any
 // effect up only AFTER progress 0 and settle it back to 0 BEFORE progress
 // 1, per THE FRAME-MATCH CONTRACT above. The optional "nat" field is the engine's
-// time-stretch anchor — the host timeline manages it; don't set it by
+// time-stretch anchor - the host timeline manages it; don't set it by
 // hand.
 /* END USAGE */
 
@@ -224,7 +224,7 @@ function interpolate(input, output, ease = Easing.linear) {
   };
 }
 
-// animate({from, to, start, end, ease})(t) — simpler single-segment tween.
+// animate({from, to, start, end, ease})(t) - simpler single-segment tween.
 // Returns `from` before `start`, `to` after `end`.
 function animate({ from = 0, to = 1, start = 0, end = 1, ease = Easing.easeInOutCubic }) {
   return (t) => {
@@ -250,7 +250,7 @@ const useTimeline = () => React.useContext(TimelineContext);
 //     {({ localTime, progress }) => <Thing x={progress * 100} />}
 //   </Sprite>
 //
-// Or as a plain wrapper — children can call useSprite() themselves.
+// Or as a plain wrapper - children can call useSprite() themselves.
 
 const SpriteContext = React.createContext({ localTime: 0, progress: 0, duration: 0 });
 const useSprite = () => React.useContext(SpriteContext);
@@ -399,7 +399,7 @@ function ImageSprite({
 }
 
 // RectSprite: simple rectangle that animates position/size/color via props.
-// Useful demo primitive — takes a `render` fn for per-frame customization.
+// Useful demo primitive - takes a `render` fn for per-frame customization.
 function RectSprite({
   x = 0, y = 0,
   width = 100, height = 100,
@@ -464,7 +464,7 @@ function useInlineFontsInto(svgRef) {
         let cssRules;
         try { cssRules = ss.cssRules; } catch {
           // Cross-origin sheet without crossorigin attr (e.g. the standard
-          // fonts.googleapis.com <link>) — fetch the CSS text directly and
+          // fonts.googleapis.com <link>) - fetch the CSS text directly and
           // regex-extract the @font-face blocks.
           if (ss.href) {
             try {
@@ -525,14 +525,14 @@ function Stage({
   loop = true,
   autoplay = true,
   // Parsed playback object ({mode:'loop'} | {mode:'times',count:N}) or
-  // null. When present it overrides the legacy loop prop — SceneStage
+  // null. When present it overrides the legacy loop prop - SceneStage
   // passes the validated value from the OM_PLAYBACK authoring contract.
   playback = null,
   persistKey = 'animstage',
   children,
 }) {
   // Props arrive as strings when Stage is mounted via <x-import> (DC
-  // projects) — coerce so style={{width}} gets a number React can px-ify.
+  // projects) - coerce so style={{width}} gets a number React can px-ify.
   width = +width || 1280; height = +height || 720;
   duration = +duration || 10; fps = +fps || 60;
   if (typeof loop === 'string') loop = loop !== 'false';
@@ -550,7 +550,7 @@ function Stage({
   // The external-playback latch: true while the HOST play bar is driving
   // time forward as genuine continuous playback (its play-loop seeks
   // carry detail.playing === true). The engine's own clock stays paused
-  // the whole time — exactly one clock ever drives — so this is a
+  // the whole time - exactly one clock ever drives - so this is a
   // separate bit, not a second meaning for `playing`. Set and cleared
   // in the seek handler below; decays via SS_EXT_PLAY_MS when the
   // marked stream stops without a parting unmarked seek.
@@ -612,7 +612,7 @@ function Stage({
         let next = t + dt;
         if (next >= duration) {
           if (playTimes !== null) {
-            // Play N times then hold the last frame — the partial pass a
+            // Play N times then hold the last frame - the partial pass a
             // mid-timeline start produces counts as a pass, so the piece
             // never runs longer than N full durations.
             passesRef.current += 1;
@@ -661,7 +661,7 @@ function Stage({
   // Video-export protocol + the editor's play bar: hosts dispatch this
   // event per frame; pause + sync the playhead so the frame shows exactly
   // that timestamp. The host play bar marks its play-loop seeks with
-  // detail.playing === true — the mark latches extPlay (playback is
+  // detail.playing === true - the mark latches extPlay (playback is
   // playback even when a host clock drives it), while ANY unmarked seek
   // (scrub, step, export frame, the transport's pause park) clears the
   // latch in the same commit it retimes, so a seeked frame still renders
@@ -674,10 +674,10 @@ function Stage({
     // so the stage DOM reflects the seeked frame the moment dispatchEvent
     // returns. The video exporter keys off the data-om-sync-seek
     // advertisement to drop its two-display-refresh settle (that wait only
-    // exists to let React's async commit land — serialization needs the
+    // exists to let React's async commit land - serialization needs the
     // committed DOM, not the paint). Feature-detected: a runtime without
     // ReactDOM.flushSync never advertises and every seek takes the async
-    // path. Unmarked seeks (scrubs, the host play bar) stay async — a
+    // path. Unmarked seeks (scrubs, the host play bar) stay async - a
     // forced sync render per pointermove would tax the editor for no one.
     const canSyncSeek =
       typeof ReactDOM !== 'undefined' &&
@@ -693,7 +693,7 @@ function Stage({
         if (hostPlay) {
           // Watchdog: the latch is only as alive as its seek stream. If the
           // host stops without a parting seek (tab jank, bar unmount), the
-          // latch decays on its own — and the expiry setState is itself the
+          // latch decays on its own - and the expiry setState is itself the
           // render that lets SceneSwitch drop an open window, so expiry can
           // never strand a frozen two-layer frame.
           extPlayTimerRef.current = setTimeout(() => {
@@ -706,7 +706,7 @@ function Stage({
       };
       // flushSync is safe here: a native DOM listener runs outside React's
       // lifecycle, and the exporter's dispatchEvent is synchronous, so the
-      // commit lands in the same JS task — the engine's own rAF loop can
+      // commit lands in the same JS task - the engine's own rAF loop can
       // never interleave between seek and serialize.
       if (canSyncSeek && e.detail && e.detail.sync === true) {
         ReactDOM.flushSync(apply);
@@ -725,7 +725,7 @@ function Stage({
       }
       // Drop the latch too: this cleanup runs on every duration change
       // (an agent edit can retime mid-host-play, no gesture involved) and
-      // the new effect instance arms no watchdog — clearing only the
+      // the new effect instance arms no watchdog - clearing only the
       // timer could strand extPlay true forever if the marked stream died
       // in the gap. Fail toward cut: the next marked seek re-latches.
       setExtPlay(false);
@@ -733,7 +733,7 @@ function Stage({
   }, [duration]);
 
   // Inline @font-face rules into the svg's foreignObject so the svg is
-  // self-describing — serializing it alone (for video export) then renders
+  // self-describing - serializing it alone (for video export) then renders
   // with the right fonts. Sets data-om-fonts-inlined once done.
   useInlineFontsInto(canvasRef);
 
@@ -742,8 +742,8 @@ function Stage({
   const ctxValue = React.useMemo(
     // extPlaying is ADDITIVE: "time is advancing under an external
     // driver's continuous playback". `playing` keeps meaning the
-    // engine's OWN clock — the hidden PlaybackBar glyph (and through it
-    // the host's clock-reporter/adoption channel) reads that — and
+    // engine's OWN clock - the hidden PlaybackBar glyph (and through it
+    // the host's clock-reporter/adoption channel) reads that - and
     // SceneSwitch is the one consumer that widens to either.
     () => ({
       time: displayTime, duration, playing,
@@ -754,7 +754,7 @@ function Stage({
   );
 
   return (
-    // data-om-starter: inert presence marker — Claude Design's starter-usage
+    // data-om-starter: inert presence marker - Claude Design's starter-usage
     // probe reads it; it renders nothing. Keep it on this root element.
     <div
       ref={stageRef}
@@ -767,7 +767,7 @@ function Stage({
         fontFamily: 'Inter, system-ui, sans-serif',
       }}
     >
-      {/* Canvas area — vertically centered in remaining space */}
+      {/* Canvas area - vertically centered in remaining space */}
       <div style={{
         flex: 1,
         width: '100%',
@@ -805,7 +805,7 @@ function Stage({
         </svg>
       </div>
 
-      {/* Playback bar — stacked below canvas, never overlapping */}
+      {/* Playback bar - stacked below canvas, never overlapping */}
       <PlaybackBar
         time={displayTime}
         actualTime={time}
@@ -886,7 +886,7 @@ function PlaybackBar({ time, duration, playing, onPlayPause, onReset, onSeek, on
     <div data-omelette-chrome style={{
       // Slimmed to visually match the host editor bar's basic row (the
       // single-scrubber look): transport first, tighter metrics, quieter
-      // chrome. Shown only outside the app — the host bar suppresses this
+      // chrome. Shown only outside the app - the host bar suppresses this
       // whenever it is present.
       display: 'flex', alignItems: 'center', gap: 10,
       padding: '6px 12px',
@@ -1065,7 +1065,7 @@ Object.assign(window, {
 // ── Scene sequencing ─────────────────────────────────────────────────────
 // Guest-side validation of a scene list (the engine's own inputs: the
 // authored prop, and host-dispatched updates). Mirrors the host parser's
-// shape rules and constants — keep in sync with parseTimelineScenes in
+// shape rules and constants - keep in sync with parseTimelineScenes in
 // apps/web/src/shared/timeline.ts (16KB raw cap, 50 entries, dur finite in
 // (0, 300]); returns null on any violation.
 function ssParse(raw) {
@@ -1082,7 +1082,7 @@ function ssParse(raw) {
   return parsed;
 }
 
-// Guest-side validation of the playback value — mirrors the host parser
+// Guest-side validation of the playback value - mirrors the host parser
 // (shared/timeline.ts parseTimelinePlayback): {"mode":"loop"} or
 // {"mode":"times","count":1..99}, strict all-or-nothing, null otherwise.
 // Callers treat null as the loop default.
@@ -1105,7 +1105,7 @@ function ppParse(raw) {
 // Stamps the playback attribute VERBATIM from the authored raw string (the
 // host's write-back anchors on that exact value) and listens for the
 // host's post-write update event. Same shape as SceneSync; only rendered
-// when the document authors a playback literal — an absent contract means
+// when the document authors a playback literal - an absent contract means
 // the attribute stays absent and the document plays its default.
 function PlaybackSync(props) {
   var ref = React.useRef(null);
@@ -1135,7 +1135,7 @@ function useScene() { return React.useContext(SceneContext); }
 
 // Renders inside the Stage (so it can reach the exportable root via
 // closest()): stamps the scenes attribute VERBATIM from the current raw
-// string — the host's write-back anchors on that exact value — and listens
+// string - the host's write-back anchors on that exact value - and listens
 // for the host's post-write update event.
 function SceneSync(props) {
   var ref = React.useRef(null);
@@ -1149,7 +1149,7 @@ function SceneSync(props) {
     root.setAttribute('data-om-timeline-scenes', raw);
     var onEvent = function (e) {
       var next = e && e.detail;
-      // Ignore anything that doesn't validate — a bad update must not tear
+      // Ignore anything that doesn't validate - a bad update must not tear
       // down a working composition.
       if (ssParse(next)) onUpdate(next);
     };
@@ -1177,7 +1177,7 @@ var SS_OVERLAP_TICKS = 2;
 // Wall-clock ceiling on a window, backstopping the tick budget: ticks are
 // only spent by renders, and a pinned clock (the PlaybackBar's hover
 // preview holds displayTime still even while playing) stops producing
-// them — without this ceiling, both layers could persist for as long as
+// them - without this ceiling, both layers could persist for as long as
 // the mouse rests on the scrub track. 500ms keeps the tick budget intact
 // for playback down to ~4fps; the nudge effect in SceneSwitch guarantees
 // a render arrives to enforce it even when the clock is pinned.
@@ -1185,7 +1185,7 @@ var SS_OVERLAP_MAX_MS = 500;
 // How long a marked (detail.playing === true) host seek keeps the
 // external-playback latch alive with no successor. The host play bar's
 // seek pump is one-in-flight/latest-wins, so its inter-seek gap is tens
-// of milliseconds in the worst case — 400ms is far above that, and it
+// of milliseconds in the worst case - 400ms is far above that, and it
 // sits below SS_OVERLAP_MAX_MS so a stream that dies mid-window decays
 // the latch (and with it the window) no later than the window's own
 // wall-clock ceiling would have closed it.
@@ -1193,12 +1193,12 @@ var SS_EXT_PLAY_MS = 400;
 
 // True only for a boundary crossed by what reads as natural forward
 // playback: the engine advancing one tick from scene i into scene i+1, or
-// wrapping last→first under loop. Export seeks can never pass — the
-// export protocol pauses before it retimes, and arming requires playing —
+// wrapping last→first under loop. Export seeks can never pass - the
+// export protocol pauses before it retimes, and arming requires playing -
 // and neither can paused scrubs or arrow-steps, host scene-edit events
 // (dt === 0), or long jumps. A forward drag or arrow-step WHILE PLAYING
-// that lands just past a boundary does pass — it is indistinguishable
-// from a playback tick by design — and costs a bounded, cosmetic
+// that lands just past a boundary does pass - it is indistinguishable
+// from a playback tick by design - and costs a bounded, cosmetic
 // two-frame window.
 function ssNaturalAdvance(last, idx, t, count, total, playing, loopOn) {
   if (!playing || count < 2) return false;
@@ -1208,10 +1208,10 @@ function ssNaturalAdvance(last, idx, t, count, total, playing, loopOn) {
   }
   if (last.idx === count - 1 && idx === 0 && loopOn && t > 0) {
     // Without loop the engine never wraps (it clamps and pauses at the
-    // end), so a wrap-shaped pair can only be a user gesture — a cut. And
+    // end), so a wrap-shaped pair can only be a user gesture - a cut. And
     // the transport's reset gestures (return-to-start, Home, '0') land on
     // exactly t = 0 without pausing, while a genuine modulo wrap is almost
-    // surely fractional — t > 0 rejects resets, and the cheap failure mode
+    // surely fractional - t > 0 rejects resets, and the cheap failure mode
     // is one skipped cosmetic overlap at the seam.
     var dtWrap = t + total - last.t;
     // Two layered defenses against a fake wrap after a mid-play trim
@@ -1220,7 +1220,7 @@ function ssNaturalAdvance(last, idx, t, count, total, playing, loopOn) {
     // dtWrap is exactly 0 in IEEE arithmetic and the > 0 test rejects it.
     // When the clock is PINNED instead (the PlaybackBar hover preview sets
     // the displayed time directly, no re-priming tick), dtWrap can land
-    // positive while t sits deep inside scene 0 — the t <= one-tick guard
+    // positive while t sits deep inside scene 0 - the t <= one-tick guard
     // is what rejects that path.
     return dtWrap > 0 && dtWrap <= SS_MAX_TICK && t <= SS_MAX_TICK;
   }
@@ -1231,7 +1231,7 @@ function ssNaturalAdvance(last, idx, t, count, total, playing, loopOn) {
 // providers. The nested TimelineContext.Provider exists in EVERY layer,
 // not just frozen ones, for two reasons. Context propagation bypasses
 // React's identical-element bailout, so a frozen layer needs a provider
-// whose value has stopped changing — without one, Sprite/VideoSprite
+// whose value has stopped changing - without one, Sprite/VideoSprite
 // inside the frozen scene would keep reading the live clock through the
 // outer provider, see time run past their spans, and blank out (or
 // re-seek a video) mid-overlap. And the tree at a layer's keyed position
@@ -1242,7 +1242,7 @@ function ssNaturalAdvance(last, idx, t, count, total, playing, loopOn) {
 function ssSceneInner(scenes, idx, wallTime, total, map, timelineValue) {
   var scene = scenes[idx];
   // TIME-STRETCH: when the entry carries "nat" (its natural/authored
-  // duration — the host timeline stamps it on the first trim), the user's
+  // duration - the host timeline stamps it on the first trim), the user's
   // dur edits retime the choreography rather than cutting it: localTime
   // runs 0..nat over dur wall-seconds, so compressing a scene plays the
   // SAME motion faster and stretching slows it. progress is unchanged
@@ -1273,7 +1273,7 @@ function ssSceneInner(scenes, idx, wallTime, total, map, timelineValue) {
           <Comp {...ctx} />
         ) : (
           // An unmapped name renders a quiet diagnostic instead of a dead
-          // frame — the mismatch is an authoring bug worth seeing.
+          // frame - the mismatch is an authoring bug worth seeing.
           <div style={{
             position: 'absolute', inset: 0, display: 'flex',
             alignItems: 'center', justifyContent: 'center',
@@ -1289,7 +1289,7 @@ function ssSceneInner(scenes, idx, wallTime, total, map, timelineValue) {
 // One scene layer: the positioned wrapper that gives a scene its stable
 // keyed identity (the scene's index in the authored list) and its role
 // styling. The SAME entry keeps its DOM when its role changes (current →
-// previous under "overlap" — no unmount/remount, so CSS transitions and
+// previous under "overlap" - no unmount/remount, so CSS transitions and
 // <video>/<canvas> state survive), while DIFFERENT entries never share
 // DOM, even when two adjacent scenes map to the same component type.
 // zIndex is set only while an overlap window is active (frozen beneath,
@@ -1310,14 +1310,14 @@ function ssSceneLayer(idx, z, frozen, inner) {
 }
 
 // The active-scene selector. Lives INSIDE Stage so useTime sees the
-// timeline context. Renders the current scene's layer — plus, under
+// timeline context. Renders the current scene's layer - plus, under
 // transition="overlap" and only across a naturally-played boundary, the
 // outgoing scene's layer beneath it for SS_OVERLAP_TICKS engine ticks.
 // The outgoing scene is frozen EXACTLY as last rendered: its stored inner
 // element is reused by reference, so the underlay is the frame that was
 // just on screen (no synthesized end state), React bails out of the
 // identical element (the inactive scene does zero per-frame work), and
-// its clock — both contexts — stays pinned at the pre-boundary values.
+// its clock - both contexts - stays pinned at the pre-boundary values.
 // The scene's own internal state updates still render: the clock is
 // frozen, the subtree isn't dead.
 function SceneSwitch(props) {
@@ -1328,11 +1328,11 @@ function SceneSwitch(props) {
   var t = timeline.time;
   // Playback is playback whichever clock drives it: the engine's own rAF
   // loop (timeline.playing) or the host play bar's marked seek stream
-  // (timeline.extPlaying). Nothing that must stay a cut sets either bit —
+  // (timeline.extPlaying). Nothing that must stay a cut sets either bit -
   // scrubs, steps, and export frames arrive without the playing mark (an
   // export seek may carry detail.sync, which changes WHEN the commit
   // happens, not what it commits), and clear extPlaying in the same
-  // commit they retime — so the window invariant's "a paused render is a
+  // commit they retime - so the window invariant's "a paused render is a
   // SEEK frame" reading is unchanged.
   var playing = timeline.playing || timeline.extPlaying === true;
   var starts = [0];
@@ -1350,10 +1350,10 @@ function SceneSwitch(props) {
 
   // Overlap bookkeeping. It lives in refs and mutates during render, which
   // is safe here because the mutating branches are gated on (t, idx)
-  // differing from the previous render's values — a double-invoked render
+  // differing from the previous render's values - a double-invoked render
   // re-runs them as a no-op. (A discarded concurrent render could advance
   // the refs for a frame that never commits; this engine drives time with
-  // urgent setState from rAF, so renders aren't interleaved — and the
+  // urgent setState from rAF, so renders aren't interleaved - and the
   // worst case is an overlap window skipped or cut short, never a wrong
   // seeked frame.)
   var lastRef = React.useRef(null);     // {idx, t, inner} as of the previous render
@@ -1361,7 +1361,7 @@ function SceneSwitch(props) {
 
   // THE OVERLAP WINDOW INVARIANT. A window may exist only while ALL hold:
   //   1. the transition mode is 'overlap';
-  //   2. this render is playing — a paused render is a SEEK frame (the
+  //   2. this render is playing - a paused render is a SEEK frame (the
   //      export protocol pauses in the same commit as it retimes), and a
   //      seeked frame must show exactly one scene's state;
   //   3. the current scene is still the one the window opened into
@@ -1429,11 +1429,11 @@ function SceneStage(props) {
   var autoplay = props.autoplay == null ? true : String(props.autoplay) !== 'false';
   var loop = props.loop == null ? true : String(props.loop) !== 'false';
   // Anything other than the exact string 'overlap' means the default 'cut'
-  // — a typo must degrade to today's behavior, never to a new one.
+  // - a typo must degrade to today's behavior, never to a new one.
   var transition = props.transition === 'overlap' ? 'overlap' : 'cut';
   // The raw string is state: a host write (trim, speed, rename) arrives as
   // the scenes-update event and re-renders the whole composition from the
-  // new value — durations AND the Stage duration — without a reload.
+  // new value - durations AND the Stage duration - without a reload.
   var state = React.useState(props.scenes);
   var raw = state[0];
   var setRaw = state[1];

@@ -26,7 +26,7 @@ export default function Section4() {
                           letterSpacing: "-0.045em",
                           wordSpacing: 6,
                            }}>
-              A continuous loop that senses what is happening, understands why, decides what to do, and measures the result — then improves with every cycle.
+              A continuous loop that senses what is happening, understands why, decides what to do, and measures the result - then improves with every cycle.
             </p>
           </div>
 

@@ -18,7 +18,7 @@ export default function SolutionSection1() {
               eyebrow="How It Works"
               // title="One intelligence layer. Infinite possibilities."
               titleIce="One intelligence layer. Infinite possibilities."
-              // lead="Every solution is powered by the Mialo Intelligence Layer, turning raw data into decisions and outcomes — from ingestion and AI processing to insight and impact."
+              // lead="Every solution is powered by the Mialo Intelligence Layer, turning raw data into decisions and outcomes - from ingestion and AI processing to insight and impact."
             /> */}
             <h2
             className="font-display text-[30px] font-medium leading-[1.14] tracking-[-0.025em] text-pretty sm:text-[42px] mb-6"
@@ -50,7 +50,7 @@ export default function SolutionSection1() {
                       // color: "white"
                     }}>
               Every solution is powered by the Mialo Intelligence Layer, turning
-              raw data into decisions and outcomes — from ingestion and AI
+              raw data into decisions and outcomes - from ingestion and AI
               processing to insight and impact.{" "}
             </p>
             {/* <ArrowLink className="text-pista">Explore the architecture</ArrowLink> */}

@@ -37,7 +37,7 @@ const DOMAINS: Domain[] = [
     short: "Voice",
     body: "Extract meaning from spoken words. Transcribe, understand and analyze voice conversations and audio signals.",
     capabilities: ["Speech-to-text", "Intent & sentiment", "Multilingual"],
-    image: "/images/voiceIntelligence.png",
+    image: "/images/voiceI.png",
     alt: "A speaker profile beside a blue voice waveform being analyzed in real time",
   },
   {
@@ -89,7 +89,7 @@ const DOMAINS: Domain[] = [
       "Copilots & assistants",
       "Workflow context",
     ],
-    image: "/images/neuralNet.png",
+    image: "/images/neural.png",
     alt: "A knowledge graph linking policies, people, systems, data and processes to shared insights",
   },
   {

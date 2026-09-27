@@ -36,31 +36,36 @@ export default function Section3() {
 
   return (
     <>
-      <section className=" pt-20 sm:py">
+      <section className="pt-20 sm:pt-32">
         <div className="mx-auto w-full max-w-7xl px-6 sm:px-8">
-          <SectionHeader
-            className="mb-12"
-            eyebrow="How It Works"
-            title="From Every Signal"
-            titleIce="to Intelligent Action."
-            // lead="Every operational moment follows the same journey — from observation to understanding, intelligent decision-making and real-world action."
-          />
-          <p
-            className="w-full max-w-[640px] text-[18px] leading-[1.62] text-gray-700 mt-5 text-pretty"
-            style={{
-              fontFamily: "var(--font-manrope), sans-serif",
-              fontWeight: 400,
-              fontSize: "clamp(18px, 7.2vw, 24px)",
-              lineHeight: 1.1,
-              letterSpacing: "-0.045em",
-              wordSpacing: 6,
-              // color: "white"
-            }}
-          >
-            Every operational moment moves through a continuous journey — from
-            observation and understanding to intelligent decisions and
-            real-world action.{" "}
-          </p>
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-12 items-center">
+            {/* Left: Section Header */}
+            <div className="lg:col-span-5">
+              <SectionHeader
+                eyebrow="How It Works"
+                title="From Every Signal"
+                titleIce="to Intelligent Action."
+              />
+            </div>
+
+            {/* Right: Description */}
+            <div className="lg:col-span-7">
+              <p
+                className="text-gray-600 text-pretty"
+                style={{
+                  fontFamily: "var(--font-manrope), sans-serif",
+                  fontWeight: 400,
+                  fontSize: "clamp(18px, 2vw, 26px)",
+                  lineHeight: 1.6,
+                  letterSpacing: "-0.01em",
+                }}
+              >
+                Every operational moment moves through a continuous journey - from
+                observation and understanding to intelligent decisions and
+                real-world action.
+              </p>
+            </div>
+          </div>
         </div>
 
         {/* Full-width video container with overlay text */}
@@ -89,7 +94,7 @@ export default function Section3() {
             </span>
           </h2>
 
-          <div className="h-150 overflow-hidden border-y">
+          <div className="h-150 overflow-hidden ">
             <video className="w-full h-auto" autoPlay loop muted playsInline>
               <source src="/images/warehouse_vedio.mp4" type="video/mp4" />
               Your browser does not support the video tag.

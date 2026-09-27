@@ -1,5 +1,5 @@
 /**
- * IntelligenceFlow — self-contained animated flow diagram.
+ * IntelligenceFlow - self-contained animated flow diagram.
  * Observe → Understand → Decide → Act.
  *
  * Dependencies: React 17/18 only. No CSS files, no build config beyond JSX.
@@ -68,10 +68,10 @@ const K = [
   { cam: [960, 560, 1.0], ...Z, sources: 1, streams: 1, core: 1, keywords: 1, reason: 1, brain: 1, actions: 1, words: 1 },
 ];
 const CAPS = [
-  ['01 — Observe', 'Every signal from the floor, captured.'],
-  ['02 — Understand', 'Raw signal becomes context, patterns, meaning.'],
-  ['03 — Decide', 'The reasoning layer weighs what matters now.'],
-  ['04 — Act', 'Decisions leave the screen and do the work.'],
+  ['01 - Observe', 'Every signal from the floor, captured.'],
+  ['02 - Understand', 'Raw signal becomes context, patterns, meaning.'],
+  ['03 - Decide', 'The reasoning layer weighs what matters now.'],
+  ['04 - Act', 'Decisions leave the screen and do the work.'],
   ['Continuously', 'Observe → Understand → Decide → Act.'],
 ];
 
@@ -268,7 +268,7 @@ function Diagram({ r, prog, accent, vividness }) {
       <div style={{
         position: 'absolute', left: 0, right: 0, top: 968, textAlign: 'center',
         color: `rgba(180,200,235,${0.9 * clamp((r.words - 0.55) / 0.45, 0, 1)})`, font: `300 30px ${FONT}`,
-      }}>Repeat — turning every operational moment into better business outcomes.</div>
+      }}>Repeat - turning every operational moment into better business outcomes.</div>
     </div>
   );
 }

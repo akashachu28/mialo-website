@@ -560,4 +560,4 @@ Mialo is the intelligence layer that transforms enterprise operations from obser
 
 My final thought
 
-We've spent quite a bit of time iterating, and I think the homepage is now built on a coherent narrative rather than a collection of attractive sections. That's a significant improvement. From here on, I'd resist the temptation to keep polishing individual components. Instead, focus on execution quality—spacing, typography, motion, and consistency. Those details will do more to elevate the site than another round of conceptual changes.
+We've spent quite a bit of time iterating, and I think the homepage is now built on a coherent narrative rather than a collection of attractive sections. That's a significant improvement. From here on, I'd resist the temptation to keep polishing individual components. Instead, focus on execution quality-spacing, typography, motion, and consistency. Those details will do more to elevate the site than another round of conceptual changes.
