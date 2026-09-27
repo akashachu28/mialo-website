@@ -18,7 +18,7 @@ export default function CompanySection3() {
     <Section className="py-20 sm:py-32 overflow-hidden relative">
       {/* Background image */}
       <div 
-        className="absolute inset-0 pointer-events-none opacity-20"
+        className="absolute inset-0 pointer-events-none opacity-40"
         style={{
           backgroundImage: "url('/images/heroCompany.png')",
           backgroundSize: "cover",
@@ -47,11 +47,11 @@ export default function CompanySection3() {
         What is mialo?
       </h1>
       
-      <div className="max-w-3xl ml-0 space-y-32 relative z-10">
+      <div className="max-w-3xl ml-40 space-y-32 relative z-10">
         {PILLARS.map((pillar, index) => (
           <div 
             key={pillar.title} 
-            className={`relative ${index === 0 ? "max-w-2xl -ml-40" : "max-w-3xl ml-40"}`}
+            className={`relative ${index === 0 ? "max-w-2xl -ml-80" : "max-w-3xl ml-40"}`}
           >
             {/* Title with Line and Dot */}
             <div className="relative mb-4 text-right">
