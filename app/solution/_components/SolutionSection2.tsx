@@ -168,7 +168,7 @@ export default function SolutionSection2() {
 
     const interval = setInterval(() => {
       nextSlide();
-    }, 5000);
+    }, 2000);
 
     // Cleanup interval on component unmount
     return () => clearInterval(interval);
@@ -179,19 +179,42 @@ export default function SolutionSection2() {
   return (
     <>
       <Section className="overflow-hidden">
-        {/* Full-width Solutions Carousel */}
-        <div
-          className="relative overflow-hidden"
-          style={{ height: "550px" }}
-          onMouseEnter={() => setIsPaused(true)}
-          onMouseLeave={() => setIsPaused(false)}
-        >
+        {/* Carousel with external navigation buttons */}
+        <div className="relative flex items-center justify-center gap-6">
+          {/* Previous Button - Outside Left */}
+          <button
+            onClick={prevSlide}
+            className="shrink-0 flex h-12 w-12 items-center justify-center rounded-full border border-line bg-raise transition-all hover:border-ice hover:bg-panel"
+            aria-label="Previous solution"
+          >
+            <svg
+              width={20}
+              height={20}
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth={2}
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              className="text-muted"
+            >
+              <path d="M19 12H5M12 19l-7-7 7-7" />
+            </svg>
+          </button>
+
+          {/* Carousel Container */}
+          <div
+            className="relative overflow-hidden flex-1 max-w-6xl"
+            style={{ height: "550px" }}
+            onMouseEnter={() => setIsPaused(true)}
+            onMouseLeave={() => setIsPaused(false)}
+          >
             {/* Background Image */}
             <Image
               src={currentSolution.image}
               alt={currentSolution.alt}
               fill
-              sizes="100vw"
+              sizes="(max-width: 1280px) 100vw, 1280px"
               className="object-cover"
               priority
             />
@@ -288,66 +311,43 @@ export default function SolutionSection2() {
             </div>
           </div>
 
-        {/* Navigation Controls - Below Image Container */}
+          {/* Next Button - Outside Right */}
+          <button
+            onClick={nextSlide}
+            className="shrink-0 flex h-12 w-12 items-center justify-center rounded-full border border-line bg-raise transition-all hover:border-ice hover:bg-panel"
+            aria-label="Next solution"
+          >
+            <svg
+              width={20}
+              height={20}
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth={2}
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              className="text-muted"
+            >
+              <path d="M5 12h14M12 5l7 7-7 7" />
+            </svg>
+          </button>
+        </div>
+
+        {/* Pagination Dots - Below Image Container */}
         <Container className="py-8">
-            <div className="flex items-center justify-center gap-6">
-              {/* Previous Button */}
-              <button
-                onClick={prevSlide}
-                className="flex h-11 w-11 items-center justify-center rounded-full border border-line bg-raise transition-all hover:border-ice hover:bg-panel"
-                aria-label="Previous solution"
-              >
-                <svg
-                  width={18}
-                  height={18}
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth={1.5}
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  className="text-muted"
-                >
-                  <path d="M19 12H5M12 19l-7-7 7-7" />
-                </svg>
-              </button>
-
-              {/* Pagination Dots */}
-              <div className="flex items-center gap-2.5">
-                {SOLUTIONS.map((_, index) => (
-                  <button
-                    key={index}
-                    onClick={() => goToSlide(index)}
-                    className={`h-2 rounded-full transition-all ${
-                      index === currentIndex
-                        ? "w-8 bg-pista"
-                        : "w-2 bg-muted hover:bg-ink"
-                    }`}
-                    aria-label={`Go to solution ${index + 1}`}
-                  />
-                ))}
-              </div>
-
-              {/* Next Button */}
-              <button
-                onClick={nextSlide}
-                className="flex h-11 w-11 items-center justify-center rounded-full border border-line bg-raise transition-all hover:border-ice hover:bg-panel"
-                aria-label="Next solution"
-              >
-                <svg
-                  width={18}
-                  height={18}
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth={1.5}
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  className="text-muted"
-                >
-                  <path d="M5 12h14M12 5l7 7-7 7" />
-                </svg>
-              </button>
+            <div className="flex items-center justify-center gap-2.5">
+              {SOLUTIONS.map((_, index) => (
+                <button
+                  key={index}
+                  onClick={() => goToSlide(index)}
+                  className={`h-2 rounded-full transition-all ${
+                    index === currentIndex
+                      ? "w-8 bg-pista"
+                      : "w-2 bg-muted hover:bg-ink"
+                  }`}
+                  aria-label={`Go to solution ${index + 1}`}
+                />
+              ))}
             </div>
           </Container>
       </Section>

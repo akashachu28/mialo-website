@@ -36,14 +36,14 @@ const INDUSTRIES: Industry[] = [
     alt: "A retail floor with shopper detection zones and a movement heatmap",
   },
   {
-    icon: "factory",
+    icon: "building",
     label: "Furniture & Home Improvement",
     blurb: "Space utilization, inventory visibility and assisted customer experiences.",
     image: "/images/furniture.png",
     alt: "A robotic welding arm throwing sparks on a factory line",
   },
   {
-    icon: "factory",
+    icon: "building",
     label: "Infrastructure",
     blurb: "Site activity, asset conditions and safety risks-detected before they escalate.",
     image: "/images/infra.png",
@@ -57,14 +57,14 @@ const INDUSTRIES: Industry[] = [
     alt: "A clinician reviewing AI diagnostic overlays beside a patient bed",
   },
   {
-    icon: "heart",
+    icon: "target",
     label: "Aerospace",
     blurb: "Detect anomalies, verify procedures and improve operational readiness.",
     image: "/images/aerospace.png",
     alt: "A clinician reviewing AI diagnostic overlays beside a patient bed",
   },
   {
-    icon: "building",
+    icon: "shield",
     label: "Security",
     blurb: "Real-time situational awareness across people, assets and environments.",
     image: "/images/government.png",
@@ -78,21 +78,21 @@ const INDUSTRIES: Industry[] = [
     alt: "A forklift loading a truck at a warehouse dock",
   },
   {
-    icon: "zap",
+    icon: "factory",
     label: "Manufacturing & more",
     blurb: "Line anomalies, safety and uptime-caught before they cascade.",
     image: "/images/manufacture.png",
     alt: "A power plant and solar array with live efficiency readouts",
   },
   {
-    icon: "zap",
+    icon: "layers",
     label: "Agriculture",
     blurb: "Detect anomalies early and optimize operations across every field.",
     image: "/images/agriculture.png",
     alt: "A power plant and solar array with live efficiency readouts",
   },
   {
-    icon: "zap",
+    icon: "users",
     label: "Hospitality",
     blurb: "Smarter guest experiences through continuous visibility across operations.",
     image: "/images/hospitality.png",
@@ -142,15 +142,18 @@ export default function IndustrySection2() {
     <div className="relative">
       {/* Vertical gradient lines background - spans all sections */}
       <div className="absolute inset-0 pointer-events-none">
-        {[...Array(13)].map((_, i) => (
+        {[...Array(12)].map((_, i) => (
           <div
             key={i}
             className="absolute top-0 bottom-0"
             style={{
-              left: `${(i + 1) * 8.33}%`,
+              left: `${(i + 1) * (100 / 13)}%`,
               width: '1px',
               background: 'linear-gradient(to bottom, transparent 0%, rgba(156, 163, 175, 0.35) 20%, rgba(156, 163, 175, 0.35) 80%, transparent 100%)',
-              transform: 'translateZ(0)',
+              transform: 'translateZ(0) translateX(-0.5px)',
+              WebkitBackfaceVisibility: 'hidden',
+              backfaceVisibility: 'hidden',
+              imageRendering: 'crisp-edges',
             }}
           />
         ))}
