@@ -14,6 +14,8 @@ export default function DemoModal({ isOpen, onClose }: DemoModalProps) {
     lastName: "",
     company: "",
     email: "",
+    phoneCode: "+1",
+    phone: "",
     message: "",
   });
 
@@ -36,22 +38,80 @@ export default function DemoModal({ isOpen, onClose }: DemoModalProps) {
     e.preventDefault();
     setIsSubmitting(true);
 
-    // Simulate API call
-    setTimeout(() => {
-      console.log("Demo request submitted:", formData);
-      setSubmitStatus("success");
+    try {
+      // HubSpot Forms API endpoint
+      const portalId = process.env.NEXT_PUBLIC_HUBSPOT_PORTAL_ID;
+      const formGuid = process.env.NEXT_PUBLIC_HUBSPOT_FORM_GUID;
+      const url = `https://api.hsforms.com/submissions/v3/integration/submit/${portalId}/${formGuid}`;
+
+      // Prepare the payload for HubSpot
+      const hubspotPayload = {
+        fields: [
+          {
+            name: "firstname",
+            value: formData.firstName,
+          },
+          {
+            name: "lastname",
+            value: formData.lastName,
+          },
+          {
+            name: "email",
+            value: formData.email,
+          },
+          {
+            name: "company",
+            value: formData.company,
+          },
+          ...(formData.phone ? [{
+            name: "phone",
+            value: `${formData.phoneCode}${formData.phone}`,
+          }] : []),
+          ...(formData.message ? [{
+            name: "message",
+            value: formData.message,
+          }] : []),
+        ],
+        context: {
+          pageUri: window.location.href,
+          pageName: document.title,
+        },
+      };
+
+      const response = await fetch(url, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(hubspotPayload),
+      });
+
+      if (response.ok) {
+        console.log("Demo request submitted successfully");
+        setSubmitStatus("success");
+        
+        // Reset form after success
+        setTimeout(() => {
+          setFormData({ firstName: "", lastName: "", company: "", email: "", phoneCode: "+1", phone: "", message: "" });
+          setSubmitStatus("idle");
+          onClose();
+        }, 2000);
+      } else {
+        const errorData = await response.json();
+        console.error("HubSpot submission error:", errorData);
+        setSubmitStatus("error");
+        setTimeout(() => setSubmitStatus("idle"), 3000);
+      }
+    } catch (error) {
+      console.error("Error submitting to HubSpot:", error);
+      setSubmitStatus("error");
+      setTimeout(() => setSubmitStatus("idle"), 3000);
+    } finally {
       setIsSubmitting(false);
-      
-      // Reset form after success
-      setTimeout(() => {
-        setFormData({ firstName: "", lastName: "", company: "", email: "", message: "" });
-        setSubmitStatus("idle");
-        onClose();
-      }, 2000);
-    }, 1500);
+    }
   };
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     setFormData({
       ...formData,
       [e.target.name]: e.target.value,
@@ -128,7 +188,7 @@ export default function DemoModal({ isOpen, onClose }: DemoModalProps) {
                     type="text"
                     id="firstName"
                     name="firstName"
-                    value={formData.name}
+                    // value={formData.name}
                     onChange={handleChange}
                     required
                     placeholder=" "
@@ -156,7 +216,7 @@ export default function DemoModal({ isOpen, onClose }: DemoModalProps) {
                     type="text"
                     id="lastName"
                     name="lastName"
-                    value={formData.name}
+                    value={formData.lastName}
                     onChange={handleChange}
                     required
                     placeholder=" "
@@ -238,6 +298,80 @@ export default function DemoModal({ isOpen, onClose }: DemoModalProps) {
                 </label>
               </div>
 
+              {/* Phone with Country Code */}
+              <div className="flex gap-2">
+                {/* Country Code Dropdown */}
+                <div className="relative w-28">
+                  <select
+                    id="phoneCode"
+                    name="phoneCode"
+                    value={formData.phoneCode}
+                    onChange={handleChange}
+                    style={{ 
+                      fontFamily: "var(--font-manrope), sans-serif",
+                      fontWeight: 400,
+                      fontSize: "15px",
+                      letterSpacing: "-0.01em"
+                    }}
+                    className="w-full appearance-none rounded-lg border border-ice/20 bg-white px-3 py-3 text-gray-700 transition-all focus:border-ice focus:outline-none focus:ring-1 focus:ring-ice/30"
+                  >
+                    <option value="+1">🇺🇸 +1</option>
+                    <option value="+44">🇬🇧 +44</option>
+                    <option value="+91">🇮🇳 +91</option>
+                    <option value="+86">🇨🇳 +86</option>
+                    <option value="+81">🇯🇵 +81</option>
+                    <option value="+49">🇩🇪 +49</option>
+                    <option value="+33">🇫🇷 +33</option>
+                    <option value="+39">🇮🇹 +39</option>
+                    <option value="+34">🇪🇸 +34</option>
+                    <option value="+61">🇦🇺 +61</option>
+                    <option value="+55">🇧🇷 +55</option>
+                    <option value="+52">🇲🇽 +52</option>
+                    <option value="+7">🇷🇺 +7</option>
+                    <option value="+82">🇰🇷 +82</option>
+                    <option value="+31">🇳🇱 +31</option>
+                    <option value="+46">🇸🇪 +46</option>
+                    <option value="+41">🇨🇭 +41</option>
+                    <option value="+65">🇸🇬 +65</option>
+                    <option value="+971">🇦🇪 +971</option>
+                    <option value="+27">🇿🇦 +27</option>
+                  </select>
+                  <div className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2">
+                    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" className="text-ice/60">
+                      <path d="M3 4.5L6 7.5L9 4.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                    </svg>
+                  </div>
+                </div>
+
+                {/* Phone Number */}
+                <div className="relative flex-1">
+                  <input
+                    type="tel"
+                    id="phone"
+                    name="phone"
+                    value={formData.phone}
+                    onChange={handleChange}
+                    placeholder=" "
+                    style={{ 
+                      fontFamily: "var(--font-manrope), sans-serif",
+                      fontWeight: 400,
+                      fontSize: "15px",
+                      letterSpacing: "-0.01em"
+                    }}
+                    className="peer w-full rounded-lg border border-ice/20 bg-white px-4 py-3 text-gray-700 transition-all focus:border-ice focus:outline-none focus:ring-1 focus:ring-ice/30"
+                  />
+                  <label
+                    htmlFor="phone"
+                    style={{ 
+                      fontFamily: "var(--font-manrope), sans-serif"
+                    }}
+                    className="pointer-events-none absolute left-4 top-3 text-[15px] font-normal text-ice/60 transition-all peer-placeholder-shown:top-3 peer-placeholder-shown:text-[15px] peer-focus:top-[-10px] peer-focus:left-3 peer-focus:bg-pista peer-focus:px-2 peer-focus:text-[11px] peer-focus:font-medium peer-focus:uppercase peer-focus:tracking-wide peer-focus:text-ice peer-[:not(:placeholder-shown)]:top-[-10px] peer-[:not(:placeholder-shown)]:left-3 peer-[:not(:placeholder-shown)]:bg-pista peer-[:not(:placeholder-shown)]:px-2 peer-[:not(:placeholder-shown)]:text-[11px] peer-[:not(:placeholder-shown)]:font-medium peer-[:not(:placeholder-shown)]:uppercase peer-[:not(:placeholder-shown)]:tracking-wide peer-[:not(:placeholder-shown)]:text-ice"
+                  >
+                    Phone Number
+                  </label>
+                </div>
+              </div>
+
               {/* Message */}
               <div className="relative">
                 <textarea
@@ -284,6 +418,15 @@ export default function DemoModal({ isOpen, onClose }: DemoModalProps) {
                   <span className="flex items-center justify-center gap-2">
                     <Icon name="check-circle" size={18} />
                     Sent Successfully
+                  </span>
+                ) : submitStatus === "error" ? (
+                  <span className="flex items-center justify-center gap-2">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                      <circle cx="12" cy="12" r="10"/>
+                      <line x1="12" y1="8" x2="12" y2="12"/>
+                      <line x1="12" y1="16" x2="12.01" y2="16"/>
+                    </svg>
+                    Failed to Send
                   </span>
                 ) : isSubmitting ? (
                   <span className="flex items-center justify-center gap-2">
