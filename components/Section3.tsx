@@ -77,20 +77,20 @@ export default function Section3() {
             className="absolute inset-0 z-10 flex items-center justify-center font-display text-[38px] font-medium leading-[1.05] tracking-[-0.03em] text-balance sm:text-[56px] text-center pointer-events-none"
             style={{
               fontFamily: "var(--font-manrope), sans-serif",
-              fontWeight: 600,
-              fontSize: "clamp(32px, 7.2vw, 70px)",
+              fontWeight: 400,
+              fontSize: "clamp(32px, 7.2vw, 60px)",
               lineHeight: 1.1,
               letterSpacing: "-0.045em",
               transform: `scale(${scale})`,
               transition: "transform 0.1s ease-out",
-              mixBlendMode: "difference",
+              mixBlendMode: "hard-light",
               color: "white",
               filter: "drop-shadow(0 0 20px rgba(255,255,255,0.3))",
             }}
           >
-            <span>
+            <span className="text-gray-100">
               Observe. Understand.
-              <span style={{ color: "#00d4ff" }}> Act.</span>
+              <span style={{ color: "#C6FF6D" }}> Act.</span>
             </span>
           </h2>
 

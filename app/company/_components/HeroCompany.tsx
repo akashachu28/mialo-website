@@ -1,18 +1,21 @@
-import Image from "next/image";
-import { Container, Kicker, PrimaryButton, GhostButton } from "@/components/ui";
+import { Container, Kicker } from "@/components/ui";
+import { Layers, Workflow, Globe } from "lucide-react";
 
 const PANEL = [
   {
     title: "The intelligence layer",
     body: "Multimodal AI, domain expertise and edge-native architecture in a single platform.",
+    icon: Layers,
   },
   {
     title: "Built for operations",
     body: "Vision, voice, document, sensor and enterprise signals, turned into real-time action.",
+    icon: Workflow,
   },
   {
     title: "Deployed worldwide",
     body: "Enterprises and public-sector teams across Asia, Africa and North America.",
+    icon: Globe,
   },
 ];
 
@@ -47,8 +50,8 @@ export default function HeroCompany() {
             style={{
               fontFamily: "var(--font-manrope), sans-serif",
               fontWeight: 400,
-              fontSize: "clamp(32px, 7.2vw, 60px)",
-              lineHeight: 1.1,
+              fontSize: "clamp(32px, 7.2vw, 70px)",
+              lineHeight: 1.05,
               letterSpacing: "-0.045em",
             }}
           >
@@ -104,19 +107,25 @@ export default function HeroCompany() {
           </div> */}
 
           <div className="grid grid-cols-1 border-t border-line sm:grid-cols-3">
-            {PANEL.map((p, i) => (
-              <div
-                key={p.title}
-                className={`p-7 sm:p-8 ${
-                  i > 0 ? "border-t border-line sm:border-t-0 sm:border-l" : ""
-                }`}
-              >
-                <Kicker className="text-pista">{p.title}</Kicker>
-                <p className="mt-3 text-[14px] leading-[1.6] text-muted text-pretty">
-                  {p.body}
-                </p>
-              </div>
-            ))}
+            {PANEL.map((p, i) => {
+              const Icon = p.icon;
+              return (
+                <div
+                  key={p.title}
+                  className={`p-7 sm:p-8 ${
+                    i > 0 ? "border-t border-line sm:border-t-0 sm:border-l" : ""
+                  }`}
+                >
+                  <div className="mb-4 mr-2 inline-flex h-11 w-11 items-center justify-center rounded-lg bg-pista/10 text-pista">
+                    <Icon className="h-5 w-5" strokeWidth={1.5} />
+                  </div>
+                  <Kicker className="text-pista">{p.title}</Kicker>
+                  {/* <p className="mt-3 text-[14px] leading-[1.6] text-muted text-pretty">
+                    {p.body}
+                  </p> */}
+                </div>
+              );
+            })}
           </div>
 
           <div className="h-1.5 bg-linear-to-r from-transparent via-ice/30 to-transparent" />

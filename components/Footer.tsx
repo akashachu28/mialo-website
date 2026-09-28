@@ -90,10 +90,10 @@ export default function Footer() {
               <ul className="space-y-3">
                 <li>
                   <a
-                    href="mailto:Sales@mialotech.com"
+                    href="mailto:sales@mialotech.com"
                     className="text-[14px] text-muted transition-colors hover:text-primary"
                   >
-                    Sales@mialotech.com
+                    sales@mialotech.com
                   </a>
                 </li>
                 <li>
@@ -122,7 +122,7 @@ export default function Footer() {
             {/* Social Icons */}
             <div className="flex items-center gap-4">
               <a
-                href="https://linkedin.com"
+                href="https://www.linkedin.com/company/mialotech/"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex h-9 w-9 items-center justify-center rounded-lg border border-line-2 text-muted transition-all hover:border-line hover:bg-raise hover:text-primary"
@@ -151,41 +151,12 @@ export default function Footer() {
                   className="opacity-70 hover:opacity-100 transition-opacity"
                 />
               </a>
-              <a
-                href="https://facebook.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex h-9 w-9 items-center justify-center rounded-lg border border-line-2 text-muted transition-all hover:border-line hover:bg-raise hover:text-primary"
-                aria-label="Facebook"
-              >
-                <Image 
-                  src="/images/icons/facebook_ic.svg" 
-                  alt="Facebook" 
-                  width={18}
-                  height={18}
-                  className="opacity-70 hover:opacity-100 transition-opacity"
-                />
-              </a>
-              <a
-                href="https://instagram.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex h-9 w-9 items-center justify-center rounded-lg border border-line-2 text-muted transition-all hover:border-line hover:bg-raise hover:text-primary"
-                aria-label="Instagram"
-              >
-                <Image 
-                  src="/images/icons/insta_ic.svg" 
-                  alt="Instagram" 
-                  width={18}
-                  height={18}
-                  className="opacity-70 hover:opacity-100 transition-opacity"
-                />
-              </a>
+              
             </div>
 
             {/* Copyright */}
             <p className="text-[13px] text-muted">
-              © {new Date().getFullYear()} Mialo.ai. All rights reserved.
+              © {new Date().getFullYear()} Mialo All rights reserved.
             </p>
           </div>
           

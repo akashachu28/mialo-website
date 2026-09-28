@@ -1,120 +1,168 @@
 import { Section } from "@/components/ui";
+import { Eye, Target } from "lucide-react";
 
-const PILLARS: { title: string; body: string; position: "left" | "right" }[] = [
+const PILLARS = [
   {
-    title: "MISSION",
-    body: "To make enterprise operations more intelligent by turning real-world signals into timely, useful action.",
-    position: "right",
+    title: ["OUR", "VISION"],
+    body: "A future where every organization can understand what is happening across its operations and make better decisions as events unfold.",
+    icon: Eye,
   },
   {
-    title: "VISION",
-    body: "A future where every organization can understand what is happening across its operations and make better decisions as events unfold.",
-    position: "left",
+    title: ["OUR", "MISSION"],
+    body: "To make enterprise operations more intelligent by turning real-world signals into timely, useful action.",
+    icon: Target,
   },
 ];
 
+const font = { fontFamily: "var(--font-manrope), sans-serif" };
+
 export default function CompanySection3() {
+  const [vision, mission] = PILLARS;
+
   return (
-    <Section className="py-20 sm:py-32 overflow-hidden relative">
-      {/* Background image */}
-      <div 
-        className="absolute inset-0 pointer-events-none opacity-40"
-        style={{
-          backgroundImage: "url('/images/heroCompany.png')",
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-          backgroundRepeat: "no-repeat"
-        }}
-      />
-      {/* Gradient overlay on top of image */}
-      <div 
-        className="absolute inset-0 pointer-events-none"
-        style={{
-          background: "radial-gradient(ellipse at center, var(--color-background) 0%, transparent 90%)"
-        }}
-      />
-      <div className="absolute left-0 bottom-0 w-full h-20 bg-linear-to-t from-background to-transparent"/>
-  
-      <h1
-      className="mb-12 relative z-20 text-pista"
-      style={{
-              fontFamily: "var(--font-manrope), sans-serif",
-              fontWeight: 400,
-              fontSize: "clamp(32px, 7.2vw, 60px)",
-              lineHeight: 0.96,
-              letterSpacing: "-0.045em",
-            }}>
-        What is mialo?
-      </h1>
-      
-      <div className="max-w-3xl ml-40 space-y-32 relative z-10">
-        {PILLARS.map((pillar, index) => (
-          <div 
-            key={pillar.title} 
-            className={`relative ${index === 0 ? "max-w-2xl -ml-80" : "max-w-3xl ml-40"}`}
-          >
-            {/* Title with Line and Dot */}
-            <div className="relative mb-4 text-right">
-              <h2
-                className="text-white tracking-tight relative z-10"
-                style={{
-              fontFamily: "var(--font-manrope), sans-serif",
-              fontWeight: 500,
-              fontSize: "clamp(32px, 7.2vw, 60px)",
-              lineHeight: 1.1,
-              letterSpacing: "-0.045em",
+    <Section className="py-20 sm:py-32">
+      {/* ---------- Desktop / tablet: diagonal layout ---------- */}
+      <div
+        className="relative hidden md:block w-full overflow-hidden rounded-3xl bg-transparent"
+        style={{ aspectRatio: "1457 / 807", containerType: "inline-size" }}
+      >
+        <svg
+          viewBox="0 0 1457 807"
+          className="absolute inset-0 h-full w-full"
+          aria-hidden="true"
+        >
+          <defs>
+            {/* dark gray (bottom-left) -> slate (top-right) */}
+            <linearGradient id="visionGrad" x1="0" y1="1" x2="1" y2="0">
+              <stop offset="0%" stopColor="#111827" />
+              <stop offset="55%" stopColor="#1e293b" />
+              <stop offset="100%" stopColor="#334155" />
+            </linearGradient>
+            {/* blue-grey (top-right) fading to white (bottom-left) */}
+            <linearGradient id="missionGrad" x1="1" y1="0" x2="0" y2="1">
+              <stop offset="0%" stopColor="#D5DDE8" />
+              <stop offset="60%" stopColor="#E6EBF2" />
+              <stop offset="100%" stopColor="#FFFFFF" />
+            </linearGradient>
+          </defs>
+
+          {/* Vision: rotated rounded block, rounded corner at the bottom */}
+          <path
+            d="M0 0 H1105 L345 679 Q232 780 122 670 L0 548 Z"
+            fill="url(#visionGrad)"
+          />
+
+          {/* Mission: parallel diagonal, rounded corner at the top */}
+          <path
+            d="M313 807 L1118 86 Q1215 0 1315 100 L1457 242 V807 Z"
+            fill="url(#missionGrad)"
+          />
+        </svg>
+
+        {/* Vision text */}
+        <div className="absolute" style={{ left: "6%", top: "14%", width: "38%" }}>
+          <h2
+            className="text-white"
+            style={{
+              ...font,
+              fontWeight: 800,
+              fontSize: "5cqw",
+              lineHeight: 0.95,
+              letterSpacing: "-0.01em",
             }}
-              >
-                {pillar.title}
-              </h2>
+          >
+            {vision.title[0]}
+            <br />
+            {vision.title[1]}
+          </h2>
+          <p
+            className="text-white/95"
+            style={{
+              ...font,
+              fontSize: "1.6cqw",
+              lineHeight: 1.45,
+              marginTop: "2cqw",
+            }}
+          >
+            {vision.body}
+          </p>
+        </div>
 
-              {/* Dot and Line at heading level */}
-              {index === 0 ? (
-                // Mission: Angled line going downward
-                <div className="absolute -right-2 top-1/2 -translate-y-1/2 translate-x-full flex items-start ml-8">
-                  {/* Dot */}
-                  <div className="w-6 h-6 rounded-full bg-pista shrink-0 z-10 mt-0" />
-                  {/* Angled line using SVG with sharp corner */}
-                  <svg 
-                    className="absolute left-6 top-3" 
-                    width="100vw" 
-                    height="150" 
-                    style={{ overflow: 'visible' }}
-                  >
-                    <path 
-                      d="M 0 0 L 500 0 L 1000 100" 
-                      stroke="#C6FF6D" 
-                      strokeWidth="2" 
-                      fill="none"
-                    />
-                  </svg>
-                </div>
-              ) : (
-                // Vision: Straight line
-                <div className="absolute -right-2 top-1/2 -translate-y-1/2 translate-x-full flex items-center ml-8">
-                  {/* Dot */}
-                  <div className="w-6 h-6 rounded-full bg-pista shrink-0 z-10" />
-                  {/* Line extending to the right edge */}
-                  <div className="h-0.5 bg-pista w-screen" />
-                </div>
-              )}
-            </div>
+        {/* Vision icon (bottom-left) */}
+        <vision.icon
+          className="absolute text-white"
+          strokeWidth={1.5}
+          style={{ left: "10.5%", top: "68%", width: "13%", height: "13%" }}
+        />
 
-            {/* Description */}
-            <p
-              className="text-gray-400 max-w-lg ml-auto text-right"
-              style={{
-                fontFamily: "var(--font-manrope), sans-serif",
-                fontWeight: 400,
-                fontSize: "clamp(16px, 2vw, 20px)",
-                lineHeight: 1.3,
-                letterSpacing: "-0.01em",
-              }}
-            >
-              {pillar.body}
-            </p>
-          </div>
-        ))}
+        {/* Mission icon (top-right) */}
+        <mission.icon
+          className="absolute text-[#14507F]"
+          strokeWidth={1.75}
+          style={{ left: "77.5%", top: "12%", width: "9%", height: "9%" }}
+        />
+
+        {/* Mission text */}
+        <div className="absolute" style={{ left: "62%", top: "46%", width: "33%" }}>
+          <h2
+            className="text-[#14507F]"
+            style={{
+              ...font,
+              fontWeight: 800,
+              fontSize: "5cqw",
+              lineHeight: 0.95,
+              letterSpacing: "-0.01em",
+            }}
+          >
+            {mission.title[0]}
+            <br />
+            {mission.title[1]}
+          </h2>
+          <p
+            className="text-[#1a1a1a]"
+            style={{
+              ...font,
+              fontSize: "1.6cqw",
+              lineHeight: 1.45,
+              marginTop: "2cqw",
+            }}
+          >
+            {mission.body}
+          </p>
+        </div>
+      </div>
+
+      {/* ---------- Mobile: stacked cards ---------- */}
+      <div className="flex flex-col gap-4 md:hidden">
+        <div
+          className="rounded-3xl p-8 text-white"
+          style={{ background: "linear-gradient(45deg, #111827, #1e293b 55%, #334155)" }}
+        >
+          <vision.icon className="mb-6 h-10 w-10" strokeWidth={1.5} />
+          <h2 className="text-4xl font-extrabold leading-none" style={font}>
+            {vision.title[0]}
+            <br />
+            {vision.title[1]}
+          </h2>
+          <p className="mt-4 text-base leading-relaxed text-white/95" style={font}>
+            {vision.body}
+          </p>
+        </div>
+
+        <div
+          className="rounded-3xl p-8 text-[#14507F]"
+          style={{ background: "linear-gradient(225deg, #D5DDE8, #F4F6FA)" }}
+        >
+          <mission.icon className="mb-6 h-10 w-10" strokeWidth={1.75} />
+          <h2 className="text-4xl font-extrabold leading-none" style={font}>
+            {mission.title[0]}
+            <br />
+            {mission.title[1]}
+          </h2>
+          <p className="mt-4 text-base leading-relaxed text-[#1a1a1a]" style={font}>
+            {mission.body}
+          </p>
+        </div>
       </div>
     </Section>
   );

@@ -46,8 +46,8 @@ export default function HeroSolution() {
           style={{ 
               fontFamily: "var(--font-manrope), sans-serif",
               fontWeight: 400,
-              fontSize: "clamp(32px, 7.2vw, 60px)",
-              lineHeight: 1.1,
+              fontSize: "clamp(32px, 7.2vw, 70px)",
+              lineHeight: 1.05,
               letterSpacing: "-0.045em",
             }}>
             Intelligence in action.

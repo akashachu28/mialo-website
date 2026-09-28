@@ -10,7 +10,8 @@ interface DemoModalProps {
 
 export default function DemoModal({ isOpen, onClose }: DemoModalProps) {
   const [formData, setFormData] = useState({
-    name: "",
+    firstName: "",
+    lastName: "",
     company: "",
     email: "",
     message: "",
@@ -43,7 +44,7 @@ export default function DemoModal({ isOpen, onClose }: DemoModalProps) {
       
       // Reset form after success
       setTimeout(() => {
-        setFormData({ name: "", company: "", email: "", message: "" });
+        setFormData({ firstName: "", lastName: "", company: "", email: "", message: "" });
         setSubmitStatus("idle");
         onClose();
       }, 2000);
@@ -119,34 +120,64 @@ export default function DemoModal({ isOpen, onClose }: DemoModalProps) {
 
           {/* Form */}
           <form onSubmit={handleSubmit} className="p-10">
-            <div className="space-y-6">
-              {/* Name */}
-              <div className="relative">
-                <input
-                  type="text"
-                  id="name"
-                  name="name"
-                  value={formData.name}
-                  onChange={handleChange}
-                  required
-                  placeholder=" "
-                  style={{ 
-                    fontFamily: "var(--font-manrope), sans-serif",
-                    fontWeight: 400,
-                    fontSize: "15px",
-                    letterSpacing: "-0.01em"
-                  }}
-                  className="peer w-full rounded-lg border border-ice/20 bg-white px-4 py-3 text-gray-700 transition-all focus:border-ice focus:outline-none focus:ring-1 focus:ring-ice/30"
-                />
-                <label
-                  htmlFor="name"
-                  style={{ 
-                    fontFamily: "var(--font-manrope), sans-serif"
-                  }}
-                  className="pointer-events-none absolute left-4 top-3 text-[15px] font-normal text-ice/60 transition-all peer-placeholder-shown:top-3 peer-placeholder-shown:text-[15px] peer-focus:top-[-10px] peer-focus:left-3 peer-focus:bg-pista peer-focus:px-2 peer-focus:text-[11px] peer-focus:font-medium peer-focus:uppercase peer-focus:tracking-wide peer-focus:text-ice peer-[:not(:placeholder-shown)]:top-[-10px] peer-[:not(:placeholder-shown)]:left-3 peer-[:not(:placeholder-shown)]:bg-pista peer-[:not(:placeholder-shown)]:px-2 peer-[:not(:placeholder-shown)]:text-[11px] peer-[:not(:placeholder-shown)]:font-medium peer-[:not(:placeholder-shown)]:uppercase peer-[:not(:placeholder-shown)]:tracking-wide peer-[:not(:placeholder-shown)]:text-ice"
-                >
-                  Your Name *
-                </label>
+            <div className="space-y-4">
+              <div className="flex gap-2">
+                {/* First Name */}
+                <div className="relative">
+                  <input
+                    type="text"
+                    id="firstName"
+                    name="firstName"
+                    value={formData.name}
+                    onChange={handleChange}
+                    required
+                    placeholder=" "
+                    style={{ 
+                      fontFamily: "var(--font-manrope), sans-serif",
+                      fontWeight: 400,
+                      fontSize: "15px",
+                      letterSpacing: "-0.01em"
+                    }}
+                    className="peer w-full rounded-lg border border-ice/20 bg-white px-4 py-3 text-gray-700 transition-all focus:border-ice focus:outline-none focus:ring-1 focus:ring-ice/30"
+                  />
+                  <label
+                    htmlFor="firstName"
+                    style={{ 
+                      fontFamily: "var(--font-manrope), sans-serif"
+                    }}
+                    className="pointer-events-none absolute left-4 top-3 text-[15px] font-normal text-ice/60 transition-all peer-placeholder-shown:top-3 peer-placeholder-shown:text-[15px] peer-focus:top-[-10px] peer-focus:left-3 peer-focus:bg-pista peer-focus:px-2 peer-focus:text-[11px] peer-focus:font-medium peer-focus:uppercase peer-focus:tracking-wide peer-focus:text-ice peer-[:not(:placeholder-shown)]:top-[-10px] peer-[:not(:placeholder-shown)]:left-3 peer-[:not(:placeholder-shown)]:bg-pista peer-[:not(:placeholder-shown)]:px-2 peer-[:not(:placeholder-shown)]:text-[11px] peer-[:not(:placeholder-shown)]:font-medium peer-[:not(:placeholder-shown)]:uppercase peer-[:not(:placeholder-shown)]:tracking-wide peer-[:not(:placeholder-shown)]:text-ice"
+                  >
+                    First Name *
+                  </label>
+                </div>
+                {/* Last Name  */}
+                <div className="relative">
+                  <input
+                    type="text"
+                    id="lastName"
+                    name="lastName"
+                    value={formData.name}
+                    onChange={handleChange}
+                    required
+                    placeholder=" "
+                    style={{ 
+                      fontFamily: "var(--font-manrope), sans-serif",
+                      fontWeight: 400,
+                      fontSize: "15px",
+                      letterSpacing: "-0.01em"
+                    }}
+                    className="peer w-full rounded-lg border border-ice/20 bg-white px-4 py-3 text-gray-700 transition-all focus:border-ice focus:outline-none focus:ring-1 focus:ring-ice/30"
+                  />
+                  <label
+                    htmlFor="lastName"
+                    style={{ 
+                      fontFamily: "var(--font-manrope), sans-serif"
+                    }}
+                    className="pointer-events-none absolute left-4 top-3 text-[15px] font-normal text-ice/60 transition-all peer-placeholder-shown:top-3 peer-placeholder-shown:text-[15px] peer-focus:top-[-10px] peer-focus:left-3 peer-focus:bg-pista peer-focus:px-2 peer-focus:text-[11px] peer-focus:font-medium peer-focus:uppercase peer-focus:tracking-wide peer-focus:text-ice peer-[:not(:placeholder-shown)]:top-[-10px] peer-[:not(:placeholder-shown)]:left-3 peer-[:not(:placeholder-shown)]:bg-pista peer-[:not(:placeholder-shown)]:px-2 peer-[:not(:placeholder-shown)]:text-[11px] peer-[:not(:placeholder-shown)]:font-medium peer-[:not(:placeholder-shown)]:uppercase peer-[:not(:placeholder-shown)]:tracking-wide peer-[:not(:placeholder-shown)]:text-ice"
+                  >
+                    Last Name *
+                  </label>
+                </div>
               </div>
 
               {/* Company */}

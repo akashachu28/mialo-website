@@ -1,12 +1,13 @@
 "use client";
 
-import { Icon, Section, SectionHeader } from "@/components/ui";
+import { Icon, Section } from "@/components/ui";
+import { BotMessageSquare } from "lucide-react";
 import Image from "next/image";
-import { useState } from "react";
+import { useEffect, useRef } from "react";
 
 interface Domain {
   number: string;
-  icon: "eye" | "mic" | "doc" | "radio" | "ruler" | "brain" | "cpu";
+  icon: "eye" | "mic" | "doc" | "radio" | "ruler" | "brain" | "cpu" | "BotMessageSquare";
   title: string;
   short: string;
   body: string;
@@ -102,6 +103,16 @@ const DOMAINS: Domain[] = [
     image: "/images/domain_edge.png",
     alt: "An edge compute board running AI inference with live performance monitoring panels",
   },
+  {
+    number: "08",
+    icon: "BotMessageSquare",
+    title: "Generative AI",
+    short: "GenAI",
+    body: "Transform enterprise data and context into intelligent content, insights and actions with generative AI.",
+    capabilities: ["On-device inference", "Low latency", "Offline capable"],
+    image: "/images/genAI.png",
+    alt: "An edge compute board running AI inference with live performance monitoring panels",
+  },
 ];
 
 function DomainCard({ domain }: { domain: Domain }) {
@@ -115,10 +126,12 @@ function DomainCard({ domain }: { domain: Domain }) {
     >
       {/* Full-screen background image */}
       <div className="absolute inset-0">
+        
         <Image
           src={domain.image}
           alt={domain.alt}
           fill
+          draggable={false}
           sizes="(max-width: 640px) 320px, (max-width: 1024px) 360px, 400px"
           className="object-cover transition-transform duration-500 group-hover:scale-[1.04]"
         />
@@ -133,7 +146,7 @@ function DomainCard({ domain }: { domain: Domain }) {
       <div className="relative z-10 flex flex-col-reverse justify-between h-full p-6">
         {/* Top section */}
         <div className="flex flex-col gap-4">
-          {/* Header - more compact */}
+          {/* Header */}
           <div className="flex items-start gap-3">
             <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl border border-pista/40 bg-pista/20 text-pista backdrop-blur-sm transition-colors duration-300 group-hover:border-ice/60 group-hover:bg-ice/30">
               <Icon name={domain.icon} size={20} />
@@ -143,41 +156,25 @@ function DomainCard({ domain }: { domain: Domain }) {
               <span className="font-mono text-[10px] font-semibold tracking-[0.13em] text-pista group-hover:text-ice">
                 {domain.number}
               </span>
-              <h3 className="font-display text-[22px] font-medium leading-[1.1] tracking-[-0.02em] text-white transition-colors group-hover:text-ice"
-              style={{ 
-                        fontFamily: "var(--font-manrope), sans-serif",
-                        fontWeight: 400,
-                        fontSize: "clamp(22px, 7.2vw, 28px)",
-                        lineHeight: 0.96,
-                        letterSpacing: "-0.045em"
-                      }}>
+              <h3
+                className="font-display text-[22px] font-medium leading-[1.1] tracking-[-0.02em] text-white transition-colors group-hover:text-ice"
+                style={{
+                  fontFamily: "var(--font-manrope), sans-serif",
+                  fontWeight: 400,
+                  fontSize: "clamp(22px, 7.2vw, 28px)",
+                  lineHeight: 0.96,
+                  letterSpacing: "-0.045em",
+                }}
+              >
                 {domain.title}
               </h3>
             </div>
           </div>
 
-          {/* Body - smaller and tighter */}
-          <p className="text-[18px] leading-[1.6] text-slate-200"
-          style={{ 
-                        fontFamily: "var(--font-manrope), sans-serif",
-                        lineHeight: 0.96,
-                        letterSpacing: "-0.045em"
-                        }}>
+          {/* Body */}
+          <p className="text-[16px] leading-[1.1] text-slate-200">
             {domain.body}
           </p>
-
-          {/* Capabilities - more compact */}
-          <div className="flex flex-wrap gap-x-4 gap-y-1.5">
-            {domain.capabilities.map((c) => (
-              <span
-                key={c}
-                className="inline-flex items-center  px-1 bg-pista gap-1.5 font-mono text-[12px] tracking-[0.04em] text-gray-900"
-              >
-                <span className="h-1.25 w-1.25 shrink-0 rounded-full bg-ice" />
-                {c}
-              </span>
-            ))}
-          </div>
         </div>
 
         {/* Bottom section */}
@@ -190,6 +187,7 @@ function DomainCard({ domain }: { domain: Domain }) {
                   src="/images/heatmap.png"
                   alt="Zone occupancy heatmap over a building floor plan"
                   fill
+                  draggable={false}
                   sizes="104px"
                   className="object-cover"
                 />
@@ -204,42 +202,115 @@ function DomainCard({ domain }: { domain: Domain }) {
     </div>
   );
 }
+
+const AUTO_SPEED = 40; // px per second
+
 export default function IndustryDomain() {
-  const [isPaused, setIsPaused] = useState(false);
+  const scrollerRef = useRef<HTMLDivElement>(null);
+  const pausedRef = useRef(false);
+  const resumeTimer = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
+  const drag = useRef({ active: false, startX: 0, startScroll: 0 });
+
+  const pause = () => {
+    pausedRef.current = true;
+    clearTimeout(resumeTimer.current);
+  };
+
+  const resume = (delay = 0) => {
+    clearTimeout(resumeTimer.current);
+    resumeTimer.current = setTimeout(() => {
+      pausedRef.current = false;
+    }, delay);
+  };
+
+  // Auto-scroll + seamless looping
+  useEffect(() => {
+    const el = scrollerRef.current;
+    if (!el) return;
+
+    const third = () => el.scrollWidth / 3;
+    el.scrollLeft = third(); // start on the middle copy so you can swipe both ways
+
+    let pos = el.scrollLeft;
+    let last = performance.now();
+    let raf = 0;
+
+    const tick = (now: number) => {
+      const dt = now - last;
+      last = now;
+      const t = third();
+
+      if (pausedRef.current) {
+        pos = el.scrollLeft; // follow the user's scrolling
+      } else {
+        pos += (AUTO_SPEED * dt) / 1000;
+      }
+
+      // wrap around between copies
+      if (pos >= 2 * t) pos -= t;
+      else if (pos <= 0) pos += t;
+
+      el.scrollLeft = pos;
+      raf = requestAnimationFrame(tick);
+    };
+
+    raf = requestAnimationFrame(tick);
+    return () => {
+      cancelAnimationFrame(raf);
+      clearTimeout(resumeTimer.current);
+    };
+  }, []);
+
+  // Mouse drag (touch uses native swipe)
+  const onPointerDown = (e: React.PointerEvent<HTMLDivElement>) => {
+    if (e.pointerType !== "mouse") return;
+    const el = scrollerRef.current!;
+    drag.current = { active: true, startX: e.clientX, startScroll: el.scrollLeft };
+    pause();
+    el.setPointerCapture(e.pointerId);
+  };
+
+  const onPointerMove = (e: React.PointerEvent<HTMLDivElement>) => {
+    if (!drag.current.active) return;
+    const el = scrollerRef.current!;
+    el.scrollLeft = drag.current.startScroll - (e.clientX - drag.current.startX);
+  };
+
+  const onPointerUp = (e: React.PointerEvent<HTMLDivElement>) => {
+    if (!drag.current.active) return;
+    drag.current.active = false;
+    scrollerRef.current?.releasePointerCapture(e.pointerId);
+    resume(1500);
+  };
 
   return (
     <>
       <Section>
         <div className="flex flex-col gap-16">
-          {/* <SectionHeader
-            eyebrow="The Domains"
-            // title="Explore the domains that power smarter operations."
-          /> */}
-          <h2 className="font-display text-[30px] flex flex-col font-medium leading-[1.14] tracking-[-0.025em] text-pretty sm:text-[42px]"
-          style={{ 
-                        fontFamily: "var(--font-manrope), sans-serif",
-                        fontWeight: 400,
-                        fontSize: "clamp(32px, 7.2vw, 60px)",
-                        lineHeight: 0.96,
-                        letterSpacing: "-0.045em"
-                      }}>
-            <span className="text-gray-900">
-              Explore the domains
-            </span>{" "}
-            <span className="text-ice">
-              that power smarter operations.
-            </span>
+          <h2
+            className="font-display text-[30px] flex flex-col font-medium leading-[1.14] tracking-[-0.025em] text-pretty sm:text-[42px]"
+            style={{
+              fontFamily: "var(--font-manrope), sans-serif",
+              fontWeight: 400,
+              fontSize: "clamp(32px, 7.2vw, 60px)",
+              lineHeight: 0.96,
+              letterSpacing: "-0.045em",
+            }}
+          >
+            <span className="text-gray-900">Explore the domains</span>{" "}
+            <span className="text-ice">that power smarter operations.</span>
           </h2>
-          <p className="w-full max-w-[640px] text-[18px] leading-[1.62] text-gray-700 -mt-10 text-pretty"
-          style={{ 
-                      fontFamily: "var(--font-manrope), sans-serif",
-                      fontWeight: 400,
-                      fontSize: "clamp(18px, 7.2vw, 24px)",
-                      lineHeight: 1.1,
-                      letterSpacing: "-0.045em",
-                      wordSpacing: 6,
-                      // color: "white"
-                    }}>
+          <p
+            className="w-full max-w-[640px] text-[18px] leading-[1.62] text-gray-700 -mt-10 text-pretty"
+            style={{
+              fontFamily: "var(--font-manrope), sans-serif",
+              fontWeight: 400,
+              fontSize: "clamp(18px, 7.2vw, 24px)",
+              lineHeight: 1.1,
+              letterSpacing: "-0.045em",
+              wordSpacing: 6,
+            }}
+          >
             Choose the intelligence your operation needs or combine multiple
             domains to understand complex operational scenarios.
           </p>
@@ -247,34 +318,31 @@ export default function IndustryDomain() {
       </Section>
 
       {/* Full-width carousel outside container */}
-      <div className="relative overflow-hidden -mt-8 pb-20 sm:pb-26">
+      <div className="relative -mt-8 pb-20 sm:pb-26">
         <div
-          className="flex gap-6"
-          style={{
-            width: "max-content",
-            animation: "scroll 35s linear infinite",
-            animationPlayState: isPaused ? "paused" : "running",
-            willChange: "transform",
+          ref={scrollerRef}
+          className="flex cursor-grab select-none overflow-x-auto active:cursor-grabbing [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+          style={{ WebkitOverflowScrolling: "touch" }}
+          onMouseEnter={pause}
+          onMouseLeave={() => !drag.current.active && resume(0)}
+          onTouchStart={pause}
+          onTouchEnd={() => resume(2000)}
+          onWheel={() => {
+            pause();
+            resume(2000);
           }}
-          onMouseEnter={() => setIsPaused(true)}
-          onMouseLeave={() => setIsPaused(false)}
+          onPointerDown={onPointerDown}
+          onPointerMove={onPointerMove}
+          onPointerUp={onPointerUp}
+          onPointerCancel={onPointerUp}
         >
-          {/* Triple duplicate for seamless loop */}
+          {/* Triple copy for a seamless loop */}
           {[...DOMAINS, ...DOMAINS, ...DOMAINS].map((domain, index) => (
-            <DomainCard key={`${domain.number}-${index}`} domain={domain} />
+            <div key={`${domain.number}-${index}`} className="shrink-0 pr-6">
+              <DomainCard domain={domain} />
+            </div>
           ))}
         </div>
-
-        <style jsx>{`
-          @keyframes scroll {
-            0% {
-              transform: translateX(0);
-            }
-            100% {
-              transform: translateX(calc(-100% / 3));
-            }
-          }
-        `}</style>
       </div>
     </>
   );

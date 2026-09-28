@@ -5,7 +5,7 @@ const STATS = [
   { value: "50+", label: "Enterprises trust Mialo" },
   { value: "15+", label: "Industries impacted" },
   { value: "10M+", label: "Events analyzed daily" },
-  { value: "99.9%", label: "On-premise & secure" },
+  { value: "99%", label: "On-premise & secure" },
 ];
 
 export default function SolutionSection1() {
@@ -23,7 +23,7 @@ export default function SolutionSection1() {
             <h2
             className="font-display text-[30px] font-medium leading-[1.14] tracking-[-0.025em] text-pretty sm:text-[42px] mb-6"
             style={{
-              fontFamily: "var(--font-manrope), sans-serif",
+              fontFamily: "var(--font-inter), sans-serif",
               fontWeight: 400,
               fontSize: "clamp(32px, 7.2vw, 60px)",
               lineHeight: 1,
@@ -41,7 +41,7 @@ export default function SolutionSection1() {
           </h2>
             <p className="w-full max-w-[640px] text-[18px] leading-[1.62] text-gray-700 text-pretty"
             style={{ 
-                      fontFamily: "var(--font-manrope), sans-serif",
+                      fontFamily: "var(--font-inter), sans-serif",
                       fontWeight: 400,
                       fontSize: "clamp(18px, 7.2vw, 24px)",
                       lineHeight: 1.1,
