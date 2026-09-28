@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { Container, Eyebrow } from "@/components/ui";
+import { Building2, PlaneTakeoff } from "lucide-react";
 
 const METRICS = [
   { value: "2.4B+", label: "Events processed daily" },

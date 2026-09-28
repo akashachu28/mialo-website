@@ -54,10 +54,10 @@ export default function OperationalCards() {
           
           {/* Card with custom clip-path border shape */}
           <div 
-            className="relative h-full bg-gradient-to-br from-gray-900 via-gray-900/90 to-gray-900/75 backdrop-blur-md border border-blue-500/30 transition-all duration-300 group-hover:border-blue-400/60 group-hover:shadow-[0_0_30px_rgba(59,130,246,0.3)] overflow-hidden"
-            style={{
-              clipPath: 'polygon(0 45px, 45px 0, 100% 0, 100% calc(100% - 45px), calc(100% - 45px) 100%, 0 100%)'
-            }}
+            className="relative h-full bg-gradient-to-br rounded-2xl from-gray-900 via-gray-900/90 to-gray-900/75 backdrop-blur-md border border-blue-500/30 transition-all duration-300 group-hover:border-blue-400/60 group-hover:shadow-[0_0_30px_rgba(59,130,246,0.3)] overflow-hidden"
+            // style={{
+            //   clipPath: 'polygon(0 30px, 30px 0, 100% 0, 100% calc(100% - 30px), calc(100% - 30px) 100%, 0 100%)'
+            // }}
           >
             {/* Glassy overlay effect */}
             <div className="absolute inset-0 bg-gradient-to-br from-ice/10 via-transparent to-ice/10 opacity-50 group-hover:opacity-70 transition-opacity duration-300" />

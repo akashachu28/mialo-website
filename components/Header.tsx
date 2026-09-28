@@ -112,6 +112,7 @@ export default function Header() {
           }}
         >
           <Image src={brainlogo} alt="" className="h-8 w-auto opacity-80" />
+          {/* KIRAN . AI */}
           {/* <span className={`font-display text-xl font-medium tracking-[-0.02em] ${textColor} transition-colors duration-300`}>
             Mialo.ai
           </span> */}

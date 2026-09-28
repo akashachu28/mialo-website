@@ -1,8 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useRef } from "react";
 import {
   Section,
   SectionHeader,
@@ -29,14 +28,14 @@ type Industry = {
 
 const INDUSTRIES: Industry[] = [
   {
-    icon: "coins",
+    icon: "store",
     label: "Retail & E-commerce",
     blurb: "Footfall, dwell time and shelf compliance across every store.",
     image: "/images/retail2.png",
     alt: "A retail floor with shopper detection zones and a movement heatmap",
   },
   {
-    icon: "building",
+    icon: "armchair",
     label: "Furniture & Home Improvement",
     blurb: "Space utilization, inventory visibility and assisted customer experiences.",
     image: "/images/furniture.png",
@@ -57,17 +56,24 @@ const INDUSTRIES: Industry[] = [
     alt: "A clinician reviewing AI diagnostic overlays beside a patient bed",
   },
   {
-    icon: "target",
+    icon: "planetakeoff",
     label: "Aerospace",
     blurb: "Detect anomalies, verify procedures and improve operational readiness.",
     image: "/images/aerospace.png",
     alt: "A clinician reviewing AI diagnostic overlays beside a patient bed",
   },
   {
+    icon: "landmark",
+    label: "Government & PSUs",
+    blurb: "Operational intelligence across public infrastructure, services, assets and citizen-facing workflows.",
+    image: "/images/government.png",
+    alt: "A government operations centre with a civic network overlay",
+  },
+  {
     icon: "shield",
     label: "Security",
     blurb: "Real-time situational awareness across people, assets and environments.",
-    image: "/images/government.png",
+    image: "/images/security.png",
     alt: "A government operations centre with a civic network overlay",
   },
   {
@@ -85,14 +91,14 @@ const INDUSTRIES: Industry[] = [
     alt: "A power plant and solar array with live efficiency readouts",
   },
   {
-    icon: "layers",
+    icon: "sprout",
     label: "Agriculture",
     blurb: "Detect anomalies early and optimize operations across every field.",
     image: "/images/agriculture.png",
     alt: "A power plant and solar array with live efficiency readouts",
   },
   {
-    icon: "users",
+    icon: "hotel",
     label: "Hospitality",
     blurb: "Smarter guest experiences through continuous visibility across operations.",
     image: "/images/hospitality.png",
@@ -114,6 +120,7 @@ function IndustryCard({ industry }: { industry: Industry }) {
           src={industry.image}
           alt={industry.alt}
           fill
+          draggable={false}
           sizes="(max-width: 640px) 320px, (max-width: 1024px) 400px, 450px"
           className="object-cover transition-transform duration-500 group-hover:scale-[1.04]"
         />
@@ -135,53 +142,115 @@ function IndustryCard({ industry }: { industry: Industry }) {
   );
 }
 
+const AUTO_SPEED = 40; // px per second
+
 export default function IndustrySection2() {
-  const [isPaused, setIsPaused] = useState(false);
+  const scrollerRef = useRef<HTMLDivElement>(null);
+  const pausedRef = useRef(false);
+  const resumeTimer = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
+  const drag = useRef({ active: false, startX: 0, startScroll: 0 });
+
+  const pause = () => {
+    pausedRef.current = true;
+    clearTimeout(resumeTimer.current);
+  };
+
+  const resume = (delay = 0) => {
+    clearTimeout(resumeTimer.current);
+    resumeTimer.current = setTimeout(() => {
+      pausedRef.current = false;
+    }, delay);
+  };
+
+  // Auto-scroll + seamless looping
+  useEffect(() => {
+    const el = scrollerRef.current;
+    if (!el) return;
+
+    const third = () => el.scrollWidth / 3;
+    el.scrollLeft = third(); // start on the middle copy so you can swipe both ways
+
+    let pos = el.scrollLeft;
+    let last = performance.now();
+    let raf = 0;
+
+    const tick = (now: number) => {
+      const dt = now - last;
+      last = now;
+      const t = third();
+
+      if (pausedRef.current) {
+        pos = el.scrollLeft; // follow the user's scrolling
+      } else {
+        pos += (AUTO_SPEED * dt) / 1000;
+      }
+
+      // wrap around between copies
+      if (pos >= 2 * t) pos -= t;
+      else if (pos <= 0) pos += t;
+
+      el.scrollLeft = pos;
+      raf = requestAnimationFrame(tick);
+    };
+
+    raf = requestAnimationFrame(tick);
+    return () => {
+      cancelAnimationFrame(raf);
+      clearTimeout(resumeTimer.current);
+    };
+  }, []);
+
+  // Mouse drag (touch uses native swipe)
+  const onPointerDown = (e: React.PointerEvent<HTMLDivElement>) => {
+    if (e.pointerType !== "mouse") return;
+    const el = scrollerRef.current!;
+    drag.current = { active: true, startX: e.clientX, startScroll: el.scrollLeft };
+    pause();
+    el.setPointerCapture(e.pointerId);
+  };
+
+  const onPointerMove = (e: React.PointerEvent<HTMLDivElement>) => {
+    if (!drag.current.active) return;
+    const el = scrollerRef.current!;
+    el.scrollLeft = drag.current.startScroll - (e.clientX - drag.current.startX);
+  };
+
+  const onPointerUp = (e: React.PointerEvent<HTMLDivElement>) => {
+    if (!drag.current.active) return;
+    drag.current.active = false;
+    scrollerRef.current?.releasePointerCapture(e.pointerId);
+    resume(1500);
+  };
 
   return (
     <div className="relative">
-      {/* Vertical gradient lines background - spans all sections */}
-      <div className="absolute inset-0 pointer-events-none">
-        {[...Array(12)].map((_, i) => (
-          <div
-            key={i}
-            className="absolute top-0 bottom-0"
-            style={{
-              left: `${(i + 1) * (100 / 13)}%`,
-              width: '1px',
-              background: 'linear-gradient(to bottom, transparent 0%, rgba(156, 163, 175, 0.35) 20%, rgba(156, 163, 175, 0.35) 80%, transparent 100%)',
-              transform: 'translateZ(0) translateX(-0.5px)',
-              WebkitBackfaceVisibility: 'hidden',
-              backfaceVisibility: 'hidden',
-              imageRendering: 'crisp-edges',
-            }}
-          />
-        ))}
-      </div>
+      {/* Background layer (vertical gradient lines removed; re-add here if needed) */}
+      <div className="absolute inset-0 pointer-events-none" />
 
       {/* -------- How Mialo works -------- */}
-      <Section className="relative z-10">
+      <Section className="relative z-10 white-75">
         <div className="flex flex-col gap-14">
           <SectionHeader
             eyebrow="How Mialo Works"
             title="From data to decisions. "
             titleIce="In real time."
           />
-          <p className="w-full max-w-[640px] text-[18px] leading-[1.62] text-gray-700 -mt-10 text-pretty"
-          style={{ 
-                      fontFamily: "var(--font-manrope), sans-serif",
-                      fontWeight: 400,
-                      fontSize: "clamp(18px, 7.2vw, 24px)",
-                      lineHeight: 1.1,
-                      letterSpacing: "-0.045em",
-                      wordSpacing: 6,
-                      // color: "white"
-                    }}>
+          <p
+            className="w-full max-w-[640px] text-[18px] leading-[1.62] text-gray-700 -mt-10 text-pretty"
+            style={{
+              fontFamily: "var(--font-manrope), sans-serif",
+              fontWeight: 400,
+              fontSize: "clamp(18px, 7.2vw, 24px)",
+              lineHeight: 1.1,
+              letterSpacing: "-0.045em",
+              wordSpacing: 6,
+            }}
+          >
             Every operational moment follows the same loop - observe, understand, decide, act and learn - running continuously across your sources.
           </p>
 
           <div
-            className="relative bg-ice py-3 grid grid-cols-2 gap-x-3 gap-y-8 sm:grid-cols-3 lg:grid-cols-5"
+            className="relative bg-gray-900 py-3 grid grid-cols-2 gap-x-3 gap-y-8 sm:grid-cols-3 lg:grid-cols-5"
             style={{
               clipPath:
                 "polygon(40px 0, 100% 0, 100% calc(100% - 40px), calc(100% - 40px) 100%, 0 100%, 0 40px)",
@@ -225,23 +294,24 @@ export default function IndustrySection2() {
       </Section>
 
       {/* -------- Industries we empower -------- */}
-      <Section className="relative z-10">
+      <Section className="relative z-10 bg-white-85">
         <div className="flex flex-col gap-14">
           <SectionHeader
             eyebrow="Industries We Empower"
             title="Operational intelligence, "
             titleIce="tuned to your world."
           >
-            <p className="w-full max-w-[640px] text-[18px] leading-[1.62] text-gray-700 text-pretty"
-            style={{ 
-                      fontFamily: "var(--font-manrope), sans-serif",
-                      fontWeight: 400,
-                      fontSize: "clamp(18px, 7.2vw, 24px)",
-                      lineHeight: 1.1,
-                      letterSpacing: "-0.045em",
-                      wordSpacing: 6,
-                      // color: "white"
-                    }}>
+            <p
+              className="w-full max-w-[640px] text-[18px] leading-[1.62] text-gray-700 text-pretty"
+              style={{
+                fontFamily: "var(--font-manrope), sans-serif",
+                fontWeight: 400,
+                fontSize: "clamp(18px, 7.2vw, 24px)",
+                lineHeight: 1.1,
+                letterSpacing: "-0.045em",
+                wordSpacing: 6,
+              }}
+            >
               The same intelligence layer, adapted to the signals, constraints and outcomes that define each sector.
             </p>
           </SectionHeader>
@@ -249,35 +319,32 @@ export default function IndustrySection2() {
       </Section>
 
       {/* Full-width carousel outside container */}
-      <div className="relative overflow-hidden -mt-8 pb-20 sm:pb-[104px]">
-  <div
-    className="flex gap-6"
-    style={{
-      width: "max-content",
-      animation: "scroll 30s linear infinite",
-      animationPlayState: isPaused ? "paused" : "running",
-      willChange: "transform",
-    }}
-    onMouseEnter={() => setIsPaused(true)}
-    onMouseLeave={() => setIsPaused(false)}
-  >
-    {/* Triple duplicate for a seamless loop */}
-    {[...INDUSTRIES, ...INDUSTRIES, ...INDUSTRIES].map((industry, index) => (
-      <IndustryCard key={`${industry.label}-${index}`} industry={industry} />
-    ))}
-  </div>
-
-  <style jsx>{`
-    @keyframes scroll {
-      0% {
-        transform: translateX(0);
-      }
-      100% {
-        transform: translateX(calc(-100% / 3));
-      }
-    }
-  `}</style>
-</div>
+      <div className="relative -mt-8 pb-20 sm:pb-[104px]">
+        <div
+          ref={scrollerRef}
+          className="flex cursor-grab select-none overflow-x-auto active:cursor-grabbing [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+          style={{ WebkitOverflowScrolling: "touch" }}
+          onMouseEnter={pause}
+          onMouseLeave={() => !drag.current.active && resume(0)}
+          onTouchStart={pause}
+          onTouchEnd={() => resume(2000)}
+          onWheel={() => {
+            pause();
+            resume(2000);
+          }}
+          onPointerDown={onPointerDown}
+          onPointerMove={onPointerMove}
+          onPointerUp={onPointerUp}
+          onPointerCancel={onPointerUp}
+        >
+          {/* Triple copy for a seamless loop */}
+          {[...INDUSTRIES, ...INDUSTRIES, ...INDUSTRIES].map((industry, index) => (
+            <div key={`${industry.label}-${index}`} className="flex-shrink-0 pr-6">
+              <IndustryCard industry={industry} />
+            </div>
+          ))}
+        </div>
+      </div>
     </div>
   );
 }

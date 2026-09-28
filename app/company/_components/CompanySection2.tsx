@@ -7,12 +7,12 @@ const STATS: { value: string; label?: string; body: string }[] = [
     body: "A decade of building AI solutions for real-world operational challenges.",
   },
   {
-    value: "100+",
+    value: "50+",
     label: "Enterprise customers",
     body: "Enterprises and government organizations across continents.",
   },
   {
-    value: "1B+",
+    value: "10M+",
     label: "Signals processed daily",
     body: "From cameras, sensors, voices and documents - at the edge and in the cloud.",
   },
@@ -63,7 +63,17 @@ export default function CompanySection2() {
           lineHeight: 0.96,
           letterSpacing: "-0.045em",
         }}>
-              Ten years in. <span className="text-ice">A billion signals a day.</span>
+              Ten years in. 
+            </h2>
+            <h2 className="font-display text-[32px] font-medium leading-[1.12] tracking-[-0.025em] text-ice text-pretty sm:text-[40px]"
+            style={{
+          fontFamily: "var(--font-manrope), sans-serif",
+          fontWeight: 400,
+          fontSize: "clamp(32px, 7.2vw, 60px)",
+          lineHeight: 0.96,
+          letterSpacing: "-0.045em",
+        }}>
+              A million signals a day. 
             </h2>
           </div>
 

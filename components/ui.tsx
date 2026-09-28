@@ -183,6 +183,72 @@ const PATHS: Record<string, ReactNode> = {
     </>
   ),
   zap: <path d="M13 2L4 14h7l-1 8 9-12h-7z" />,
+  BotMessageSquare: (
+    <>
+      <path d="M12 6V2H8" />
+      <path d="m8 18-4 4V8a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2Z" />
+      <path d="M2 12h2" />
+      <path d="M9 11v2" />
+      <path d="M15 11v2" />
+      <path d="M20 12h2" />
+    </>
+  ),
+  armchair: (
+    <>
+      <path d="M19 9V6a2 2 0 0 0-2-2H7a2 2 0 0 0-2 2v3" />
+      <path d="M3 16a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-5a2 2 0 0 0-4 0v2H7v-2a2 2 0 0 0-4 0Z" />
+      <path d="M5 18v3" />
+      <path d="M19 18v3" />
+    </>
+  ),
+  landmark: (
+    <>
+      <path d="M3 21h18" />
+      <path d="M6 18v-3" />
+      <path d="M10 18v-3" />
+      <path d="M14 18v-3" />
+      <path d="M18 18v-3" />
+      <path d="M12 2l9 4v2H3V6z" />
+    </>
+  ),
+  sprout: (
+    <>
+      <path d="M7 20h10" />
+      <path d="M10 20c5.5-2.5.8-6.4 3-10" />
+      <path d="M9.5 9.4c1.1.8 1.8 2.2 2.3 3.7-2 .4-3.5.4-4.8-.3-1.2-.6-2.3-1.9-3-4.2 2.8-.5 4.4 0 5.5.8z" />
+      <path d="M14.1 6a7 7 0 0 0-1.1 4c1.9-.1 3.3-.6 4.3-1.4 1-1 1.6-2.3 1.7-4.6-2.7.1-4 1-4.9 2z" />
+    </>
+  ),
+  store: (
+    <>
+      <path d="m2 7 4.41-4.41A2 2 0 0 1 7.83 2h8.34a2 2 0 0 1 1.42.59L22 7" />
+      <path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8" />
+      <path d="M15 22v-4a2 2 0 0 0-2-2h-2a2 2 0 0 0-2 2v4" />
+      <path d="M2 7h20" />
+      <path d="M22 7v3a2 2 0 0 1-2 2v0a2.7 2.7 0 0 1-1.59-.63.7.7 0 0 0-.82 0A2.7 2.7 0 0 1 16 12a2.7 2.7 0 0 1-1.59-.63.7.7 0 0 0-.82 0A2.7 2.7 0 0 1 12 12a2.7 2.7 0 0 1-1.59-.63.7.7 0 0 0-.82 0A2.7 2.7 0 0 1 8 12a2.7 2.7 0 0 1-1.59-.63.7.7 0 0 0-.82 0A2.7 2.7 0 0 1 4 12v0a2 2 0 0 1-2-2V7" />
+    </>
+  ),
+  planetakeoff: (
+    <>
+      <path d="M2 22h20" />
+      <path d="M6.36 17.4 4 17l-2-4 1.1-.55a2 2 0 0 1 1.8 0l.17.1a2 2 0 0 0 1.8 0L8 12" />
+      <path d="M9 11.5 9 11a2 2 0 0 1 2-2h4l5-4 2 2-4 5v4a2 2 0 0 1-2 2h-.5" />
+    </>
+  ),
+  hotel: (
+    <>
+      <path d="M10 22v-6.57" />
+      <path d="M12 11h.01" />
+      <path d="M12 7h.01" />
+      <path d="M14 15.43V22" />
+      <path d="M15 16a5 5 0 0 0-6 0" />
+      <path d="M16 11h.01" />
+      <path d="M16 7h.01" />
+      <path d="M8 11h.01" />
+      <path d="M8 7h.01" />
+      <rect x="4" y="2" width="16" height="20" rx="2" />
+    </>
+  ),
 };
 
 export type IconName = keyof typeof PATHS;
@@ -325,11 +391,12 @@ export function SectionHeader({
       <h2
         className="w-full font-display text-[32px] font-medium leading-[1.12] -mt-4 tracking-[-0.025em] text-ice text-pretty sm:text-[40px]"
         style={{
-          fontFamily: "var(--font-manrope), sans-serif",
+          fontFamily: "var(--font-inter), sans-serif",
           fontWeight: 400,
           fontSize: "clamp(32px, 7.2vw, 60px)",
           lineHeight: 0.96,
-          letterSpacing: "-0.045em",
+          letterSpacing: "-0.085em",
+          //sample color ---- [#2657ab]
         }}
       >
         {titleIce}

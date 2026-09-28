@@ -30,7 +30,7 @@ export default function Hero2() {
               Your business is generating intelligence every second.
             </span>{" "}
             <span
-              className="text-ice italic font-semibold"
+              className="text-ice  font-semibold"
             >
               Are you capturing it?
             </span>
