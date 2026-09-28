@@ -40,14 +40,14 @@ const ENTERPRISE = [
 ];
 
 const OUTCOMES: { icon: IconName; label: string }[] = [
-  { icon: "shield", label: "Safer Operations" },
+  { icon: "shield", label: "Safe and Efficient Operations" },
   { icon: "activity", label: "Higher Productivity" },
   { icon: "clock", label: "Faster Decisions" },
   { icon: "coins", label: "Reduced Costs" },
   { icon: "users", label: "Improved Customer Experience" },
-  { icon: "doc", label: "Better Compliance" },
-  { icon: "eye", label: "Operational Visibility" },
-  { icon: "message", label: "Continuous Learning" },
+  { icon: "doc", label: "Stronger Compliance" },
+  { icon: "eye", label: "Real-time Operational Visibility" },
+  { icon: "message", label: "Continuous Improvement" },
 ];
 
 function MiniHeader({ eyebrow, title }: { eyebrow: string; title: string }) {

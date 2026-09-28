@@ -16,9 +16,9 @@ export default function Company() {
     <div className="bg-background font-body text-primary antialiased">
       <HeroCompany />
       <div className="bg-white/75"><CompanySection2 /></div>
-      <CompanySection3 />
+      <div className="bg-white/85"><CompanySection3 /></div>
       <CompanySection4 />
-      <CompanySection5 />
+      {/* <CompanySection5 /> */}
       <Footer/>
     </div>
   );
