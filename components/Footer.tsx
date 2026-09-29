@@ -11,7 +11,7 @@ const EXPLORE_LINKS = [
   { label: "Solutions", href: "/solution" },
   { label: "Industries", href: "/industries" },
   // { label: "Intelligence Domain", href: "/intelligence-domain" },
-  { label: "Company", href: "/company" },
+  { label: "About us", href: "/company" },
 ];
 
 export default function Footer() {
