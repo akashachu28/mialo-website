@@ -1,43 +1,15 @@
-import { Eye } from "lucide-react";
-import type { SVGProps } from "react";
-
-/* Custom target + arrow icon (same props as a lucide icon) */
-function TargetArrow({ strokeWidth = 1.75, ...props }: SVGProps<SVGSVGElement>) {
-  return (
-    <svg
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth={strokeWidth}
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      aria-hidden="true"
-      {...props}
-    >
-      {/* outer ring, gap at top-right */}
-      <path d="M16.69 3.17 A10 10 0 1 0 21.06 7.77" />
-      {/* middle ring */}
-      <path d="M14.95 6.21 A6.5 6.5 0 1 0 17.98 9.46" />
-      {/* inner ring */}
-      <path d="M13.18 9.46 A2.8 2.8 0 1 0 14.63 11.04" />
-      {/* arrow shaft */}
-      <path d="M12 12 L17 7" />
-      {/* arrow fletching */}
-      <path d="M16.3 6.2 L19.3 3 L19.9 4.4 L21.4 5 L18.2 8.2 L17 7.5 Z" />
-    </svg>
-  );
-}
+import Image from "next/image";
 
 const PILLARS = [
   {
     title: ["OUR", "VISION"],
     body: "A future where every organization can understand what is happening across its operations and make better decisions as events unfold.",
-    icon: Eye,
+    icon: "/images/eye_ic.png",
   },
   {
     title: ["OUR", "MISSION"],
     body: "To make enterprise operations more intelligent by turning real-world signals into timely, useful action.",
-    icon: TargetArrow,
+    icon: "/images/target_ic.png",
   },
 ];
 
@@ -93,7 +65,7 @@ export default function CompanySection3() {
 
           {/* Vision */}
           <path
-            d="M0 0 H1105 L345 523 Q232 600 122 516 L0 422 Z"
+            d="M0 0 H1105 L345 520 Q232 600 122 516 L0 422 Z"
             fill="url(#visionGrad)"
           />
 
@@ -106,38 +78,77 @@ export default function CompanySection3() {
 
         {/* Vision text (top-left, inside the dark shape) */}
         <div className="absolute" style={{ left: "6%", top: "12%", width: "33%" }}>
-          <h2 className="text-pista" style={heading}>
+          <h2 className="text-pista" 
+          style={{
+                        fontFamily: "var(--font-manrope), sans-serif",
+                        fontWeight: 600,
+                        fontSize: "clamp(36px, 7.2vw, 60px)",
+                        lineHeight: 0.96,
+                        letterSpacing: "-0.03em",
+                      }}>
             {vision.title[0]}
             <br />
             {vision.title[1]}
           </h2>
-          <p className="text-white/95" style={paragraph}>
+          <p className="text-white/95 mt-4" style={{
+                        fontFamily: "var(--font-manrope), sans-serif",
+                        fontWeight: 400,
+                        fontSize: "clamp(20px, 7.2vw, 26px)",
+                        lineHeight: 1.05,
+                        letterSpacing: "-0.03em",
+                      }}>
             {vision.body}
           </p>
         </div>
 
         {/* Vision icon (bottom-left) */}
-        <vision.icon
-          className="absolute text-pista"
-          strokeWidth={1.5}
-          style={{ left: "11%", top: "63%", width: "9%", height: "auto", aspectRatio: "1" }}
-        />
+        <div
+          className="absolute"
+          style={{ left: "11%", top: "63%", width: "9%", aspectRatio: "1" }}
+        >
+          <Image
+            src={vision.icon}
+            alt="Vision icon"
+            fill
+            className="object-contain"
+            sizes="9vw"
+          />
+        </div>
 
         {/* Mission icon (top-right) */}
-        <mission.icon
-          className="absolute text-ice"
-          strokeWidth={2}
-          style={{ left: "77%", top: "21%", width: "5.5%", height: "auto", aspectRatio: "1" }}
-        />
+        <div
+          className="absolute"
+          style={{ right: "19%", top: "15%", width: "7%", aspectRatio: "1" }}
+        >
+          <Image
+            src={mission.icon}
+            alt="Mission icon"
+            fill
+            className="object-contain"
+            sizes="7vw"
+          />
+        </div>
 
         {/* Mission text (bottom-right, inside the light shape) */}
         <div className="absolute" style={{ left: "58%", top: "42%", width: "36%" }}>
-          <h2 className="text-ice" style={heading}>
+          <h2 className="text-ice" style={{
+                        fontFamily: "var(--font-manrope), sans-serif",
+                        fontWeight: 600,
+                        fontSize: "clamp(36px, 7.2vw, 60px)",
+                        lineHeight: 0.96,
+                        letterSpacing: "-0.03em",
+                      }}>
             {mission.title[0]}
             <br />
             {mission.title[1]}
           </h2>
-          <p className="text-[#1a1a1a]" style={paragraph}>
+          <p className="text-[#1a1a1a] mt-4" style={{
+                        fontFamily: "var(--font-manrope), sans-serif",
+                        fontWeight: 400,
+                        fontSize: "clamp(20px, 7.2vw, 26px)",
+                        lineHeight: 1.05,
+                        letterSpacing: "-0.03em",
+                      }}>
             {mission.body}
           </p>
         </div>
@@ -149,7 +160,15 @@ export default function CompanySection3() {
           className="rounded-3xl p-8 text-white"
           style={{ background: "linear-gradient(45deg, #111827, #1e293b 55%, #334155)" }}
         >
-          <vision.icon className="mb-6 h-10 w-10" strokeWidth={1.5} />
+          <div className="mb-6 relative h-10 w-10">
+            <Image
+              src={vision.icon}
+              alt="Vision icon"
+              fill
+              className="object-contain"
+              sizes="40px"
+            />
+          </div>
           <h2 className="text-4xl font-extrabold leading-none" style={font}>
             {vision.title[0]}
             <br />
@@ -164,7 +183,15 @@ export default function CompanySection3() {
           className="rounded-3xl p-8 text-[#14507F]"
           style={{ background: "linear-gradient(225deg, #D5DDE8, #F4F6FA)" }}
         >
-          <mission.icon className="mb-6 h-10 w-10" strokeWidth={2} />
+          <div className="mb-6 relative h-10 w-10">
+            <Image
+              src={mission.icon}
+              alt="Mission icon"
+              fill
+              className="object-contain"
+              sizes="40px"
+            />
+          </div>
           <h2 className="text-4xl font-extrabold leading-none" style={font}>
             {mission.title[0]}
             <br />
