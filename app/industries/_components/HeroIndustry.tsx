@@ -41,7 +41,7 @@ export default function HeroIndustry() {
       <div className="absolute inset-0 bg-background/20" />
       
       {/* Background image covering 3/4th of width and height, bottom right corner */}
-      <div className="absolute right-0 bottom-0 w-[75vw] h-[75vh] pointer-events-none opacity-50">
+      <div className="absolute right-0 bottom-0 w-[70vw] h-[70vh] pointer-events-none opacity-50">
         <Image
           src="/images/indusBG.png"
           alt="Industries background visualization"

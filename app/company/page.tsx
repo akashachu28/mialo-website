@@ -15,7 +15,7 @@ export default function Company() {
   return (
     <div className="bg-background font-body text-primary antialiased">
       <HeroCompany />
-      <div className="bg-white/75"><CompanySection2 /></div>
+      <div className="bg-white/75" data-header-theme="light"><CompanySection2 /></div>
       <div ><CompanySection3 /></div>
       <CompanySection4 />
       {/* <CompanySection5 /> */}

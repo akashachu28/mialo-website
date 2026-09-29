@@ -1,3 +1,5 @@
+"use client";
+
 import Image from "next/image";
 import { Section, SectionHeader, Kicker, ArrowLink } from "@/components/ui";
 
@@ -12,7 +14,7 @@ const LEADERSHIP: Leader[] = [
   {
     name: "Vinod Bhawnani",
     title: "Founder & CEO",
-    body: "Visionary leader with 25+ years in AI, enterprise software and scaling technology businesses.",
+    body: "Visionary technology leader with 25+ years of experience in enterprise software, AI, and scaling high-growth technology businesses.",
     image: "/images/vinod.png",
   },
   // {
@@ -70,39 +72,39 @@ export default function CompanySection4() {
             titlePista="The minds shaping the future of intelligent operations."
           />
 
-          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {LEADERSHIP.map((m) => (
               <div
                 key={m.name}
-                className="flex flex-col gap-4 border border-ice/30 bg-raise p-6 transition-colors hover:border-line-3"
+                className="flex flex-col gap-6 border border-ice/30 bg-raise p-8 transition-colors hover:border-line-3"
                 style={{
             clipPath: "polygon(40px 0, 100% 0, 100% calc(100% - 40px), calc(100% - 40px) 100%, 0 100%, 0 40px)",
           }}
               >
-                <div className="relative h-14 w-14 overflow-hidden rounded-full border border-line-2 bg-panel">
+                <div className="relative h-20 w-20 overflow-hidden rounded-full border border-line-2 bg-panel">
                   {m.image ? (
                     <Image
                       src={m.image}
                       alt={m.name}
                       fill
-                      sizes="56px"
+                      sizes="80px"
                       className="object-cover"
                     />
                   ) : (
-                    <span className="flex h-full w-full items-center justify-center font-display text-[15px] font-medium text-muted">
+                    <span className="flex h-full w-full items-center justify-center font-display text-[18px] font-medium text-muted">
                       {initials(m.name)}
                     </span>
                   )}
                 </div>
 
-                <div className="flex flex-col gap-1">
-                  <h3 className="font-display text-[16px] font-medium tracking-[-0.01em] text-primary">
+                <div className="flex flex-col gap-2">
+                  <h3 className="font-display text-[18px] font-medium tracking-[-0.01em] text-primary">
                     {m.name}
                   </h3>
                   <Kicker className="text-ice">{m.title}</Kicker>
                 </div>
 
-                <p className="text-[13.5px] leading-[1.55] text-muted text-pretty">
+                <p className="text-[14px] leading-[1.6] text-muted text-pretty">
                   {m.body}
                 </p>
               </div>
