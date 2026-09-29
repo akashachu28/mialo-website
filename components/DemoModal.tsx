@@ -56,9 +56,11 @@ export default function DemoModal({ isOpen, onClose }: DemoModalProps) {
     setIsSubmitting(true);
 
     try {
-      // HubSpot Forms API endpoint
-      const portalId = process.env.NEXT_PUBLIC_HUBSPOT_PORTAL_ID;
-      const formGuid = process.env.NEXT_PUBLIC_HUBSPOT_FORM_GUID;
+      // HubSpot Forms API endpoint - HARDCODED VALUES
+      // TODO: Replace these with your actual HubSpot values
+      const portalId = "247508930"; // Replace with your actual Portal ID
+      const formGuid = "f52e3419-714b-479c-acde-ebe5c1dbef66"; // Replace with your actual Form GUID
+      
       const url = `https://api.hsforms.com/submissions/v3/integration/submit/${portalId}/${formGuid}`;
 
       // Prepare the payload for HubSpot
@@ -77,7 +79,7 @@ export default function DemoModal({ isOpen, onClose }: DemoModalProps) {
             value: formData.email,
           },
           {
-            name: "0-2/name",
+            name: "company",
             value: formData.company,
           },
           ...(formData.phone ? [{
