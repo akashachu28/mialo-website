@@ -64,7 +64,7 @@ const INDUSTRIES: Industry[] = [
   },
   {
     icon: "landmark",
-    label: "Government & PSUs",
+    label: "PSUs and DPSUs",
     blurb: "Operational intelligence across public infrastructure, services, assets and citizen-facing workflows.",
     image: "/images/government.png",
     alt: "A government operations centre with a civic network overlay",
@@ -109,7 +109,7 @@ const INDUSTRIES: Industry[] = [
 function IndustryCard({ industry }: { industry: Industry }) {
   return (
     <div
-      className="group relative overflow-hidden border border-line-2 bg-raise transition-colors hover:border-line-3 w-[320px] flex-shrink-0 sm:w-[360px] lg:w-[380px]"
+      className="group relative overflow-hidden shadow-xl bg-raise transition-colors hover:border-line-3 w-[320px] flex-shrink-0 sm:w-[360px] lg:w-[380px]"
       style={{
         clipPath:
           "polygon(40px 0, 100% 0, 100% calc(100% - 40px), calc(100% - 40px) 100%, 0 100%, 0 40px)",
@@ -228,7 +228,7 @@ export default function IndustrySection2() {
       <div className="absolute inset-0 pointer-events-none" />
 
       {/* -------- How Mialo works -------- */}
-      <Section className="relative z-10 white-75">
+      <Section className="relative bg-white/75 z-10 white-75">
         <div className="flex flex-col gap-14">
           <SectionHeader
             eyebrow="How Mialo Works"
@@ -294,55 +294,57 @@ export default function IndustrySection2() {
       </Section>
 
       {/* -------- Industries we empower -------- */}
-      <Section className="relative z-10 bg-white-85">
-        <div className="flex flex-col gap-14">
-          <SectionHeader
-            eyebrow="Industries We Empower"
-            title="Operational intelligence, "
-            titleIce="tuned to your world."
-          >
-            <p
-              className="w-full max-w-[640px] text-[18px] leading-[1.62] text-gray-700 text-pretty"
-              style={{
-                fontFamily: "var(--font-manrope), sans-serif",
-                fontWeight: 400,
-                fontSize: "clamp(18px, 7.2vw, 24px)",
-                lineHeight: 1.1,
-                letterSpacing: "-0.045em",
-                wordSpacing: 6,
-              }}
+      <div className="bg-white/85">
+        <Section className="relative z-10 ">
+          <div className="flex flex-col gap-14">
+            <SectionHeader
+              eyebrow="Industries We Empower"
+              title="Operational intelligence, "
+              titleIce="tuned to your world."
             >
-              The same intelligence layer, adapted to the signals, constraints and outcomes that define each sector.
-            </p>
-          </SectionHeader>
-        </div>
-      </Section>
-
-      {/* Full-width carousel outside container */}
-      <div className="relative -mt-8 pb-20 sm:pb-[104px]">
-        <div
-          ref={scrollerRef}
-          className="flex cursor-grab select-none overflow-x-auto active:cursor-grabbing [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
-          style={{ WebkitOverflowScrolling: "touch" }}
-          onMouseEnter={pause}
-          onMouseLeave={() => !drag.current.active && resume(0)}
-          onTouchStart={pause}
-          onTouchEnd={() => resume(2000)}
-          onWheel={() => {
-            pause();
-            resume(2000);
-          }}
-          onPointerDown={onPointerDown}
-          onPointerMove={onPointerMove}
-          onPointerUp={onPointerUp}
-          onPointerCancel={onPointerUp}
-        >
-          {/* Triple copy for a seamless loop */}
-          {[...INDUSTRIES, ...INDUSTRIES, ...INDUSTRIES].map((industry, index) => (
-            <div key={`${industry.label}-${index}`} className="flex-shrink-0 pr-6">
-              <IndustryCard industry={industry} />
-            </div>
-          ))}
+              <p
+                className="w-full max-w-[640px] text-[18px] leading-[1.62] text-gray-700 text-pretty"
+                style={{
+                  fontFamily: "var(--font-manrope), sans-serif",
+                  fontWeight: 400,
+                  fontSize: "clamp(18px, 7.2vw, 24px)",
+                  lineHeight: 1.1,
+                  letterSpacing: "-0.045em",
+                  wordSpacing: 6,
+                }}
+              >
+                The same intelligence layer, adapted to the signals, constraints and outcomes that define each sector.
+              </p>
+            </SectionHeader>
+          </div>
+        </Section>
+  
+        {/* Full-width carousel outside container */}
+        <div className="relative -mt-8 pb-20 sm:pb-[104px]">
+          <div
+            ref={scrollerRef}
+            className="flex cursor-grab select-none overflow-x-auto active:cursor-grabbing [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+            style={{ WebkitOverflowScrolling: "touch" }}
+            onMouseEnter={pause}
+            onMouseLeave={() => !drag.current.active && resume(0)}
+            onTouchStart={pause}
+            onTouchEnd={() => resume(2000)}
+            onWheel={() => {
+              pause();
+              resume(2000);
+            }}
+            onPointerDown={onPointerDown}
+            onPointerMove={onPointerMove}
+            onPointerUp={onPointerUp}
+            onPointerCancel={onPointerUp}
+          >
+            {/* Triple copy for a seamless loop */}
+            {[...INDUSTRIES, ...INDUSTRIES, ...INDUSTRIES].map((industry, index) => (
+              <div key={`${industry.label}-${index}`} className="flex-shrink-0 pr-6">
+                <IndustryCard industry={industry} />
+              </div>
+            ))}
+          </div>
         </div>
       </div>
     </div>

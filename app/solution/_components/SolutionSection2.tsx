@@ -34,10 +34,10 @@ const SOLUTIONS: Solution[] = [
     description:
       "AI-powered retail analytics for smarter stores and happier customers.",
     features: [
-      "Footfall & traffic analytics",
-      "Customer behaviour analysis",
-      "Queue & wait-time monitoring",
-      "Planogram compliance",
+      "Footfall Analytics",
+      "Dwell Analytics",
+      "Customer Behavior",
+      "Staff Monitoring",
     ],
     image: "/images/industryVision.png",
     alt: "A retail store floor with shopper detection zones and a movement heatmap",
@@ -48,14 +48,14 @@ const SOLUTIONS: Solution[] = [
   },
   {
     icon: "shield",
-    title: "SensiLance",
+    title: "Sensilance",
     tagline: "secure.",
     description: "AI for safety, security and perimeter intelligence.",
     features: [
-      "Intrusion detection",
-      "PPE & safety compliance",
-      "Perimeter monitoring",
-      "Vehicle & ANPR",
+      "ANPR",
+      "Facial Recognition",
+      "Incident Alerts",
+      "Intrusion Detection",
     ],
     image: "/images/sensilanse.png",
     alt: "A construction site camera flagging workers without helmets and an unsafe zone",
@@ -66,14 +66,14 @@ const SOLUTIONS: Solution[] = [
   },
   {
     icon: "radio",
-    title: "BroadcastSense",
+    title: "Broadcast Sense",
     tagline: "monitor.",
     description: "Real-time broadcast and media intelligence and monitoring.",
     features: [
-      "Real-time content monitoring",
-      "Ad detection & measurement",
-      "Compliance & policy monitoring",
-      "Media analytics & insights",
+      "Broadcast Monitoring",
+      "Content Verification",
+      "Compliance Tracking",
+      "Automated Reporting",
     ],
     image: "/images/broadcastIntelligence.png",
     alt: "A broadcast control room monitoring dozens of live channels",
@@ -84,17 +84,15 @@ const SOLUTIONS: Solution[] = [
   },
   {
     icon: "doc",
-    title: "DocSense",
+    title: "Doc Sense",
     tagline: "extract.",
     description:
       "Intelligent document processing and enterprise knowledge extraction.",
     features: [
       "Document classification",
-      "Data extraction (OCR)",
-      "Table & field recognition",
-      "Knowledge capture",
-      "Workflow automation",
-      "RAG-powered search",
+      "Data Extraction",
+      "Document Verification",
+      "Workflow Automation",
     ],
     image: "/images/documentIntelligence.png",
     alt: "Contracts and invoices being scanned and turned into structured fields",
@@ -110,12 +108,10 @@ const SOLUTIONS: Solution[] = [
     description:
       "Voice AI platform for real-time conversations and automation.",
     features: [
-      "Automatic speech recognition",
-      "Wake-word detection",
-      "Text-to-speech (TTS)",
-      "Voice agents",
-      "Real-time transcription",
-      "Multi-language support",
+      "Voice Transcription",
+      "Conversation Analysis",
+      "Script Adherence",
+      "Multilingual Support",
     ],
     image: "/images/voiceIntelligence.png",
     alt: "A speaker profile beside a blue voice waveform being analysed",
@@ -130,12 +126,82 @@ const SOLUTIONS: Solution[] = [
     tagline: "measure.",
     description: "AI-powered measurement and dimensioning at scale.",
     features: [
-      "Dimension extraction",
-      "Area & volume calculation",
-      "As-built documentation",
-      "3D reconstruction",
-      "Quality verification",
-      "Report generation",
+      "Photo-Based Measurement",
+      "3D Measurements",
+      "Dimension Extraction",
+      "Estimate Support",
+    ],
+    image: "/images/measurementIntelligence.png",
+    alt: "A warehouse pallet with AI-generated dimensional measurements",
+    stats: [
+      { label: "Measurement precision", value: "±2mm" },
+      { label: "Processing time saved", value: "75%" },
+    ],
+  },
+  {
+    icon: "ruler",
+    title: "ServiceSense",
+    tagline: "measure.",
+    description: "AI-powered measurement and dimensioning at scale.",
+    features: [
+      "Vehicle Check-In",
+      "Service Bay Monitoring",
+      "Technician Activity",
+      "Service Turnaround Time",
+    ],
+    image: "/images/measurementIntelligence.png",
+    alt: "A warehouse pallet with AI-generated dimensional measurements",
+    stats: [
+      { label: "Measurement precision", value: "±2mm" },
+      { label: "Processing time saved", value: "75%" },
+    ],
+  },
+  {
+    icon: "ruler",
+    title: "AI Visualizer",
+    tagline: "measure.",
+    description: "AI-powered measurement and dimensioning at scale.",
+    features: [
+      "Product Visualisation",
+      "Design Previews",
+      "Virtual Customisation",
+      "Customer Presentations",
+    ],
+    image: "/images/measurementIntelligence.png",
+    alt: "A warehouse pallet with AI-generated dimensional measurements",
+    stats: [
+      { label: "Measurement precision", value: "±2mm" },
+      { label: "Processing time saved", value: "75%" },
+    ],
+  },
+  {
+    icon: "ruler",
+    title: "MialoGPT",
+    tagline: "measure.",
+    description: "AI-powered measurement and dimensioning at scale.",
+    features: [
+      "Enterprise Search",
+      "Knowledge Assistance",
+      "AI Agents",
+      "Workflow Support",
+    ],
+    image: "/images/measurementIntelligence.png",
+    alt: "A warehouse pallet with AI-generated dimensional measurements",
+    stats: [
+      { label: "Measurement precision", value: "±2mm" },
+      { label: "Processing time saved", value: "75%" },
+    ],
+  },
+  {
+    icon: "ruler",
+    title: "OpsSense",
+    tagline: "measure.",
+    description: "AI-powered measurement and dimensioning at scale.",
+    features: [
+      "Process Monitoring",
+      "Operational Analytics",
+      "Exception Alerts",
+      "Performance Tracking",
     ],
     image: "/images/measurementIntelligence.png",
     alt: "A warehouse pallet with AI-generated dimensional measurements",
@@ -275,9 +341,9 @@ export default function SolutionSection2() {
                     </p>
                   </div>
 
-                  {/* Features - show only first 3 */}
-                  <div className="flex gap-2.5">
-                    {currentSolution.features.slice(0, 3).map((feature) => (
+                  {/* Features - show all features */}
+                  <div className="flex flex-wrap gap-2.5">
+                    {currentSolution.features.map((feature) => (
                       <span
                         key={feature}
                         className="bg-pista px-4 py-2.5 text-[13px] font-medium text-background"

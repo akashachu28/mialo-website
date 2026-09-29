@@ -118,7 +118,7 @@ const DOMAINS: Domain[] = [
 function DomainCard({ domain }: { domain: Domain }) {
   return (
     <div
-      className="group relative overflow-hidden border border-line-2 bg-raise transition-colors hover:border-line-3 w-[320px] shrink-0 sm:w-90 lg:w-100 h-[500px]"
+      className="group relative overflow-hidden bg-raise transition-colors hover:border-line-3 w-[320px] shrink-0 sm:w-90 lg:w-100 h-[500px]"
       style={{
         clipPath:
           "polygon(40px 0, 100% 0, 100% calc(100% - 40px), calc(100% - 40px) 100%, 0 100%, 0 40px)",
