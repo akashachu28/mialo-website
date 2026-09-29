@@ -62,21 +62,18 @@ export default function HeroCompany() {
             </span>
           </h1>
 
-          <p className="max-w-[600px] text-[17px] leading-[1.62] text-ink text-pretty"
-          style={{
-            fontFamily: "var(--font-manrope), sans-serif",
-            lineHeight: 1.1,
-            letterSpacing: "-0.045em",
-            fontSize: "clamp(18px, 7.2vw, 24px)",
-
-          }}>
-            Mialo builds the AI intelligence layer for enterprise operations. We
-            connect signals from cameras, conversations, documents, sensors, and
-            business systems to help organizations understand what is happening
-            and act on it. Every organization operates differently. Mialo adapts
-            to the environment, the available data, and the decisions that
-            matter - whether the goal is to improve quality, safety, customer
-            experience, productivity, or control.
+          <p
+            className="max-w-[600px] text-[17px] leading-[1.62] text-ink text-pretty"
+            style={{
+              fontFamily: "var(--font-manrope), sans-serif",
+              lineHeight: 1.1,
+              letterSpacing: "-0.045em",
+              fontSize: "clamp(18px, 7.2vw, 24px)",
+            }}
+          >
+            We connect AI with real-world operational signals to help
+            organizations understand what’s happening, make better decisions and
+            act in real time
           </p>
 
           {/* <div className="mt-1.5 flex flex-wrap gap-3">
@@ -113,7 +110,9 @@ export default function HeroCompany() {
                 <div
                   key={p.title}
                   className={`p-7 sm:p-8 ${
-                    i > 0 ? "border-t border-line sm:border-t-0 sm:border-l" : ""
+                    i > 0
+                      ? "border-t border-line sm:border-t-0 sm:border-l"
+                      : ""
                   }`}
                 >
                   <div className="mb-4 mr-2 inline-flex h-11 w-11 items-center justify-center rounded-lg bg-pista/10 text-pista">

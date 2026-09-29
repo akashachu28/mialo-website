@@ -1,8 +1,27 @@
-import { Container, PrimaryButton, GhostButton } from "@/components/ui";
+import Image from "next/image";
+import { Container, PrimaryButton, GhostButton, Kicker } from "@/components/ui";
+import { Layers, TrendingUp, Zap } from "lucide-react";
 
+const PANEL = [
+  {
+    title: "One layer, many worlds",
+    body: "The same intelligence core, tuned to the signals and constraints of each sector.",
+    icon: Layers,
+  },
+  {
+    title: "Real-time by default",
+    body: "Awareness of what is happening now - not a report on what happened last week.",
+    icon: Zap,
+  },
+  {
+    title: "Measurable outcomes",
+    body: "Safety, uptime, service levels and cost, moved in the direction that matters.",
+    icon: TrendingUp,
+  },
+];
 export default function HeroSolution() {
   return (
-    <section className="relative flex min-h-[85vh] items-center overflow-hidden pt-28 pb-24 sm:pt-40">
+    <section className="relative flex min-h-[90vh] items-center overflow-hidden pt-28 pb-24 sm:pt-40">
       {/* Video background - kept, heavily dimmed so it reads as texture on the near-black ground */}
       <div aria-hidden className="absolute inset-0">
         <div
@@ -33,6 +52,18 @@ export default function HeroSolution() {
               "linear-gradient(180deg, var(--color-background) 0%, transparent 35%, var(--color-background) 100%)",
           }}
         /> */}
+      </div>
+
+      {/* Background image covering 3/4th of width and height, bottom right corner */}
+      <div className="absolute right-0 top-10 w-[80vw] h-[80vh] pointer-events-none opacity-50">
+        <Image
+          src="/images/solutionshero.png"
+          alt="Solutions background visualization"
+          fill
+          sizes="75vw"
+          className="object-contain object-right"
+          priority
+        />
       </div>
 
       <Container className="relative">
@@ -73,6 +104,41 @@ export default function HeroSolution() {
             <GhostButton>Talk to experts</GhostButton>
           </div> */}
         </div>
+
+        {/* one layer, every sector */}
+                <div className="mt-16 overflow-hidden rounded-[18px] border border-line-2 bg-linear-to-b from-panel/40 to-raise/50 backdrop-blur-[2px]">
+                  <div className="flex items-center justify-between border-b border-line px-5 py-4 sm:px-6">
+                    <Kicker>Mialo · One Intelligence Layer</Kicker>
+                    {/* <Kicker className="inline-flex items-center gap-2">
+                      <span className="h-[7px] w-[7px] rounded-full bg-green shadow-[0_0_10px_#00E599] motion-safe:animate-blink" />
+                      Live
+                    </Kicker> */}
+                  </div>
+        
+                  <div className="grid grid-cols-1 border-t border-line sm:grid-cols-3">
+                    {PANEL.map((p, i) => {
+                      const Icon = p.icon;
+                      return (
+                        <div
+                          key={p.title}
+                          className={`p-7 sm:p-8 ${
+                            i > 0 ? "border-t border-line sm:border-t-0 sm:border-l" : ""
+                          }`}
+                        >
+                          <div className="mb-4 mr-2 inline-flex h-11 w-11 items-center justify-center rounded-lg bg-pista/10 text-pista">
+                            <Icon className="h-5 w-5" strokeWidth={1.5} />
+                          </div>
+                          <Kicker className="text-pista">{p.title}</Kicker>
+                          {/* <p className="mt-3 text-[14px] leading-[1.6] text-muted text-pretty">
+                            {p.body}
+                          </p> */}
+                        </div>
+                      );
+                    })}
+                  </div>
+        
+                  <div className="h-1.5 bg-linear-to-r from-transparent via-ice/30 to-transparent" />
+                </div>
       </Container>
     </section>
   );

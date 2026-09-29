@@ -30,7 +30,7 @@ export default function HeroPlatform() {
   return (
     <section className="relative overflow-hidden pt-28 pb-24 sm:pt-40">
       {/* Background Video - Top right corner, 3/4th of screen */}
-      <div className="absolute right-0 top-0 w-[75vw] h-[75vh] pointer-events-none opacity-80 z-0">
+      <div className="absolute right-0 top-0 w-[75vw] h-[75vh] pointer-events-none opacity-100 z-0">
         <video
           autoPlay
           loop
@@ -44,7 +44,7 @@ export default function HeroPlatform() {
         <div 
           className="absolute inset-0"
           style={{
-            background: "radial-gradient(ellipse at top right, transparent 0%, var(--color-background) 90%)"
+            background: "radial-gradient(ellipse at top right, transparent 0%, var(--color-background) 95%)"
           }}
         />
         <div 
