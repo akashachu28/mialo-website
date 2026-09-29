@@ -14,7 +14,7 @@ const LEADERSHIP: Leader[] = [
   {
     name: "Vinod Bhawnani",
     title: "Founder & CEO",
-    body: "Visionary technology leader with 25+ years of experience in enterprise software, AI, and scaling high-growth technology businesses.",
+    body: "Visionary leader with 25+ years in enterprise software, AI and scaling technology businesses.",
     image: "/images/vinod.png",
   },
   // {
