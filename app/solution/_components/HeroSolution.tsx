@@ -19,9 +19,10 @@ const PANEL = [
     icon: TrendingUp,
   },
 ];
+
 export default function HeroSolution() {
   return (
-    <section className="relative flex min-h-[90vh] items-center overflow-hidden pt-28 pb-24 sm:pt-40">
+    <section className="relative flex h-[90vh] items-center overflow-hidden pt-28  sm:pt-40">
       {/* Video background - kept, heavily dimmed so it reads as texture on the near-black ground */}
       <div aria-hidden className="absolute inset-0">
         <div
@@ -38,41 +39,37 @@ export default function HeroSolution() {
         }}
       />
         <div className="absolute inset-0 bg-background/20" />
-        {/* <div
-          className="absolute inset-0"
-          style={{
-            background:
-              "linear-gradient(90deg, var(--color-background) 0%, rgba(8,9,11,0.55) 55%, transparent 100%)",
-          }}
-        />
+        {/* Subtle gradient overlay */}
         <div
           className="absolute inset-0"
           style={{
             background:
-              "linear-gradient(180deg, var(--color-background) 0%, transparent 35%, var(--color-background) 100%)",
+              "linear-gradient(135deg, transparent 0%, rgba(8,9,11,0.3) 40%, rgba(8,9,11,0.7) 100%)",
           }}
-        /> */}
+        />
       </div>
 
-      {/* Background image covering 3/4th of width and height, bottom right corner */}
-      <div className="absolute right-0 top-10 w-[80vw] h-[80vh] pointer-events-none opacity-50">
+      {/* Background image covering bottom right corner */}
+      <div className="absolute bottom-0 right-0 min-w-[80vw] h-full pointer-events-none opacity-40">
         <Image
-          src="/images/solutionshero.png"
+          src="/images/solutionBanner.png"
           alt="Solutions background visualization"
           fill
-          sizes="75vw"
-          className="object-contain object-right"
+          sizes="60vw"
+          className="object-contain object-bottom-right"
           priority
+        />
+        {/* Slight gradient overlay on top of the image */}
+        <div
+          className="absolute inset-0"
+          style={{
+            background: "linear-gradient(to bottom, rgba(8,9,11,0.6) 0%, rgba(8,9,11,0.3) 50%, transparent 100%)",
+          }}
         />
       </div>
 
       <Container className="relative">
         <div className="flex flex-col items-start gap-7">
-          {/* <span className="inline-flex items-center gap-[11px] font-mono text-[12px] font-medium uppercase tracking-[0.16em] text-[#8A909C]">
-            <span className="h-1.5 w-1.5 shrink-0 bg-green shadow-[0_0_12px_rgba(0,229,153,0.7)]" />
-            Solutions
-          </span> */}
-
           <h1 className="max-w-[1080px] font-display text-[44px] font-normal leading-[1.05] tracking-[-0.03em] text-balance text-primary sm:text-[60px]"
           style={{ 
               fontFamily: "var(--font-manrope), sans-serif",
@@ -98,47 +95,35 @@ export default function HeroSolution() {
             Pre-built AI solutions powered by the Mialo Intelligence Layer that
             deliver fast time-to-value and measurable outcomes.
           </p>
-
-          {/* <div className="mt-1.5 flex flex-wrap gap-3">
-            <PrimaryButton>Explore all solutions</PrimaryButton>
-            <GhostButton>Talk to experts</GhostButton>
-          </div> */}
         </div>
 
         {/* one layer, every sector */}
-                <div className="mt-16 overflow-hidden rounded-[18px] border border-line-2 bg-linear-to-b from-panel/40 to-raise/50 backdrop-blur-[2px]">
-                  <div className="flex items-center justify-between border-b border-line px-5 py-4 sm:px-6">
-                    <Kicker>Mialo · One Intelligence Layer</Kicker>
-                    {/* <Kicker className="inline-flex items-center gap-2">
-                      <span className="h-[7px] w-[7px] rounded-full bg-green shadow-[0_0_10px_#00E599] motion-safe:animate-blink" />
-                      Live
-                    </Kicker> */}
+        <div className="mt-16 overflow-hidden rounded-[18px] border border-line-2 bg-linear-to-b from-panel/40 to-raise/50 backdrop-blur-[2px]">
+          <div className="flex items-center justify-between border-b border-line px-5 py-4 sm:px-6">
+            <Kicker>Mialo · One Intelligence Layer</Kicker>
+          </div>
+
+          <div className="grid grid-cols-1 border-t border-line sm:grid-cols-3">
+            {PANEL.map((p, i) => {
+              const Icon = p.icon;
+              return (
+                <div
+                  key={p.title}
+                  className={`p-7 sm:p-8 ${
+                    i > 0 ? "border-t border-line sm:border-t-0 sm:border-l" : ""
+                  }`}
+                >
+                  <div className="mb-4 mr-2 inline-flex h-11 w-11 items-center justify-center rounded-lg bg-pista/10 text-pista">
+                    <Icon className="h-5 w-5" strokeWidth={1.5} />
                   </div>
-        
-                  <div className="grid grid-cols-1 border-t border-line sm:grid-cols-3">
-                    {PANEL.map((p, i) => {
-                      const Icon = p.icon;
-                      return (
-                        <div
-                          key={p.title}
-                          className={`p-7 sm:p-8 ${
-                            i > 0 ? "border-t border-line sm:border-t-0 sm:border-l" : ""
-                          }`}
-                        >
-                          <div className="mb-4 mr-2 inline-flex h-11 w-11 items-center justify-center rounded-lg bg-pista/10 text-pista">
-                            <Icon className="h-5 w-5" strokeWidth={1.5} />
-                          </div>
-                          <Kicker className="text-pista">{p.title}</Kicker>
-                          {/* <p className="mt-3 text-[14px] leading-[1.6] text-muted text-pretty">
-                            {p.body}
-                          </p> */}
-                        </div>
-                      );
-                    })}
-                  </div>
-        
-                  <div className="h-1.5 bg-linear-to-r from-transparent via-ice/30 to-transparent" />
+                  <Kicker className="text-pista">{p.title}</Kicker>
                 </div>
+              );
+            })}
+          </div>
+
+          <div className="h-1.5 bg-linear-to-r from-transparent via-ice/30 to-transparent" />
+        </div>
       </Container>
     </section>
   );

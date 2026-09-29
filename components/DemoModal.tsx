@@ -22,6 +22,23 @@ export default function DemoModal({ isOpen, onClose }: DemoModalProps) {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState<"idle" | "success" | "error">("idle");
 
+  // Handle modal close and reset state
+  const handleClose = () => {
+    // Reset state when closing
+    setSubmitStatus("idle");
+    setFormData({
+      firstName: "",
+      lastName: "",
+      company: "",
+      email: "",
+      phoneCode: "+1",
+      phone: "",
+      message: "",
+    });
+    setIsSubmitting(false);
+    onClose();
+  };
+
   // Prevent body scroll when modal is open
   useEffect(() => {
     if (isOpen) {
@@ -60,7 +77,7 @@ export default function DemoModal({ isOpen, onClose }: DemoModalProps) {
             value: formData.email,
           },
           {
-            name: "company",
+            name: "0-2/name",
             value: formData.company,
           },
           ...(formData.phone ? [{
@@ -93,9 +110,8 @@ export default function DemoModal({ isOpen, onClose }: DemoModalProps) {
         // Reset form after success
         setTimeout(() => {
           setFormData({ firstName: "", lastName: "", company: "", email: "", phoneCode: "+1", phone: "", message: "" });
-          setSubmitStatus("idle");
-          onClose();
-        }, 2000);
+          // Keep success status - don't reset to idle
+        }, 500);
       } else {
         const errorData = await response.json();
         console.error("HubSpot submission error:", errorData);
@@ -125,13 +141,13 @@ export default function DemoModal({ isOpen, onClose }: DemoModalProps) {
       {/* Backdrop */}
       <div
         className="absolute inset-0 backdrop-blur-sm"
-        onClick={onClose}
+        onClick={handleClose}
       />
 
       {/* Modal */}
       <div className="relative z-10 w-full max-w-lg animate-in fade-in zoom-in duration-200">
         <div
-          className="relative overflow-hidden  border border-pista/70 bg-pista shadow-2xl"
+          className="relative overflow-hidden  border border-gray-100/70 bg-gray-100 shadow-2xl"
           style={{
             clipPath: "polygon(40px 0, 100% 0, 100% calc(100% - 40px), calc(100% - 40px) 100%, 0 100%, 0 40px)",
           }}
@@ -166,7 +182,7 @@ export default function DemoModal({ isOpen, onClose }: DemoModalProps) {
                 </p>
               </div>
               <button
-                onClick={onClose}
+                onClick={handleClose}
                 className="flex h-9 w-9 items-center justify-center rounded-lg border border-ice/20 text-ice/60 transition-all hover:border-ice/40 hover:bg-white/50 hover:text-ice"
                 aria-label="Close modal"
               >
@@ -179,7 +195,42 @@ export default function DemoModal({ isOpen, onClose }: DemoModalProps) {
           </div>
 
           {/* Form */}
-          <form onSubmit={handleSubmit} className="p-10">
+          {submitStatus === "success" ? (
+            /* Success Message */
+            <div className="p-10 text-center">
+              <div className="mb-6">
+                <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-green-100">
+                  <Icon name="check-circle" size={32} className="text-green-600" />
+                </div>
+                <h3 
+                  className="text-gray-700 mb-3"
+                  style={{ 
+                    fontFamily: "var(--font-manrope), sans-serif",
+                    fontWeight: 600,
+                    fontSize: "24px",
+                    lineHeight: 1.2,
+                    letterSpacing: "-0.02em"
+                  }}
+                >
+                  Form submitted
+                </h3>
+                <p 
+                  className="text-gray-600"
+                  style={{ 
+                    fontFamily: "var(--font-manrope), sans-serif",
+                    fontWeight: 400,
+                    fontSize: "16px",
+                    lineHeight: 1.5,
+                    letterSpacing: "-0.01em"
+                  }}
+                >
+                  Thank you, we&apos;ll be in touch soon
+                </p>
+              </div>
+            </div>
+          ) : (
+            /* Form Content */
+            <form onSubmit={handleSubmit} className="p-10">
             <div className="space-y-4">
               <div className="flex gap-2">
                 {/* First Name */}
@@ -205,7 +256,7 @@ export default function DemoModal({ isOpen, onClose }: DemoModalProps) {
                     style={{ 
                       fontFamily: "var(--font-manrope), sans-serif"
                     }}
-                    className="pointer-events-none absolute left-4 top-3 text-[15px] font-normal text-ice/60 transition-all peer-placeholder-shown:top-3 peer-placeholder-shown:text-[15px] peer-focus:top-[-10px] peer-focus:left-3 peer-focus:bg-pista peer-focus:px-2 peer-focus:text-[11px] peer-focus:font-medium peer-focus:uppercase peer-focus:tracking-wide peer-focus:text-ice peer-[:not(:placeholder-shown)]:top-[-10px] peer-[:not(:placeholder-shown)]:left-3 peer-[:not(:placeholder-shown)]:bg-pista peer-[:not(:placeholder-shown)]:px-2 peer-[:not(:placeholder-shown)]:text-[11px] peer-[:not(:placeholder-shown)]:font-medium peer-[:not(:placeholder-shown)]:uppercase peer-[:not(:placeholder-shown)]:tracking-wide peer-[:not(:placeholder-shown)]:text-ice"
+                    className="pointer-events-none absolute left-4 top-3 text-[15px] font-normal text-ice/60 transition-all peer-placeholder-shown:top-3 peer-placeholder-shown:text-[15px] peer-focus:top-[-10px] peer-focus:left-3 peer-focus:bg-gray-100 peer-focus:px-2 peer-focus:text-[11px] peer-focus:font-medium peer-focus:uppercase peer-focus:tracking-wide peer-focus:text-ice peer-[:not(:placeholder-shown)]:top-[-10px] peer-[:not(:placeholder-shown)]:left-3 peer-[:not(:placeholder-shown)]:bg-gray-100 peer-[:not(:placeholder-shown)]:px-2 peer-[:not(:placeholder-shown)]:text-[11px] peer-[:not(:placeholder-shown)]:font-medium peer-[:not(:placeholder-shown)]:uppercase peer-[:not(:placeholder-shown)]:tracking-wide peer-[:not(:placeholder-shown)]:text-ice"
                   >
                     First Name *
                   </label>
@@ -233,7 +284,7 @@ export default function DemoModal({ isOpen, onClose }: DemoModalProps) {
                     style={{ 
                       fontFamily: "var(--font-manrope), sans-serif"
                     }}
-                    className="pointer-events-none absolute left-4 top-3 text-[15px] font-normal text-ice/60 transition-all peer-placeholder-shown:top-3 peer-placeholder-shown:text-[15px] peer-focus:top-[-10px] peer-focus:left-3 peer-focus:bg-pista peer-focus:px-2 peer-focus:text-[11px] peer-focus:font-medium peer-focus:uppercase peer-focus:tracking-wide peer-focus:text-ice peer-[:not(:placeholder-shown)]:top-[-10px] peer-[:not(:placeholder-shown)]:left-3 peer-[:not(:placeholder-shown)]:bg-pista peer-[:not(:placeholder-shown)]:px-2 peer-[:not(:placeholder-shown)]:text-[11px] peer-[:not(:placeholder-shown)]:font-medium peer-[:not(:placeholder-shown)]:uppercase peer-[:not(:placeholder-shown)]:tracking-wide peer-[:not(:placeholder-shown)]:text-ice"
+                    className="pointer-events-none absolute left-4 top-3 text-[15px] font-normal text-ice/60 transition-all peer-placeholder-shown:top-3 peer-placeholder-shown:text-[15px] peer-focus:top-[-10px] peer-focus:left-3 peer-focus:bg-gray-100 peer-focus:px-2 peer-focus:text-[11px] peer-focus:font-medium peer-focus:uppercase peer-focus:tracking-wide peer-focus:text-ice peer-[:not(:placeholder-shown)]:top-[-10px] peer-[:not(:placeholder-shown)]:left-3 peer-[:not(:placeholder-shown)]:bg-gray-100 peer-[:not(:placeholder-shown)]:px-2 peer-[:not(:placeholder-shown)]:text-[11px] peer-[:not(:placeholder-shown)]:font-medium peer-[:not(:placeholder-shown)]:uppercase peer-[:not(:placeholder-shown)]:tracking-wide peer-[:not(:placeholder-shown)]:text-ice"
                   >
                     Last Name *
                   </label>
@@ -263,7 +314,7 @@ export default function DemoModal({ isOpen, onClose }: DemoModalProps) {
                   style={{ 
                     fontFamily: "var(--font-manrope), sans-serif"
                   }}
-                  className="pointer-events-none absolute left-4 top-3 text-[15px] font-normal text-ice/60 transition-all peer-placeholder-shown:top-3 peer-placeholder-shown:text-[15px] peer-focus:top-[-10px] peer-focus:left-3 peer-focus:bg-pista peer-focus:px-2 peer-focus:text-[11px] peer-focus:font-medium peer-focus:uppercase peer-focus:tracking-wide peer-focus:text-ice peer-[:not(:placeholder-shown)]:top-[-10px] peer-[:not(:placeholder-shown)]:left-3 peer-[:not(:placeholder-shown)]:bg-pista peer-[:not(:placeholder-shown)]:px-2 peer-[:not(:placeholder-shown)]:text-[11px] peer-[:not(:placeholder-shown)]:font-medium peer-[:not(:placeholder-shown)]:uppercase peer-[:not(:placeholder-shown)]:tracking-wide peer-[:not(:placeholder-shown)]:text-ice"
+                  className="pointer-events-none absolute left-4 top-3 text-[15px] font-normal text-ice/60 transition-all peer-placeholder-shown:top-3 peer-placeholder-shown:text-[15px] peer-focus:top-[-10px] peer-focus:left-3 peer-focus:bg-gray-100 peer-focus:px-2 peer-focus:text-[11px] peer-focus:font-medium peer-focus:uppercase peer-focus:tracking-wide peer-focus:text-ice peer-[:not(:placeholder-shown)]:top-[-10px] peer-[:not(:placeholder-shown)]:left-3 peer-[:not(:placeholder-shown)]:bg-gray-100 peer-[:not(:placeholder-shown)]:px-2 peer-[:not(:placeholder-shown)]:text-[11px] peer-[:not(:placeholder-shown)]:font-medium peer-[:not(:placeholder-shown)]:uppercase peer-[:not(:placeholder-shown)]:tracking-wide peer-[:not(:placeholder-shown)]:text-ice"
                 >
                   Company Name *
                 </label>
@@ -292,7 +343,7 @@ export default function DemoModal({ isOpen, onClose }: DemoModalProps) {
                   style={{ 
                     fontFamily: "var(--font-manrope), sans-serif"
                   }}
-                  className="pointer-events-none absolute left-4 top-3 text-[15px] font-normal text-ice/60 transition-all peer-placeholder-shown:top-3 peer-placeholder-shown:text-[15px] peer-focus:top-[-10px] peer-focus:left-3 peer-focus:bg-pista peer-focus:px-2 peer-focus:text-[11px] peer-focus:font-medium peer-focus:uppercase peer-focus:tracking-wide peer-focus:text-ice peer-[:not(:placeholder-shown)]:top-[-10px] peer-[:not(:placeholder-shown)]:left-3 peer-[:not(:placeholder-shown)]:bg-pista peer-[:not(:placeholder-shown)]:px-2 peer-[:not(:placeholder-shown)]:text-[11px] peer-[:not(:placeholder-shown)]:font-medium peer-[:not(:placeholder-shown)]:uppercase peer-[:not(:placeholder-shown)]:tracking-wide peer-[:not(:placeholder-shown)]:text-ice"
+                  className="pointer-events-none absolute left-4 top-3 text-[15px] font-normal text-ice/60 transition-all peer-placeholder-shown:top-3 peer-placeholder-shown:text-[15px] peer-focus:top-[-10px] peer-focus:left-3 peer-focus:bg-gray-100 peer-focus:px-2 peer-focus:text-[11px] peer-focus:font-medium peer-focus:uppercase peer-focus:tracking-wide peer-focus:text-ice peer-[:not(:placeholder-shown)]:top-[-10px] peer-[:not(:placeholder-shown)]:left-3 peer-[:not(:placeholder-shown)]:bg-gray-100 peer-[:not(:placeholder-shown)]:px-2 peer-[:not(:placeholder-shown)]:text-[11px] peer-[:not(:placeholder-shown)]:font-medium peer-[:not(:placeholder-shown)]:uppercase peer-[:not(:placeholder-shown)]:tracking-wide peer-[:not(:placeholder-shown)]:text-ice"
                 >
                   Email Address *
                 </label>
@@ -365,7 +416,7 @@ export default function DemoModal({ isOpen, onClose }: DemoModalProps) {
                     style={{ 
                       fontFamily: "var(--font-manrope), sans-serif"
                     }}
-                    className="pointer-events-none absolute left-4 top-3 text-[15px] font-normal text-ice/60 transition-all peer-placeholder-shown:top-3 peer-placeholder-shown:text-[15px] peer-focus:top-[-10px] peer-focus:left-3 peer-focus:bg-pista peer-focus:px-2 peer-focus:text-[11px] peer-focus:font-medium peer-focus:uppercase peer-focus:tracking-wide peer-focus:text-ice peer-[:not(:placeholder-shown)]:top-[-10px] peer-[:not(:placeholder-shown)]:left-3 peer-[:not(:placeholder-shown)]:bg-pista peer-[:not(:placeholder-shown)]:px-2 peer-[:not(:placeholder-shown)]:text-[11px] peer-[:not(:placeholder-shown)]:font-medium peer-[:not(:placeholder-shown)]:uppercase peer-[:not(:placeholder-shown)]:tracking-wide peer-[:not(:placeholder-shown)]:text-ice"
+                    className="pointer-events-none absolute left-4 top-3 text-[15px] font-normal text-ice/60 transition-all peer-placeholder-shown:top-3 peer-placeholder-shown:text-[15px] peer-focus:top-[-10px] peer-focus:left-3 peer-focus:bg-gray-100 peer-focus:px-2 peer-focus:text-[11px] peer-focus:font-medium peer-focus:uppercase peer-focus:tracking-wide peer-focus:text-ice peer-[:not(:placeholder-shown)]:top-[-10px] peer-[:not(:placeholder-shown)]:left-3 peer-[:not(:placeholder-shown)]:bg-gray-100 peer-[:not(:placeholder-shown)]:px-2 peer-[:not(:placeholder-shown)]:text-[11px] peer-[:not(:placeholder-shown)]:font-medium peer-[:not(:placeholder-shown)]:uppercase peer-[:not(:placeholder-shown)]:tracking-wide peer-[:not(:placeholder-shown)]:text-ice"
                   >
                     Phone Number
                   </label>
@@ -394,7 +445,7 @@ export default function DemoModal({ isOpen, onClose }: DemoModalProps) {
                   style={{ 
                     fontFamily: "var(--font-manrope), sans-serif"
                   }}
-                  className="pointer-events-none absolute left-4 top-3 text-[15px] font-normal text-ice/60 transition-all peer-placeholder-shown:top-3 peer-placeholder-shown:text-[15px] peer-focus:top-[-10px] peer-focus:left-3 peer-focus:bg-pista peer-focus:px-2 peer-focus:text-[11px] peer-focus:font-medium peer-focus:uppercase peer-focus:tracking-wide peer-focus:text-ice peer-[:not(:placeholder-shown)]:top-[-10px] peer-[:not(:placeholder-shown)]:left-3 peer-[:not(:placeholder-shown)]:bg-pista peer-[:not(:placeholder-shown)]:px-2 peer-[:not(:placeholder-shown)]:text-[11px] peer-[:not(:placeholder-shown)]:font-medium peer-[:not(:placeholder-shown)]:uppercase peer-[:not(:placeholder-shown)]:tracking-wide peer-[:not(:placeholder-shown)]:text-ice"
+                  className="pointer-events-none absolute left-4 top-3 text-[15px] font-normal text-ice/60 transition-all peer-placeholder-shown:top-3 peer-placeholder-shown:text-[15px] peer-focus:top-[-10px] peer-focus:left-3 peer-focus:bg-gray-100 peer-focus:px-2 peer-focus:text-[11px] peer-focus:font-medium peer-focus:uppercase peer-focus:tracking-wide peer-focus:text-ice peer-[:not(:placeholder-shown)]:top-[-10px] peer-[:not(:placeholder-shown)]:left-3 peer-[:not(:placeholder-shown)]:bg-gray-100 peer-[:not(:placeholder-shown)]:px-2 peer-[:not(:placeholder-shown)]:text-[11px] peer-[:not(:placeholder-shown)]:font-medium peer-[:not(:placeholder-shown)]:uppercase peer-[:not(:placeholder-shown)]:tracking-wide peer-[:not(:placeholder-shown)]:text-ice"
                 >
                   Message
                 </label>
@@ -405,7 +456,7 @@ export default function DemoModal({ isOpen, onClose }: DemoModalProps) {
             <div className="mt-8 flex items-center gap-4">
               <button
                 type="submit"
-                disabled={isSubmitting || submitStatus === "success"}
+                disabled={isSubmitting}
                 style={{ 
                   fontFamily: "var(--font-manrope), sans-serif",
                   fontWeight: 500,
@@ -414,12 +465,7 @@ export default function DemoModal({ isOpen, onClose }: DemoModalProps) {
                 }}
                 className="group relative flex-1 overflow-hidden rounded-lg border border-ice bg-ice px-6 py-3 text-white transition-all hover:bg-ice/90 hover:shadow-lg hover:shadow-ice/20 disabled:cursor-not-allowed disabled:opacity-50"
               >
-                {submitStatus === "success" ? (
-                  <span className="flex items-center justify-center gap-2">
-                    <Icon name="check-circle" size={18} />
-                    Sent Successfully
-                  </span>
-                ) : submitStatus === "error" ? (
+                {submitStatus === "error" ? (
                   <span className="flex items-center justify-center gap-2">
                     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                       <circle cx="12" cy="12" r="10"/>
@@ -439,7 +485,7 @@ export default function DemoModal({ isOpen, onClose }: DemoModalProps) {
               </button>
               <button
                 type="button"
-                onClick={onClose}
+                onClick={handleClose}
                 style={{ 
                   fontFamily: "var(--font-manrope), sans-serif",
                   fontWeight: 500,
@@ -451,7 +497,8 @@ export default function DemoModal({ isOpen, onClose }: DemoModalProps) {
                 Cancel
               </button>
             </div>
-          </form>
+            </form>
+          )}
 
           {/* Decorative gradient line */}
           <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-linear-to-r from-transparent via-ice/30 to-transparent" />
