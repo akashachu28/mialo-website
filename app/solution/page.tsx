@@ -17,7 +17,7 @@ export default function Solution() {
       {/* <div className="bg-white/75"> */}
         <SolutionSection2 />
       {/* </div> */}
-      <div className="bg-white/75"><SolutionSection1 /></div>
+      <div className="bg-white/75" data-header-theme="light"><SolutionSection1 /></div>
       <Footer/>
     </div>
   );
