@@ -109,10 +109,10 @@ const INDUSTRIES: Industry[] = [
 function IndustryCard({ industry }: { industry: Industry }) {
   return (
     <div
-      className="group relative overflow-hidden shadow-xl bg-raise transition-colors hover:border-line-3 w-[320px] flex-shrink-0 sm:w-[360px] lg:w-[380px]"
+      className="group relative overflow-hidden shadow-xl bg-raise transition-all duration-300 hover:border-line-3 hover:shadow-2xl w-[280px] sm:w-[320px] md:w-[340px] lg:w-[360px] xl:w-[380px] flex-shrink-0"
       style={{
         clipPath:
-          "polygon(40px 0, 100% 0, 100% calc(100% - 40px), calc(100% - 40px) 100%, 0 100%, 0 40px)",
+          "polygon(30px 0, 100% 0, 100% calc(100% - 30px), calc(100% - 30px) 100%, 0 100%, 0 30px)",
       }}
     >
       <div className="relative aspect-[4/5]">
@@ -121,19 +121,19 @@ function IndustryCard({ industry }: { industry: Industry }) {
           alt={industry.alt}
           fill
           draggable={false}
-          sizes="(max-width: 640px) 320px, (max-width: 1024px) 400px, 450px"
+          sizes="(max-width: 480px) 280px, (max-width: 640px) 320px, (max-width: 1024px) 360px, (max-width: 1280px) 380px, 400px"
           className="object-cover transition-transform duration-500 group-hover:scale-[1.04]"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-background via-background/35 to-transparent" />
 
-        <div className="absolute inset-x-0 bottom-0 flex flex-col gap-2 p-5">
-          <span className="flex h-9 w-9 items-center justify-center rounded-[10px] border border-ice/30 bg-background/60 text-ice backdrop-blur-sm">
-            <Icon name={industry.icon} size={18} />
+        <div className="absolute inset-x-0 bottom-0 flex flex-col gap-1.5 sm:gap-2 p-3 sm:p-4 md:p-5">
+          <span className="flex h-7 w-7 sm:h-8 sm:w-8 md:h-9 md:w-9 items-center justify-center rounded-[8px] sm:rounded-[10px] border border-ice/30 bg-background/60 text-ice backdrop-blur-sm">
+            <Icon name={industry.icon} size={14} className="sm:w-4 sm:h-4 md:w-[18px] md:h-[18px]" />
           </span>
-          <h3 className="font-display text-[19px] font-medium tracking-[-0.01em] text-primary">
+          <h3 className="font-display text-base sm:text-lg md:text-[19px] font-medium tracking-[-0.01em] text-primary leading-tight">
             {industry.label}
           </h3>
-          <p className="text-[12.5px] leading-[1.5] text-ink text-pretty">
+          <p className="text-[11px] sm:text-[12px] md:text-[12.5px] leading-[1.4] sm:leading-[1.5] text-ink text-pretty">
             {industry.blurb}
           </p>
         </div>
@@ -229,19 +229,19 @@ export default function IndustrySection2() {
 
       {/* -------- How Mialo works -------- */}
       <Section className="relative bg-white/75 z-10 white-75">
-        <div className="flex flex-col gap-14">
+        <div className="flex flex-col gap-10 sm:gap-12 md:gap-14">
           <SectionHeader
             eyebrow="How Mialo Works"
             title="From data to decisions. "
             titleIce="In real time."
           />
           <p
-            className="w-full max-w-[640px] text-[18px] leading-[1.62] text-gray-700 -mt-10 text-pretty"
+            className="w-full max-w-full sm:max-w-[500px] md:max-w-[600px] lg:max-w-[640px] text-gray-700 -mt-6 sm:-mt-8 md:-mt-10 text-pretty px-2 sm:px-0"
             style={{
               fontFamily: "var(--font-manrope), sans-serif",
               fontWeight: 400,
-              fontSize: "clamp(18px, 7.2vw, 24px)",
-              lineHeight: 1.1,
+              fontSize: "clamp(16px, 4vw, 24px)",
+              lineHeight: "clamp(1.2, 1.1, 1.1)",
               letterSpacing: "-0.045em",
               wordSpacing: 6,
             }}
@@ -250,41 +250,41 @@ export default function IndustrySection2() {
           </p>
 
           <div
-            className="relative bg-gray-900 py-3 grid grid-cols-2 gap-x-3 gap-y-8 sm:grid-cols-3 lg:grid-cols-5"
+            className="relative bg-gray-900 py-2 sm:py-3 px-2 sm:px-4 grid grid-cols-1 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-x-2 sm:gap-x-3 gap-y-6 sm:gap-y-8"
             style={{
               clipPath:
-                "polygon(40px 0, 100% 0, 100% calc(100% - 40px), calc(100% - 40px) 100%, 0 100%, 0 40px)",
+                "polygon(30px 0, 100% 0, 100% calc(100% - 30px), calc(100% - 30px) 100%, 0 100%, 0 30px)",
             }}
           >
             {STEPS.map((s, i) => (
               <div
                 key={s.title}
-                className="relative flex flex-col items-center gap-3 text-center"
+                className="relative flex flex-col items-center gap-2 sm:gap-3 text-center px-1 sm:px-2"
               >
-                {/* Dotted line between icons (not after last one) */}
+                {/* Dotted line between icons (not after last one) - only show on larger screens */}
                 {i < STEPS.length - 1 && (
                   <div
                     aria-hidden
-                    className="absolute top-[46px] hidden h-px lg:block z-0 pointer-events-none"
+                    className="absolute top-[36px] sm:top-[40px] lg:top-[46px] hidden lg:block z-0 pointer-events-none"
                     style={{
-                      left: "calc(50% + 32px)",
-                      width: "calc(100vw / 5 - 120px)",
+                      left: "calc(50% + 24px)",
+                      width: "calc(100vw / 5 - 80px)",
                       background:
-                        "repeating-linear-gradient(90deg, var(--color-pista) 0 6px, transparent 6px 14px)",
+                        "repeating-linear-gradient(90deg, var(--color-pista) 0 4px, transparent 4px 10px)",
                     }}
                   />
                 )}
 
-                <span className="font-mono text-[10px] tracking-[0.1em] text-pista relative z-10">
+                <span className="font-mono text-[9px] sm:text-[10px] tracking-[0.1em] text-pista relative z-10">
                   {String(i + 1).padStart(2, "0")}
                 </span>
-                <span className="flex h-11 w-11 items-center justify-center rounded-[11px] border border-white/30 bg-white/10 text-white relative z-10">
-                  <Icon name={s.icon} size={20} />
+                <span className="flex h-8 w-8 sm:h-9 sm:w-9 md:h-10 md:w-10 lg:h-11 lg:w-11 items-center justify-center rounded-[8px] sm:rounded-[9px] md:rounded-[10px] lg:rounded-[11px] border border-white/30 bg-white/10 text-white relative z-10">
+                  <Icon name={s.icon} size={16} className="sm:w-[18px] sm:h-[18px] md:w-5 md:h-5" />
                 </span>
-                <span className="font-display text-[15px] font-medium text-pista relative z-10">
+                <span className="font-display text-sm sm:text-[15px] font-medium text-pista relative z-10 leading-tight">
                   {s.title}
                 </span>
-                <span className="max-w-[190px] text-[12.5px] leading-[1.5] text-white/90 text-pretty relative z-10">
+                <span className="max-w-[140px] sm:max-w-[160px] lg:max-w-[190px] text-[11px] sm:text-[12px] md:text-[12.5px] leading-[1.4] sm:leading-[1.5] text-white/90 text-pretty relative z-10">
                   {s.body}
                 </span>
               </div>
@@ -295,20 +295,20 @@ export default function IndustrySection2() {
 
       {/* -------- Industries we empower -------- */}
       <div className="bg-white/85">
-        <Section className="relative z-10 ">
-          <div className="flex flex-col gap-14">
+        <Section className="relative z-10">
+          <div className="flex flex-col gap-10 sm:gap-12 md:gap-14">
             <SectionHeader
               eyebrow="Industries We Empower"
               title="Operational intelligence, "
               titleIce="tuned to your world."
             >
               <p
-                className="w-full max-w-[640px] text-[18px] leading-[1.62] text-gray-700 text-pretty"
+                className="w-full max-w-full sm:max-w-[500px] md:max-w-[600px] lg:max-w-[640px] text-gray-700 text-pretty px-2 sm:px-0"
                 style={{
                   fontFamily: "var(--font-manrope), sans-serif",
                   fontWeight: 400,
-                  fontSize: "clamp(18px, 7.2vw, 24px)",
-                  lineHeight: 1.1,
+                  fontSize: "clamp(16px, 4vw, 24px)",
+                  lineHeight: "clamp(1.2, 1.1, 1.1)",
                   letterSpacing: "-0.045em",
                   wordSpacing: 6,
                 }}
@@ -320,10 +320,10 @@ export default function IndustrySection2() {
         </Section>
   
         {/* Full-width carousel outside container */}
-        <div className="relative -mt-8 pb-20 sm:pb-[104px]">
+        <div className="relative -mt-4 sm:-mt-6 md:-mt-8 pb-16 sm:pb-20 md:pb-24 lg:pb-[104px]">
           <div
             ref={scrollerRef}
-            className="flex cursor-grab select-none overflow-x-auto active:cursor-grabbing [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+            className="flex cursor-grab select-none overflow-x-auto active:cursor-grabbing [scrollbar-width:none] [&::-webkit-scrollbar]:hidden px-4 sm:px-6 lg:px-8"
             style={{ WebkitOverflowScrolling: "touch" }}
             onMouseEnter={pause}
             onMouseLeave={() => !drag.current.active && resume(0)}
@@ -340,7 +340,7 @@ export default function IndustrySection2() {
           >
             {/* Triple copy for a seamless loop */}
             {[...INDUSTRIES, ...INDUSTRIES, ...INDUSTRIES].map((industry, index) => (
-              <div key={`${industry.label}-${index}`} className="flex-shrink-0 pr-6">
+              <div key={`${industry.label}-${index}`} className="flex-shrink-0 pr-4 sm:pr-5 md:pr-6">
                 <IndustryCard industry={industry} />
               </div>
             ))}

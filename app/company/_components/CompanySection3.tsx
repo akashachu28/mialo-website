@@ -34,10 +34,10 @@ export default function CompanySection3() {
   const [vision, mission] = PILLARS;
 
   return (
-    <div className="w-full px-4 pb-12 sm:px-6 sm:pb-20 lg:px-8">
+    <div className="w-full px-4 pb-12 sm:px-6 sm:pb-16 md:pb-20 lg:px-8">
       {/* ---------- Desktop / tablet: diagonal layout ---------- */}
       <div
-        className="relative mx-auto hidden overflow-hidden rounded-3xl md:block"
+        className="relative mx-auto hidden overflow-hidden rounded-2xl sm:rounded-3xl md:block"
         style={{
           aspectRatio: "1457 / 620",
           // never taller than 90vh; width shrinks with it so nothing distorts
@@ -82,19 +82,19 @@ export default function CompanySection3() {
           style={{
                         fontFamily: "var(--font-manrope), sans-serif",
                         fontWeight: 600,
-                        fontSize: "clamp(36px, 7.2vw, 60px)",
-                        lineHeight: 0.96,
+                        fontSize: "clamp(24px, 4.5vw, 60px)",
+                        lineHeight: "clamp(1.1, 0.96, 0.96)",
                         letterSpacing: "-0.03em",
                       }}>
             {vision.title[0]}
             <br />
             {vision.title[1]}
           </h2>
-          <p className="text-white/95 mt-4" style={{
+          <p className="text-white/95 mt-3 sm:mt-4" style={{
                         fontFamily: "var(--font-manrope), sans-serif",
                         fontWeight: 400,
-                        fontSize: "clamp(20px, 7.2vw, 26px)",
-                        lineHeight: 1.05,
+                        fontSize: "clamp(14px, 2.8vw, 26px)",
+                        lineHeight: "clamp(1.3, 1.05, 1.05)",
                         letterSpacing: "-0.03em",
                       }}>
             {vision.body}
@@ -104,28 +104,28 @@ export default function CompanySection3() {
         {/* Vision icon (bottom-left) */}
         <div
           className="absolute"
-          style={{ left: "11%", top: "63%", width: "9%", aspectRatio: "1" }}
+          style={{ left: "11%", top: "63%", width: "clamp(6%, 9%, 9%)", aspectRatio: "1" }}
         >
           <Image
             src={vision.icon}
             alt="Vision icon"
             fill
             className="object-contain"
-            sizes="9vw"
+            sizes="(max-width: 768px) 6vw, 9vw"
           />
         </div>
 
         {/* Mission icon (top-right) */}
         <div
           className="absolute"
-          style={{ right: "19%", top: "15%", width: "7%", aspectRatio: "1" }}
+          style={{ right: "19%", top: "15%", width: "clamp(5%, 7%, 7%)", aspectRatio: "1" }}
         >
           <Image
             src={mission.icon}
             alt="Mission icon"
             fill
             className="object-contain"
-            sizes="7vw"
+            sizes="(max-width: 768px) 5vw, 7vw"
           />
         </div>
 
@@ -134,19 +134,19 @@ export default function CompanySection3() {
           <h2 className="text-ice" style={{
                         fontFamily: "var(--font-manrope), sans-serif",
                         fontWeight: 600,
-                        fontSize: "clamp(36px, 7.2vw, 60px)",
-                        lineHeight: 0.96,
+                        fontSize: "clamp(24px, 4.5vw, 60px)",
+                        lineHeight: "clamp(1.1, 0.96, 0.96)",
                         letterSpacing: "-0.03em",
                       }}>
             {mission.title[0]}
             <br />
             {mission.title[1]}
           </h2>
-          <p className="text-[#1a1a1a] mt-4" style={{
+          <p className="text-[#1a1a1a] mt-3 sm:mt-4" style={{
                         fontFamily: "var(--font-manrope), sans-serif",
                         fontWeight: 400,
-                        fontSize: "clamp(20px, 7.2vw, 26px)",
-                        lineHeight: 1.05,
+                        fontSize: "clamp(14px, 2.8vw, 26px)",
+                        lineHeight: "clamp(1.3, 1.05, 1.05)",
                         letterSpacing: "-0.03em",
                       }}>
             {mission.body}
@@ -157,47 +157,55 @@ export default function CompanySection3() {
       {/* ---------- Mobile: stacked cards ---------- */}
       <div className="flex flex-col gap-4 md:hidden">
         <div
-          className="rounded-3xl p-8 text-white"
+          className="rounded-2xl sm:rounded-3xl p-6 sm:p-8 text-white"
           style={{ background: "linear-gradient(45deg, #111827, #1e293b 55%, #334155)" }}
         >
-          <div className="mb-6 relative h-10 w-10">
+          <div className="mb-4 sm:mb-6 relative h-8 w-8 sm:h-10 sm:w-10">
             <Image
               src={vision.icon}
               alt="Vision icon"
               fill
               className="object-contain"
-              sizes="40px"
+              sizes="(max-width: 640px) 32px, 40px"
             />
           </div>
-          <h2 className="text-4xl font-extrabold leading-none" style={font}>
+          <h2 className="text-3xl sm:text-4xl font-extrabold leading-none text-pista" style={{
+            fontFamily: "var(--font-manrope), sans-serif",
+            fontSize: "clamp(28px, 8vw, 40px)",
+            lineHeight: "clamp(1.1, 1, 1)",
+          }}>
             {vision.title[0]}
             <br />
             {vision.title[1]}
           </h2>
-          <p className="mt-4 text-base leading-relaxed text-white/95" style={font}>
+          <p className="mt-3 sm:mt-4 text-sm sm:text-base leading-relaxed text-white/95" style={font}>
             {vision.body}
           </p>
         </div>
 
         <div
-          className="rounded-3xl p-8 text-[#14507F]"
+          className="rounded-2xl sm:rounded-3xl p-6 sm:p-8 text-[#14507F]"
           style={{ background: "linear-gradient(225deg, #D5DDE8, #F4F6FA)" }}
         >
-          <div className="mb-6 relative h-10 w-10">
+          <div className="mb-4 sm:mb-6 relative h-8 w-8 sm:h-10 sm:w-10">
             <Image
               src={mission.icon}
               alt="Mission icon"
               fill
               className="object-contain"
-              sizes="40px"
+              sizes="(max-width: 640px) 32px, 40px"
             />
           </div>
-          <h2 className="text-4xl font-extrabold leading-none" style={font}>
+          <h2 className="text-3xl sm:text-4xl font-extrabold leading-none text-ice" style={{
+            fontFamily: "var(--font-manrope), sans-serif",
+            fontSize: "clamp(28px, 8vw, 40px)",
+            lineHeight: "clamp(1.1, 1, 1)",
+          }}>
             {mission.title[0]}
             <br />
             {mission.title[1]}
           </h2>
-          <p className="mt-4 text-base leading-relaxed text-[#1a1a1a]" style={font}>
+          <p className="mt-3 sm:mt-4 text-sm sm:text-base leading-relaxed text-[#1a1a1a]" style={font}>
             {mission.body}
           </p>
         </div>
