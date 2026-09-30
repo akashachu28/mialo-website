@@ -139,7 +139,7 @@ const SOLUTIONS: Solution[] = [
     ],
   },
   {
-    icon: "wrench",
+    icon: "sparkle",
     title: "ServiceSense",
     tagline: "optimize.",
     description: "AI-powered service monitoring for automotive and maintenance operations.",
@@ -157,7 +157,7 @@ const SOLUTIONS: Solution[] = [
     ],
   },
   {
-    icon: "cube",
+    icon: "blocks",
     title: "AI Visualizer",
     tagline: "visualize.",
     description: "AI-powered product visualization and virtual customization platform.",
@@ -246,11 +246,53 @@ export default function SolutionSection2() {
     <>
       <Section className="overflow-hidden">
         {/* Carousel with external navigation buttons */}
-        <div className="relative flex items-center justify-center gap-6">
-          {/* Previous Button - Outside Left */}
+        <div className="relative flex flex-col lg:flex-row items-center justify-center gap-4 lg:gap-6">
+          {/* Navigation Buttons - Mobile: Above, Desktop: Sides */}
+          <div className="flex lg:hidden gap-4 order-first">
+            <button
+              onClick={prevSlide}
+              className="shrink-0 flex h-10 w-10 sm:h-12 sm:w-12 items-center justify-center rounded-full border border-line bg-raise transition-all hover:border-ice hover:bg-panel"
+              aria-label="Previous solution"
+            >
+              <svg
+                width={16}
+                height={16}
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth={2}
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                className="text-muted sm:w-5 sm:h-5"
+              >
+                <path d="M19 12H5M12 19l-7-7 7-7" />
+              </svg>
+            </button>
+            <button
+              onClick={nextSlide}
+              className="shrink-0 flex h-10 w-10 sm:h-12 sm:w-12 items-center justify-center rounded-full border border-line bg-raise transition-all hover:border-ice hover:bg-panel"
+              aria-label="Next solution"
+            >
+              <svg
+                width={16}
+                height={16}
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth={2}
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                className="text-muted sm:w-5 sm:h-5"
+              >
+                <path d="M5 12h14M12 5l7 7-7 7" />
+              </svg>
+            </button>
+          </div>
+
+          {/* Previous Button - Desktop Left */}
           <button
             onClick={prevSlide}
-            className="shrink-0 flex h-12 w-12 items-center justify-center rounded-full border border-line bg-raise transition-all hover:border-ice hover:bg-panel"
+            className="hidden lg:flex shrink-0 h-12 w-12 items-center justify-center rounded-full border border-line bg-raise transition-all hover:border-ice hover:bg-panel"
             aria-label="Previous solution"
           >
             <svg
@@ -270,8 +312,8 @@ export default function SolutionSection2() {
 
           {/* Carousel Container */}
           <div
-            className="relative overflow-hidden flex-1 max-w-6xl"
-            style={{ height: "550px" }}
+            className="relative overflow-hidden flex-1 w-full max-w-6xl mx-4 sm:mx-0"
+            style={{ height: "clamp(400px, 50vh, 550px)" }}
             onMouseEnter={() => setIsPaused(true)}
             onMouseLeave={() => setIsPaused(false)}
           >
@@ -280,45 +322,45 @@ export default function SolutionSection2() {
               src={currentSolution.image}
               alt={currentSolution.alt}
               fill
-              sizes="(max-width: 1280px) 100vw, 1280px"
+              sizes="(max-width: 640px) 100vw, (max-width: 1024px) 90vw, 1280px"
               className="object-cover"
               priority
             />
 
-            {/* Gradient Overlay from Left */}
+            {/* Gradient Overlay from Left - Responsive */}
             <div
               className="absolute inset-0"
               style={{
                 background:
-                  "linear-gradient(to right, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0.85) 35%, rgba(0,0,0,0.4) 60%, transparent 80%)",
+                  "linear-gradient(to right, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0.85) 25%, rgba(0,0,0,0.6) 45%, rgba(0,0,0,0.3) 65%, transparent 80%)",
               }}
             />
 
-            {/* Content Overlay - Fixed height with hidden overflow */}
+            {/* Content Overlay - Responsive height */}
             <div
-              className="relative flex flex-col justify-center py-10 overflow-hidden"
-              style={{ height: "550px" }}
+              className="relative flex flex-col justify-center py-6 sm:py-8 md:py-10 overflow-hidden px-4 sm:px-6"
+              style={{ minHeight: "clamp(400px, 50vh, 550px)" }}
             >
-              <Container>
+              <div className="w-full max-w-7xl mx-auto">
                 {/* Section Header */}
-                <div className="mb-6 flex flex-col gap-2">
-                  <span className="inline-flex items-center gap-[11px] font-mono text-[12px] font-medium uppercase tracking-[0.16em] text-[#8A909C]">
-                    <span className="h-1.5 w-1.5 shrink-0 bg-green shadow-[0_0_12px_rgba(0,229,153,0.7)]" />
+                <div className="mb-4 sm:mb-5 md:mb-6 flex flex-col gap-1 sm:gap-2">
+                  <span className="inline-flex items-center gap-2 sm:gap-[11px] font-mono text-[10px] sm:text-[12px] font-medium uppercase tracking-[0.16em] text-[#8A909C]">
+                    <span className="h-1 w-1 sm:h-1.5 sm:w-1.5 shrink-0 bg-green shadow-[0_0_12px_rgba(0,229,153,0.7)]" />
                     Solutions · {String(currentIndex + 1).padStart(2, "0")} /{" "}
                     {String(SOLUTIONS.length).padStart(2, "0")}
                   </span>
                 </div>
 
                 {/* Solution Content */}
-                <div className="flex max-w-[680px] flex-col gap-8 lg:max-w-[800px]">
-                  <div className="flex flex-col gap-4">
+                <div className="flex max-w-full sm:max-w-[500px] md:max-w-[600px] lg:max-w-[700px] xl:max-w-[800px] flex-col gap-4 sm:gap-6 md:gap-8">
+                  <div className="flex flex-col gap-2 sm:gap-3 md:gap-4">
                     <h2
                       className="text-white"
                       style={{
                         fontFamily: "var(--font-manrope), sans-serif",
                         fontWeight: 400,
-                        fontSize: "clamp(36px, 7.2vw, 72px)",
-                        lineHeight: 1.05,
+                        fontSize: "clamp(28px, 8vw, 72px)",
+                        lineHeight: "clamp(1.1, 1.05, 1.05)",
                         letterSpacing: "-0.03em",
                       }}
                     >
@@ -329,27 +371,27 @@ export default function SolutionSection2() {
                       style={{
                         fontFamily: "var(--font-serif, serif)",
                         fontStyle: "italic",
-                        fontSize: "clamp(22px, 3.5vw, 32px)",
-                        lineHeight: 1.2,
+                        fontSize: "clamp(18px, 4vw, 32px)",
+                        lineHeight: "clamp(1.3, 1.2, 1.2)",
                       }}
                     >
                       {currentSolution.tagline}
                     </p>
 
-                    <p className="max-w-[600px] text-[18px] leading-[1.65] text-white/90">
+                    <p className="max-w-full sm:max-w-[400px] md:max-w-[500px] lg:max-w-[600px] text-sm sm:text-base md:text-[18px] leading-relaxed sm:leading-[1.65] text-white/90 text-pretty">
                       {currentSolution.description}
                     </p>
                   </div>
 
-                  {/* Features - show all features */}
-                  <div className="flex flex-wrap gap-2.5">
+                  {/* Features - responsive grid */}
+                  <div className="flex flex-wrap gap-1.5 sm:gap-2 md:gap-2.5">
                     {currentSolution.features.map((feature) => (
                       <span
                         key={feature}
-                        className="bg-pista px-4 py-2.5 text-[13px] font-medium text-background"
+                        className="bg-pista px-2.5 sm:px-3 md:px-4 py-1.5 sm:py-2 md:py-2.5 text-[11px] sm:text-[12px] md:text-[13px] font-medium text-background"
                         style={{
                           clipPath:
-                            "polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px)",
+                            "polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px)",
                         }}
                       >
                         {feature}
@@ -357,15 +399,15 @@ export default function SolutionSection2() {
                     ))}
                   </div>
 
-                  {/* Stats */}
+                  {/* Stats - responsive layout */}
                   {currentSolution.stats && (
-                    <div className="flex gap-12 border-t border-white/15 pt-8">
+                    <div className="flex flex-col sm:flex-row gap-6 sm:gap-8 md:gap-12 border-t border-white/15 pt-4 sm:pt-6 md:pt-8">
                       {currentSolution.stats.map((stat) => (
-                        <div key={stat.label} className="flex flex-col gap-1.5">
-                          <div className="font-display text-[40px] font-medium tracking-[-0.02em] text-pista">
+                        <div key={stat.label} className="flex flex-col gap-1 sm:gap-1.5">
+                          <div className="font-display text-2xl sm:text-3xl md:text-[36px] lg:text-[40px] font-medium tracking-tight text-pista">
                             {stat.value}
                           </div>
-                          <div className="text-[13px] text-white/60">
+                          <div className="text-[11px] sm:text-[12px] md:text-[13px] text-white/60 leading-tight">
                             {stat.label}
                           </div>
                         </div>
@@ -373,14 +415,14 @@ export default function SolutionSection2() {
                     </div>
                   )}
                 </div>
-              </Container>
+              </div>
             </div>
           </div>
 
-          {/* Next Button - Outside Right */}
+          {/* Next Button - Desktop Right */}
           <button
             onClick={nextSlide}
-            className="shrink-0 flex h-12 w-12 items-center justify-center rounded-full border border-line bg-raise transition-all hover:border-ice hover:bg-panel"
+            className="hidden lg:flex shrink-0 h-12 w-12 items-center justify-center rounded-full border border-line bg-raise transition-all hover:border-ice hover:bg-panel"
             aria-label="Next solution"
           >
             <svg
@@ -400,22 +442,22 @@ export default function SolutionSection2() {
         </div>
 
         {/* Pagination Dots - Below Image Container */}
-        <Container className="py-8">
-            <div className="flex items-center justify-center gap-2.5">
-              {SOLUTIONS.map((_, index) => (
-                <button
-                  key={index}
-                  onClick={() => goToSlide(index)}
-                  className={`h-2 rounded-full transition-all ${
-                    index === currentIndex
-                      ? "w-8 bg-pista"
-                      : "w-2 bg-muted hover:bg-ink"
-                  }`}
-                  aria-label={`Go to solution ${index + 1}`}
-                />
-              ))}
-            </div>
-          </Container>
+        <Container className="py-4 sm:py-6 md:py-8">
+          <div className="flex items-center justify-center gap-2 sm:gap-2.5">
+            {SOLUTIONS.map((_, index) => (
+              <button
+                key={index}
+                onClick={() => goToSlide(index)}
+                className={`h-1.5 sm:h-2 rounded-full transition-all ${
+                  index === currentIndex
+                    ? "w-6 sm:w-8 bg-pista"
+                    : "w-1.5 sm:w-2 bg-muted hover:bg-ink"
+                }`}
+                aria-label={`Go to solution ${index + 1}`}
+              />
+            ))}
+          </div>
+        </Container>
       </Section>
     </>
   );
