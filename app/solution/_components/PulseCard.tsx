@@ -168,7 +168,7 @@ function StepNode({ icon: Icon, label, active, xPct }: { icon: ComponentType<{ s
         transition: "color 0.5s ease",
         fontSize: "clamp(12px, 2.5vw, 16px)",
       }}>
-        <Icon size={parseInt("clamp(12, 2.5vw, 20)")} className="w-3 h-3 sm:w-4 sm:h-4 md:w-5 md:h-5" />
+        <Icon name="check-circle" size={16} className="w-3 h-3 sm:w-4 sm:h-4 md:w-5 md:h-5" />
       </span>
       <span
         style={{
