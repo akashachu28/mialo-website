@@ -22,15 +22,15 @@ const PANEL = [
 
 export default function HeroIndustry() {
   return (
-    <section className="relative overflow-hidden pt-20 pb-12 sm:pt-32 sm:pb-16 md:pt-40 md:pb-20 lg:pt-52 lg:pb-24 xl:pt-60 xl:pb-28">
+    <section className="relative overflow-hidden pt-24 pb-16 sm:pt-28 sm:pb-24 lg:pt-40">
       {/* dot-grid backdrop, faded from the top */}
       <div
         aria-hidden
-        className="pointer-events-none absolute inset-0 opacity-15 sm:opacity-20 md:opacity-25 lg:opacity-30"
+        className="pointer-events-none absolute inset-0 opacity-20 sm:opacity-30"
         style={{
           backgroundImage:
             "linear-gradient(var(--color-pista) 1px, transparent 1px), linear-gradient(90deg, var(--color-pista) 1px, transparent 1px)",
-          backgroundSize: "40px 40px",
+          backgroundSize: "62px 62px",
           maskImage:
             "radial-gradient(ellipse 80% 60% at 50% 0%, #000 0%, transparent 75%)",
           WebkitMaskImage:
@@ -41,42 +41,41 @@ export default function HeroIndustry() {
       <div className="absolute inset-0 bg-background/20" />
       
       {/* Background image covering responsive dimensions */}
-      <div className="absolute right-0 bottom-0 w-full h-[40vh] sm:w-[85vw] sm:h-[55vh] md:w-[80vw] md:h-[60vh] lg:w-[75vw] lg:h-[65vh] xl:w-[70vw] xl:h-[70vh] 2xl:w-[65vw] 2xl:h-[75vh] pointer-events-none opacity-30 sm:opacity-40 md:opacity-45 lg:opacity-50">
+      <div className="absolute right-0 top-0 w-full h-[60vh] sm:w-[85vw] sm:h-[70vh] lg:w-[75vw] lg:h-[75vh] pointer-events-none opacity-40 sm:opacity-50">
         <Image
           src="/images/indusBG.png"
           alt="Industries background visualization"
           fill
-          sizes="(max-width: 480px) 100vw, (max-width: 768px) 85vw, (max-width: 1024px) 80vw, (max-width: 1280px) 75vw, (max-width: 1536px) 70vw, 65vw"
+          sizes="(max-width: 768px) 100vw, (max-width: 1024px) 85vw, 75vw"
           className="object-cover object-center"
           priority
         />
       </div>
 
-      <Container className="relative z-10">
-        <div className="flex flex-col items-center sm:items-start gap-4 sm:gap-5 md:gap-6 lg:gap-7 text-center sm:text-left">
+      <Container className="relative">
+        <div className="flex flex-col items-center sm:items-start gap-5 sm:gap-7 text-center sm:text-left">
           <h1 
-            className="w-full max-w-full sm:max-w-[600px] md:max-w-[800px] lg:max-w-[1080px] text-balance text-primary px-4 sm:px-0"
+            className="max-w-[1080px] text-balance text-primary"
             style={{ 
               fontFamily: "var(--font-manrope), sans-serif",
               fontWeight: 400,
-              fontSize: "clamp(24px, 6vw, 70px)",
-              lineHeight: "clamp(1.1, 1.05, 1.05)",
+              fontSize: "clamp(32px, 8vw, 70px)",
+              lineHeight: 1.05,
               letterSpacing: "-0.045em",
             }}
           >
             Operational intelligence.
-            <br className="hidden sm:block" />
-            <span className="sm:inline block mt-1 sm:mt-0"> </span>
+            <br />
             <span className="text-pista">For every industry.</span>
           </h1>
 
           <p 
-            className="w-full max-w-full sm:max-w-[500px] md:max-w-[600px] text-ink text-pretty px-4 sm:px-0"
+            className="max-w-[600px] text-ink text-pretty"
             style={{ 
               fontFamily: "var(--font-manrope), sans-serif",
               fontWeight: 400,
-              fontSize: "clamp(14px, 3.5vw, 24px)",
-              lineHeight: "clamp(1.5, 1.4, 1.4)",
+              fontSize: "clamp(16px, 4vw, 24px)",
+              lineHeight: 1.4,
               letterSpacing: "-0.025em",
               wordSpacing: 3,
             }}
@@ -88,7 +87,7 @@ export default function HeroIndustry() {
         </div>
 
         {/* one layer, every sector */}
-        <div className="mt-8 sm:mt-12 md:mt-14 lg:mt-16 mx-4 sm:mx-0 overflow-hidden rounded-xl sm:rounded-[18px] border border-line-2 bg-linear-to-b from-panel/40 to-raise/50 backdrop-blur-[2px]">
+        <div className="mt-12 sm:mt-16 overflow-hidden rounded-xl sm:rounded-[18px] border border-line-2 bg-linear-to-b from-panel/40 to-raise/50 backdrop-blur-[2px]">
           <div className="flex items-center justify-center sm:justify-between border-b border-line px-3 py-2.5 sm:px-4 sm:py-3 md:px-5 md:py-4 lg:px-6">
             <Kicker className="text-xs sm:text-[11px]">Mialo · One Intelligence Layer</Kicker>
           </div>

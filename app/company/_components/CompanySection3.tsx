@@ -155,7 +155,7 @@ export default function CompanySection3() {
       </div>
 
       {/* ---------- Mobile: stacked cards ---------- */}
-      <div className="flex flex-col gap-4 md:hidden">
+      <div className="flex flex-col gap-4 mt-4  md:hidden">
         <div
           className="rounded-2xl sm:rounded-3xl p-6 sm:p-8 text-white"
           style={{ background: "linear-gradient(45deg, #111827, #1e293b 55%, #334155)" }}
