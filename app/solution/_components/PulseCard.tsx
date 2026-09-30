@@ -158,21 +158,28 @@ function StepNode({ icon: Icon, label, active, xPct }: { icon: ComponentType<{ s
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
-        gap: 5,
+        gap: "clamp(3px, 1vw, 5px)",
         whiteSpace: "nowrap",
       }}
     >
-      <span style={{ display: "flex", color: active ? "#2563EB" : "rgba(15,23,42,0.18)", transition: "color 0.5s ease" }}>
-        <Icon size={20} />
+      <span style={{ 
+        display: "flex", 
+        color: active ? "#2563EB" : "rgba(15,23,42,0.18)", 
+        transition: "color 0.5s ease",
+        fontSize: "clamp(12px, 2.5vw, 16px)",
+      }}>
+        <Icon size={parseInt("clamp(12, 2.5vw, 20)")} className="w-3 h-3 sm:w-4 sm:h-4 md:w-5 md:h-5" />
       </span>
       <span
         style={{
-          fontSize: 10,
+          fontSize: "clamp(8px, 2vw, 10px)",
           fontWeight: 500,
           letterSpacing: "0.035em",
           color: active ? "rgba(15,23,42,0.82)" : "rgba(15,23,42,0.18)",
           transition: "color 0.5s ease",
           fontFamily: "'Inter', sans-serif",
+          textAlign: "center",
+          lineHeight: 1.2,
         }}
       >
         {label}
@@ -203,15 +210,24 @@ export default function PulseCard() {
   }, []);
 
   return (
-    <div className="flex-1" style={{ minWidth: 500 }}>
+    <div 
+      className="w-full max-w-full overflow-hidden" 
+      style={{ 
+        minWidth: "280px",
+        maxWidth: "100%",
+      }}
+    >
       {/* Intelligence flow container */}
-      <div style={{ position: "relative", height: 100 }}>
+      <div 
+        className="relative w-full"
+        style={{ 
+          height: "clamp(60px, 15vw, 100px)",
+          minHeight: "60px",
+        }}
+      >
         <div
+          className="absolute inset-0 rounded-full border border-slate-900/8 shadow-sm"
           style={{
-            position: "absolute",
-            inset: 0,
-            borderRadius: 999,
-            border: "1px solid rgba(15,23,42,0.08)",
             boxShadow:
               "0 2px 16px rgba(15,23,42,0.06), inset 0 1px 0 rgba(255,255,255,0.9)",
           }}
