@@ -4,25 +4,25 @@ import { Layers, TrendingUp, Zap } from "lucide-react";
 
 const PANEL = [
   {
-    title: "One layer, many worlds",
-    body: "The same intelligence core, tuned to the signals and constraints of each sector.",
+    title: "Ready-to-deploy solutions",
+    body: "Pre-built AI applications that integrate seamlessly with your existing operations.",
     icon: Layers,
   },
   {
-    title: "Real-time by default",
-    body: "Awareness of what is happening now - not a report on what happened last week.",
+    title: "Immediate value delivery",
+    body: "Start seeing results from day one with solutions designed for fast implementation.",
     icon: Zap,
   },
   {
-    title: "Measurable outcomes",
-    body: "Safety, uptime, service levels and cost, moved in the direction that matters.",
+    title: "Proven ROI impact",
+    body: "Measurable improvements in efficiency, safety, and operational performance.",
     icon: TrendingUp,
   },
 ];
 
 export default function HeroSolution() {
   return (
-    <section className="relative flex min-h-[80vh] sm:h-[90vh] items-center overflow-hidden pt-24 sm:pt-28 lg:pt-40">
+    <section className="relative overflow-hidden pt-24 pb-16 sm:pt-28 sm:pb-24 lg:pt-40">
       {/* Video background - kept, heavily dimmed so it reads as texture on the near-black ground */}
       <div aria-hidden className="absolute inset-0">
         <div
@@ -69,14 +69,14 @@ export default function HeroSolution() {
       </div>
 
       <Container className="relative">
-        <div className="flex flex-col items-center sm:items-start gap-4 sm:gap-5 md:gap-7 text-center sm:text-left px-4 sm:px-0">
+        <div className="flex flex-col items-start gap-5 sm:gap-7 text-center sm:text-left">
           <h1 
-            className="w-full max-w-full sm:max-w-[800px] md:max-w-[1080px] text-balance text-primary"
+            className="max-w-[1080px] text-balance text-primary"
             style={{ 
               fontFamily: "var(--font-manrope), sans-serif",
               fontWeight: 400,
-              fontSize: "clamp(24px, 6vw, 70px)",
-              lineHeight: "clamp(1.1, 1.05, 1.05)",
+              fontSize: "clamp(32px, 8vw, 70px)",
+              lineHeight: 1.05,
               letterSpacing: "-0.045em",
             }}
           >
@@ -86,12 +86,12 @@ export default function HeroSolution() {
           </h1>
 
           <p 
-            className="w-full max-w-full sm:max-w-[500px] md:max-w-[600px] text-ink text-pretty"
+            className="max-w-[600px] text-ink text-pretty"
             style={{
               fontFamily: "var(--font-manrope), sans-serif",
               fontWeight: 400,
-              fontSize: "clamp(14px, 3.5vw, 24px)",
-              lineHeight: "clamp(1.5, 1.4, 1.4)",
+              fontSize: "clamp(16px, 4vw, 24px)",
+              lineHeight: 1.4,
               letterSpacing: "-0.025em",
               wordSpacing: 3,
             }}
@@ -102,7 +102,7 @@ export default function HeroSolution() {
         </div>
 
         {/* one layer, every sector */}
-        <div className="mt-8 sm:mt-12 md:mt-16 mx-4 sm:mx-0 overflow-hidden rounded-xl sm:rounded-[18px] border border-line-2 bg-linear-to-b from-panel/40 to-raise/50 backdrop-blur-[2px]">
+        <div className="mt-12 sm:mt-16 overflow-hidden rounded-xl sm:rounded-[18px] border border-line-2 bg-linear-to-b from-panel/40 to-raise/50 backdrop-blur-[2px]">
           <div className="flex items-center justify-center sm:justify-between border-b border-line px-3 py-2.5 sm:px-4 sm:py-3 md:px-5 md:py-4 lg:px-6">
             <Kicker className="text-xs sm:text-[11px]">Mialo · One Intelligence Layer</Kicker>
           </div>

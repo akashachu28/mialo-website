@@ -123,7 +123,7 @@ export default function DemoModal({ isOpen, onClose }: DemoModalProps) {
             value: formData.email,
           },
           {
-            name: "company",
+            name: "0-2/name",
             value: formData.company,
           },
           ...(formData.phone ? [{
