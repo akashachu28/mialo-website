@@ -45,49 +45,54 @@ export default function PlatformSection3() {
   return (
     <Section className="relative">
       <SectionHeader
-        className="mb-14"
+        className="mb-10 sm:mb-14"
         eyebrow="Multimodal Intelligence"
         title="Every operational signal"
         titleIce=" contributes to a complete picture."
         leadBlack="Every operation generates signals. Mialo turns those signals into context-aware intelligence and action."
       />
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-8 lg:gap-12">
-        {STEPS.map((s) => (
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8 lg:gap-12">
+        {STEPS.map((s, index) => (
           <div
             key={s.n}
-            className="flex flex-col gap-4 last:border-none border-gray-900 border-r"
+            className={`flex flex-col gap-3 sm:gap-4 ${
+              index < STEPS.length - 1 
+                ? "border-b border-gray-900 pb-6 md:border-b-0 md:pb-0 md:border-r" 
+                : ""
+            }`}
           >
-            <span className="font-mono text-[18px] text-ice">
+            <span className="font-mono text-base sm:text-lg text-ice">
               {s.n}
             </span>
             <div>
-              <h3 className="font-display text-[24px] tracking-[-0.01em] text-ice "
-              style={{ 
-                      fontFamily: "var(--font-manrope), sans-serif",
-                      fontWeight: 600,
-                      fontSize: "clamp(32px, 7.2vw, 40px)",
-                      lineHeight: 0.96,
-                      letterSpacing: "-0.045em"
-                    }}
-    >
+              <h3 
+                className="text-ice text-center md:text-left"
+                style={{ 
+                  fontFamily: "var(--font-manrope), sans-serif",
+                  fontWeight: 600,
+                  fontSize: "clamp(24px, 5vw, 40px)",
+                  lineHeight: 0.96,
+                  letterSpacing: "-0.045em"
+                }}
+              >
                 {s.title}
               </h3>
-              <h4 className="text-gray-700 text-[20px] mt-2"
-              // style={{ 
-              //         fontFamily: "var(--font-manrope), sans-serif",
-              //         lineHeight: 1.1,
-              //         letterSpacing: "-0.045em"
-              // }}
+              <h4 
+                className="text-gray-700 mt-2 text-center md:text-left"
+                style={{
+                  fontSize: "clamp(16px, 3vw, 20px)",
+                  lineHeight: 1.2,
+                }}
               >
                 {s.subtitle}
               </h4>
-              <p className="mt-3 text-[14px] leading-[1.1] text-faint text-pretty text-[16px]"
-              // style={{ 
-              //         fontFamily: "var(--font-manrope), sans-serif",
-              //         lineHeight: 0.96,
-              //         letterSpacing: "-0.045em"
-              // }}
+              <p 
+                className="mt-3 text-faint text-pretty text-center md:text-left"
+                style={{
+                  fontSize: "clamp(14px, 2.5vw, 16px)",
+                  lineHeight: 1.4,
+                }}
               >
                 {s.body}
               </p>

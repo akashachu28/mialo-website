@@ -36,11 +36,11 @@ export default function Section3() {
 
   return (
     <>
-      <section className="pt-20 sm:pt-32">
-        <div className="mx-auto w-full max-w-7xl px-6 sm:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-12 items-center">
+      <section className="pt-12 sm:pt-20 lg:pt-32">
+        <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-8 lg:gap-12 items-center">
             {/* Left: Section Header */}
-            <div className="lg:col-span-5">
+            <div className="lg:col-span-5 text-center lg:text-left">
               <SectionHeader
                 eyebrow="How It Works"
                 title="From Every Signal"
@@ -51,11 +51,11 @@ export default function Section3() {
             {/* Right: Description */}
             <div className="lg:col-span-7">
               <p
-                className="text-gray-600 text-pretty"
+                className="text-gray-600 text-pretty text-center lg:text-left"
                 style={{
                   fontFamily: "var(--font-manrope), sans-serif",
                   fontWeight: 400,
-                  fontSize: "clamp(18px, 2vw, 26px)",
+                  fontSize: "clamp(16px, 3.5vw, 26px)",
                   lineHeight: 1.6,
                   letterSpacing: "-0.01em",
                 }}
@@ -71,14 +71,14 @@ export default function Section3() {
         {/* Full-width video container with overlay text */}
         <div
           ref={videoContainerRef}
-          className="w-full overflow-hidden mt-12 relative"
+          className="w-full overflow-hidden mt-8 sm:mt-12 relative"
         >
           <h2
-            className="absolute inset-0 z-10 flex items-center justify-center font-display text-[38px] font-medium leading-[1.05] tracking-[-0.03em] text-balance sm:text-[56px] text-center pointer-events-none"
+            className="absolute inset-0 z-10 flex items-center justify-center text-center pointer-events-none px-4"
             style={{
               fontFamily: "var(--font-manrope), sans-serif",
               fontWeight: 400,
-              fontSize: "clamp(32px, 7.2vw, 60px)",
+              fontSize: "clamp(24px, 6vw, 60px)",
               lineHeight: 1.1,
               letterSpacing: "-0.045em",
               transform: `scale(${scale})`,
@@ -94,8 +94,14 @@ export default function Section3() {
             </span>
           </h2>
 
-          <div className="h-150 overflow-hidden ">
-            <video className="w-full h-auto" autoPlay loop muted playsInline>
+          <div className="h-80 sm:h-96 md:h-120 lg:h-150 overflow-hidden">
+            <video 
+              className="w-full h-auto object-cover" 
+              autoPlay 
+              loop 
+              muted 
+              playsInline
+            >
               <source src="/images/website.mp4" type="video/mp4" />
               Your browser does not support the video tag.
             </video>

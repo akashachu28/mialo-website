@@ -27,19 +27,17 @@ import {
  *  width, so every line meets its node at any screen size.
  * ------------------------------------------------------------------ */
 
+// Responsive dimensions based on screen size
 const W = 280;
-const H = 400;
+const H_MOBILE = 260; // More compact for mobile
+const H_TABLET = 300; // Medium height for tablet
+const H_DESKTOP = 380; // Slightly reduced for desktop
+
 const MID_X = 140;
 
-// Traditional Operations - at the top
-const TRAD_Y = 30;
-const TRAD_X = [55, 97.5, 140, 182.5, 225];
-const TRADITIONAL = [Cctv, Film, HardDrive, LayoutGrid, User];
-
-// Sources - below traditional
-const SRC_Y = 30;
+// Sources - responsive positioning
+const SRC_Y = 30; // Moved up slightly
 const SRC_X = [55, 97.5, 140, 182.5, 225];
-const SRC_W = 60;
 const SOURCES = [
   { label: "Camera", icon: Camera },
   { label: "Voice", icon: AudioLines },
@@ -48,22 +46,22 @@ const SOURCES = [
   { label: "ERP", icon: Database },
 ];
 
-// Key nodes going down
-const MOMENTS = { x: MID_X, y: 90 };
-const BRAIN = { x: MID_X, y: 150 };
-const IMPACT = { x: MID_X, y: 210 };
+// Key nodes going down - better responsive positioning
+const MOMENTS = { x: MID_X, y: 90 }; // Moved up
+const BRAIN = { x: MID_X, y: 130 }; // Better spacing
+const IMPACT = { x: MID_X, y: 180 }; // More space from brain
 
 /* converging splines: each source → the operational-moments node */
 const SPLINES = SRC_X.map(
   (x) =>
-    `M ${x} ${SRC_Y + 10} C ${x} ${SRC_Y + 25}, ${MID_X} ${MOMENTS.y - 28}, ${MID_X} ${MOMENTS.y - 10}`,
+    `M ${x} ${SRC_Y + 10} C ${x} ${SRC_Y + 20}, ${MID_X} ${MOMENTS.y - 25}, ${MID_X} ${MOMENTS.y - 10}`,
 );
 
-/* gentle sine wave: operational moments → mialo intelligence */
-const SINE = `M ${MID_X} ${MOMENTS.y + 12} L ${MID_X} ${BRAIN.y + 56}`;
+/* gentle line: operational moments → mialo intelligence */
+const SINE = `M ${MID_X} ${MOMENTS.y + 12} L ${MID_X} ${BRAIN.y + 52}`;
 
-/* line from mialo intelligence to impact */
-// const BRAIN_TO_IMPACT = `M ${MID_X} ${BRAIN.y + 2} L ${MID_X} ${IMPACT.y - 14}`;
+/* static line: mialo intelligence → impact (no animation) */
+// const BRAIN_TO_IMPACT = `M ${MID_X} ${BRAIN.y + 22} L ${MID_X} ${IMPACT.y - 14}`;
 
 
 function Node({
@@ -110,40 +108,69 @@ function Label({ x, y, children, className = "" }: { x: number; y: number; child
 export default function OperationalIntelligenceCard() {
   const hostRef = useRef<HTMLDivElement>(null);
   const [scale, setScale] = useState(1);
+  const [screenSize, setScreenSize] = useState('desktop');
 
   useLayoutEffect(() => {
     const el = hostRef.current;
     if (!el || typeof ResizeObserver === "undefined") return undefined;
+    
     const fit = () => {
       const r = el.getBoundingClientRect();
-      if (r.width) setScale(r.width / W);
+      if (r.width) {
+        setScale(r.width / W);
+        // Determine screen size for responsive height based on container width
+        const containerWidth = el.parentElement?.getBoundingClientRect().width || r.width;
+        if (containerWidth < 640) {
+          setScreenSize('mobile');
+        } else if (containerWidth < 1024) {
+          setScreenSize('tablet');
+        } else {
+          setScreenSize('desktop');
+        }
+      }
     };
+    
     fit();
     const ro = new ResizeObserver(fit);
     ro.observe(el);
+    // Also observe parent for better responsiveness
+    if (el.parentElement) {
+      ro.observe(el.parentElement);
+    }
     return () => ro.disconnect();
   }, []);
 
+  // Get responsive height
+  const getHeight = () => {
+    switch (screenSize) {
+      case 'mobile': return H_MOBILE;
+      case 'tablet': return H_TABLET;
+      default: return H_DESKTOP;
+    }
+  };
+
+  const currentHeight = getHeight();
+
   return (
-    <div className="w-full text-[4px]"
+    <div className="w-full text-[4px] h-full"
     style={{
       fontFamily: "var(--font-manrope), sans-serif",
       fontWeight: 400,
     }}>
       <div
         ref={hostRef}
-        className="relative mx-auto w-full overflow-hidden"
-        style={{ aspectRatio: `${W} / ${H}` }}
+        className="relative mx-auto w-full h-full overflow-hidden"
+        style={{ aspectRatio: `${W} / ${currentHeight}` }}
       >
         <div
           className="absolute left-0 top-0 origin-top-left"
-          style={{ width: W, height: H, transform: `scale(${scale})` }}
+          style={{ width: W, height: currentHeight, transform: `scale(${scale})` }}
         >
           {/* --- connectors --- */}
           <svg
             className="absolute inset-0 overflow-visible"
             width={W}
-            height={H}
+            height={currentHeight}
             fill="none"
           >
             <defs>
@@ -188,20 +215,21 @@ export default function OperationalIntelligenceCard() {
               <animateMotion dur="2.5s" repeatCount="indefinite" path={SINE} />
             </circle>
 
-            {/* mialo intelligence → impact */}
+            {/* mialo intelligence → impact (static line, no animation) */}
             {/* <path
               d={BRAIN_TO_IMPACT}
               stroke="#93C5FD"
               strokeWidth="0.5"
               className="opacity-70"
             /> */}
-            <circle
+            {/* Static dot at the end of the line */}
+            {/* <circle
+              cx={MID_X}
+              cy={IMPACT.y - 14}
               r="2"
               fill="#fff"
               className="drop-shadow-[0_0_8px_rgba(255,255,255,0.85)]"
-            >
-              {/* <animateMotion dur="2s" repeatCount="indefinite" path={BRAIN_TO_IMPACT} /> */}
-            </circle>
+            /> */}
           </svg>
 
           {/* --- Traditional Operations --- */}
@@ -238,12 +266,23 @@ export default function OperationalIntelligenceCard() {
               x={SRC_X[i]}
               y={SRC_Y}
               className="flex flex-col items-center justify-center gap-0.5 rounded border border-slate-800/70 bg-slate-900/30 text-ice shadow-lg shadow-black/40 backdrop-blur-sm hover:border-blue-500/40"
-              style={{ width: 24, height: 24 }}
+              style={{ 
+                width: screenSize === 'mobile' ? 20 : 24, 
+                height: screenSize === 'mobile' ? 20 : 24 
+              }}
             >
               <div className="flex items-center justify-center h-2.5 w-2.5">
-                <s.icon size={7} strokeWidth={1.25} className="shrink-0" />
+                <s.icon 
+                  size={screenSize === 'mobile' ? 6 : 7} 
+                  strokeWidth={1.25} 
+                  className="shrink-0" 
+                />
               </div>
-              <span className="text-[4px] font-medium whitespace-nowrap">{s.label}</span>
+              <span className={`font-medium whitespace-nowrap ${
+                screenSize === 'mobile' ? 'text-[3.5px]' : 'text-[4px]'
+              }`}>
+                {s.label}
+              </span>
             </Node>
           ))}
 
@@ -251,10 +290,16 @@ export default function OperationalIntelligenceCard() {
           <Node
             x={MOMENTS.x}
             y={MOMENTS.y}
-            className="flex h-6 w-16 text-[5px] items-center justify-center rounded-full border border-blue-900/60 bg-slate-900 shadow-lg shadow-blue-500/20 drop-shadow-[0_0_15px_rgba(96,165,250,0.45)]"
+            className={`flex items-center justify-center rounded-full border border-blue-900/60 bg-slate-900 shadow-lg shadow-blue-500/20 drop-shadow-[0_0_15px_rgba(96,165,250,0.45)] ${
+              screenSize === 'mobile' ? 'h-5 w-14 text-[4px]' : 'h-6 w-18 text-[5px]'
+            }`}
           >
-            <Zap size={8} strokeWidth={1} className="fill-none text-pista" />
-            Operational Moments
+            <Zap 
+              size={screenSize === 'mobile' ? 6 : 8} 
+              strokeWidth={1} 
+              className="fill-none text-pista mr-1" 
+            />
+            {screenSize === 'mobile' ? 'Moments' : 'Operational Moments'}
           </Node>
           {/* <Label x={MOMENTS.x} y={MOMENTS.y + 24}>
             Operational
@@ -268,8 +313,8 @@ export default function OperationalIntelligenceCard() {
             style={{
               left: BRAIN.x,
               top: BRAIN.y,
-              width: 44,
-              height: 44,
+              width: screenSize === 'mobile' ? 28 : screenSize === 'tablet' ? 36 : 44,
+              height: screenSize === 'mobile' ? 28 : screenSize === 'tablet' ? 36 : 44,
               transform: "translate(-50%, -50%)",
             }}
           >
@@ -278,11 +323,19 @@ export default function OperationalIntelligenceCard() {
               className="absolute inset-0 rounded-full border border-pista/20 motion-safe:animate-ping"
               style={{ animationDelay: "1.25s" }}
             />
-            <div className="absolute inset-1.5 flex items-center justify-center rounded-full border border-pista/50 bg-slate-900 text-[14px] leading-none text-pista shadow-[0_0_40px_rgba(52,211,153,0.4)] transition-transform duration-200 hover:scale-[1.05]">
-              <span className="">✦</span>
+            <div className="absolute inset-1.5 flex items-center justify-center rounded-full border border-pista/50 bg-slate-900 leading-none text-pista shadow-[0_0_40px_rgba(52,211,153,0.4)] transition-transform duration-200 hover:scale-[1.05]"
+              style={{
+                fontSize: screenSize === 'mobile' ? '10px' : '14px'
+              }}
+            >
+              <span>✦</span>
             </div>
           </div>
-          <Label x={BRAIN.x} y={BRAIN.y + 20} className="text-white">
+          <Label 
+            x={BRAIN.x} 
+            y={BRAIN.y + (screenSize === 'mobile' ? 14 : screenSize === 'tablet' ? 18 : 22)} 
+            className="text-white"
+          >
             Mialo
             <br />
             Intelligence
@@ -292,10 +345,20 @@ export default function OperationalIntelligenceCard() {
           <Node
             x={IMPACT.x}
             y={IMPACT.y}
-            className="flex items-center gap-1 rounded-full border border-blue-900/60 bg-slate-900/50 px-1.5 py-0.5 text-primary shadow-lg shadow-blue-500/10 backdrop-blur-sm hover:border-blue-500/40"
+            className={`flex items-center gap-1 rounded-full border border-blue-900/60 bg-slate-900/50 text-primary shadow-lg shadow-blue-500/10 backdrop-blur-sm hover:border-blue-500/40 ${
+              screenSize === 'mobile' ? 'px-1 py-0.5' : 'px-1.5 py-0.5'
+            }`}
           >
-            <CheckCircle2 size={8} strokeWidth={1} className="text-pista" />
-            <span className="text-[6px] font-medium">Real-time Results</span>
+            <CheckCircle2 
+              size={screenSize === 'mobile' ? 6 : 8} 
+              strokeWidth={1} 
+              className="text-pista" 
+            />
+            <span className={`font-medium ${
+              screenSize === 'mobile' ? 'text-[5px]' : 'text-[6px]'
+            }`}>
+              {screenSize === 'mobile' ? 'Results' : 'Real-time Results'}
+            </span>
           </Node>
           {/* <Label x={IMPACT.x} y={IMPACT.y + 16}>
             Real-time Results
