@@ -12,7 +12,7 @@ const NAV: { name: string; href: string }[] = [
   // { name: 'Intelligence Domain', href: '/intelligence-domain' },
   { name: 'Industries', href: '/industries' },
   { name: 'Solutions', href: '/solution' },
-  { name: 'Company', href: '/company' },
+  { name: 'About Us', href: '/company' },
 ];
 
 export default function Header() {
@@ -93,8 +93,8 @@ export default function Header() {
     <header
       className={`fixed inset-x-0 top-0 z-50 border-b border-muted/0 transition-colors duration-300 ${
         solid
-          ? 'border-line bg-background/0 backdrop-blur-md'
-          : 'border-transparent bg-transparent'
+          ? `border-line backdrop-blur-md ${isDarkText ? 'bg-white/40' : 'bg-background/70'}`
+          : 'border-transparent bg-transparent bg'
       }`}
       style={{fontFamily: "var(--font-manrope), sans-serif"}}
     >

@@ -118,10 +118,10 @@ const DOMAINS: Domain[] = [
 function DomainCard({ domain }: { domain: Domain }) {
   return (
     <div
-      className="group relative overflow-hidden border border-line-2 bg-raise transition-colors hover:border-line-3 w-[320px] shrink-0 sm:w-90 lg:w-100 h-[500px]"
+      className="group relative overflow-hidden bg-raise transition-colors hover:border-line-3 w-[280px] sm:w-[320px] lg:w-90 xl:w-100 shrink-0 h-[400px] sm:h-[450px] lg:h-[500px]"
       style={{
         clipPath:
-          "polygon(40px 0, 100% 0, 100% calc(100% - 40px), calc(100% - 40px) 100%, 0 100%, 0 40px)",
+          "polygon(20px 0, 100% 0, 100% calc(100% - 20px), calc(100% - 20px) 100%, 0 100%, 0 20px)",
       }}
     >
       {/* Full-screen background image */}
@@ -132,7 +132,7 @@ function DomainCard({ domain }: { domain: Domain }) {
           alt={domain.alt}
           fill
           draggable={false}
-          sizes="(max-width: 640px) 320px, (max-width: 1024px) 360px, 400px"
+          sizes="(max-width: 640px) 280px, (max-width: 1024px) 320px, (max-width: 1280px) 360px, 400px"
           className="object-cover transition-transform duration-500 group-hover:scale-[1.04]"
         />
         {/* Dark gradient overlay for text readability */}
@@ -143,25 +143,25 @@ function DomainCard({ domain }: { domain: Domain }) {
       <div className="absolute inset-x-0 top-0 h-px bg-linear-to-r from-transparent via-ice/40 to-transparent z-10" />
 
       {/* Content overlay */}
-      <div className="relative z-10 flex flex-col-reverse justify-between h-full p-6">
+      <div className="relative z-10 flex flex-col-reverse justify-between h-full p-4 sm:p-6">
         {/* Top section */}
-        <div className="flex flex-col gap-4">
+        <div className="flex flex-col gap-3 sm:gap-4">
           {/* Header */}
           <div className="flex items-start gap-3">
-            <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl border border-pista/40 bg-pista/20 text-pista backdrop-blur-sm transition-colors duration-300 group-hover:border-ice/60 group-hover:bg-ice/30">
-              <Icon name={domain.icon} size={20} />
+            <span className="flex h-9 w-9 sm:h-11 sm:w-11 shrink-0 items-center justify-center rounded-xl border border-pista/40 bg-pista/20 text-pista backdrop-blur-sm transition-colors duration-300 group-hover:border-ice/60 group-hover:bg-ice/30">
+              <Icon name={domain.icon} size={16} className="sm:w-5 sm:h-5" />
             </span>
 
             <div className="flex flex-col gap-0.5 pt-0.5">
-              <span className="font-mono text-[10px] font-semibold tracking-[0.13em] text-pista group-hover:text-ice">
+              <span className="font-mono text-[9px] sm:text-[10px] font-semibold tracking-[0.13em] text-pista group-hover:text-ice">
                 {domain.number}
               </span>
               <h3
-                className="font-display text-[22px] font-medium leading-[1.1] tracking-[-0.02em] text-white transition-colors group-hover:text-ice"
+                className="text-white transition-colors group-hover:text-ice"
                 style={{
                   fontFamily: "var(--font-manrope), sans-serif",
                   fontWeight: 400,
-                  fontSize: "clamp(22px, 7.2vw, 28px)",
+                  fontSize: "clamp(18px, 4vw, 28px)",
                   lineHeight: 0.96,
                   letterSpacing: "-0.045em",
                 }}
@@ -172,7 +172,13 @@ function DomainCard({ domain }: { domain: Domain }) {
           </div>
 
           {/* Body */}
-          <p className="text-[16px] leading-[1.1] text-slate-200">
+          <p 
+            className="text-slate-200"
+            style={{
+              fontSize: "clamp(14px, 3vw, 16px)",
+              lineHeight: 1.3,
+            }}
+          >
             {domain.body}
           </p>
         </div>
@@ -181,18 +187,18 @@ function DomainCard({ domain }: { domain: Domain }) {
         <div className="flex items-end justify-end">
           {/* Heatmap overlay for Vision domain */}
           {domain.icon === "eye" && (
-            <div className="w-26 rounded-lg border border-line-2 bg-background/70 p-1.5 backdrop-blur-sm">
+            <div className="w-20 sm:w-26 rounded-lg border border-line-2 bg-background/70 p-1.5 backdrop-blur-sm">
               <div className="relative aspect-square w-full overflow-hidden rounded">
                 <Image
                   src="/images/heatmap.png"
                   alt="Zone occupancy heatmap over a building floor plan"
                   fill
                   draggable={false}
-                  sizes="104px"
+                  sizes="(max-width: 640px) 80px, 104px"
                   className="object-cover"
                 />
               </div>
-              <span className="mt-1 block font-mono text-[9px] tracking-[0.08em] text-faint">
+              <span className="mt-1 block font-mono text-[8px] sm:text-[9px] tracking-[0.08em] text-faint">
                 Zone heatmap
               </span>
             </div>
@@ -286,13 +292,13 @@ export default function IndustryDomain() {
   return (
     <>
       <Section>
-        <div className="flex flex-col gap-16">
+        <div className="flex flex-col gap-12 sm:gap-16">
           <h2
-            className="font-display text-[30px] flex flex-col font-medium leading-[1.14] tracking-[-0.025em] text-pretty sm:text-[42px]"
+            className="flex flex-col text-center sm:text-left"
             style={{
               fontFamily: "var(--font-manrope), sans-serif",
               fontWeight: 400,
-              fontSize: "clamp(32px, 7.2vw, 60px)",
+              fontSize: "clamp(24px, 6vw, 60px)",
               lineHeight: 0.96,
               letterSpacing: "-0.045em",
             }}
@@ -301,14 +307,14 @@ export default function IndustryDomain() {
             <span className="text-ice">that power smarter operations.</span>
           </h2>
           <p
-            className="w-full max-w-[640px] text-[18px] leading-[1.62] text-gray-700 -mt-10 text-pretty"
+            className="w-full max-w-[640px] text-gray-700 text-pretty text-center sm:text-left mx-auto sm:mx-0 -mt-6 sm:-mt-10"
             style={{
               fontFamily: "var(--font-manrope), sans-serif",
               fontWeight: 400,
-              fontSize: "clamp(18px, 7.2vw, 24px)",
-              lineHeight: 1.1,
-              letterSpacing: "-0.045em",
-              wordSpacing: 6,
+              fontSize: "clamp(16px, 4vw, 24px)",
+              lineHeight: 1.4,
+              letterSpacing: "-0.025em",
+              wordSpacing: 3,
             }}
           >
             Choose the intelligence your operation needs or combine multiple
@@ -318,10 +324,10 @@ export default function IndustryDomain() {
       </Section>
 
       {/* Full-width carousel outside container */}
-      <div className="relative -mt-8 pb-20 sm:pb-26">
+      <div className="relative -mt-6 sm:-mt-8 pb-16 sm:pb-20 lg:pb-26">
         <div
           ref={scrollerRef}
-          className="flex cursor-grab select-none overflow-x-auto active:cursor-grabbing [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+          className="flex cursor-grab select-none overflow-x-auto active:cursor-grabbing [scrollbar-width:none] [&::-webkit-scrollbar]:hidden pl-4 sm:pl-6 lg:pl-0"
           style={{ WebkitOverflowScrolling: "touch" }}
           onMouseEnter={pause}
           onMouseLeave={() => !drag.current.active && resume(0)}
@@ -338,7 +344,7 @@ export default function IndustryDomain() {
         >
           {/* Triple copy for a seamless loop */}
           {[...DOMAINS, ...DOMAINS, ...DOMAINS].map((domain, index) => (
-            <div key={`${domain.number}-${index}`} className="shrink-0 pr-6">
+            <div key={`${domain.number}-${index}`} className="shrink-0 pr-4 sm:pr-6">
               <DomainCard domain={domain} />
             </div>
           ))}

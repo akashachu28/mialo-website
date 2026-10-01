@@ -52,16 +52,17 @@ const OUTCOMES: { icon: IconName; label: string }[] = [
 
 function MiniHeader({ eyebrow, title }: { eyebrow: string; title: string }) {
   return (
-    <div className="flex flex-col gap-4">
-      {/* <Eyebrow>{eyebrow}</Eyebrow> */}
-      <h3 className="font-display text-[25px] font-medium leading-[1.2] tracking-[-0.02em] text-primary text-pretty"
-      style={{
-                      fontFamily: "var(--font-manrope), sans-serif",
-                      fontWeight: 500,
-                      fontSize: "32px",
-                      lineHeight: 0.96,
-                      letterSpacing: "-0.045em",
-                    }}>
+    <div className="flex flex-col gap-3 sm:gap-4 text-center lg:text-left">
+      <h3 
+        className="text-primary text-pretty"
+        style={{
+          fontFamily: "var(--font-manrope), sans-serif",
+          fontWeight: 500,
+          fontSize: "clamp(24px, 5vw, 32px)",
+          lineHeight: 0.96,
+          letterSpacing: "-0.045em",
+        }}
+      >
         {title}
       </h3>
     </div>
@@ -75,27 +76,27 @@ export default function PlatformSection4() {
 
       {/* -------- Deploy Anywhere + Enterprise Ready -------- */}
       <Section>
-        <div className="grid gap-16 lg:grid-cols-2 lg:gap-20">
+        <div className="grid gap-12 sm:gap-16 lg:grid-cols-2 lg:gap-20">
           {/* Deploy Anywhere */}
-          <div className="flex flex-col gap-8">
+          <div className="flex flex-col gap-6 sm:gap-8">
             <MiniHeader eyebrow="Deploy Anywhere" title="Deploy where your operations demand." />
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
               {DEPLOY.map((o) => (
                 <div
                   key={o.title}
-                  className="flex flex-col gap-4 border border-line-2 bg-raise p-6 rounded-lg transition-all hover:border-line hover:shadow-sm"
+                  className="flex flex-col gap-3 sm:gap-4 border border-line-2 bg-raise p-4 sm:p-6 rounded-lg transition-all hover:border-line hover:shadow-sm"
                   style={{
-                    clipPath: "polygon(20px 0, 100% 0, 100% calc(100% - 20px), calc(100% - 20px) 100%, 0 100%, 0 20px)",
+                    clipPath: "polygon(12px 0, 100% 0, 100% calc(100% - 12px), calc(100% - 12px) 100%, 0 100%, 0 12px)",
                   }}
                 >
-                  <Icon name={o.icon} size={24} strokeWidth={1.5} className="text-pista" />
+                  <Icon name={o.icon} size={20} strokeWidth={1.5} className="text-pista sm:w-6 sm:h-6" />
                   <div className="flex flex-col gap-2">
                     <h4 
                       className="text-primary"
                       style={{
                         fontFamily: "var(--font-manrope), sans-serif",
                         fontWeight: 600,
-                        fontSize: "16px",
+                        fontSize: "clamp(14px, 3vw, 16px)",
                         lineHeight: 1.3,
                         letterSpacing: "-0.01em",
                       }}
@@ -107,7 +108,7 @@ export default function PlatformSection4() {
                       style={{
                         fontFamily: "var(--font-manrope), sans-serif",
                         fontWeight: 400,
-                        fontSize: "14px",
+                        fontSize: "clamp(12px, 2.5vw, 14px)",
                         lineHeight: 1.5,
                         letterSpacing: "0em",
                       }}
@@ -121,31 +122,31 @@ export default function PlatformSection4() {
           </div>
 
           {/* Enterprise Ready */}
-          <div className="flex flex-col gap-8">
+          <div className="flex flex-col gap-6 sm:gap-8">
             <MiniHeader
               eyebrow="Enterprise Ready"
               title="Designed for enterprise scale from day one."
             />
-            <div className="grid grid-cols-1 gap-x-12 sm:grid-cols-2">
+            <div className="grid grid-cols-1 gap-x-8 sm:gap-x-12 sm:grid-cols-2">
               {ENTERPRISE.map((f, i) => (
                 <div
                   key={f}
-                  className={`flex items-start gap-3 border-line py-4 ${
+                  className={`flex items-start gap-3 border-line py-3 sm:py-4 ${
                     i === ENTERPRISE.length - 1 ? "" : "border-b"
                   } ${i >= ENTERPRISE.length - 2 ? "sm:border-b-0" : ""}`}
                 >
                   <Icon
                     name="check"
-                    size={20}
+                    size={16}
                     strokeWidth={2}
-                    className="shrink-0 text-pista mt-0.5"
+                    className="shrink-0 text-pista mt-0.5 sm:w-5 sm:h-5"
                   />
                   <span 
                     className="text-ink"
                     style={{
                       fontFamily: "var(--font-manrope), sans-serif",
                       fontWeight: 500,
-                      fontSize: "15px",
+                      fontSize: "clamp(13px, 2.8vw, 15px)",
                       lineHeight: 1.5,
                       letterSpacing: "-0.01em",
                     }}
@@ -161,26 +162,26 @@ export default function PlatformSection4() {
 
       {/* -------- Business Outcomes -------- */}
       <Section>
-        <div className="flex flex-col gap-14">
+        <div className="flex flex-col gap-10 sm:gap-14">
           <SectionHeader
             eyebrow="Business Outcomes"
             titlePista="Operational intelligence that delivers measurable outcomes."
           />
-          <div className="grid grid-cols-2 gap-3.5 sm:grid-cols-4">
+          <div className="grid grid-cols-2 gap-3 mt-1 sm:gap-3.5 lg:grid-cols-4">
             {OUTCOMES.map((o) => (
               <div
                 key={o.label}
-                className="flex flex-col items-center gap-3 rounded-xl border border-line bg-raise p-5 text-center"
+                className="flex flex-col items-center gap-2.5 sm:gap-3 rounded-xl border border-line bg-raise p-3 sm:p-5 text-center"
               >
-                <span className="flex h-10 w-10 items-center justify-center rounded-[10px] border border-line-2 bg-panel text-ice">
-                  <Icon name={o.icon} size={20} />
+                <span className="flex h-8 w-8 sm:h-10 sm:w-10 items-center justify-center rounded-[8px] sm:rounded-[10px] border border-line-2 bg-panel text-ice">
+                  <Icon name={o.icon} size={16} className="sm:w-5 sm:h-5" />
                 </span>
                 <span 
                   className="text-ink"
                   style={{
                     fontFamily: "var(--font-manrope), sans-serif",
                     fontWeight: 500,
-                    fontSize: "14px",
+                    fontSize: "clamp(11px, 2.5vw, 14px)",
                     lineHeight: 1.4,
                     letterSpacing: "-0.01em",
                   }}

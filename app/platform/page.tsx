@@ -15,10 +15,10 @@ export default function PlatformPage() {
   return (
     <div className="bg-background font-body text-primary antialiased">
       <HeroPlatform />
-      <div className="bg-white/75"><PlatformSection3 /></div>
+      <div className="bg-white/75" data-header-theme="light"><PlatformSection3 /></div>
       {/* <div className="bg-white/75"><PlatformSection2 /></div> */}
       
-      <div className="bg-white/85"><IndustryDomain/></div>
+      <div className="bg-white/85" data-header-theme="light"><IndustryDomain/></div>
       
       <PlatformSection4 />
       <Footer/>

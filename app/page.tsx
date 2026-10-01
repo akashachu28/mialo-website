@@ -27,7 +27,7 @@ export default function Home() {
           </Reveal>
         </div>
         
-      <div className='bg-white/75 relative'>
+      <div className='bg-white/75 relative' data-header-theme="light">
         
         <Reveal>
           <Section4 />

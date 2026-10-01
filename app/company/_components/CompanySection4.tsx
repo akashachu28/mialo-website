@@ -1,3 +1,5 @@
+"use client";
+
 import Image from "next/image";
 import { Section, SectionHeader, Kicker, ArrowLink } from "@/components/ui";
 
@@ -12,7 +14,7 @@ const LEADERSHIP: Leader[] = [
   {
     name: "Vinod Bhawnani",
     title: "Founder & CEO",
-    body: "Visionary leader with 25+ years in AI, enterprise software and scaling technology businesses.",
+    body: "Visionary leader with 25+ years in enterprise software, AI and scaling technology businesses.",
     image: "/images/vinod.png",
   },
   // {
@@ -64,45 +66,45 @@ export default function CompanySection4() {
     <>
       {/* -------- Leadership -------- */}
       <Section>
-        <div className="flex flex-col gap-14">
+        <div className="flex flex-col gap-10 sm:gap-12 md:gap-14">
           <SectionHeader
             eyebrow="Leadership"
             titlePista="The minds shaping the future of intelligent operations."
           />
 
-          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="grid gap-4 sm:gap-5 md:gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 px-2 sm:px-0">
             {LEADERSHIP.map((m) => (
               <div
                 key={m.name}
-                className="flex flex-col gap-4 border border-ice/30 bg-raise p-6 transition-colors hover:border-line-3"
+                className="flex flex-col gap-4 sm:gap-5 md:gap-6 border border-ice/30 bg-raise p-6 sm:p-7 md:p-8 transition-colors hover:border-line-3"
                 style={{
-            clipPath: "polygon(40px 0, 100% 0, 100% calc(100% - 40px), calc(100% - 40px) 100%, 0 100%, 0 40px)",
-          }}
+                  clipPath: "polygon(30px 0, 100% 0, 100% calc(100% - 30px), calc(100% - 30px) 100%, 0 100%, 0 30px)",
+                }}
               >
-                <div className="relative h-14 w-14 overflow-hidden rounded-full border border-line-2 bg-panel">
+                <div className="relative h-16 w-16 sm:h-18 sm:w-18 md:h-20 md:w-20 overflow-hidden rounded-full border border-line-2 bg-panel">
                   {m.image ? (
                     <Image
                       src={m.image}
                       alt={m.name}
                       fill
-                      sizes="56px"
+                      sizes="(max-width: 640px) 64px, (max-width: 768px) 72px, 80px"
                       className="object-cover"
                     />
                   ) : (
-                    <span className="flex h-full w-full items-center justify-center font-display text-[15px] font-medium text-muted">
+                    <span className="flex h-full w-full items-center justify-center font-display text-base sm:text-lg md:text-[18px] font-medium text-muted">
                       {initials(m.name)}
                     </span>
                   )}
                 </div>
 
-                <div className="flex flex-col gap-1">
-                  <h3 className="font-display text-[16px] font-medium tracking-[-0.01em] text-primary">
+                <div className="flex flex-col gap-1.5 sm:gap-2">
+                  <h3 className="font-display text-base sm:text-lg md:text-[18px] font-medium tracking-tight text-primary">
                     {m.name}
                   </h3>
-                  <Kicker className="text-ice">{m.title}</Kicker>
+                  <Kicker className="text-ice text-[10px] sm:text-[11px]">{m.title}</Kicker>
                 </div>
 
-                <p className="text-[13.5px] leading-[1.55] text-muted text-pretty">
+                <p className="text-xs sm:text-sm md:text-[14px] leading-relaxed text-muted text-pretty">
                   {m.body}
                 </p>
               </div>

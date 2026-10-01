@@ -14,12 +14,12 @@ export default function Industries() {
   return (
     <div className="bg-background font-body text-primary antialiased">
       <HeroIndustry />
-      <div className="bg-white/75" data-header-theme="light">
+      <div data-header-theme="light">
         <IndustrySection2 />
       </div>
-      {/* <IndustrySection3 /> */}
+      <IndustrySection3 />
       {/* <IndustrySection4 /> */}
-      <Footer/>
+      <Footer />
     </div>
   );
 }
