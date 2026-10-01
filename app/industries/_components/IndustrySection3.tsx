@@ -3,9 +3,9 @@ import { Container, Eyebrow } from "@/components/ui";
 import { Building2, PlaneTakeoff } from "lucide-react";
 
 const METRICS = [
-  { value: "2.4B+", label: "Events processed daily" },
-  { value: "98.7%", label: "AI model accuracy" },
-  { value: "2.3s", label: "Average time to decision" },
+  { value: "10M+", label: "Events processed daily" },
+  { value: "98%", label: "AI model accuracy" },
+  { value: "2.5s", label: "Average time to decision" },
   { value: "+27%", label: "Operational impact" },
 ];
 
