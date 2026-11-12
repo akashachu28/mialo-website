@@ -12,6 +12,7 @@ const NAV: { name: string; href: string }[] = [
   // { name: 'Intelligence Domain', href: '/intelligence-domain' },
   { name: 'Industries', href: '/industries' },
   { name: 'Solutions', href: '/solution' },
+  { name: 'Case Studies', href: '/case-studies' },
   { name: 'About Us', href: '/company' },
 ];
 

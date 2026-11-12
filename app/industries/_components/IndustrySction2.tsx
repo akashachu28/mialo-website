@@ -109,7 +109,7 @@ const INDUSTRIES: Industry[] = [
 function IndustryCard({ industry }: { industry: Industry }) {
   return (
     <div
-      className="group relative overflow-hidden shadow-xl bg-raise transition-all duration-300 hover:border-line-3 hover:shadow-2xl w-[280px] sm:w-[320px] md:w-[340px] lg:w-[360px] xl:w-[380px] flex-shrink-0"
+      className="group relative overflow-hidden shadow-xl bg-white transition-all duration-300 hover:border-line-3 hover:shadow-2xl w-[280px] sm:w-[320px] md:w-[340px] lg:w-[360px] xl:w-[380px] flex-shrink-0"
       style={{
         clipPath:
           "polygon(30px 0, 100% 0, 100% calc(100% - 30px), calc(100% - 30px) 100%, 0 100%, 0 30px)",
@@ -228,7 +228,7 @@ export default function IndustrySection2() {
       <div className="absolute inset-0 pointer-events-none" />
 
       {/* -------- How Mialo works -------- */}
-      <Section className="relative bg-white/75 z-10 white-75">
+      <Section className="relative bg-white z-10 white-75">
         <div className="flex flex-col gap-10 sm:gap-12 md:gap-14">
           <SectionHeader
             eyebrow="How Mialo Works"
@@ -294,7 +294,7 @@ export default function IndustrySection2() {
       </Section>
 
       {/* -------- Industries we empower -------- */}
-      <div className="bg-white/85">
+      <div className="bg-white">
         <Section className="relative z-10">
           <div className="flex flex-col gap-10 sm:gap-12 md:gap-14">
             <SectionHeader

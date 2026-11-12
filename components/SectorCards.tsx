@@ -75,10 +75,10 @@ export default function SectorCards() {
                     className="text-pista/70 group-hover:text-pista transition-all duration-300 drop-shadow-[0_0_10px_rgba(147,197,253,0.5)]" 
                     strokeWidth={1.5} 
                   />
-                  <ArrowRight 
+                  {/* <ArrowRight 
                     size={20} 
                     className="text-pista/60 group-hover:text-pista group-hover:translate-x-1 transition-all duration-300 drop-shadow-[0_0_6px_rgba(59,130,246,0.6)]" 
-                  />
+                  /> */}
                 </div>
 
                 {/* Title */}

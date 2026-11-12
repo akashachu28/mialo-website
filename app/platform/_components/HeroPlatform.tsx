@@ -29,17 +29,15 @@ const PILLARS = [
 export default function HeroPlatform() {
   return (
     <section className="relative overflow-hidden pt-24 pb-16 sm:pt-28 sm:pb-24 lg:pt-40">
-      {/* Background Video - Responsive positioning */}
+      {/* Background Image - Responsive positioning */}
       <div className="absolute right-0 top-0 w-full h-[60vh] sm:w-[85vw] sm:h-[70vh] lg:w-[75vw] lg:h-[75vh] pointer-events-none opacity-100 z-0">
-        <video
-          autoPlay
-          loop
-          muted
-          playsInline
-          className="w-full h-full object-cover"
-        >
-          <source src="/images/platformHero.mp4" type="video/mp4" />
-        </video>
+        <div className="relative w-full h-full">
+          <img
+            src="/images/neonHero.png"
+            alt="Platform background"
+            className="w-full h-full object-cover"
+          />
+        </div>
         {/* Gradient overlays for blending */}
         <div 
           className="absolute inset-0"

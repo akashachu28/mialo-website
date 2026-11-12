@@ -1,4 +1,6 @@
+import Image from "next/image";
 import { Section, SectionHeader } from "@/components/ui";
+import { Eye, Brain, Zap } from "lucide-react";
 
 const STEPS = [
   {
@@ -6,18 +8,21 @@ const STEPS = [
     title: "Observe",
     subtitle: "Capture what is happening.",
     body: "Connect cameras, voice, documents, sensors, IoT devices and enterprise systems-at the edge or in the cloud.",
+    icon: Eye,
   },
   {
     n: "02",
     title: "Understand",
     subtitle: "Make sense of what is happening.",
     body: "Fuse multimodal signals with enterprise knowledge, operational context and specialized AI models.",
+    icon: Brain,
   },
   {
     n: "03",
     title: "Act",
     subtitle: "Turn intelligence into action.",
     body: "Identify what matters, determine the right response, and trigger recommendations, alerts and automated workflows in real time.",
+    icon: Zap,
   },
 ];
 
@@ -43,62 +48,86 @@ const LINKS = [
 
 export default function PlatformSection3() {
   return (
-    <Section className="relative">
-      <SectionHeader
-        className="mb-10 sm:mb-14"
-        eyebrow="Multimodal Intelligence"
-        title="Every operational signal"
-        titleIce=" contributes to a complete picture."
-        leadBlack="Every operation generates signals. Mialo turns those signals into context-aware intelligence and action."
-      />
+    <Section className="relative overflow-hidden">
+      {/* Background Image */}
+      <div className="absolute inset-0 z-0 opacity-30">
+        <Image
+          src="/images/minimal-bg.png"
+          alt="Background pattern"
+          fill
+          className="object-cover"
+          priority={false}
+        />
+      </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8 lg:gap-12">
-        {STEPS.map((s, index) => (
-          <div
-            key={s.n}
-            className={`flex flex-col gap-3 sm:gap-4 ${
-              index < STEPS.length - 1 
-                ? "border-b border-gray-900 pb-6 md:border-b-0 md:pb-0 md:border-r" 
-                : ""
-            }`}
-          >
-            <span className="font-mono text-base sm:text-lg text-ice">
-              {s.n}
-            </span>
-            <div>
-              <h3 
-                className="text-ice text-center md:text-left"
-                style={{ 
-                  fontFamily: "var(--font-manrope), sans-serif",
-                  fontWeight: 600,
-                  fontSize: "clamp(24px, 5vw, 40px)",
-                  lineHeight: 0.96,
-                  letterSpacing: "-0.045em"
-                }}
+      <div className="relative z-10">
+        <SectionHeader
+          className="mb-10 sm:mb-14"
+          eyebrow="Multimodal Intelligence"
+          title="Every operational signal"
+          titleIce=" contributes to a complete picture."
+          leadBlack="Every operation generates signals. Mialo turns those signals into context-aware intelligence and action."
+        />
+
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8 lg:gap-12">
+          {STEPS.map((s, index) => {
+            const Icon = s.icon;
+            return (
+              <div
+                key={s.n}
+                className={`flex flex-col gap-3 sm:gap-4 ${
+                  index < STEPS.length - 1 
+                    ? "border-b border-gray-900 pb-6 md:border-b-0 md:pb-0 md:border-r md:pr-8 lg:pr-12" 
+                    : ""
+                }`}
               >
-                {s.title}
-              </h3>
-              <h4 
-                className="text-gray-700 mt-2 text-center md:text-left"
-                style={{
-                  fontSize: "clamp(16px, 3vw, 20px)",
-                  lineHeight: 1.2,
-                }}
-              >
-                {s.subtitle}
-              </h4>
-              <p 
-                className="mt-3 text-faint text-pretty text-center md:text-left"
-                style={{
-                  fontSize: "clamp(14px, 2.5vw, 16px)",
-                  lineHeight: 1.4,
-                }}
-              >
-                {s.body}
-              </p>
-            </div>
-          </div>
-        ))}
+                <span className="font-mono text-base sm:text-lg text-ice">
+                  {s.n}
+                </span>
+                <div className="flex items-start gap-3 sm:gap-4">
+                  {/* Icon */}
+                  <div className="flex-shrink-0 p-2 sm:p-3 rounded-lg bg-ice/10 text-ice">
+                    <Icon className="w-6 h-6 sm:w-8 sm:h-8" strokeWidth={1.5} />
+                  </div>
+                  
+                  {/* Content */}
+                  <div className="flex-1">
+                    <h3 
+                      className="text-ice"
+                      style={{ 
+                        fontFamily: "var(--font-manrope), sans-serif",
+                        fontWeight: 600,
+                        fontSize: "clamp(20px, 4vw, 32px)",
+                        lineHeight: 1.1,
+                        letterSpacing: "-0.03em"
+                      }}
+                    >
+                      {s.title}
+                    </h3>
+                    <h4 
+                      className="text-gray-700 mt-2"
+                      style={{
+                        fontSize: "clamp(14px, 2.5vw, 16px)",
+                        lineHeight: 1.3,
+                      }}
+                    >
+                      {s.subtitle}
+                    </h4>
+                    <p 
+                      className="mt-3 text-faint text-pretty"
+                      style={{
+                        fontSize: "clamp(13px, 2.2vw, 15px)",
+                        lineHeight: 1.5,
+                      }}
+                    >
+                      {s.body}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            );
+          })}
+        </div>
       </div>
     </Section>
   );
