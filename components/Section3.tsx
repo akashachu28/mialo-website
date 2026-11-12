@@ -94,7 +94,7 @@ export default function Section3() {
             </span>
           </h2>
 
-          <div className="h-80 sm:h-96 md:h-120 lg:h-150 overflow-hidden">
+          <div className="h-80 sm:h-96 md:h-120 lg:h-180 overflow-hidden">
             <video 
               className="w-full h-auto object-cover" 
               autoPlay 
