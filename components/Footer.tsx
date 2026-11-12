@@ -14,6 +14,14 @@ const EXPLORE_LINKS = [
   { label: "About us", href: "/company" },
 ];
 
+const CASE_STUDIES = [
+  {label : "Manufacturing Floor Intelligence", href : "/case-studies/manufacturing-floor-intelligence"},
+  {label : "Inbound Pallete Inspection", href : "/case-studies/inbound-pallet-inspection"},
+  {label : "Electrical Cabinet Inspection", href : "/case-studies/electrical-cabinet-inspection"},
+  {label : "Capacitor Quality Inspection", href : "/case-studies/capacitor-quality-inspection"},
+  {label : "Agricultural Produce Inspection", href : "/case-studies/agricultural-produce-inspection"}
+]
+
 export default function Footer() {
   const pathname = usePathname();
 
@@ -39,11 +47,11 @@ export default function Footer() {
               "radial-gradient(ellipse at 50% 0%, rgba(108,147,255,0.14), transparent 70%)",
           }}
         />
-        <Container className="py-16 relative">
+        <Container className="pt-14 pb-2 relative">
           {/* Grid Layout - 3 columns on desktop */}
           <div className="grid grid-cols-1 gap-12 md:grid-cols-2 lg:grid-cols-12 lg:gap-8">
             {/* Column 1: Logo & Message */}
-            <div className="lg:col-span-4">
+            <div className="lg:col-span-3">
               <Link href="/" className="inline-flex items-center group">
                 <div className="flex h-12  items-center justify-center rounded-lg  transition-colors overflow-hidden">
                   <Image 
@@ -62,7 +70,7 @@ export default function Footer() {
             </div>
 
             {/* Column 2: Explore */}
-            <div className="lg:col-span-4">
+            <div className="lg:col-span-3">
               <h3 className="mb-4 text-[14px] font-semibold uppercase tracking-wider text-primary">
                 Explore
               </h3>
@@ -82,8 +90,29 @@ export default function Footer() {
               </ul>
             </div>
 
-            {/* Column 3: Contact */}
-            <div className="lg:col-span-4">
+            {/* Column 3: Case Studies */}
+            <div className="lg:col-span-3">
+              <h3 className="mb-4 text-[14px] font-semibold uppercase tracking-wider text-primary">
+                Case Studies
+              </h3>
+              <ul className="space-y-3">
+                {CASE_STUDIES.map((link) => (
+                  <li key={link.href}>
+                    <Link
+                      href={link.href}
+                      scroll={true}
+                      onClick={(e) => handleLinkClick(e, link.href)}
+                      className="text-[14px] text-muted transition-colors hover:text-primary"
+                    >
+                      {link.label}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            {/* Column 4: Contact */}
+            <div className="lg:col-span-3">
               <h3 className="mb-4 text-[14px] font-semibold uppercase tracking-wider text-primary">
                 Contact Us
               </h3>
@@ -118,7 +147,7 @@ export default function Footer() {
           </div>
 
           {/* Bottom Section: Social Links & Copyright */}
-          <div className="mt-12 flex flex-col items-center justify-between gap-6 border-t border-line pt-8 sm:flex-row">
+          <div className="mt-2 flex flex-col items-center justify-between gap-6 border-t border-line pt-4 sm:flex-row">
             {/* Social Icons */}
             <div className="flex items-center gap-4">
               <a

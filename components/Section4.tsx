@@ -11,7 +11,7 @@ export default function Section4() {
           <div className="lg:col-span-4 text-center lg:text-left">
             <SectionHeader
               eyebrow="The Model"
-              titleIce="From operations to outcomes."
+              titlePista="From operations to outcomes."
             />
           </div>
           

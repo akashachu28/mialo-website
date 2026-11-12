@@ -120,7 +120,11 @@ export default function TypewriterText({
       className={`${className} transition-opacity duration-500 ease-in-out`} 
       style={{
         ...style,
-        opacity: fadeOut ? 0 : 1
+        opacity: fadeOut ? 0 : 1,
+        minHeight: '1.2em',
+        display: 'inline-block',
+        width: '100%',
+        willChange: 'opacity'
       }}
     >
       {displayedWords.map((word, idx) => (

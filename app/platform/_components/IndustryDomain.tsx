@@ -294,7 +294,7 @@ export default function IndustryDomain() {
       <Section>
         <div className="flex flex-col gap-12 sm:gap-16">
           <h2
-            className="flex flex-col text-center sm:text-left"
+            className="flex flex-col text-center text-pretty sm:text-left"
             style={{
               fontFamily: "var(--font-manrope), sans-serif",
               fontWeight: 400,
@@ -303,8 +303,9 @@ export default function IndustryDomain() {
               letterSpacing: "-0.045em",
             }}
           >
-            <span className="text-gray-900">Explore the domains</span>{" "}
-            <span className="text-ice">that power smarter operations.</span>
+            <span className="text-gray-900 font-medium">Explore the domains</span>{" "}
+            <span className="text-ice font-medium"
+            >that power smarter operations.</span>
           </h2>
           <p
             className="w-full max-w-[640px] text-gray-700 text-pretty text-center sm:text-left mx-auto sm:mx-0 -mt-6 sm:-mt-10"
